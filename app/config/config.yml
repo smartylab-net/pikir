@@ -97,6 +97,16 @@ sonata_intl:
 sonata_user:
     security_acl: true
     manager_type: orm
+    profile:
+        # Profile show page is a dashboard as in SonataAdminBundle
+        dashboard:
+            blocks:
+                - { position: left, type: sonata.block.service.text, settings: { content: "<h2>Welcome!</h2> This is a sample user profile dashboard, feel free to override it in the configuration! Want to make this text dynamic? For instance display the user's name? Create a dedicated block and edit the configuration!"} }
+        # Customize user portal menu by setting links
+        menu:
+            - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
+            - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
+            - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
 
 sonata_block:
     default_contexts: [cms]
@@ -114,7 +124,10 @@ sonata_block:
         sonata.media.block.media:
         #sonata.media.block.gallery:
         #sonata.media.block.feature_media:
-
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        sonata.admin.block.search_result:
+            contexts: [admin]
 ivory_ck_editor:
     default_config: cke_config
     configs:
@@ -158,11 +171,14 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.acl
     title: StrOkIT
+#    templates:
+#        layout:  StrokitCoreBundle::admin_layout.html.twig
     templates:
-        layout:  StrokitCoreBundle::admin_layout.html.twig
-
+        # other configuration options
+        search:              SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
 sonata_doctrine_orm_admin:
     templates:
         types:
             list:
-                sortable:      StrokitCoreBundle:Admin:list_sortable.html.twig
+#                sortable:      StrokitCoreBundle:Admin:list_sortable.html.twig

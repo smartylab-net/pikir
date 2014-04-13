@@ -9,9 +9,9 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/orm": "2.4.*",
         "doctrine/doctrine-bundle": "1.2.*",
-        "twig/extensions": "1.0.*",
+        "twig/extensions": "1.0.*@dev",
         "symfony/assetic-bundle": "2.3.*",
         "symfony/swiftmailer-bundle": "2.3.*",
         "symfony/monolog-bundle": "2.3.*",
@@ -28,9 +28,11 @@
         "egeloen/ckeditor-bundle": "2.*",
         "tilleuls/ckeditor-sonata-media-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "mobiledetect/mobiledetectlib": "dev-master",
+        "mobiledetect/mobiledetectlib": "2.7.*",
         "suncat/mobile-detect-bundle": "dev-master",
-        "gregwar/captcha-bundle": "dev-master"
+        "gregwar/captcha-bundle": "dev-master",
+        "sonata-project/admin-bundle": "~2.3@dev",
+        "sonata-project/core-bundle": "~2.2"
     },
     "scripts": {
         "post-install-cmd": [

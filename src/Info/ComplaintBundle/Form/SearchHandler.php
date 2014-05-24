@@ -5,7 +5,7 @@
  * Date: 5/24/14
  * Time: 2:20 PM
  */
-namespace Info\ComplaintBundle\Controller;
+namespace Info\ComplaintBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Doctrine\ORM\EntityManager;

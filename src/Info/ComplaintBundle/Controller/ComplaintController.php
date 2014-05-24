@@ -16,7 +16,7 @@ class ComplaintController extends Controller
         $form = $this->createForm(new ComplaintType(), $complaint);
         if ($request->isMethod('post')) {
             $form->submit($request);
-            if($form->isValid()){
+            if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($complaint);
                 $em->flush();
@@ -28,10 +28,17 @@ class ComplaintController extends Controller
 
     public function allComplaintAction()
     {
-        $postRepository = $this->getDoctrine()->getManager()
-            ->getRepository('InfoComplaintBundle:Complaint');
-        $posts=$postRepository
-            ->findAll();
-        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('posts' => $posts));
+        $posts = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->findAll();
+
+        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array(
+            'posts' => $posts
+        ));
+    }
+
+    public function getComplaintAction($id){
+
+        $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+
+        return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig',array('post'=>$post));
     }
 }

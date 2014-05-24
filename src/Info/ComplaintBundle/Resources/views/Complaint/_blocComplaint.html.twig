@@ -1,7 +1,7 @@
 <div class="panel panel-default">
-    </br>{{ post.title }}
+    </br><a href="{{ path('info_complaint_complaint',{'id':post.id}) }}">{{ post.title }}</a>
     </br>{{ post.author }}
-    </br>{{ post.created|date}}
+    </br>{{ post.created|format_date}}
     </br>{{ post.id }}
     </br>{{ post.text }}
     </br>{{ post.rating }}

@@ -9,6 +9,6 @@
 namespace Info\ComplaintBundle\Entity;
 
 
-class CompanyRepository{
+class ComplaintRepository extends EntityRepository{
 
 } 

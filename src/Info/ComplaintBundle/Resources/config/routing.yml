@@ -9,3 +9,22 @@ info_complaint_create:
 info_complaint_list:
     pattern:  /allComplaint
     defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+
+
+SearchEngineBundle_search:
+    pattern:   /search/
+    defaults:  { _controller: InfoComplaintBundle:Search:search }
+
+SearchEngineBundle_results:
+    pattern:   /results/
+    defaults:  { _controller: InfoComplaintBundle:Search:getResults }
+
+search_autocomplete:
+    pattern:   /search_autocomplete/
+    defaults:  { _controller: InfoComplaintBundle:Search:complete }
+
+search_auto:
+    pattern:   /autocomplete/
+    defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
+    options:
+      expose: true

@@ -37,7 +37,7 @@ class Company
     private $logo;
 
     /**
-     * @var text
+     * @var string
      *
      * @ORM\Column(name="annotation", type="text")
      */

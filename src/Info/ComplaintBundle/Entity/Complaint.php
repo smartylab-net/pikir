@@ -5,12 +5,12 @@ namespace Info\ComplaintBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Compalint
+ * Complaint
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Compalint
+class Complaint
 {
     /**
      * @var integer

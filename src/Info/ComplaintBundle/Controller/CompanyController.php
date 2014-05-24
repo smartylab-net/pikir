@@ -23,6 +23,10 @@ class CompanyController extends Controller
             ->getRepository("ApplicationSonataClassificationBundle:Category")
             ->findBy(array('parent' => $id));
 
+        if (!$subcategory) {
+            throw $this->createNotFoundException('The companies does not exist');
+        }
+
         return $this->render('InfoComplaintBundle:HomePage:company.html.twig', array('subcategory' => $subcategory));
     }
 
@@ -34,5 +38,18 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('The company does not exist');
         }
         return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('name' => $company));
+    }
+
+    public function showAllCompaniesAction($id)
+    {
+        $companies = $this->getDoctrine()
+            ->getRepository('InfoComplaintBundle:Company')
+            ->findBy(array('category' => $id));
+
+        if (!$companies) {
+            throw $this->createNotFoundException('The companies does not exist');
+        }
+
+        return $this->render('InfoComplaintBundle:Company:companies_list.html.twig', array('companies' => $companies));
     }
 }

@@ -15,5 +15,9 @@ info_complaint_category:
     defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }
 
 info_complaint_list:
-    pattern:  /allComplaint
+    pattern:  /allComplaint/
     defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+
+info_complaint_company_list:
+    pattern:  /companiesBy/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCompanies}

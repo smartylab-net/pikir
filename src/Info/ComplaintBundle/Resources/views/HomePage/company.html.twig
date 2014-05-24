@@ -31,6 +31,6 @@
         </div>
     </div>
     {% for category in subcategory %}
-        <a href="">{{ category.name }}</a>
+        <a href="{{ path('info_complaint_company_list',{'id':category.id})}}">{{ category.name }}</a>
     {% endfor %}
 {% endblock %}

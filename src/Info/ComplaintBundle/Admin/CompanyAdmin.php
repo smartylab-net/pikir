@@ -12,12 +12,10 @@ class CompanyAdmin extends Admin
    protected function configureFormFields(FormMapper $formMapper)
    {
        $formMapper
-           ->add('name', 'text', array('label' => 'Company Name'))
-           ->add('logo', 'text', array('label' => 'Company Logo'))
-           ->add('annotation', 'textarea', array('label' => 'Company Annotation'))
-           ->add('address', 'text', array('label' => 'Company Address'))           
-           ->add('complaints', 'entity', array('class' => 'Info\ComplaintBundle\Entity\Complaint'))
-           
+           ->add('name', 'text', array('label' => 'Название компании'))
+           ->add('logo', 'sonata_type_model_list', array('required'=>false ,'label' => 'Логотип компании'), array('link_parameters' => array('context' =>'company')))
+           ->add('annotation', 'textarea', array('label' => 'Описание компании'))
+           ->add('address', 'text', array('label' => 'Адрес компании'))           
        ;
    }
 
@@ -41,7 +39,7 @@ class CompanyAdmin extends Admin
           ->add('logo')
            ->add('annotation')
            ->add('address')
-           ->add('complaints')
+
        ;
    }
 }

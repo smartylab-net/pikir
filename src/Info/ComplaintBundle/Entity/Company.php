@@ -25,15 +25,14 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string")
-     * @ORM\Name
      */
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string")
-     * @ORM\Logo
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="logo", referencedColumnName="id")
+     * })
      */
     private $logo;
 
@@ -41,7 +40,6 @@ class Company
      * @var text
      *
      * @ORM\Column(name="annotation", type="text")
-     * @ORM\Annotation
      */
     private $annotation;
 
@@ -49,12 +47,11 @@ class Company
      * @var string
      *
      * @ORM\Column(name="address", type="string")
-     * @ORM\Address
      */
     private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Category", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", cascade={"all"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -62,7 +59,7 @@ class Company
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Complaint", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $complaints;
     /**
@@ -108,7 +105,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getLogo()
     {
@@ -116,9 +113,9 @@ class Company
     }
 
     /**
-     * @param string $logo
+     * @param \Application\Sonata\MediaBundle\Entity\Media $logo
      */
-    public function setLogo($logo)
+    public function setLogo(\Application\Sonata\MediaBundle\Entity\Media $logo = null)
     {
         $this->logo = $logo;
     }
@@ -155,4 +152,8 @@ class Company
         $this->address = $address;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

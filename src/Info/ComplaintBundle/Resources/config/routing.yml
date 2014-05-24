@@ -13,3 +13,7 @@ info_complaint_subcategory:
 info_complaint_category:
     pattern:  /category/
     defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }
+
+info_complaint_list:
+    pattern:  /allComplaint
+    defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}

@@ -25,4 +25,13 @@ class ComplaintController extends Controller
         }
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig', array('form' => $form->createView()));
     }
+
+    public function allComplaintAction()
+    {
+        $postRepository = $this->getDoctrine()->getManager()
+            ->getRepository('InfoComplaintBundle:Complaint');
+        $posts=$postRepository
+            ->findAll();
+        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('posts' => $posts));
+    }
 }

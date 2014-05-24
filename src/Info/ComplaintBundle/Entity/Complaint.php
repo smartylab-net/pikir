@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * Complaint
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\ComplaintRepository")
  */
+
 class Complaint
 {
     /**
@@ -83,6 +84,19 @@ class Complaint
     }
 
     /**
+     * Set company
+     *
+     * @param \Info\ComplaintBundle\Entity\Company $company
+     * @return Complaint
+     */
+    public function setCompany(\Info\ComplaintBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -131,6 +145,11 @@ class Complaint
         $this->text = $text;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function __construct(){
         $this->created = new DateTime();
     }
@@ -159,18 +178,6 @@ class Complaint
         return $this->created;
     }
 
-    /**
-     * Set company
-     *
-     * @param \Info\ComplaintBundle\Entity\Company $company
-     * @return Complaint
-     */
-    public function setCompany(\Info\ComplaintBundle\Entity\Company $company = null)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
 
     /**
      * @return string

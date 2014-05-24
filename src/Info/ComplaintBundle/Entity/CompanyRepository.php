@@ -3,7 +3,7 @@
 
 use Doctrine\ORM\EntityRepository; 
 
-class ComplaintRepository extends EntityRepository
+class CompanyRepository extends EntityRepository
 {
-
+	
 }

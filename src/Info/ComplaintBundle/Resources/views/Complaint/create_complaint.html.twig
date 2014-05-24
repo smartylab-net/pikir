@@ -1,1 +1,65 @@
-{{ form(form) }}
+{% extends "::base.html.twig" %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery_rating.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#rating_1').rating({
+                fx: 'full',
+                image: '{{ asset('public/images/stars.png') }}',
+                width: 32
+            });
+        });
+    </script>
+
+
+
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/infocomplaint//css/jquery.rating.css') }}">
+{% endblock %}
+
+
+{% block body %}
+{{ form_start(form) }}
+
+<div >
+    <label>Company name</label>
+
+    <div>
+        {{ form_widget(form.company) }}
+    </div>
+</div>
+
+<div>
+    <label>Title</label>
+
+    <div>
+        {{ form_widget(form.title) }}
+    </div>
+</div>
+
+<div>
+    <label>Text</label>
+
+    <div>
+        {{ form_widget(form.text) }}
+    </div>
+</div>
+
+<div class="wrap">
+
+    <label>Rating</label>
+
+    <div id="rating_1">
+        <input type="hidden" class="votes" value="0"/>
+    <div>
+        {{ form_widget(form.rating) }}
+    </div>
+</div>
+
+
+{{ form_end(form) }}
+
+{% endblock %}

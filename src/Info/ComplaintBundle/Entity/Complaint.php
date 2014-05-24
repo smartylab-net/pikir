@@ -84,21 +84,6 @@ class Complaint
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getContext()
-    {
-        return $this->text;
-    }
-
-    /**
-     * @param string $text
-     */
-    public function setContext($text)
-    {
-        $this->text = $text;
-    }
 
     /**
      * @return int
@@ -114,5 +99,21 @@ class Complaint
     public function setRating($rating)
     {
         $this->rating = $rating;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param string $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
     }
 }

@@ -2,17 +2,13 @@
 
 namespace Info\ComplaintBundle\Controller;
 
-use Behat\TestBundle\Form\ComplaintType;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class ComplaintController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig', array());
-    }
 
     public function complaintAction(Request $request)
     {
@@ -24,7 +20,7 @@ class ComplaintController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($complaint);
                 $em->flush();
-                return $this->redirect($this->generateUrl('info_complaint_homepage'));
+                return $this->redirect($this->generateUrl('info_complaint_create'));
             }
         }
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig', array('form' => $form->createView()));

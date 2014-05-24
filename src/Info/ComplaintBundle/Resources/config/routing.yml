@@ -1,3 +1,4 @@
-info_complaint_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: InfoComplaintBundle:Default:index }
+
+info_complaint_create:
+    pattern:  /create_complaint/
+    defaults: { _controller: InfoComplaintBundle:Complaint:complaint }

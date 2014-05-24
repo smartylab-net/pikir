@@ -33,4 +33,13 @@ class ComplaintController extends Controller
                 'companies'=>$companies)
         );
     }
+
+    public function allComplaintAction()
+    {
+        $postRepository = $this->getDoctrine()->getManager()
+            ->getRepository('InfoComplaintBundle:Complaint');
+        $posts=$postRepository
+            ->findAll();
+        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('posts' => $posts));
+    }
 }

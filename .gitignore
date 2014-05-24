@@ -5,4 +5,5 @@
 /app/bootstrap.php.cache
 /vendor/
 /app/config/parameters.yml
+/bin/*
 .idea/

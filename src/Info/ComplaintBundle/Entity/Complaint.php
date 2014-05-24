@@ -3,6 +3,7 @@
 namespace Info\ComplaintBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Complaint
@@ -35,6 +36,22 @@ class Complaint
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=255)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\
+     */
 
     /**
      * @var string
@@ -115,5 +132,62 @@ class Complaint
     public function setText($text)
     {
         $this->text = $text;
+    }
+
+    public function __construct(){
+        $this->created = new DateTime();
+    }
+
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Complaint
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \Info\ComplaintBundle\Entity\Company $company
+     * @return Complaint
+     */
+    public function setCompany(\Info\ComplaintBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 }

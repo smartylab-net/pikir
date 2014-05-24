@@ -29,7 +29,7 @@ class ComplaintController extends Controller
     public function allComplaintAction()
     {
         $postRepository = $this->getDoctrine()->getManager()
-            ->getRepository('InfoComplaintBundle:Form');
+            ->getRepository('InfoComplaintBundle:Complaint');
         $posts=$postRepository
             ->findAll();
         return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('posts' => $posts));

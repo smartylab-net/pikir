@@ -61,6 +61,7 @@ class AppKernel extends Kernel
             //Strokit Core
             new Strokit\CoreBundle\StrokitCoreBundle(),
             new Info\ComplaintBundle\InfoComplaintBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

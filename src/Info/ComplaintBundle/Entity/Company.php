@@ -58,7 +58,7 @@ class Company
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Complaint", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $complaints;
     /**

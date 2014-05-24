@@ -1,3 +1,7 @@
+info_company:
+  resource: "@InfoComplaintBundle/Resources/config/company/routing.yml"
+  prefix:   /company
+
 info_complaint_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: InfoComplaintBundle:Default:index }
+  pattern:  /hello/{name}
+  defaults: { _controller: InfoComplaintBundle:Default:index }

@@ -39,9 +39,9 @@ class Compalint
     /**
      * @var string
      *
-     * @ORM\Column(name="context", type="text")
+     * @ORM\Column(name="text", type="text")
      */
-    private $context;
+    private $text;
 
     /**
      * @var integer
@@ -89,15 +89,15 @@ class Compalint
      */
     public function getContext()
     {
-        return $this->context;
+        return $this->text;
     }
 
     /**
-     * @param string $context
+     * @param string $text
      */
-    public function setContext($context)
+    public function setContext($text)
     {
-        $this->context = $context;
+        $this->text = $text;
     }
 
     /**

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Company
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\CompanyRepository")
  */
 class Company
 {
@@ -29,9 +29,10 @@ class Company
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="logo", referencedColumnName="id")
+     * })
      */
     private $logo;
 
@@ -104,7 +105,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getLogo()
     {
@@ -112,9 +113,9 @@ class Company
     }
 
     /**
-     * @param string $logo
+     * @param \Application\Sonata\MediaBundle\Entity\Media $logo
      */
-    public function setLogo($logo)
+    public function setLogo(\Application\Sonata\MediaBundle\Entity\Media $logo = null)
     {
         $this->logo = $logo;
     }
@@ -151,4 +152,8 @@ class Company
         $this->address = $address;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Repository\CompanyRepository")
  */
 class Company
 {
@@ -25,7 +26,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string")
-     * @ORM\Name
      */
     private $name;
 
@@ -33,15 +33,13 @@ class Company
      * @var string
      *
      * @ORM\Column(name="logo", type="string")
-     * @ORM\Logo
      */
     private $logo;
 
     /**
-     * @var text
+     * @var string
      *
      * @ORM\Column(name="annotation", type="text")
-     * @ORM\Annotation
      */
     private $annotation;
 
@@ -49,17 +47,9 @@ class Company
      * @var string
      *
      * @ORM\Column(name="address", type="string")
-     * @ORM\Address
      */
     private $address;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Category", cascade={"all"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * })
-     */
-    private $category;
 
     /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)

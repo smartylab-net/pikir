@@ -1,5 +1,6 @@
 {% extends "::base.html.twig" %}
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery_rating.js') }}"></script>
@@ -8,7 +9,8 @@
             $('#rating_1').rating({
                 fx: 'full',
                 image: '{{ asset('public/images/stars.png') }}',
-                width: 32
+                width: 32,
+                stars:10
             });
         });
     </script>
@@ -17,6 +19,7 @@
 
 {% endblock %}
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/infocomplaint//css/jquery.rating.css') }}">
 {% endblock %}
 

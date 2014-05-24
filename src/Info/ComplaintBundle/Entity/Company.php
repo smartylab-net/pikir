@@ -25,7 +25,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string")
-     * @ORM\Name
      */
     private $name;
 
@@ -33,7 +32,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="logo", type="string")
-     * @ORM\Logo
      */
     private $logo;
 
@@ -41,7 +39,6 @@ class Company
      * @var text
      *
      * @ORM\Column(name="annotation", type="text")
-     * @ORM\Annotation
      */
     private $annotation;
 
@@ -49,12 +46,11 @@ class Company
      * @var string
      *
      * @ORM\Column(name="address", type="string")
-     * @ORM\Address
      */
     private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Category", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", cascade={"all"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })

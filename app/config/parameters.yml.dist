@@ -11,3 +11,4 @@ parameters:
     mailer_password: null
     locale: ru
     secret: ghGYg&8987%4asd$4567asd6^&*dsa
+    upload_dir: /uploads/media

@@ -21,7 +21,7 @@ sonata_media:
                 big:   { width: 500 , quality: 90}
     cdn:
         server:
-            path: /cms/web/uploads/media # http://media.sonata-project.org/
+            path: %upload_dir% # http://media.sonata-project.org/
 
     filesystem:
         local:

@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="panel panel-default">
+        {% for post in posts %}
+           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'post':post}) }}
+        {% endfor %}
+    </div>
+
+{% endblock %}

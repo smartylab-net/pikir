@@ -1,4 +1,4 @@
 
 info_complaint_create:
-    pattern:  /create_complaint/
+    pattern:  /complaint_create/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }

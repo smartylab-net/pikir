@@ -29,11 +29,7 @@ class ComplaintType extends abstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('complaints','choice',array(
-//                    'choices'
-//
-//                )
-//            )
+            ->add('company')
             ->add('title')
             ->add('text')
             ->add('rating')

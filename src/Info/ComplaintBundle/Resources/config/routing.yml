@@ -3,7 +3,7 @@ info_company:
   prefix:   /company
 
 info_complaint_create:
-    pattern:  /create_complaint/
+    pattern:  /complaint_create/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
 
 info_complaint_list:

@@ -23,7 +23,15 @@ class ComplaintController extends Controller
                 return $this->redirect($this->generateUrl('info_complaint_create'));
             }
         }
-        return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig', array('form' => $form->createView()));
+        $companyRepository = $this->getDoctrine()->getManager()
+            ->getRepository('InfoComplaintBundle:Complaint');
+        $companies=$companyRepository
+            ->findAll();
+
+        return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
+            array('form' => $form->createView(),
+                'companies'=>$companies)
+        );
     }
 
     public function allComplaintAction()

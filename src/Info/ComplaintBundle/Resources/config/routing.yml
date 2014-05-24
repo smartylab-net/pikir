@@ -9,3 +9,7 @@ info_complaint_create:
 info_complaint_list:
     pattern:  /allComplaint
     defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+
+info_manager:
+    resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
+    prefix:   /manager

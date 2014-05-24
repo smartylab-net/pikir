@@ -33,6 +33,7 @@ twig:
     form:
         resources:
             - 'SonataFormatterBundle:Form:formatter.html.twig'
+            - 'SonataMediaBundle:Form:media_widgets.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -97,7 +98,7 @@ sonata_intl:
             kg: Asia/Bishkek
 
 sonata_user:
-    security_acl: true
+    security_acl: false
     manager_type: orm
     profile:
         # Profile show page is a dashboard as in SonataAdminBundle
@@ -171,8 +172,10 @@ gregwar_captcha:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.acl
-    title: StrOkIT
+        handler: sonata.admin.security.handler.role
+        information:
+              ADMIN: [ LIST, CREATE, VIEW]
+    title: Книга пожеланий
 #    templates:
 #        layout:  StrokitCoreBundle::admin_layout.html.twig
     templates:

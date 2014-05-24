@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashBag.get('manager.company_edit') %}
+    {{ flashMessage }}
+{% endfor %}
+{{ form(form) }}
+
+{% endblock %}

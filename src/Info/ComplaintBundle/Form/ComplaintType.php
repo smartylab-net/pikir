@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class ComplaintType extends abstractType {
+class ComplaintType extends AbstractType {
 
     /**
      * Returns the name of this type.

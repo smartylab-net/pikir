@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * Complaint
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\ComplaintRepository")
  */
+
 class Complaint
 {
     /**

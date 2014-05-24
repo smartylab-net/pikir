@@ -12,10 +12,10 @@ class CompanyController extends Controller
 
     	if(!$company)
     	{
-    		//throw this->createNotFoundException("No company found by this id".$id);
+    		throw $this->createNotFoundException('The company does not exist');
     	}
 
-        return $this->render('InfoComplaintBundle:Default:index.html.twig', array('name' => $company));
+        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('name' => $company));
 
     }
 }

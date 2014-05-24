@@ -60,6 +60,7 @@ class AppKernel extends Kernel
             new Application\Sonata\FormatterBundle\ApplicationSonataFormatterBundle(),
             //Strokit Core
             new Strokit\CoreBundle\StrokitCoreBundle(),
+            new Info\ComplaintBundle\InfoComplaintBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

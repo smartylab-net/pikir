@@ -1,3 +1,11 @@
+info_complaint:
+    resource: "@InfoComplaintBundle/Resources/config/routing.yml"
+    prefix:   /
+
+strokit_complaint:
+    resource: "@StrokitComplaintBundle/Resources/config/routing.yml"
+    prefix:   /
+
 strokit_core:
     resource: "@StrokitCoreBundle/Resources/config/routing.yml"
     prefix:   /

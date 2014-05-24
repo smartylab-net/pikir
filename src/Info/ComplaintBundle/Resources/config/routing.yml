@@ -5,3 +5,11 @@ info_complaint_homepage:
 info_complaint_create:
     pattern:  /create_complaint/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
+
+info_complaint_subcategory:
+    pattern: /subcategory/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showCategory }
+
+info_complaint_category:
+    pattern:  /category/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }

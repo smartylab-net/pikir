@@ -37,4 +37,12 @@ class Collection extends BaseCollection
     {
         return $this->id;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = Tag::slugify($slug);
+    }
 }

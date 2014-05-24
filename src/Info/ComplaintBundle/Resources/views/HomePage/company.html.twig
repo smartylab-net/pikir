@@ -30,7 +30,7 @@
             <button type="button" class="btn btn-primary btn-lg btn-block"><i class="icon-edit"></i> Оставить предложение</button>
         </div>
     </div>
-
-    {% render controller('InfoComplaintBundle:Company:showAllCategories')%}
-
+    {% for category in subcategory %}
+        <a href="">{{ category.name }}</a>
+    {% endfor %}
 {% endblock %}

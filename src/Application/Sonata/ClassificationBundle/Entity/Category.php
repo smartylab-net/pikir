@@ -37,4 +37,12 @@ class Category extends BaseCategory
     {
         return $this->id;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = Tag::slugify($slug);
+    }
 }

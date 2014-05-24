@@ -1,22 +1,16 @@
-{% extends '::base.html.twig' %}
-
+{% extends "::base.html.twig" %}
 
     {% block body %}
-    <div class="panel panel-default">
-        <br>sdasfsdfdssssssssssssss</br>
-                <br>sdasfsdfdssssssssssssss</br>
-                        <br>sdasfsdfdssssssssssssss</br>
-                                <br>sdasfsdfdssssssssssssss</br>
-                                        <br>sdasfsdfdssssssssssssss</br>
-                                                <br>sdasfsdfdssssssssssssss</br>
-                                                        <br>sdasfsdfdssssssssssssss</br> 
-        sdasfsdfdssssssssssssss 
-        sdasfsdfdssssssssssssss 
-        sdasfsdfdssssssssssssss 
-        sdasfsdfdssssssssssssss 
-        sdasfsdfdssssssssssssss 
-        sdasfsdfdssssssssssssss 
-     
-    </div>
+        <div class="panel panel-default">
+            {% thumbnail company.logo, 'small' %}
+            <br>{{company.name}}
+        </div>
         
+        {%for complaint in complaintlist %}
+            {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint}) }}
+        {%endfor%}
+        {{average}}
+        <a href="{{ path("info_complaint_create") }}"> Добавить жалобу</a>
+
+    
     {% endblock %}

@@ -25,7 +25,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string")
-     * @ORM\Name
      */
     private $name;
 
@@ -33,7 +32,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="logo", type="string")
-     * @ORM\Logo
      */
     private $logo;
 
@@ -62,7 +60,7 @@ class Company
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Complaint", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $complaints;
     /**

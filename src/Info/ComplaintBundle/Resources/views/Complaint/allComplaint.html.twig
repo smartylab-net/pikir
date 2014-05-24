@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    {% for post in posts %}
+        </br>{{ post.id }}
+        </br>{{ post.title }}
+        </br>{{ post.text }}
+        </br>{{ post.rating }}
+    {% endfor %}
+
+{% endblock %}

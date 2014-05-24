@@ -2,3 +2,7 @@
 info_complaint_create:
     pattern:  /create_complaint/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
+
+info_complaint_list:
+    pattern:  /allComplaint
+    defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}

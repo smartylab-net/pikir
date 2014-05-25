@@ -4,8 +4,8 @@
 {% endblock javascripts %}
 {% block stylesheets %}
     {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/fb.css') }}"/>
 {% endblock stylesheets %}
 {% block body %}
     {{ block ('fos_user_content') }}
-    {% render(controller('HWIOAuthBundle:Connect:connect')) %}
 {% endblock %}

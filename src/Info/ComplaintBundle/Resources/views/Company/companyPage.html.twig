@@ -1,16 +1,92 @@
 {% extends "::base.html.twig" %}
 
     {% block body %}
-        <div class="panel panel-default">
-            {% thumbnail company.logo, 'small' %}
-            <br>{{company.name}}
-        </div>
+
+        <div class="container">
+            
+            <div class="container">
+                <div class="thumbnail">
+
+                    <div class="row">
+                        
+                        <div class="col-md-2">
+                            <div class="thumbnail" style="margin-top:20px; margin-left:15px">
+                              {% thumbnail company.logo, 'medium' %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-10">
+
+                            <div class="container">
+                                <h3>{{company.name}} 
+                                    <span 
+                                        title="{{ company.approved ? "Подтвержденный" : "Неподтвержденный" }}"
+                                        class="glyphicon {{ company.approved ? "glyphicon-ok-circle green" : "glyphicon-ban-circle red"}}">
+                                    </span>
+                                </h3>     
+                                                           
+                            </div>
+
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                            <h4><small>
+                                                Общая жалоба:
+                                            </small></h4>
+                                            <h4>300</h4>
+                                        
+                                    </div>
+                                    <div class="col-md-2">
+                                            <h4><small>
+                                                Ответили на жалобу:
+                                            </small></h4>
+                                            <h4>300</h4>
+                                        
+                                    </div>
+                                    <div class="col-md-2">
+                                            <h4><small>
+                                                Всего благодарностей:
+                                            </small></h4>
+                                            <h4>300</h4>
+                                        
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                            <h4><small>
+                                                Рейтинг
+                                            </small></h4>
+                                            <h4>{{average}}</h4>
+                                       
+                                    </div>
+
+                                            
+                                    <a href="{{ path("info_complaint_create") }}"> 
+                                        Добавить жалобу
+                                    </a>
+                                    
+                                </div>
+                            
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+                {%for complaint in complaintlist %}
+                    {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint}) }}
+                {% endfor %}
+
+            </div> 
+        </div>              
+           
         
-        {%for complaint in complaintlist %}
-            {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint}) }}
-        {%endfor%}
-        {{average}}
-        <a href="{{ path("info_complaint_create") }}"> Добавить жалобу</a>
+
+        
 
     
     {% endblock %}

@@ -1,0 +1,40 @@
+parameters:
+#    nurix_page.example.class: Info\PageBundle\Example
+
+services:
+#    nurix_page.example:
+#        class: %nurix_page.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    strokit.menu_builder:
+        class: Info\PageBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory",@doctrine.orm.entity_manager]
+
+    strokit.menu.main:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: strokit.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+
+    strokit.menu.info_sidebar:
+            class: Knp\Menu\MenuItem
+            factory_service: strokit.menu_builder
+            factory_method: createBottomMenu
+            arguments: ["@request"]
+            scope: request
+            tags:
+                - { name: knp_menu.menu, alias: bottom } # Named "sidebar" this time
+
+
+
+    sonata.admin.page:
+            class: Info\PageBundle\Admin\PageAdmin
+            tags:
+              - { name: sonata.admin, manager_type: orm, group: "Сайт", label: "Страницы"}
+            arguments:
+              - ~
+              - Info\PageBundle\Entity\Pages
+              - ~

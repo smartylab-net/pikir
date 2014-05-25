@@ -80,7 +80,7 @@ swiftmailer:
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
+    firewall_name: secured_area
     user_class: Application\Sonata\UserBundle\Entity\User
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
@@ -182,3 +182,21 @@ sonata_doctrine_orm_admin:
         types:
             list:
 #                sortable:      StrokitCoreBundle:Admin:list_sortable.html.twig
+
+hwi_oauth:
+    firewall_name: secured_area
+    target_path_parameter: /profile
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           298561750303681
+            client_secret:       95d93472eedae3909672339f386031db
+            scope:               "email"
+
+    fosub:
+        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
+        username_iterations: 30
+
+        # mapping between resource owners (see below) and properties
+        properties:
+            facebook: facebookUid

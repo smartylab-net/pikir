@@ -25,16 +25,28 @@ security:
             logout:
                 path:           /admin/logout
             anonymous:          true
-        main:
-            pattern:      .*
-            form-login:
-                provider:       fos_userbundle
-                login_path:     /login
-                use_forward:    false
-                check_path:     /login_check
-                failure_path:   null
-            logout:       true
-            anonymous:    true
+        secured_area:
+            anonymous: ~
+            pattern:    ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /connect/
+                check_path: /login_check
+                always_use_default_target_path: true
+                default_target_path:            /profile
+            logout: true
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                login_path:        /login
+                use_forward:       true
+                failure_path:      /login
+                always_use_default_target_path: true
+                default_target_path:            /profile
+
+                oauth_user_provider:
+                    service: strokit.aouth_user_provider
 
     access_control:
         # The WDT has to be allowed to anonymous users to avoid requiring the login with the AJAX request
@@ -47,6 +59,7 @@ security:
 
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login

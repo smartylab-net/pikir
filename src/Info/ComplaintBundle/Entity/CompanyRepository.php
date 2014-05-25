@@ -20,13 +20,15 @@ class CompanyRepository extends EntityRepository
         $resultCompany= $this->createQueryBuilder('p')
             ->select("p.id as value, p.name as label, 'info_company_homepage' as route")
             ->where('p.name like :name')
+            ->andWhere('p.enabled = :enabled')
             ->setParameter('name','%'.$name . '%')
+            ->setParameter('enabled',true)
             ->getQuery()->getArrayResult();
 
         $resultComplaint= $this->getEntityManager()->getRepository('InfoComplaintBundle:Complaint')->createQueryBuilder('p')
             ->select("p.id as value, p.title as label, 'info_complaint_complaint' as route")
-            ->where('p.title like :name')
-            ->setParameter('name','%'.$name . '%')
+            ->where('p.title like :title')
+            ->setParameter('title','%'.$name . '%')
             ->getQuery()->getArrayResult();
         $result = array_merge($resultCompany,$resultComplaint);
         return $result;

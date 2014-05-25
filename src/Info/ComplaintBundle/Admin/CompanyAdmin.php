@@ -13,6 +13,8 @@ class CompanyAdmin extends Admin
    {
        $formMapper
            ->add('name', 'text', array('label' => 'Название компании'))
+           ->add('enabled',null,array('label'=>'Активность','required'=>false))
+           ->add('approved',null,array('label'=>'Подтвержден','required'=>false))
            ->add('manager','sonata_type_model_list')
            ->add('logo', 'sonata_type_model_list', array('required'=>false ,'label' => 'Логотип компании'), array('link_parameters' => array('context' =>'company')))
            ->add('annotation', 'textarea', array('label' => 'Описание компании'))
@@ -38,6 +40,8 @@ class CompanyAdmin extends Admin
    {
        $listMapper
            ->addIdentifier('name')
+           ->add('enabled',null,array('label'=>'Активность','editable'=>true))
+           ->add('approved',null,array('label'=>'Подтвержден','editable'=>true))
            ->add('logo')
            ->add('annotation')
            ->add('address')

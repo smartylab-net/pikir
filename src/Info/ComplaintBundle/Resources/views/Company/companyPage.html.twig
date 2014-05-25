@@ -52,7 +52,7 @@
                                         
                                     </div>
                                     
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                             <h4><small>
                                                 Рейтинг
                                             </small></h4>
@@ -60,10 +60,16 @@
                                        
                                     </div>
 
-                                            
-                                    <a href="{{ path("info_complaint_create") }}"> 
+                                    <div class="col-md-3">
+                                    {% if company.manager != null and app.user != null and company.manager == app.user %}
+                                        <a class="btn" href="{{ path('info_manager_company_edit',{ 'company':company }) }}">
+                                            Редактировать данные компании
+                                        </a>
+                                    {% endif %}
+                                    <a class="btn"  href="{{ path("info_complaint_create") }}">
                                         Добавить жалобу
                                     </a>
+                                    </div>
                                     
                                 </div>
                             

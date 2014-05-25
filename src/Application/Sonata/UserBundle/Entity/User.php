@@ -29,6 +29,16 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\Comment", mappedBy="user", cascade={"persist", "remove" }, orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\Complaint", mappedBy="user", cascade={"persist", "remove" }, orphanRemoval=true)
+     */
+    private $complaint;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -36,5 +46,37 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComplaint()
+    {
+        return $this->complaint;
+    }
+
+    /**
+     * @param mixed $complaint
+     */
+    public function setComplaint($complaint)
+    {
+        $this->complaint = $complaint;
     }
 }

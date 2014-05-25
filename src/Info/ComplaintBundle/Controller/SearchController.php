@@ -74,8 +74,8 @@ class SearchController extends Controller
         }
 
         // return the form view
-        return $this->render('InfoComplaintBundle:Default:search.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        // return $this->render('InfoComplaintBundle:Default:search.html.twig', [
+        //     'form' => $form->createView(),
+        // ]);
     }
 }

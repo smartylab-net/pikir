@@ -12,7 +12,8 @@ class CommentType extends AbstractType
         $builder
             ->add('comment', 'textarea', array(
                 'attr' => array(
-                    'placeholder' => 'Комментарий'
+                    'placeholder' => 'Комментарий',
+                    'label' => 'Текст комментария'
                 )
             ))
             ->add('save', 'submit', array('label'=>'Сохранить'))

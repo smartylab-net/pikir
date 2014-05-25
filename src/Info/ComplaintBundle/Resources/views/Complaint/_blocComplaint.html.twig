@@ -1,8 +1,12 @@
 <div class="panel panel-default">
-    </br>{{ complaint.title }}
+    </br><a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.title }}</a>
     </br>{{ complaint.author }}
-    </br>{{ complaint.created|date}}
+    </br>{{ complaint.created|format_date }}
     </br>{{ complaint.id }}
     </br>{{ complaint.text }}
-    </br>{{ complaint.rating }}
+    </br>
+    {% for i in 1..10 %}
+        <div class="{% if i <= complaint.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
+    {% endfor %}
+    <div class="clear"></div>
 </div>

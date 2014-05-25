@@ -1,6 +1,40 @@
-.main-actions{
+.main-actions {
     margin-bottom: 30px;
 }
-.categories{
+
+.categories {
     margin-bottom: 30px;
 }
+
+div.vote-stars{
+    position: static !important;
+    height: 32px;
+    width: 32px;
+    background: url(http://localhost/hackaton/web/public/images/stars.png) 0% 0%;
+    float: left;
+}
+
+div.vote-active{
+    position: static !important;
+    height: 32px;
+    width: 32px;
+    background: url(http://localhost/hackaton/web/public/images/stars.png) 0% 50%;
+    float: left;
+}
+
+.clear{
+    clear: both !important;
+}
+
+.ui-autocomplete-loading {
+    background: white url('image.gif') right center no-repeat;
+}
+
+.red{
+    color:#CC0000;
+    font-size: 0.6em;
+    }
+.green{
+    color:#009933;
+    font-size: 0.6em;
+    }

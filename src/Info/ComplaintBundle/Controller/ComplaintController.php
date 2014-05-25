@@ -31,7 +31,7 @@ class ComplaintController extends Controller
 
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
             array('form' => $form->createView(),
-                'companies'=>$companies)
+                'companies' => $companies)
         );
     }
 
@@ -42,5 +42,15 @@ class ComplaintController extends Controller
         $complaintList = $postRepository
             ->findAll();
         return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('complaintlist' => $complaintList));
+    }
+
+    public function getComplaintAction($id)
+    {
+
+        $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+
+        return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
+            'post' => $post
+        ));
     }
 }

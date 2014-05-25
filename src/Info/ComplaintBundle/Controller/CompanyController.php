@@ -20,10 +20,10 @@ class CompanyController extends Controller
     	}
 		
 		$complaintList = $complaintRepository->findByCompany($id);
-    	if(!$complaintList)
-    	{
-    		throw $this->createNotFoundException('The complaintList does not exist');
-    	}
+//    	if(!$complaintList)
+//    	{
+//    		throw $this->createNotFoundException('The complaintList does not exist');
+//    	}
 
         $average = $companyRepository->getComplaintsAverageRating($id);
       

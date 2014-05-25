@@ -20,15 +20,33 @@ class CompanyType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name','text')
             ->add('logo', 'sonata_media_type', array(
                 'provider' => 'sonata.media.provider.image',
                 'context'  => 'company',
-                'required' => false
+                'required' => false,
+                'label'=>'Логотип',
+                'label_attr'=>array('class'=>'col-sm-2 control-label')
             ))
-            ->add('address','text')
-            ->add('annotation','textarea')
-            ->add('submit','submit');
+            ->add('name','text',array(
+                'required'=>true,
+                'label'=>'Название',
+                'label_attr'=>array('class'=>'col-sm-2 control-label'),
+                'attr'=>array('class'=>'form-control')
+            ))
+            ->add('address','text',array(
+                'label'=>'Адрес',
+                'label_attr'=>array('class'=>'col-sm-2 control-label'),
+                'attr'=>array('class'=>'form-control')
+            ))
+            ->add('annotation','textarea',array(
+                'label'=>'Описание',
+                'label_attr'=>array('class'=>'col-sm-2 control-label'),
+                'attr'=>array('class'=>'form-control')
+            ))
+            ->add('submit','submit',array(
+                'label'=>'Сохранить',
+                'attr'=>array('class'=>'btn btn-primary')
+            ));
     }
 
     /**

@@ -33,6 +33,8 @@ security:
                 csrf_provider: form.csrf_provider
                 login_path: /connect/
                 check_path: /login_check
+                always_use_default_target_path: true
+                default_target_path:            /profile
             logout: true
             oauth:
                 resource_owners:
@@ -40,6 +42,8 @@ security:
                 login_path:        /login
                 use_forward:       true
                 failure_path:      /login
+                always_use_default_target_path: true
+                default_target_path:            /profile
 
                 oauth_user_provider:
                     service: strokit.aouth_user_provider

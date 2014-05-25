@@ -5,6 +5,7 @@
         <title>{% block title %}Онлайн книга жалоб и предложений!{% endblock %}</title>
         {% block stylesheets %}
             <link type="text/css" rel="stylesheet" href="{{ asset('public/css/bootstrap.css') }}"/>
+            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/jquery-ui.css') }}"/>
             <link type="text/css" rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}"/>
             <link type="text/css" rel="stylesheet" href="{{ asset('public/css/style.css') }}"/>
             <link rel="stylesheet" href="{{ asset('bundles/infocomplaint//css/jquery.rating.css') }}">
@@ -24,6 +25,7 @@
         {% block javascripts %}
             <script src="{{ asset('public/js/jquery-1.10.2.min.js') }}"></script>
             <script src="{{ asset('public/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
             <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
@@ -32,6 +34,8 @@
             <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
             <script src="{{ asset('bundles/infocomplaint/js/com-rating.js') }}"></script>
             <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+            <script src="{{ asset('public/js/autocomplete.js') }}"></script>
+
         {% endblock %}
     </body>
 </html>

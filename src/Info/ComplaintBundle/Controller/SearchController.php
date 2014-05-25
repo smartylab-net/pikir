@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Repository;
 use Info\ComplaintBundle\Form\SearchType;
+use Info\ComplaintBundle\Form\SearchHandler;
 
 class SearchController extends Controller
 {
@@ -35,9 +36,9 @@ class SearchController extends Controller
     {
         $name = $this->getRequest()->query->get('term');
         $em = $this->get('doctrine.orm.entity_manager');
-        $poem = $em->getRepository('InfoComplaintBundle:Company')->findLike($name);
+        $companies = $em->getRepository('InfoComplaintBundle:Company')->findLike($name);
 
-        return new JsonResponse($poem);
+        return new JsonResponse($companies);
     }
 
     public function completeAction()

@@ -1,10 +1,31 @@
 {% extends "::base.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery_rating.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#rating_1').rating({
+                fx: 'full',
+                image: '{{ asset('public/images/stars.png') }}',
+                width: 32,
+                stars:10
+            });
+        });
+    </script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/infocomplaint//css/jquery.rating.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="panel panel-default">
         {% for post in posts %}
-           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'post':post}) }}
+           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaints}) }}
         {% endfor %}
     </div>
-
 {% endblock %}

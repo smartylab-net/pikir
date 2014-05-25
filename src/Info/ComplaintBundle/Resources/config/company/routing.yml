@@ -1,3 +1,5 @@
 info_company_homepage:
   pattern:  /{id}
   defaults: { _controller: InfoComplaintBundle:Company:index }
+  options:
+    expose: true

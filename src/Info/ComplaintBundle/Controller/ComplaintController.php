@@ -39,8 +39,8 @@ class ComplaintController extends Controller
     {
         $postRepository = $this->getDoctrine()->getManager()
             ->getRepository('InfoComplaintBundle:Complaint');
-        $posts=$postRepository
+        $complaintList = $postRepository
             ->findAll();
-        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('posts' => $posts));
+        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('complaintlist' => $complaintList));
     }
 }

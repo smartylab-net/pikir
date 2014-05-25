@@ -1,15 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 24.05.14
- * Time: 15:54
- */
+ namespace Info\ComplaintBundle\Entity;
 
-namespace Info\ComplaintBundle\Entity;
+use Doctrine\ORM\EntityRepository; 
 
-use Doctrine\ORM\EntityRepository;
+class CompanyRepository extends EntityRepository
+{
+	
+	public function getComplaintsAverageRating($id)
+	{
 
-class CompanyRepository extends EntityRepository{
+		return $this->getEntityManager()
+            ->createQuery(
+                "SELECT AVG(c.rating) FROM InfoComplaintBundle:Complaint c WHERE c.company = $id "
+            )->getResult();
+	}
 
 }

@@ -25,3 +25,7 @@ div.vote-active{
 .clear{
     clear: both !important;
 }
+
+.ui-autocomplete-loading {
+    background: white url('image.gif') right center no-repeat;
+}

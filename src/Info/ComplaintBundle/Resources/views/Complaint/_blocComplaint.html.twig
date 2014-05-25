@@ -1,12 +1,17 @@
 <div class="panel panel-default">
-    </br><a href="{{ path ('info_complaint_complaint',{'id':post.id}) }}">{{ post.title }}</a>
-    </br>{{ post.author }}
-    </br>{{ post.created|format_date }}
-    </br>{{ post.id }}
-    </br>{{ post.text }}
+    </br><a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.title }}</a>
+    </br>{{ complaint.author }}
+    </br>{{ complaint.created|format_date }}
+    </br>{{ complaint.id }}
+    </br>{{ complaint.text }}
     </br>
     {% for i in 1..10 %}
-        <div class="{% if i <= post.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
+    {% if (i<complaint.rating) %}
+        <img src="{{ asset('public/images/img/star-on.png') }}">
+    {% else %}
+        <img src="{{ asset('public/images/img/star-off.png') }}">
+    {% endif %}
     {% endfor %}
     <div class="clear"></div>
+
 </div>

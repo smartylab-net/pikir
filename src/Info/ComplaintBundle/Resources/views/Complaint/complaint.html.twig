@@ -8,7 +8,11 @@
         </br>{{ post.text }}
         </br>
         {% for i in 1..10 %}
-            <div class="{% if i <= post.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
+            {% if (i<post.rating) %}
+                <img src="{{ asset('public/images/img/star-on.png') }}">
+            {% else %}
+                <img src="{{ asset('public/images/img/star-off.png') }}">
+            {% endif %}
         {% endfor %}
         <div class="clear"></div>
     </div>

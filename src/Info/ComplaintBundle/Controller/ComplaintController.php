@@ -18,7 +18,7 @@ class ComplaintController extends Controller
             $form->submit($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $complaint->setCreated (new \DateTime());
+                $complaint->setCreated(new \DateTime());
                 $em->persist($complaint);
                 $em->flush();
                 return $this->redirect($this->generateUrl('info_complaint_create'));
@@ -26,12 +26,12 @@ class ComplaintController extends Controller
         }
         $companyRepository = $this->getDoctrine()->getManager()
             ->getRepository('InfoComplaintBundle:Complaint');
-        $companies=$companyRepository
+        $companies = $companyRepository
             ->findAll();
 
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
             array('form' => $form->createView(),
-                'companies'=>$companies)
+                'companies' => $companies)
         );
     }
 
@@ -44,10 +44,13 @@ class ComplaintController extends Controller
         ));
     }
 
-    public function getComplaintAction($id){
+    public function getComplaintAction($id)
+    {
 
         $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
 
-        return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig',array('post'=>$post));
+        return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
+            'post' => $post
+        ));
     }
 }

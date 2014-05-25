@@ -3,9 +3,13 @@
     <div class="panel panel-default">
         </br>{{ post.title }}
         </br>{{ post.author }}
-        </br>{{ post.created|date }}
+        </br>{{ post.created|format_date }}
         </br>{{ post.id }}
         </br>{{ post.text }}
-        </br>{{ post.rating }}
+        </br>
+        {% for i in 1..10 %}
+            <div class="{% if i <= post.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
+        {% endfor %}
+        <div class="clear"></div>
     </div>
 {% endblock %}

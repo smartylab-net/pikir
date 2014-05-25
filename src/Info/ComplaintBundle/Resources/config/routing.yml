@@ -43,6 +43,7 @@ search_auto:
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
       expose: true
+
 info_complaint_complaint:
     pattern:  /complaint/{id}
     defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}

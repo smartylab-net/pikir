@@ -18,4 +18,8 @@
                 <div class="clear"></div>
             </div>
     </div>
+    {% for treeComment in treeComments %}
+        {{ treeComment|raw }}
+    {% endfor %}
+    {{ render(controller('InfoCommentBundle:Default:form', { 'complaint': post.id })) }}
 {% endblock %}

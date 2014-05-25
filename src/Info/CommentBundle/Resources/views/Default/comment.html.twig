@@ -1,0 +1,2 @@
+{% if user %}{{ user }}{% else %} Анонимный {% endif %}: {{ node['comment'] }}
+<a href="{{ path('info_comment_reply',{'comment':node['id'],'complaint':complaintId}) }}">Ответить</a>

@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+
+    {% spaceless %}
+        {% if object.parent.children[object.parent.children|length - 1].id != object.id %}
+            <a href="{{ path('page_tree_down', {'page_id': object.id}) }}">
+                <img src="{{ asset('bundles/shtumiprav/images/admin/arrow_down.png') }}" alt="{% trans %}Вниз{% endtrans %}" />
+            </a>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}

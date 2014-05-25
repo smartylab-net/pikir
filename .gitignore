@@ -2,6 +2,7 @@
 /web/uploads/
 /app/cache/*
 /app/logs/*
+/app/sessions/*
 /app/bootstrap.php.cache
 /vendor/
 /app/config/parameters.yml

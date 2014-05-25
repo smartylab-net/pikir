@@ -8,13 +8,49 @@
 {% endblock %}
 
 {% block body %}
-<form action="{{ path('SearchEngineBundle_results') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-        <div class="ui-widget">
-            {{ form_row(form.name) }}
-        </div>
-    {{ form_end(form) }}
-</form>
 
+    <div class="">
+    <form action="{{ path('SearchEngineBundle_results') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_start(form) }}
+            {#{{ form_errors(form) }}#}
+            <div class="ui-widget">
+                {{ form_row(form.name) }}
+            </div>
+        {{ form_end(form) }}
+    </form>
+    </div>
+
+    <div class="">
+        <span class=""></span>
+        <div class="">
+            <span class="">
+            </span>
+        </div>
+        <span class=""></span>
+        <span class=""></span>
+        <div class="">
+            <div class="">
+                <h2 class="sp">Фильтрация <b> жалоб </b></h2>
+            </div>
+            <input type="hidden" id="" value="">
+            <div class="">
+                <span class=""></span>
+                <div class="">
+                    <ul class="">
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
+                <span class=""></span>
+            </div>
+            <form class="" onsubmit="return false;">
+
+            </form>
+            <div class="">
+                <h2 class="sp">Жалобы по <b>Категориям</b></h2>
+            </div>
+        </div>
+        <span class=""></span>
+    </div>
 {% endblock %}

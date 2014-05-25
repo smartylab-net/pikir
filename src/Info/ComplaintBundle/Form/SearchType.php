@@ -15,7 +15,7 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $searchBuilder, array $options)
     {
         $searchBuilder
-            ->add('name', 'text', array('required'=>true,'label'=>'Наименование, категория'))
+            ->add('name', 'text', array('required'=>true))
             ->add('search', 'submit', array('label'=>'Поиск'));
     }
 

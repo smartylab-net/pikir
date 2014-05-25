@@ -1,0 +1,10 @@
+parameters:
+  main_class_name: Application\Sonata\UserBundle\Model\OAuthUserProvider
+  user_class_name: Application\Sonata\UserBundle\Entity\User
+services:
+    strokit.aouth_user_provider:
+        class: %main_class_name%
+        arguments:
+            - @service_container
+            - @doctrine
+            - %user_class_name%

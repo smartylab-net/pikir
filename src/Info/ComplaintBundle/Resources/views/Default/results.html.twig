@@ -8,9 +8,11 @@
         <hr />
         <ul>
             {% for company in companies %}
+            <div class="ui-widget">
                 <li>
                     {{ company }}<br />
                 </li>
+            </div>
             {% else %}
                 <div class="alert">Sorry ^^'</div>
             {% endfor %}

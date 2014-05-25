@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Entity;
 
+use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -32,6 +33,11 @@ class Complaint
     private $company;
 
     /**
+     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\Comment", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -39,9 +45,11 @@ class Complaint
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255, nullable=true)
+     * @var User
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * })
      */
     private $author;
 
@@ -49,7 +57,6 @@ class Complaint
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
-
 
     /**
      * @var string
@@ -178,9 +185,24 @@ class Complaint
         return $this->created;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
     /**
-     * @return string
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return mixed
      */
     public function getAuthor()
     {
@@ -188,7 +210,7 @@ class Complaint
     }
 
     /**
-     * @param string $author
+     * @param mixed $author
      */
     public function setAuthor($author)
     {

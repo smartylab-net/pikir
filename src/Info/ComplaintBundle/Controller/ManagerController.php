@@ -16,9 +16,8 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class ManagerController extends Controller{
 
-    public function editCompanyAction($id)
+    public function editCompanyAction(Company $company)
     {
-        $company = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->find($id);
         if ($company == null)
         {
             return $this->createNotFoundException();

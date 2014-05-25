@@ -34,9 +34,6 @@ SearchEngineBundle_results:
     pattern:   /results/
     defaults:  { _controller: InfoComplaintBundle:Search:getResults }
 
-search_autocomplete:
-    pattern:   /search_autocomplete/
-    defaults:  { _controller: InfoComplaintBundle:Search:complete }
 
 search_auto:
     pattern:   /autocomplete/
@@ -51,3 +48,5 @@ info_manager:
 info_complaint_complaint:
     pattern:  /complaint/{id}
     defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
+    options:
+      expose: true

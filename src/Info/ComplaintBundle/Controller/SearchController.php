@@ -36,9 +36,9 @@ class SearchController extends Controller
     {
         $name = $this->getRequest()->query->get('term');
         $em = $this->get('doctrine.orm.entity_manager');
-        $poem = $em->getRepository('InfoComplaintBundle:Company')->findLike($name);
+        $companies = $em->getRepository('InfoComplaintBundle:Company')->findLike($name);
 
-        return new JsonResponse($poem);
+        return new JsonResponse($companies);
     }
 
     public function completeAction()

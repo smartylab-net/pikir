@@ -11,12 +11,15 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% include '::_header.html.twig' %}
 
+    {% include '::_header.html.twig' %}
+    <div class="container">
+
+        <div class="row">
         {% block body %}{% endblock %}
-
+        </div>
         {% include '::_footer.html.twig' %}
-
+    </div>
         {% block javascripts %}
             <script src="{{ asset('public/js/jquery-1.10.2.min.js') }}"></script>
             <script src="{{ asset('public/js/jquery.min.js') }}"></script>

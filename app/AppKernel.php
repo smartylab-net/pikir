@@ -60,6 +60,8 @@ class AppKernel extends Kernel
             new Application\Sonata\FormatterBundle\ApplicationSonataFormatterBundle(),
             //Strokit Core
             new Strokit\CoreBundle\StrokitCoreBundle(),
+            //PageBundle
+            new Info\PageBundle\InfoPageBundle(),
             new Info\ComplaintBundle\InfoComplaintBundle(),
             new Info\CommentBundle\InfoCommentBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),

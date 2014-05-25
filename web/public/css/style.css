@@ -29,3 +29,7 @@ div.vote-active{
 .ui-autocomplete-loading {
     background: white url('image.gif') right center no-repeat;
 }
+
+.padding-top15 {
+    padding-top: 15px;
+}

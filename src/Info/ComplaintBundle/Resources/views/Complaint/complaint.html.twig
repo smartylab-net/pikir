@@ -1,19 +1,21 @@
 {% extends "::base.html.twig" %}
 {% block body %}
     <div class="panel panel-default">
-        </br>{{ post.title }}
-        </br>{{ post.author }}
-        </br>{{ post.created|format_date }}
-        </br>{{ post.id }}
-        </br>{{ post.text }}
-        </br>
-        {% for i in 1..10 %}
-            {% if (i<post.rating) %}
-                <img src="{{ asset('public/images/img/star-on.png') }}">
-            {% else %}
-                <img src="{{ asset('public/images/img/star-off.png') }}">
-            {% endif %}
-        {% endfor %}
-        <div class="clear"></div>
+        <div class="panel-heading">
+            <h4>{{ complaint.title }}</h4>
+            {{ complaint.author }}  |  {{ complaint.created|format_date }}  |  {{ complaint.id }}
+        </div>
+        <div class="panel-body">
+            {{ complaint.text }}</br>
+            {% for i in 1..10 %}
+                {% if (i<complaint.rating) %}
+                    <img src="{{ asset('public/images/img/star-on.png') }}">
+                {% else %}
+                    <img src="{{ asset('public/images/img/star-off.png') }}">
+                {% endif %}
+            {% endfor %}
+            <div class="panel-body">
+                <div class="clear"></div>
+            </div>
     </div>
 {% endblock %}

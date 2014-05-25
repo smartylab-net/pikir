@@ -1,36 +1,67 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="jumbotron">
-                <h1>
-                    Hello, world!
-                </h1>
-
-                <p>
-                    This is a template for a simple marketing or informational website. It includes a large callout
-                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
-                    something more unique.
-                </p>
-
-                <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
-                </p>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-3">
+                <div class="well well-lg">
+                    <ul class="nav nav-list">
+                        <li><label class="tree-toggler nav-header">Header 1</label>
+                            <ul class="nav nav-list tree">
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><label class="tree-toggler nav-header">Header 1.1</label>
+                                    <ul class="nav nav-list tree">
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><label class="tree-toggler nav-header">Header 1.1.1</label>
+                                            <ul class="nav nav-list tree">
+                                                <li><a href="#">Link</a></li>
+                                                <li><a href="#">Link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-divider"></li>
+                        <li><label class="tree-toggler nav-header">Header 2</label>
+                            <ul class="nav nav-list tree">
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><label class="tree-toggler nav-header">Header 2.1</label>
+                                    <ul class="nav nav-list tree">
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><label class="tree-toggler nav-header">Header 2.1.1</label>
+                                            <ul class="nav nav-list tree">
+                                                <li><a href="#">Link</a></li>
+                                                <li><a href="#">Link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><label class="tree-toggler nav-header">Header 2.2</label>
+                                    <ul class="nav nav-list tree">
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><label class="tree-toggler nav-header">Header 2.2.1</label>
+                                            <ul class="nav nav-list tree">
+                                                <li><a href="#">Link</a></li>
+                                                <li><a href="#">Link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% for category in subcategory %}
+                    <a href="{{ path('info_complaint_company_list',{'id':category.id}) }}">{{ category.name }}</a>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <div class="row clearfix main-actions">
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-success btn-lg btn-block"><i class="icon-check"></i> Оставить отзыв</button>
-        </div>
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-danger btn-lg btn-block"><i class="icon-thumbs-down-alt"></i> Оставить жалобу</button>
-        </div>
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="icon-edit"></i> Оставить предложение</button>
-        </div>
-    </div>
-    {% for category in subcategory %}
-        <a href="{{ path('info_complaint_company_list',{'id':category.id})}}">{{ category.name }}</a>
-    {% endfor %}
 {% endblock %}

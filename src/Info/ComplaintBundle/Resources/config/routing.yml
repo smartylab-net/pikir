@@ -10,13 +10,9 @@ info_complaint_create:
     pattern:  /complaint/create/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
 
-info_complaint_subcategory:
-    pattern: /subcategory/{id}/
-    defaults: { _controller: InfoComplaintBundle:Company:showCategory }
-
 info_complaint_category:
-    pattern:  /category/
-    defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }
+    pattern:  /category/{cId}
+    defaults: { _controller: InfoComplaintBundle:Category:showCategory, cId:null }
 
 info_complaint_list:
     pattern:  /allComplaint/

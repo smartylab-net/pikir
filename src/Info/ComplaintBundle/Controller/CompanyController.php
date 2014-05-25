@@ -14,7 +14,7 @@ class CompanyController extends Controller
     	$complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
     	
     	$company = $companyRepository->find($id);
-    	if(!$company)
+    	if(!$company || !$company->getEnabled())
     	{
     		throw $this->createNotFoundException('The company does not exist');
     	}

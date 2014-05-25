@@ -1,3 +1,7 @@
-info_comment_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: InfoCommentBundle:Default:index }
+info_comment_create:
+    pattern:  /comment/create/{complaint}/
+    defaults: { _controller: InfoCommentBundle:Default:create }
+
+info_comment_reply:
+    pattern:  /comment/reply/{complaint}/{comment}/
+    defaults: { _controller: InfoCommentBundle:Default:reply }

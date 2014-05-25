@@ -4,6 +4,7 @@ namespace Info\ComplaintBundle\Controller;
 
 use Info\ComplaintBundle\Entity\Complaint;
 use Info\ComplaintBundle\Form\ComplaintType;
+use SoftDeleteable\Fixture\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -48,9 +49,31 @@ class ComplaintController extends Controller
     {
 
         $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+        $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
+        $nodes = $commentRep->findBy(array('complaint'=>$post, 'lft'=>1));
+        $userRep = $this->getDoctrine()->getRepository('ApplicationSonataUserBundle:User');
+        $options = array(
+            'decorate' => true,
+            'rootOpen' => '<ul>',
+            'rootClose' => '</ul>',
+            'childOpen' => '<li>',
+            'childClose' => '</li>',
+            'nodeDecorator' => function($node) use (&$id,&$commentRep)  {
+                    return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaintId'=>$id,'user'=>$commentRep->find($node['id'])->getUser()));
+                }
+        );
+        $htmlTree = array();
+        foreach($nodes as $node)
+            $htmlTree[] = $commentRep->childrenHierarchy(
+                $node, /* starting from root nodes */
+                false, /* true: load all children, false: only direct */
+                $options,
+                true
+            );
 
         return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
-            'post' => $post
+            'post' => $post,
+            'treeComments'   => $htmlTree
         ));
     }
 }

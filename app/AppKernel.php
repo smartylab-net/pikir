@@ -63,6 +63,8 @@ class AppKernel extends Kernel
             new Info\ComplaintBundle\InfoComplaintBundle(),
             new Info\CommentBundle\InfoCommentBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            //Doctrine Extension
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

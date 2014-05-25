@@ -31,8 +31,8 @@ class ComplaintType extends AbstractType {
         $builder
             ->add('company','entity', array('class' => 'Info\ComplaintBundle\Entity\Company'))//'text',array('label'=>'Название компании')
             ->add('title','text',array('label'=>'Тема'))
-            ->add('text','text',array('label'=>'Текст'))
-            ->add('rating','integer',array('label'=>'Рейтинг'))
+            ->add('text','textarea',array('label'=>'Текст'))
+            ->add('rating','hidden')
             ->add('submit','submit');
     }
 

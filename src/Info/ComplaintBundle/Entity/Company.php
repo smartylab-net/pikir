@@ -37,7 +37,7 @@ class Company
     private $logo;
 
     /**
-     * @var text
+     * @var string
      *
      * @ORM\Column(name="annotation", type="text")
      */
@@ -155,5 +155,21 @@ class Company
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 }

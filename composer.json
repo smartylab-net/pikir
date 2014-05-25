@@ -32,7 +32,8 @@
         "suncat/mobile-detect-bundle": "dev-master",
         "gregwar/captcha-bundle": "dev-master",
         "sonata-project/admin-bundle": "~2.3@dev",
-        "sonata-project/core-bundle": "~2.2"
+        "sonata-project/core-bundle": "~2.2",
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

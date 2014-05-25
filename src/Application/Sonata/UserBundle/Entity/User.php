@@ -29,6 +29,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var integer $facebookId
+     */
+
+    protected $resource;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -36,5 +42,21 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * @param int $facebookId
+     */
+    public function setResource($facebookId)
+    {
+        $this->resource = $facebookId;
     }
 }

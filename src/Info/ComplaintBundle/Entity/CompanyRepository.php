@@ -1,9 +1,15 @@
 <?php
- namespace Info\ComplaintBundle\Entity;
+/**
+ * Created by PhpStorm.
+ * User: User
+ * Date: 24.05.14
+ * Time: 15:54
+ */
 
-use Doctrine\ORM\EntityRepository; 
+namespace Info\ComplaintBundle\Entity;
 
-class CompanyRepository extends EntityRepository
-{
-	
+use Doctrine\ORM\EntityRepository;
+
+class CompanyRepository extends EntityRepository{
+
 }

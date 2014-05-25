@@ -18,6 +18,7 @@ class ComplaintController extends Controller
             $form->submit($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $complaint->setCreated (new \DateTime());
                 $em->persist($complaint);
                 $em->flush();
                 return $this->redirect($this->generateUrl('info_complaint_create'));

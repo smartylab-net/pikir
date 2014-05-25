@@ -1,13 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="{{ path ('info_complaint_complaint',{'id':post.id}) }}"><h4>{{ post.title }}</h4></a>
-        {{ post.author }}  |   {{ post.created|format_date }}  |  {{ post.id }}
+        <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h4>{{ complaint.title }}</h4></a>
+        {{ complaint.author }}  |   {{ complaint.created|format_date }}  |  {{ complaint.id }}
     </div>
-    <div class="panel-body">{{ post.text }}
-        </br>
-        {% for i in 1..10 %}
-            <div class="{% if i <= post.rating %} vote-active {% else %} vote-stars {% endif %}"></div>
-        {% endfor %}
+    <div class="panel-body">
+        </br>{{ complaint.text }}
         <div class="clear"></div>
     </div>
 </div>

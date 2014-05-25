@@ -14,14 +14,6 @@ div.vote-stars{
     float: left;
 }
 
-div.vote-active{
-    position: static !important;
-    height: 32px;
-    width: 32px;
-    background: url(http://localhost/hackaton/web/public/images/stars.png) 0% 50%;
-    float: left;
-}
-
 .clear{
     clear: both !important;
 }

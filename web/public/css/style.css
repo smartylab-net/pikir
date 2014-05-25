@@ -37,4 +37,12 @@ div.vote-active{
 .green{
     color:#009933;
     font-size: 0.6em;
-    }
+}
+
+.panel-reg{
+    height: 290px!important;
+    padding-right: 10px;
+}
+.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{
+    width: 350px;
+}

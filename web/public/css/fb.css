@@ -1,0 +1,32 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather+Sans);
+a.social-wrap {
+    padding: 6px 45px 0 15px;
+    height: 35px;
+    background: none;
+    border: none;
+    display: block;
+    background-size: 35px 35px;
+    background-position: right center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    color: white;
+    font-family:"Merriweather Sans", sans-serif;
+    font-size: 14px;
+    margin-bottom: 15px;
+    width: 230px;
+    border-bottom: 2px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    box-shadow: 0 4px 2px -2px gray;
+    text-shadow: rgba(0, 0, 0, .5) -1px -1px 0;
+    text-decoration: none;
+    margin-right: 10px;
+}
+a.social-wrap#facebook {
+    border-color: #2d5073;
+    background-color: #3b5998;
+    background-image: url("../images/facebook-icon.png");
+}
+a.social-wrap:active {
+    background-color: #222;
+}

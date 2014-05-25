@@ -88,4 +88,14 @@ class ComplaintController extends Controller
             'treeComments'   => $htmlTree
         ));
     }
+
+    public function lastAddedComplaintsAction()
+    {
+
+        $complaints = $this->getDoctrine()
+            ->getRepository('InfoComplaintBundle:Complaint')
+            ->findBy(array(),array('id'=>'desc'),4);
+
+        return $this->render('InfoComplaintBundle:Complaint:last_complaints_list.html.twig', array('complaints' => $complaints));
+    }
 }

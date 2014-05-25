@@ -1,17 +1,25 @@
+
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h4>{{ complaint.title }}</h4></a>
-        {{ complaint.author }}  |  {{ complaint.created|format_date }}  |  {{ complaint.id }}
-    </div>
-    {{ complaint.text }}
-    </br>
-    {% for i in 1..10 %}
-        {% if (i<complaint.rating) %}
-            <img src="{{ asset('public/images/img/star-on.png') }}">
+        {% if show_company is defined and show_company == true %}
+            <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h2>{{ complaint.title }}</h2></a>
+            <h4><a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">{{ complaint.company.name }}</a></h4>
         {% else %}
-            <img src="{{ asset('public/images/img/star-off.png') }}">
+            <h2>{{ complaint.title }}</h2>
         {% endif %}
-    {% endfor %}
-    <div class="clear"></div>
-
+        {{ complaint.author }}  |  {{ complaint.created|format_date }}
+    </div>
+    <div class="panel-body">
+        {{ complaint.text }}<br/>
+        {% for i in 1..10 %}
+            {% if (i<complaint.rating) %}
+                <img src="{{ asset('public/images/img/star-on.png') }}">
+            {% else %}
+                <img src="{{ asset('public/images/img/star-off.png') }}">
+            {% endif %}
+        {% endfor %}
+        <div class="panel-body">
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>

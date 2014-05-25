@@ -6,7 +6,7 @@
     {{ form_label(form.comment) }}
     </div>
     <div class="col-md-10">
-        {{ form_widget(form.comment) }}
+        {{ form_widget(form.comment,{'attr':{'class':'form-control'} }) }}
     </div>
 </div>
 {{ form_end(form) }}

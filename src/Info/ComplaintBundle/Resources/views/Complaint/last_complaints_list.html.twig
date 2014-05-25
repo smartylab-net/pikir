@@ -2,7 +2,7 @@
     <h2> Последние добавленные отзывы</h2>
     {% for complaint in complaints %}
         <div class="col-md-6">
-            {% include "InfoComplaintBundle:Complaint:_blocComplaint.html.twig" with {'complaint':complaint,'show_company':true} %}
+            {% include "InfoComplaintBundle:Complaint:_blocComplaint.html.twig" with {'complaint':complaint,'show_company':true,'use_link':true} %}
         </div>
     {% endfor %}
 </div>

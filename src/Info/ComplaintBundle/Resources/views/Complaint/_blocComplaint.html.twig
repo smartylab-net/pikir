@@ -1,11 +1,13 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        {% if show_company is defined and show_company == true %}
+        {% if use_link is defined and use_link == true %}
             <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h2>{{ complaint.title }}</h2></a>
-            <h4><a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">{{ complaint.company.name }}</a></h4>
         {% else %}
             <h2>{{ complaint.title }}</h2>
+        {% endif %}
+        {% if show_company is defined and show_company == true %}
+            <h4><a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">{{ complaint.company.name }}</a></h4>
         {% endif %}
         {{ complaint.author }}  |  {{ complaint.created|format_date }}
     </div>

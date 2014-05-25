@@ -30,6 +30,10 @@ div.vote-active{
     background: white url('image.gif') right center no-repeat;
 }
 
+.padding-top15 {
+    padding-top: 15px;
+}
+
 .red{
     color:#CC0000;
     font-size: 0.6em;

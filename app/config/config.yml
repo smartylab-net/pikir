@@ -63,6 +63,7 @@ doctrine:
         # path:     %database_path%
         types:
             json: Sonata\Doctrine\Types\JsonType
+            pagetype_enum: Info\PageBundle\DBAL\PageTypeEnum
         mapping_types:
             enum: string
 
@@ -147,7 +148,7 @@ ivory_ck_editor:
             filebrowserImageUploadRoute: admin_sonata_media_media_upload
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
-                context: default-context # Optional, to upload in a custom context
+                context: default # Optional, to upload in a custom context
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

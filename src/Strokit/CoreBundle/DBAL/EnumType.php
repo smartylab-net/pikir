@@ -30,10 +30,11 @@ abstract class EnumType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if ($value >= count($this->values)) {
-            throw new \InvalidArgumentException("Invalid '".$this->name."' value.");
+        if ($value && !in_array($value, $this->values)) {
+            throw new \InvalidArgumentException("Invalid '" . $this->name . "' value.");
         }
-        return $this->values[$value];
+
+        return $value;
     }
 
     public static function getArray()

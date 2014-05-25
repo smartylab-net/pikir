@@ -6,7 +6,12 @@
     </br>{{ complaint.text }}
     </br>
     {% for i in 1..10 %}
-        <div class="{% if i <= complaint.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
+    {% if (i<complaint.rating) %}
+        <img src="{{ asset('public/images/img/star-on.png') }}">
+    {% else %}
+        <img src="{{ asset('public/images/img/star-off.png') }}">
+    {% endif %}
     {% endfor %}
     <div class="clear"></div>
+
 </div>

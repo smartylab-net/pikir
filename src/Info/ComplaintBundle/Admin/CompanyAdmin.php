@@ -16,7 +16,8 @@ class CompanyAdmin extends Admin
            ->add('manager','sonata_type_model_list')
            ->add('logo', 'sonata_type_model_list', array('required'=>false ,'label' => 'Логотип компании'), array('link_parameters' => array('context' =>'company')))
            ->add('annotation', 'textarea', array('label' => 'Описание компании'))
-           ->add('address', 'text', array('label' => 'Адрес компании'))           
+           ->add('address', 'text', array('label' => 'Адрес компании'))
+           ->add('category', 'sonata_type_model_list',array('label' => 'Категория'))
        ;
    }
 
@@ -37,7 +38,7 @@ class CompanyAdmin extends Admin
    {
        $listMapper
            ->addIdentifier('name')
-          ->add('logo')
+           ->add('logo')
            ->add('annotation')
            ->add('address')
 

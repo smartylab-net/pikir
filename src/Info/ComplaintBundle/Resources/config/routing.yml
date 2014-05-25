@@ -2,14 +2,47 @@ info_company:
   resource: "@InfoComplaintBundle/Resources/config/company/routing.yml"
   prefix:   /company
 
+info_complaint_homepage:
+    pattern:  /
+    defaults: { _controller: InfoComplaintBundle:Default:home }
+
 info_complaint_create:
     pattern:  /complaint_create/
     defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
 
+info_complaint_subcategory:
+    pattern: /subcategory/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showCategory }
+
+info_complaint_category:
+    pattern:  /category/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }
+
 info_complaint_list:
-    pattern:  /allComplaint
+    pattern:  /allComplaint/
     defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
 
+info_complaint_company_list:
+    pattern:  /companiesBy/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCompanies}
+
+SearchEngineBundle_search:
+    pattern:   /search/
+    defaults:  { _controller: InfoComplaintBundle:Search:search }
+
+SearchEngineBundle_results:
+    pattern:   /results/
+    defaults:  { _controller: InfoComplaintBundle:Search:getResults }
+
+search_autocomplete:
+    pattern:   /search_autocomplete/
+    defaults:  { _controller: InfoComplaintBundle:Search:complete }
+
+search_auto:
+    pattern:   /autocomplete/
+    defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
+    options:
+      expose: true
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
     prefix:   /manager

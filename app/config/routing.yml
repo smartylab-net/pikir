@@ -67,3 +67,10 @@ cke_sonata_admin_upload:
     defaults: { _controller: CoopTilleulsCKEditorSonataMediaBundle:MediaAdminController:upload }
     options:
         expose: true
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+facebook_login:
+    pattern: /login/check-facebook

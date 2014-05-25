@@ -16,9 +16,9 @@ class ComplaintController extends Controller
         $form = $this->createForm(new ComplaintType(), $complaint);
         if ($request->isMethod('post')) {
             $form->submit($request);
-            if ($form->isValid()) {
+            if($form->isValid()){
                 $em = $this->getDoctrine()->getManager();
-                $complaint->setCreated(new \DateTime());
+                $complaint->setCreated (new \DateTime());
                 $em->persist($complaint);
                 $em->flush();
                 return $this->redirect($this->generateUrl('info_complaint_create'));
@@ -26,7 +26,7 @@ class ComplaintController extends Controller
         }
         $companyRepository = $this->getDoctrine()->getManager()
             ->getRepository('InfoComplaintBundle:Complaint');
-        $companies = $companyRepository
+        $companies=$companyRepository
             ->findAll();
 
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
@@ -37,11 +37,11 @@ class ComplaintController extends Controller
 
     public function allComplaintAction()
     {
-        $posts = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->findAll();
-
-        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array(
-            'posts' => $posts
-        ));
+        $postRepository = $this->getDoctrine()->getManager()
+            ->getRepository('InfoComplaintBundle:Complaint');
+        $complaintList = $postRepository
+            ->findAll();
+        return $this->render('InfoComplaintBundle:Complaint:allComplaint.html.twig', array('complaintlist' => $complaintList));
     }
 
     public function getComplaintAction($id)

@@ -29,7 +29,7 @@ class Company
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="logo", referencedColumnName="id")
      * })
@@ -57,6 +57,14 @@ class Company
      * })
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $manager;
 
     /**
      * @ORM\OneToMany(targetEntity="Complaint", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
@@ -150,6 +158,22 @@ class Company
     public function setAddress($address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setManager($user)
+    {
+        $this->manager = $user;
     }
 
     public function __toString()

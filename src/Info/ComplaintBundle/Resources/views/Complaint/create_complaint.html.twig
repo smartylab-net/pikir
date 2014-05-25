@@ -3,14 +3,15 @@
     {{ parent() }}
     <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
-    <script src="{{ asset('bundles/infocomplaint/js/jquery_rating.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/com-rating.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
     <script type="text/javascript">
-        $(function(){
-            $('#rating_1').rating({
-                fx: 'full',
+        $(function () {
+            Rating.init({
                 image: '{{ asset('public/images/stars.png') }}',
-                width: 32,
-                stars:10
+                loadImg: '{{ asset('public/images/ajax-loader.gif') }}',
+                idRating: 'rating_1',
+                idHidden: 'Complaint_rating'
             });
         });
     </script>
@@ -25,42 +26,42 @@
 
 
 {% block body %}
-{{ form_start(form) }}
-
-<div >
-    <label>Company name</label>
+    {{ form_start(form) }}
 
     <div>
-        {{ form_widget(form.company) }}
-    </div>
-</div>
+        <label>Company name</label>
 
-<div>
-    <label>Title</label>
+        <div>
+            {{ form_widget(form.company) }}
+        </div>
+    </div>
 
     <div>
-        {{ form_widget(form.title) }}
-    </div>
-</div>
+        <label>Title</label>
 
-<div>
-    <label>Text</label>
+        <div>
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
 
     <div>
-        {{ form_widget(form.text) }}
-    </div>
-</div>
+        <label>Text</label>
 
-<div class="wrap">
-
-    <label>Rating</label>
-
-    <div id="rating_1">
-        <input type="hidden" class="votes" value="2"/>
-        {{ form_widget(form.rating) }}
+        <div>
+            {{ form_widget(form.text) }}
+        </div>
     </div>
 
+    <div class="wrap">
 
-{{ form_end(form) }}
+        <label>Rating</label>
+
+        <div id="rating_1">
+        </div>
+        {{ form_widget(form.rating,{'attr':{'class':'val'} }) }}
+    </div>
+
+
+    {{ form_end(form) }}
 
 {% endblock %}

@@ -25,7 +25,7 @@
 {% block body %}
     <div class="panel panel-default">
         {% for post in posts %}
-           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'post':post}) }}
+           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaints}) }}
         {% endfor %}
     </div>
 {% endblock %}

@@ -23,3 +23,9 @@ services:
       - ~
     calls:
       - [ setTranslationDomain, [InfoComplaintBundle]]
+      
+    strokit.company_type:
+        class: Info\ComplaintBundle\Form\CompanyType
+        arguments: []
+        tags:
+            - { name: form.type, alias: company_type }

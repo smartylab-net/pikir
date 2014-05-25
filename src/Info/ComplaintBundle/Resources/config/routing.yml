@@ -34,16 +34,19 @@ SearchEngineBundle_results:
     pattern:   /results/
     defaults:  { _controller: InfoComplaintBundle:Search:getResults }
 
-search_autocomplete:
-    pattern:   /search_autocomplete/
-    defaults:  { _controller: InfoComplaintBundle:Search:complete }
 
 search_auto:
     pattern:   /autocomplete/
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
       expose: true
+      
+info_manager:
+    resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
+    prefix:   /manager
 
 info_complaint_complaint:
     pattern:  /complaint/{id}
     defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
+    options:
+      expose: true

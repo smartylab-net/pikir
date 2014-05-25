@@ -5,6 +5,15 @@
             <h4>{{ complaint.title }}</h4>
             {{ complaint.author }}  |  {{ complaint.created|format_date }}  |  {{ complaint.id }}
         </div>
+        <div class="panel-body">{{ post.text }}
+        </br>
+        {% for i in 1..10 %}
+            {% if (i<post.rating) %}
+                <img src="{{ asset('public/images/img/star-on.png') }}">
+            {% else %}
+                <img src="{{ asset('public/images/img/star-off.png') }}">
+            {% endif %}
+        {% endfor %}
         <div class="panel-body">{{ complaint.text }}
             <div class="clear"></div>
         </div>

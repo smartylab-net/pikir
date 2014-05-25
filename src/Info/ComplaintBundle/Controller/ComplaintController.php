@@ -32,7 +32,7 @@ class ComplaintController extends Controller
                 }
                 $em->persist($complaint);
                 $em->flush();
-                return $this->redirect($this->generateUrl('info_complaint_create'));
+                return $this->redirect($this->generateUrl('info_complaint_list'));
             }
         }
         $companyRepository = $this->getDoctrine()->getManager()

@@ -1,16 +1,16 @@
 <div class="panel panel-default">
-    </br><a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.title }}</a>
-    </br>{{ complaint.author }}
-    </br>{{ complaint.created|format_date }}
-    </br>{{ complaint.id }}
-    </br>{{ complaint.text }}
+    <div class="panel-heading">
+        <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h4>{{ complaint.title }}</h4></a>
+        {{ complaint.author }}  |  {{ complaint.created|format_date }}  |  {{ complaint.id }}
+    </div>
+    {{ complaint.text }}
     </br>
     {% for i in 1..10 %}
-    {% if (i<complaint.rating) %}
-        <img src="{{ asset('public/images/img/star-on.png') }}">
-    {% else %}
-        <img src="{{ asset('public/images/img/star-off.png') }}">
-    {% endif %}
+        {% if (i<complaint.rating) %}
+            <img src="{{ asset('public/images/img/star-on.png') }}">
+        {% else %}
+            <img src="{{ asset('public/images/img/star-off.png') }}">
+        {% endif %}
     {% endfor %}
     <div class="clear"></div>
 

@@ -21,3 +21,24 @@ div.vote-stars{
 .ui-autocomplete-loading {
     background: white url('image.gif') right center no-repeat;
 }
+
+.padding-top15 {
+    padding-top: 15px;
+}
+
+.red{
+    color:#CC0000;
+    font-size: 0.6em;
+    }
+.green{
+    color:#009933;
+    font-size: 0.6em;
+}
+
+.panel-reg{
+    height: 290px!important;
+    padding-right: 10px;
+}
+.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{
+    width: 350px;
+}

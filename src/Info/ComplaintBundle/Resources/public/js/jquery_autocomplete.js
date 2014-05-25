@@ -27,6 +27,7 @@ $(function(){
                     .appendTo( this.wrapper )
                     .val( value )
                     .attr( "title", "" )
+                    .attr( "name", "company" )
                     .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
                     .autocomplete({
                         delay: 0,
@@ -119,10 +120,10 @@ $(function(){
                 }
 
                 // Remove invalid value
-                this.input
-                    .val( "" )
-                    .attr( "title", value + " didn't match any item" )
-                    .tooltip( "open" );
+//                this.input
+//                    .val( "" )
+//                    .attr( "title", value + " didn't match any item" )
+//                    .tooltip( "open" );
                 this.element.val( "" );
                 this._delay(function() {
                     this.input.tooltip( "close" ).attr( "title", "" );

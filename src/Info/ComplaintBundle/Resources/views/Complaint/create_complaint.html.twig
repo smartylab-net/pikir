@@ -1,10 +1,7 @@
 {% extends "::base.html.twig" %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('bundles/infocomplaint/js/jquery.rating.min.js') }}"></script>
-    <script src="{{ asset('bundles/infocomplaint/js/com-rating.js') }}"></script>
-    <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+
     <script type="text/javascript">
         $(function () {
             Rating.init({
@@ -21,7 +18,7 @@
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/infocomplaint//css/jquery.rating.css') }}">
+
 {% endblock %}
 
 
@@ -60,7 +57,6 @@
         </div>
         {{ form_widget(form.rating,{'attr':{'class':'val'} }) }}
     </div>
-
 
     {{ form_end(form) }}
 

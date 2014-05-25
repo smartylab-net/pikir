@@ -2,6 +2,10 @@ info_complaint:
     resource: "@InfoComplaintBundle/Resources/config/routing.yml"
     prefix:   /
 
+nurix_page:
+    resource: "@InfoPageBundle/Resources/config/routing.yml"
+    prefix:   /
+
 strokit_core:
     resource: "@StrokitCoreBundle/Resources/config/routing.yml"
     prefix:   /

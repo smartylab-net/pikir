@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Entity;
 
+use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -32,15 +33,6 @@ class Complaint
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
-     */
-
-    private $user;
-
-    /**
      * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\Comment", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $comments;
@@ -52,10 +44,13 @@ class Complaint
      */
     private $title;
 
+
     /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @var User
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * })
      */
     private $author;
 
@@ -63,10 +58,6 @@ class Complaint
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
-
-    /**
-     * @ORM\
-     */
 
     /**
      * @var string
@@ -195,23 +186,6 @@ class Complaint
         return $this->created;
     }
 
-
-    /**
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param string $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
-
     /**
      * @return mixed
      */
@@ -231,16 +205,16 @@ class Complaint
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getAuthor()
     {
-        return $this->user;
+        return $this->author;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $author
      */
-    public function setUser($user)
+    public function setAuthor($author)
     {
-        $this->user = $user;
+        $this->author = $author;
     }
 }

@@ -3,7 +3,7 @@
             <div class="col-md-6">
                 <div class="thumbnail" style="margin-top:20px; margin-left:15px">
                     <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
-                        {% thumbnail company.logo, 'medium' %}
+                        {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
                     </a>
                 </div>
             </div>

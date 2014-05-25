@@ -11,7 +11,7 @@
 
                         <div class="col-md-2">
                             <div class="thumbnail" style="margin-top:20px; margin-left:15px">
-                              {% thumbnail company.logo, 'medium' %}
+                                {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
                             </div>
                         </div>
 

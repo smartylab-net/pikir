@@ -47,10 +47,10 @@ class ComplaintController extends Controller
     public function getComplaintAction($id)
     {
 
-        $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+        $complaintlist = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
 
         return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
-            'post' => $post
+            'complaint' => $complaintlist
         ));
     }
 }

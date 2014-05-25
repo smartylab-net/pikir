@@ -6,7 +6,7 @@
             {{ complaint.author }}  |  {{ complaint.created|format_date }}  |  {{ complaint.id }}
         </div>
         <div class="panel-body">
-            {{ complaint.text }}</br>
+            {{ complaint.text }}<br/>
             {% for i in 1..10 %}
                 {% if (i<complaint.rating) %}
                     <img src="{{ asset('public/images/img/star-on.png') }}">
@@ -22,5 +22,5 @@
     {% for treeComment in treeComments %}
         {{ treeComment|raw }}
     {% endfor %}
-    {{ render(controller('InfoCommentBundle:Default:form', { 'complaint': post.id })) }}
+    {{ render(controller('InfoCommentBundle:Default:form', { 'complaint': complaint.id })) }}
 {% endblock %}

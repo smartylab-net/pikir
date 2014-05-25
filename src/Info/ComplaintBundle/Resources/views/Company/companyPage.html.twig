@@ -30,27 +30,27 @@
                             <div class="container">
 
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                             <h4><small>
-                                                Общая жалоба:
+                                                Описание компании:
                                             </small></h4>
-                                            <h4>300</h4>
+                                            <h4>{{ company.annotation }}</h4>
 
                                     </div>
                                     <div class="col-md-2">
                                             <h4><small>
-                                                Ответили на жалобу:
+                                                Количество отзывов:
                                             </small></h4>
-                                            <h4>300</h4>
+                                            <h4>{{ company.complaints|length }}</h4>
 
                                     </div>
-                                    <div class="col-md-2">
-                                            <h4><small>
-                                                Всего благодарностей:
-                                            </small></h4>
-                                            <h4>300</h4>
+                                    {#<div class="col-md-2">#}
+                                            {#<h4><small>#}
+                                                {#Всего благодарностей:#}
+                                            {#</small></h4>#}
+                                            {#<h4>300</h4>#}
 
-                                    </div>
+                                    {#</div>#}
 
                                     <div class="col-md-1">
                                             <h4><small>

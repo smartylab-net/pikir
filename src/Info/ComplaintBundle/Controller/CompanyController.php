@@ -20,15 +20,12 @@ class CompanyController extends Controller
     	}
 		
 		$complaintList = $complaintRepository->findByCompany($id);
-//    	if(!$complaintList)
-//    	{
-//    		throw $this->createNotFoundException('The complaintList does not exist');
-//    	}
 
         $average = $companyRepository->getComplaintsAverageRating($id);
       
         return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$average[0][1]));
     }
+
     public function showAllCompaniesAction($id)
     {
         $companies = $this->getDoctrine()
@@ -42,7 +39,7 @@ class CompanyController extends Controller
         return $this->render('InfoComplaintBundle:Company:companies_list.html.twig', array('companies' => $companies));
     }
 
-        public function showAllCategoriesAction()
+    public function showAllCategoriesAction()
     {
         $categories = $this->getDoctrine()
             ->getRepository("ApplicationSonataClassificationBundle:Category")
@@ -51,7 +48,7 @@ class CompanyController extends Controller
         return $this->render('InfoComplaintBundle:HomePage:categories.html.twig', array('categories' => $categories));
     }
 
-        public function showCategoryAction($id)
+    public function showCategoryAction($id)
     {
         $subcategory = $this->getDoctrine()
             ->getRepository("ApplicationSonataClassificationBundle:Category")

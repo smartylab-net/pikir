@@ -39,14 +39,14 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="annotation", type="text")
+     * @ORM\Column(name="annotation", type="text", nullable=false)
      */
     private $annotation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string")
+     * @ORM\Column(name="address", type="string", nullable=false)
      */
     private $address;
 
@@ -70,6 +70,88 @@ class Company
      * @ORM\OneToMany(targetEntity="Complaint", mappedBy="company", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $complaints;
+    
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="approved", type="boolean")
+     */
+    private $approved;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
+
+    /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    public function __construct()
+    {
+        $this->approved = false;
+        $this->enabled = true;
+        $this->created = new \DateTime();
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled = true)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
+    /**
+     * @param boolean $approved
+     */
+    public function setApproved($approved = false)
+    {
+        $this->approved = $approved;
+    }
+
     /**
      * Get id
      *

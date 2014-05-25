@@ -1,15 +1,15 @@
 {% extends "::base.html.twig" %}
 {% block body %}
     <div class="panel panel-default">
-        </br>{{ post.title }}
-        </br>{{ post.author }}
-        </br>{{ post.created|format_date }}
-        </br>{{ post.id }}
-        </br>{{ post.text }}
-        </br>
-        {% for i in 1..10 %}
-            <div class="{% if i <= post.rating %} vote-active {{ i }}{% else %} vote-stars {% endif %}"></div>
-        {% endfor %}
-        <div class="clear"></div>
+        <div class="panel-heading"><h4>{{ post.title }}</h4>
+            </br>{{ post.author }}  |  {{ post.created|format_date }}  |  {{ post.id }}
+        </div>
+        <div class="panel-body">{{ post.text }}
+            </br>
+            {% for i in 1..10 %}
+                <div class="{% if i <= post.rating %} vote-active {% else %} vote-stars {% endif %}"></div>
+            {% endfor %}
+            <div class="clear"></div>
+        </div>
     </div>
 {% endblock %}

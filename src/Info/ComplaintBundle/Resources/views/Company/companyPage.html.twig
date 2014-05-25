@@ -67,7 +67,7 @@
                                         </a>
                                     {% endif %}
                                     <a class="btn"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">
-                                        Добавить жалобу
+                                        Добавить отзыв
                                     </a>
                                     </div>
 
@@ -82,7 +82,7 @@
             </div>
 
             <div class="container">
-
+            <h2>Отзывы</h2>
                 {%for complaint in complaintlist %}
                     {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint}) }}
                 {% endfor %}

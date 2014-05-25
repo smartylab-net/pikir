@@ -13,10 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 class ComplaintController extends Controller
 {
 
-    public function complaintAction(Request $request)
+    public function complaintAction($id)
     {
         $complaint = new Complaint();
+        if ($id != null)
+            $complaint->setCompany($this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->find($id));
         $form = $this->createForm(new ComplaintType(), $complaint);
+        $request = $this->getRequest();
         if ($request->isMethod('post')) {
             $form->submit($request);
             if($form->isValid()){

@@ -8,23 +8,23 @@
                 <div class="thumbnail">
 
                     <div class="row">
-                        
+
                         <div class="col-md-2">
                             <div class="thumbnail" style="margin-top:20px; margin-left:15px">
                               {% thumbnail company.logo, 'medium' %}
                             </div>
                         </div>
-                        
+
                         <div class="col-md-10">
 
                             <div class="container">
-                                <h3>{{company.name}} 
-                                    <span 
+                                <h3>{{company.name}}
+                                    <span
                                         title="{{ company.approved ? "Подтвержденный" : "Неподтвержденный" }}"
                                         class="glyphicon {{ company.approved ? "glyphicon-ok-circle green" : "glyphicon-ban-circle red"}}">
                                     </span>
-                                </h3>     
-                                                           
+                                </h3>
+
                             </div>
 
                             <div class="container">
@@ -35,48 +35,48 @@
                                                 Общая жалоба:
                                             </small></h4>
                                             <h4>300</h4>
-                                        
+
                                     </div>
                                     <div class="col-md-2">
                                             <h4><small>
                                                 Ответили на жалобу:
                                             </small></h4>
                                             <h4>300</h4>
-                                        
+
                                     </div>
                                     <div class="col-md-2">
                                             <h4><small>
                                                 Всего благодарностей:
                                             </small></h4>
                                             <h4>300</h4>
-                                        
+
                                     </div>
-                                    
+
                                     <div class="col-md-1">
                                             <h4><small>
                                                 Рейтинг
                                             </small></h4>
                                             <h4>{{average}}</h4>
-                                       
+
                                     </div>
 
                                     <div class="col-md-3">
                                     {% if company.manager != null and app.user != null and company.manager == app.user %}
-                                        <a class="btn" href="{{ path('info_manager_company_edit',{ 'company':company }) }}">
+                                        <a class="btn" href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}">
                                             Редактировать данные компании
                                         </a>
                                     {% endif %}
-                                    <a class="btn"  href="{{ path("info_complaint_create") }}">
+                                    <a class="btn"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">
                                         Добавить жалобу
                                     </a>
                                     </div>
-                                    
+
                                 </div>
-                            
+
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

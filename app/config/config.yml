@@ -110,7 +110,7 @@ sonata_user:
         menu:
             - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
             - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
-            - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
+            - { route: 'sonata_user_change_password', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
 
 sonata_block:
     default_contexts: [cms]
@@ -195,8 +195,8 @@ hwi_oauth:
     resource_owners:
         facebook:
             type:                facebook
-            client_id:           298561750303681
-            client_secret:       95d93472eedae3909672339f386031db
+            client_id:           %facebook_client_id%
+            client_secret:       %facebook_client_secret%
             scope:               "email"
 
     fosub:

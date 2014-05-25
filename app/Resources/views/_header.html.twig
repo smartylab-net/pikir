@@ -18,8 +18,12 @@
                                 <input id="searching" class="form-control col-lg-8" placeholder="Search" type="text">
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ path('sonata_user_security_login') }}">Login</a></li>
-                                {#<li><a href="{{ path('sonata_user_registration_register') }}">Register</a></li>#}
+                                {% if not app.user %}
+                                <li><a href="{{ path('sonata_user_security_login') }}">Войти</a></li>
+                                {% else %}
+                                <li><a href="{{ path('sonata_user_profile_show') }}">Профиль</a></li>
+                                <li><a href="{{ path('sonata_user_security_logout') }}">Выйти</a></li>
+                                {% endif %}
                             </ul>
                         </div>
 

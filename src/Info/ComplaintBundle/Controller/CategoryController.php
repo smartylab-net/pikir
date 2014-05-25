@@ -30,15 +30,13 @@ class CategoryController extends Controller
                 throw $this->createNotFoundException('Page not found 404');
         }
 
-        $cookieQuantity = $this->getRequest()->cookies->get("cookieQuantity", 12);
-
         $paginate = $companyRepository->getCompany($cId);
 
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator
             ->paginate($paginate,
-            $this->get('request')->query->get('page', 1), $cookieQuantity);
+            $this->get('request')->query->get('page', 1), 12);
 
         $pagination->setUsedRoute('info_complaint_category');
 

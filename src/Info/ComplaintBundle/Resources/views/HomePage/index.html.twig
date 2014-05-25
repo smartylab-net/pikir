@@ -4,33 +4,25 @@
         <div class="col-md-12 column">
             <div class="jumbotron">
                 <h1>
-                    Hello, world!
+                    Всем привет!
                 </h1>
 
                 <p>
-                    This is a template for a simple marketing or informational website. It includes a large callout
-                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
-                    something more unique.
+                    На нашем сайте Вы можете оставить отзыв на любую понравившуюся или наоборот непонравившуюся компанию.
+                    Также Вы сможете получить ответ от компании на свой отзыв.
                 </p>
 
                 <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
+                    Компании же могут через наш сайт наладить линию обратной связи с клиентами.
+                </p>
+
+                <p>
+                    <a class="btn btn-primary btn-large" href="{{ path('info_complaint_create') }}">Оставить отзыв</a>
                 </p>
             </div>
         </div>
     </div>
-    <div class="row clearfix main-actions">
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-success btn-lg btn-block"><i class="icon-check"></i> Оставить отзыв</button>
-        </div>
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-danger btn-lg btn-block"><i class="icon-thumbs-down-alt"></i> Оставить жалобу</button>
-        </div>
-        <div class="col-md-4 column">
-            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="icon-edit"></i> Оставить предложение</button>
-        </div>
-    </div>
 
-    {#{% render controller('InfoComplaintBundle:Company:showAllCategories')%}#}
+    {% render controller('InfoComplaintBundle:Company:lastAddedCompanies')%}
 
 {% endblock %}

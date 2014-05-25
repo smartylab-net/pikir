@@ -36,6 +36,7 @@ class MenuBuilder extends ContainerAware
         $menu->setCurrentUri($request->getRequestUri());
         $menu->setChildrenAttribute('class','nav navbar-nav');
         $menu->addChild('Home', array('route' => 'info_complaint_homepage','label'=>'Главная'));
+        $menu->addChild('Companies', array('route' => 'info_complaint_category','label'=>'Все компании'));
         $menu->addChild('Complaint', array('route' => 'info_complaint_create','label'=>'Добавить отзыв'));
 //        $menu->addChild('Catalog', array('route' => 'nurix_goods_get_catalog','routeParameters'=>array('cid'=>null),'label'=>'Каталог'));
 

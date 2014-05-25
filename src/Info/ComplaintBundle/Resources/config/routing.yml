@@ -7,8 +7,8 @@ info_complaint_homepage:
     defaults: { _controller: InfoComplaintBundle:Default:home }
 
 info_complaint_create:
-    pattern:  /complaint/create/
-    defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
+    pattern:  /complaint/create/{id}
+    defaults: { _controller: InfoComplaintBundle:Complaint:complaint, id:null }
 
 info_complaint_category:
     pattern:  /category/{cId}

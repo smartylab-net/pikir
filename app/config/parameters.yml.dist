@@ -12,3 +12,5 @@ parameters:
     locale: ru
     secret: ghGYg&8987%4asd$4567asd6^&*dsa
     upload_dir: /uploads/media
+    facebook_client_id: 844041712274489
+    facebook_client_secret: ac23acb9c864e2ad216f8b4fc3aa891d

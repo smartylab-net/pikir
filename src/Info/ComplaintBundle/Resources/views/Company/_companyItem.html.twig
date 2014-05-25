@@ -1,0 +1,32 @@
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="thumbnail" style="margin-top:20px; margin-left:15px">
+                    <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
+                        {% thumbnail company.logo, 'medium' %}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="row">
+                    <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
+                        <h3>{{company.name}}
+                        <span
+                                title="{{ company.approved ? "Подтвержденный" : "Неподтвержденный" }}"
+                                class="glyphicon {{ company.approved ? "glyphicon-ok-circle green" : "glyphicon-ban-circle red"}}">
+                        </span>
+                        </h3>
+                    </a>
+
+                </div>
+                <div class="row">
+                    <a class="btn btn-primary"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">
+                        Добавить жалобу
+                    </a>
+                </div>
+
+            </div>
+
+        </div>

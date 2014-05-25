@@ -45,8 +45,8 @@ class CompanyRepository extends EntityRepository
             $categoryQuery = $this->getEntityManager()->getRepository('ApplicationSonataClassificationBundle:Category')
                 ->createQueryBuilder('c')
                 ->select('c.id')
-                ->where('c.parent = :c.parent')
-                ->setParameter(':c.parent',$cId)
+                ->where('c.parent = :cparent')
+                ->setParameter(':cparent',$cId)
                 ->getDQL();
 
             $query = $this->createQueryBuilder('q')

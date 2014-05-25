@@ -4,170 +4,19 @@
     {% if pagination.getTotalItemCount > 0 %}
         <div class="row">
 
-            <aside class="span3">
-
-                <div class="categories">
-                    <div class="titleHeader clearfix">
-                        <h3>{{ title }}</h3>
-                    </div>
-                    <!--end titleHeader-->
-                    {{ knp_menu_render('catalog_side_menu', {'currentClass': 'active','ancestorClass': 'active','template':'catalog_side_menu.html.twig'}) }}
+            {% for company in pagination %}
+                <div class="col-md-6">
+                {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
                 </div>
-                <!--end categories-->
-                {#
-                            <div class="pro-range-slider">
-                                <div class="titleHeader clearfix">
-                                    <h3>Shop By Price</h3>
-                                </div>
-                                <!--end titleHeader-->
-                                <div class="price-range">
-                                    <p class="clearfix">
-                                        <label>Price:</label>
-                                        <input type="text" id="amount">
-                                    </p>
-
-                                    <div id="slider-range"></div>
-                                </div>
-                            </div>
-                            <!--end pro-range-slider-->
-
-
-                            <div class="special">
-                                <div class="titleHeader clearfix">
-                                    <h3>Special</h3>
-                                </div>
-                                <!--end titleHeader-->
-
-                                <ul class="vProductItemsTiny">
-                                    <li class="span4 clearfix">
-                                        <div class="thumbImage">
-                                            <a href=""><img src="{{ asset('public/img/92x92.jpg') }}" alt=""></a>
-                                        </div>
-                                        <div class="thumbSetting">
-                                            <div class="thumbTitle">
-                                                <a href="#" class="invarseColor">
-                                                    Foliomania the title here
-                                                </a>
-                                            </div>
-                                            <div class="thumbPrice">
-                                                <span>$150.00</span>
-                                            </div>
-                                            <ul class="rating">
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="span4 clearfix">
-                                        <div class="thumbImage">
-                                            <a href=""><img src="{{ asset('public/img/92x92.jpg') }}" alt=""></a>
-                                        </div>
-                                        <div class="thumbSetting">
-                                            <div class="thumbTitle">
-                                                <a href="#" class="invarseColor">
-                                                    Foliomania the designer portfolio
-                                                </a>
-                                            </div>
-                                            <div class="thumbPrice">
-                                                <span>$150.00</span>
-                                            </div>
-                                            <ul class="rating">
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="span4 clearfix">
-                                        <div class="thumbImage">
-                                            <a href=""><img src="{{ asset('public/img/92x92.jpg') }}" alt=""></a>
-                                        </div>
-                                        <div class="thumbSetting">
-                                            <div class="thumbTitle">
-                                                <a href="#" class="invarseColor">
-                                                    Foliomania the designer portfolio
-                                                </a>
-                                            </div>
-                                            <div class="thumbPrice">
-                                                <span>$150.00</span>
-                                            </div>
-                                            <ul class="rating">
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-on"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                                <li><i class="star-off"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="span4 clearfix">
-                                        <div class="thumbImage">
-                                            <a href=""><img src="{{ asset('public/img/92x92.jpg') }}" alt=""></a>
-                                        </div>
-                                        <div class="thumbSetting">
-                                            <div class="thumbTitle">
-                                                <a href="#" class="invarseColor">
-                                                    Foliomania the designer portfolio
-                                                </a>
-                                            </div>
-                                            <div class="thumbPrice">
-                                                <span>$150.00</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--end special-->
-                            #}
-
-            </aside>
-            <!--end aside-->
-
-
-            <div class="span9">
-                {#
-                            <div id="productSlider" class="carousel slide">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    <div class="active item"><img src="{{ asset('public/img/694x240.jpg') }}" alt=""></div>
-                                    <div class="item"><img src="{{ asset('public/img/694x240.jpg') }}" alt=""></div>
-                                    <div class="item"><img src="{{ asset('public/img/694x240.jpg') }}" alt=""></div>
-                                </div>
-
-                                <!-- Carousel nav -->
-                                <a class="carousel-control left" href="#productSlider" data-slide="prev">&lsaquo;</a>
-                                <a class="carousel-control right" href="#productSlider" data-slide="next">&rsaquo;</a>
-                            </div>
-                            <!--end productSlider-->
-                #}
-
-                {{ include('CatalogBundle:Content:_catalog_header.html.twig') }}
-
-                <!--end productFilter-->
-                <div class="row">
-                    <ul class="hProductItems clearfix">
-                        {% for product in pagination %}
-                            {% include  "CatalogBundle:Content:_item_"~app.request.cookies.get('cookieCatalogStyle','grid')~".html.twig" with {'product':product} %}
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!--end row-->
-                <div class="pagination pagination-right">
-                    {{ knp_pagination_render(pagination,'CatalogBundle:Pagination:pagination.html.twig') }}
-                </div>
-                <!--end pagination-->
-            </div>
-            <!--end span9-->
+            {% endfor %}
         </div>
         <!--end row-->
+        <div class="pagination pagination-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     {% else %}
         <h2>
-            В этой категории товаров пока нет
+            В этой категории компаний пока нет
         </h2>
     {% endif %}
 {% endblock %}

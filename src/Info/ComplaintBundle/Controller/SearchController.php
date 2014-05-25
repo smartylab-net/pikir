@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Repository;
 use Info\ComplaintBundle\Form\SearchType;
+use Info\ComplaintBundle\Form\SearchHandler;
 
 class SearchController extends Controller
 {

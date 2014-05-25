@@ -39,14 +39,14 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="annotation", type="text")
+     * @ORM\Column(name="annotation", type="text", nullable=false)
      */
     private $annotation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string")
+     * @ORM\Column(name="address", type="string", nullable=false)
      */
     private $address;
 

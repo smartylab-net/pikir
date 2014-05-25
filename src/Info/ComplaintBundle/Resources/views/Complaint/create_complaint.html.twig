@@ -5,52 +5,57 @@
     <script type="text/javascript">
         $(function () {
             $('#fixed').raty({
-                readOnly:  false,
+                readOnly: false,
                 starOff: '{{ asset('public/images/img/star-off.png') }}',
                 starOn: '{{ asset('public/images/img/star-on.png') }}',
                 number: 10,
-                click: function(score, evt) {
+                width: 250,
+                click: function (score, evt) {
                     $('#Complaint_rating').val(score);
                 }
             });
         });
     </script>
 {% endblock %}
+
 {% block body %}
-    {{ form_start(form) }}
 
-    <div>
-        <label>Company name</label>
+        {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
 
-        <div>
+
+        <label class="col-lg-2 control-label">Company name</label>
+
+        <div class="form-group">
             {{ form_widget(form.company) }}
         </div>
-    </div>
 
-    <div>
-        <label>Title</label>
 
-        <div>
+        <label class="col-lg-2 control-label">Title</label>
+
+        <div class="form-group">
             {{ form_widget(form.title) }}
         </div>
-    </div>
 
-    <div>
-        <label>Text</label>
 
-        <div>
-            {{ form_widget(form.text) }}
+        <label class="col-lg-2 control-label">Text</label>
+
+        <div class="form-group">
+            {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
         </div>
-    </div>
 
-    <div class="wrap">
 
-        <label>Rating</label>
 
-        <div id="fixed">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Rating</label>
+
+            <div id="fixed" class="col-lg-10">
+            </div>
         </div>
-    </div>
 
-    {{ form_end(form) }}
-
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                {{ form_widget(form.submit) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
 {% endblock %}

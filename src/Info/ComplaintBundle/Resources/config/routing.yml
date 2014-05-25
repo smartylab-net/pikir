@@ -1,3 +1,23 @@
 info_complaint_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: InfoComplaintBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: InfoComplaintBundle:Default:home }
+
+info_complaint_create:
+    pattern:  /create_complaint/
+    defaults: { _controller: InfoComplaintBundle:Complaint:complaint }
+
+info_complaint_subcategory:
+    pattern: /subcategory/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showCategory }
+
+info_complaint_category:
+    pattern:  /category/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCategories }
+
+info_complaint_list:
+    pattern:  /allComplaint/
+    defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+
+info_complaint_company_list:
+    pattern:  /companiesBy/{id}/
+    defaults: { _controller: InfoComplaintBundle:Company:showAllCompanies}

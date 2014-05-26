@@ -5,6 +5,7 @@ namespace Info\ComplaintBundle\Entity;
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Complaint
@@ -62,6 +63,7 @@ class Complaint
      * @var string
      *
      * @ORM\Column(name="text", type="text")
+     * @Assert\NotNull()
      */
     private $text;
 
@@ -69,8 +71,9 @@ class Complaint
      * @var integer
      *
      * @ORM\Column(name="rating", type="integer")
+     * @Assert\NotNull()
      */
-    private $rating;
+    private $rating = 0;
 
     /**
      * Get id

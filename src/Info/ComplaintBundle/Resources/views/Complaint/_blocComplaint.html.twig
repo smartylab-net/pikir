@@ -14,7 +14,7 @@
     <div class="panel-body">
         {{ complaint.text }}<br/>
         {% for i in 1..10 %}
-            {% if (i<complaint.rating) %}
+            {% if (i<=complaint.rating) %}
                 <img src="{{ asset('public/images/img/star-on.png') }}">
             {% else %}
                 <img src="{{ asset('public/images/img/star-off.png') }}">

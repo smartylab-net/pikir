@@ -42,11 +42,20 @@ div.vote-stars{
     color:#009933;
     font-size: 0.6em;
 }
+@media (min-width: 1200px ) {
 
 .panel-reg{
     height: 290px!important;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
-.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{
-    width: 350px;
 }
+@media (min-width: 992px ) {
+
+.panel-reg{
+    height: 318px!important;
+    /*padding-right: 10px;*/
+}
+}
+/*.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{*/
+    /*width: 350px;*/
+/*}*/

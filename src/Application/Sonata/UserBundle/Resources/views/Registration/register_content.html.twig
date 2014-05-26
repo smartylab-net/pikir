@@ -5,8 +5,6 @@
     <div class="panel-body panel-reg">
         <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
 
-            <div class="form-group">
-
 
                 <div class="form-group">
                     {{ form_label(form.username, null, {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
@@ -35,7 +33,6 @@
                         {{ form_widget(form.plainPassword.second, {'attr':{ 'class' : 'form-control' } }) }}
                     </div>
                 </div>
-            </div>
 
             {{ form_rest(form) }}
 

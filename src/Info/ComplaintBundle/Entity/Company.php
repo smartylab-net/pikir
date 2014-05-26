@@ -278,4 +278,17 @@ class Company
     {
         $this->category = $category;
     }
+
+    public function getAverage()
+    {
+
+        $sum = 0;
+        $count = count($this->getComplaints());
+
+        foreach ($this->getComplaints() as $complaint)
+        {
+            $sum +=$complaint->getRating();
+        }
+        return $sum/$count;
+    }
 }

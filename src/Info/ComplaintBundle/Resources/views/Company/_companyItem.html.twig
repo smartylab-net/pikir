@@ -23,6 +23,15 @@
                 </div>
                 <div class="row">
                     <p>Количество отзывов: {{ company.complaints|length ? :0 }}</p>
+                    <p>Рейтинг:
+                        {% for i in 1..10 %}
+                            {% if (i<=company.average) %}
+                                <img src="{{ asset('public/images/img/star-on.png') }}">
+                            {% else %}
+                                <img src="{{ asset('public/images/img/star-off.png') }}">
+                            {% endif %}
+                        {% endfor %}
+                    </p>
                 </div>
                 <div class="row">
                     <a class="btn btn-primary"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">

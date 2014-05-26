@@ -24,8 +24,8 @@ sonata_media:
                 - sonata.media.provider.image
 
             formats:
-                small: { width: 150 , quality: 95}
-                medium: { width: 200 , quality: 145}
+                small: { width: 150 , height:150, quality: 95}
+                medium: { width: 200 , height:200, quality: 145}
                 big:   { width: 500 , quality: 90}
 
     cdn:

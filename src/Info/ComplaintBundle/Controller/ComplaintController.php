@@ -24,6 +24,7 @@ class ComplaintController extends Controller
             if($form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $complaint->setCreated (new \DateTime());
+                $complaint->setAuthor($this->getUser());
                 if(is_null($complaint->getCompany())){
 
                     $company = new Company();
@@ -60,9 +61,9 @@ class ComplaintController extends Controller
     public function getComplaintAction($id)
     {
 
-        $post = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+        $complaint = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
-        $nodes = $commentRep->findBy(array('complaint'=>$post, 'lft'=>1));
+        $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
         $userRep = $this->getDoctrine()->getRepository('ApplicationSonataUserBundle:User');
         $options = array(
             'decorate' => true,
@@ -70,8 +71,8 @@ class ComplaintController extends Controller
             'rootClose' => '</ul>',
             'childOpen' => '<li>',
             'childClose' => '</li>',
-            'nodeDecorator' => function($node) use (&$id,&$commentRep)  {
-                    return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaintId'=>$id,'user'=>$commentRep->find($node['id'])->getUser()));
+            'nodeDecorator' => function($node) use (&$complaint,&$commentRep)  {
+                    return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));
                 }
         );
         $htmlTree = array();
@@ -84,7 +85,7 @@ class ComplaintController extends Controller
             );
 
         return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
-            'complaint' => $post,
+            'complaint' => $complaint,
             'treeComments'   => $htmlTree
         ));
     }

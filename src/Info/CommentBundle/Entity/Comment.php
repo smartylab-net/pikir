@@ -86,6 +86,17 @@ class Comment
     private $user;
 
     /**
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+
+    private $createdAt;
+
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+    /**
      * Get id
      *
      * @return integer 
@@ -231,5 +242,21 @@ class Comment
     public function setChildren($children)
     {
         $this->children = $children;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
     }
 }

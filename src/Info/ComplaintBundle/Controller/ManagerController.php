@@ -31,6 +31,7 @@ class ManagerController extends Controller{
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
+            $id = $company->getId();
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
@@ -48,4 +49,4 @@ class ManagerController extends Controller{
 
         return $this->render('InfoComplaintBundle:Manager:edit_company.html.twig',array('form'=>$form->createView()));
     }
-} 
+}

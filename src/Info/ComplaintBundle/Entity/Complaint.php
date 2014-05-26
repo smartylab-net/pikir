@@ -25,7 +25,7 @@ class Complaint
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Company", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Company", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      * })
@@ -46,7 +46,7 @@ class Complaint
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      * })

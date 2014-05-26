@@ -68,7 +68,7 @@ class Comment
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="complaint_id", referencedColumnName="id")
      * })
@@ -77,7 +77,7 @@ class Comment
     private $complaint;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id" )
      * })

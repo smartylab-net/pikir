@@ -38,12 +38,12 @@ class ManagerController extends Controller{
                 $em->persist($company);
                 $em->flush();
                 $this->container->get('session')->getFlashBag()->add('manager.company_edit_success', 'Профиль компании обновлен');
-                return $this->redirect($this->generateUrl('info_manager_company_edit',array('id'=>$id)));
+                return $this->redirect($this->generateUrl('info_manager_company_edit',array('company'=>$id)));
             }
             else
             {
                 $this->container->get('session')->getFlashBag()->add('manager.company_edit_error', 'Профиль компании не сохранен, обнаружена ошибка');
-                return $this->redirect($this->generateUrl('info_manager_company_edit',array('id'=>$id)));
+                return $this->redirect($this->generateUrl('info_manager_company_edit',array('company'=>$id)));
             }
         }
 

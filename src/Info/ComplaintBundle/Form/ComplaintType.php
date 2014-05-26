@@ -34,7 +34,7 @@ class ComplaintType extends AbstractType {
                 'empty_value' => '',
                 'required'=>false))
             ->add('title','text',array('label'=>'Тема'),array('required'=>true))
-            ->add('text','textarea',array('label'=>'Текст'),array('required'=>true))
+            ->add('text','ckeditor',array('label'=>'Текст', 'config_name' => 'front_config'),array('required'=>true))
             ->add('rating','hidden',array('required'=>true))
             ->add('submit','submit');
     }

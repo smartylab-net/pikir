@@ -12,7 +12,7 @@
         {{ complaint.author? complaint.author:'Аноним' }}  |  {{ complaint.created|format_date }} | Комментариев: {{ complaint.comments|length? : 0 }}
     </div>
     <div class="panel-body">
-        {{ complaint.text }}<br/>
+        {{ complaint.text|raw }}<br/>
         {% for i in 1..10 %}
             {% if (i<=complaint.rating) %}
                 <img src="{{ asset('public/images/img/star-on.png') }}">

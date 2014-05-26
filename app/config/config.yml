@@ -155,6 +155,8 @@ ivory_ck_editor:
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
                 context: default # Optional, to upload in a custom context
+        front_config: ~
+
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -23,24 +23,28 @@
         {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
 
 
-        <label class="col-lg-2 control-label">Company name</label>
 
         <div class="form-group">
+            <label class="col-lg-2 control-label">Название компании</label>
+            <div class="col-lg-10">
             {{ form_widget(form.company) }}
+            </div>
         </div>
 
 
-        <label class="col-lg-2 control-label">Title</label>
-
         <div class="form-group">
-            {{ form_widget(form.title) }}
+            <label class="col-lg-2 control-label">Заголовок</label>
+            <div class="col-lg-10">
+                {{ form_widget(form.title) }}
+            </div>
         </div>
 
 
-        <label class="col-lg-2 control-label">Text</label>
-
         <div class="form-group">
-            {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
+            <label class="col-lg-2 control-label">Текст</label>
+            <div class="col-lg-10">
+                {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
+            </div>
         </div>
 
 

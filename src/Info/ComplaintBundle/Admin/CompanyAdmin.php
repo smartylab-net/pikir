@@ -15,10 +15,10 @@ class CompanyAdmin extends Admin
            ->add('name', 'text', array('label' => 'Название компании'))
            ->add('enabled',null,array('label'=>'Активность','required'=>false))
            ->add('approved',null,array('label'=>'Подтвержден','required'=>false))
-           ->add('manager','sonata_type_model_list')
+           ->add('manager','sonata_type_model_list', array('required'=>false))
            ->add('logo', 'sonata_type_model_list', array('required'=>false ,'label' => 'Логотип компании'), array('link_parameters' => array('context' =>'company')))
-           ->add('annotation', 'textarea', array('label' => 'Описание компании'))
-           ->add('address', 'text', array('label' => 'Адрес компании'))
+           ->add('annotation', 'textarea', array('required'=>false,'label' => 'Описание компании'))
+           ->add('address', 'text', array('required'=>false, 'label' => 'Адрес компании'))
            ->add('category', 'sonata_type_model_list',array('label' => 'Категория'))
        ;
    }
@@ -28,10 +28,10 @@ class CompanyAdmin extends Admin
    {
        $datagridMapper
            ->add('name')
-           ->add('logo')
+           ->add('enabled',null,array('label'=>'Активность'))
+           ->add('approved',null,array('label'=>'Подтвержден'))
            ->add('annotation')
            ->add('address')
-           ->add('complaints')
        ;
    }
 

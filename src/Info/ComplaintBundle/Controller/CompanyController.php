@@ -66,11 +66,7 @@ class CompanyController extends Controller
 
         $companies = $this->getDoctrine()
             ->getRepository('InfoComplaintBundle:Company')
-            ->findBy(array('enabled'=>true),array('id'=>'desc'),4);
-
-        if (!$companies) {
-            throw $this->createNotFoundException('The companies does not exist');
-        }
+            ->findBy(array('enabled'=>true),array('id'=>'desc'),5);
 
         return $this->render('InfoComplaintBundle:Company:last_companies_list.html.twig', array('companies' => $companies));
     }

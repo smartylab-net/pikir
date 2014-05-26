@@ -59,4 +59,10 @@ class User extends BaseUser
     {
         $this->resource = $facebookId;
     }
+
+    public function __toString()
+    {
+        return $this->getFullname()? :parent::__toString();
+    }
+
 }

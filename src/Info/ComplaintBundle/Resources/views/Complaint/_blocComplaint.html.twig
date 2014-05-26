@@ -7,9 +7,9 @@
             <h2>{{ complaint.title }}</h2>
         {% endif %}
         {% if show_company is defined and show_company == true %}
-            <h4><a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">{{ complaint.company.name }}</a></h4>
+            <h4>Компания: <a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">{{ complaint.company.name }}</a></h4>
         {% endif %}
-        {{ complaint.author }}  |  {{ complaint.created|format_date }}
+        {{ complaint.author? complaint.author:'Аноним' }}  |  {{ complaint.created|format_date }} | Комментариев: {{ complaint.comments|length? : 0 }}
     </div>
     <div class="panel-body">
         {{ complaint.text }}<br/>

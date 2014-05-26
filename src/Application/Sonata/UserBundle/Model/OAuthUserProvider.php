@@ -8,6 +8,7 @@
 
 namespace Application\Sonata\UserBundle\Model;
 
+use Application\Sonata\UserBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface,
     HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface,
     Symfony\Component\Security\Core\User\UserProviderInterface,
@@ -66,12 +67,20 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
         }
 
         if (null === $user) {
+            /** @var $user User */
             $user = new $this->className();
+            //TODO сделать нормально через интерфейсы, но это когда у нас будет больше провайдеров
+            if ($resourceOwnerName == 'facebook')
+            {
+                $responseData = $response->getResponse();
+                $user->setFirstname($responseData['first_name']);
+                $user->setLastname($responseData['last_name']);
+                $user->setFacebookName($response->getRealName());
+            }
+
             $password = $this->generate_password(6);
             $user->setUsername($username);
-//            $user->setResourceUsername($username);
             $user->setResource($resourceOwnerName);
-//            $user->setRealname($realname);
             $user->setEmail($email);
             $user->setLastLogin(new \DateTime());
             $user->setPlainPassword($password);

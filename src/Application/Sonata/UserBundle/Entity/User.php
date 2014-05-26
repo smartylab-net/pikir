@@ -62,7 +62,7 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->getFullname()? :parent::__toString();
+        return trim($this->getFullname())!=''? $this->getFullname():parent::__toString();
     }
 
 }

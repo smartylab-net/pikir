@@ -22,8 +22,8 @@
             </div>
         </div>
     </div>
-
-    {% render controller('InfoComplaintBundle:Company:lastAddedCompanies')%}
+    <div class="row">
     {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints')%}
-
+        {% render controller('InfoComplaintBundle:Company:lastAddedCompanies')%}
+    </div>
 {% endblock %}

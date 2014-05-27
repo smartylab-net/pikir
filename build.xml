@@ -9,6 +9,8 @@
     <property name="appcachedir" location="app/cache"/>
     <property name="makedir" location="${dest_dir}/web/uploads"/>
     <property name="bundledir" location="web/bundles"/>
+    <property name="mail_transport" location="gmail"/>
+    <property name="mail_host" location="null"/>
 
     <target name="replace">
         <replace file="${config}/sonata/media.yml" value="/uploads/media">
@@ -21,10 +23,10 @@
     </target>
 
     <target name="mail" depends="parameters">
-        <replace file="${property}" value="mailer_transport:  gmail">
+        <replace file="${property}" value="mailer_transport:  ${mail_transport}">
             <replacetoken>mailer_transport: smtp</replacetoken>
         </replace>
-        <replace file="${property}" value="mailer_host: null">
+        <replace file="${property}" value="mailer_host: ${mail_host}">
             <replacetoken>mailer_host: localhost</replacetoken>
         </replace>
         <replace file="${property}" value="mailer_user: ${mail_login}">

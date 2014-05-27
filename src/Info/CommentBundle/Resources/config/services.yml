@@ -5,7 +5,7 @@ services:
 #    info_comment.example:
 #        class: %info_comment.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-        sonata.admin.page:
+        sonata.admin.comment:
               class: Info\CommentBundle\Admin\CommentAdmin
               tags:
                   - { name: sonata.admin, manager_type: orm, group: "Comment", label: "Comment" }

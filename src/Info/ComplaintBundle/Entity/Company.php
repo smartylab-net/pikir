@@ -281,7 +281,6 @@ class Company
 
     public function getAverage()
     {
-
         $sum = 0;
         $count = count($this->getComplaints());
 
@@ -289,6 +288,6 @@ class Company
         {
             $sum +=$complaint->getRating();
         }
-        return $sum/$count;
+        return $count?$sum/$count:0;
     }
 }

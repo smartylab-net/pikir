@@ -1,4 +1,4 @@
-<div class="btm-hr">
+<div id="comment_{{ node['id'] }}" class="btm-hr">
     <a class="pull-right" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node['id'] }}" onclick="Comment.showForm($(this)); return false;">Ответить</a>
     <p>
         {{ user? :'Аноним' }} | {{ node['createdAt']|format_datetime }}

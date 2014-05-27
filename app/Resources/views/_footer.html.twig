@@ -1,18 +1,13 @@
 {% block footer %}
-    <div class="row padding-top15">
-        <div class="col-md-12 column">
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="navbar-collapse collapse navbar-inverse-collapse" id="bs-example-navbar-collapse-1">
-                    {{ knp_menu_render('bottom') }}
-                        <p class="navbar-text navbar-right">
-                            <a href="http://strokit.net" target="_blank" class="navbar-link">StrOkIt</a> <span class="text-muted">© 2014</span>
-                        </p>
-                    </div>
-                </div>
-            </nav>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse navbar-inverse-collapse" id="bs-example-navbar-collapse-1">
+            {{ knp_menu_render('bottom') }}
+                <p class="navbar-text navbar-right">
+                    <a href="http://strokit.net" target="_blank" class="navbar-link">StrOkIt</a> <span class="text-muted">© 2014</span>
+                </p>
+            </div>
         </div>
-    </div>
-
+    </nav>
 {% endblock %}

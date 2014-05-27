@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <p>Количество отзывов: {{ company.complaints|length ? :0 }}</p>
-                    <p>Рейтинг:
+                    <p class="w260">Рейтинг:
                         {% for i in 1..10 %}
                             {% if (i<=company.average) %}
                                 <img src="{{ asset('public/images/img/star-on.png') }}">

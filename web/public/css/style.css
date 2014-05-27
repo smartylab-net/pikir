@@ -63,3 +63,7 @@ div.vote-stars{
 /*.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{*/
     /*width: 350px;*/
 /*}*/
+
+.w260{
+    width: 260px;
+}

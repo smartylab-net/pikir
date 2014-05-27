@@ -289,6 +289,9 @@ class Company
         {
             $sum +=$complaint->getRating();
         }
+        if ($count === 0){
+            return 0;
+        }
         return $sum/$count;
     }
 }

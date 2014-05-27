@@ -155,7 +155,8 @@ ivory_ck_editor:
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
                 context: default # Optional, to upload in a custom context
-        front_config: ~
+        front_config:
+            toolbar: standard
 
 
 knp_paginator:

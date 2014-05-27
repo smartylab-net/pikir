@@ -45,7 +45,7 @@ class DefaultController extends Controller
 
     public function replyAction($complaint, $comment){
         $request = $this->getRequest();
-        $newComment = new Comment();
+        /*$newComment = new Comment();
         $form = $this->createForm(new CommentType(), $newComment, array(
             'action' => $this->generateUrl('info_comment_reply', array('comment'=>$comment,'complaint'=>$complaint))
         ));
@@ -72,6 +72,28 @@ class DefaultController extends Controller
         }
         return $this->render('InfoCommentBundle:Default:form.html.twig', array(
             'form'  => $form->createView()
-        ));
+        ));*/
+
+        $commentContent = $request->request->get('comment');
+        if ($request->isMethod("POST") && $commentContent){
+            $em = $this->getDoctrine()->getManager();
+            $repository = $em->getRepository("InfoComplaintBundle:Complaint");
+            $entity = $repository->find($complaint);
+            if (!$entity){
+                $this->createNotFoundException("Жалоба не найдена");
+            }
+            $repository = $em->getRepository("InfoCommentBundle:Comment");
+            $entity = $repository->find($comment);
+            if (!$entity){
+                $this->createNotFoundException("Комментарий не найден");
+            }
+            $newComment = new Comment();
+            $newComment->setUser($this->getUser());
+            $newComment->setParent($entity);
+            $newComment->setComment($commentContent);
+            $em->persist($newComment);
+            $em->flush();
+        }
+        return $this->redirect($this->generateUrl('info_complaint_complaint', array('id'=>$complaint)));
     }
 }

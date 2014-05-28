@@ -96,7 +96,8 @@ class DefaultController extends Controller
             $newComment->setComment($commentContent);
             $em->persist($newComment);
             $em->flush();
-            $this->sendEmailToComplaintAuthor($entityComplaint,$newComment);
+            if (!$this->sendEmailToCommentAuthor($entityComplaint,$newComment,$entity))
+                $this->sendEmailToComplaintAuthor($entityComplaint,$newComment);
         }
         return $this->redirect($this->generateUrl('info_complaint_complaint', array('id'=>$complaint)));
     }
@@ -114,6 +115,27 @@ class DefaultController extends Controller
                 $complaint->getAuthor()->getEmail(),
                 'InfoCommentBundle:Mail:complaint_comment.html.twig'
             );
+            return true;
         }
+        return false;
+    }
+
+    private function sendEmailToCommentAuthor($complaint, $newComment, $answeredComment)
+    {
+        /** @var $complaint Complaint */
+        /** @var $newComment Comment */
+        /** @var $answeredComment Comment */
+        if ($answeredComment!= null && $answeredComment->getUser()!= null && $answeredComment->getUser() != $newComment->getUser())
+        {
+            $mailer = $this->get('strokit_mailer');
+            $mailer->sendEmailMessage(
+                array('newComment'=>$newComment,'answeredComment'=>$answeredComment, 'title' => 'На ваш комментарий ответили','complaint'=>$complaint),
+                $this->container->getParameter('email_from'),
+                $complaint->getAuthor()->getEmail(),
+                'InfoCommentBundle:Mail:comment_reply.html.twig'
+            );
+            return true;
+        }
+        return false;
     }
 }

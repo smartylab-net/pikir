@@ -35,6 +35,15 @@
             <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
             <script src="{{ asset('public/js/analytics.js') }}"></script>
             <script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>
+            <script type="text/javascript">(function() {
+                    if (window.pluso)if (typeof window.pluso.start == "function") return;
+                    if (window.ifpluso==undefined) { window.ifpluso = 1;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                        s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+                        var h=d[g]('body')[0];
+                        h.appendChild(s);
+                    }})();</script>
         {% endblock %}
     </body>
 </html>

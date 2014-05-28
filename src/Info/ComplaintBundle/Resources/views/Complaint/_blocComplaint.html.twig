@@ -20,8 +20,9 @@
                 <img src="{{ asset('public/images/img/star-off.png') }}">
             {% endif %}
         {% endfor %}
-        <div class="panel-body">
             <div class="clear"></div>
+        <div class="margin-top20">
+            <div class="pluso" data-background="transparent" data-options="medium,square,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-url="{{ url ('info_complaint_complaint',{'id':complaint.id}) }}" data-title="Отзыв о компании {{ complaint.company.name }}" data-description="{{ complaint.title }}"></div>
         </div>
     </div>
 </div>

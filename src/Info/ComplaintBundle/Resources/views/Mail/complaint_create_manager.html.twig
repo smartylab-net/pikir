@@ -1,0 +1,32 @@
+{% extends 'StrokitCoreBundle::mail.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    Компания {{ company.name }} получила отзыв.
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+    <p>
+        Уважаемый(ая) {{ company.manager }}!
+    </p>
+    <p>
+        Получен <a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}">отзыв</a> о компании {{ company.name }}.
+    </p>
+
+    <hr/>
+    <div>
+        <strong>{{ complaint.title }}</strong>
+        <p>
+            {{ complaint.author }}
+        </p>
+        <p>{{ complaint.text|raw }}</p>
+    </div>
+
+    <hr/>
+    <p>
+        Ответить на отзыв Вы можете по ссылке <a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}">{{ url('info_complaint_complaint',{'id':complaint.id}) }}</a>
+    </p>
+
+{% endblock %}

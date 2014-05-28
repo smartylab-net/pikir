@@ -3,13 +3,13 @@
 {% block body_html %}
 
     <p>
-        Уважаемый пользователь, {{ complaint.author }}!
+        Уважаемый(ая) {{ complaint.author }}!
     </p>
     <p>
         Ваш отзыв "<a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.title }}</a>" прокомментировали.
     </p>
-
-    <div style="border-bottom: 1px solid #eeeeee">
+    <hr/>
+    <div >
         <p>
             {{ comment.user? :'Аноним' }} | {{ comment.createdAt|format_datetime }}
             {% if comment.user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
@@ -17,7 +17,7 @@
         <p>{{ comment.comment }}</p>
 
     </div>
-
+    <hr/>
     <p>
         Ответить на комментарий Вы можете по ссылке <a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}#comment_{{ comment.id }}">{{ url('info_complaint_complaint',{'id':complaint.id}) }}#comment_{{ comment.id }}</a>
     </p>

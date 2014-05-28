@@ -78,6 +78,8 @@
                         </div>
 
                     </div>
+                    {%  include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_company_homepage',{'id':company.id}), 'title':"Книга жалоб и предложений. Компания "~company.name, 'description': 'Отзывы о компании'~company.name }  %}
+
                 </div>
             </div>
 

@@ -12,8 +12,8 @@
     <div >
         <p>
             {{ newComment.user? :'Аноним' }} | {{ newComment.createdAt|format_datetime }}
-            {% if newComment.user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
-            {% if newComment.user == complaint.author %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
+            {% if newComment.user != null and newComment.user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
+            {% if newComment.user != null and newComment.user == complaint.author %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
         </p>
         <p>{{ newComment.comment }}</p>
 

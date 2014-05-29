@@ -96,7 +96,7 @@ class DefaultController extends Controller
             $newComment->setComment($commentContent);
             $em->persist($newComment);
             $em->flush();
-            if (!$this->sendEmailToCommentAuthor($entityComplaint,$newComment,$entity))
+            if (!($this->sendEmailToCommentAuthor($entityComplaint,$newComment,$entity) && $entityComplaint->getAuthor() == $entity->getUser() ))
                 $this->sendEmailToComplaintAuthor($entityComplaint,$newComment);
         }
         return $this->redirect($this->generateUrl('info_complaint_complaint', array('id'=>$complaint)));

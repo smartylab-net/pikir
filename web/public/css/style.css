@@ -34,6 +34,10 @@ div.vote-stars{
     padding-top: 15px;
 }
 
+.margin-top20 {
+    margin-top: 20px;
+}
+
 .red{
     color:#CC0000;
     font-size: 0.6em;
@@ -59,3 +63,10 @@ div.vote-stars{
 /*.panel-reg input[type="text"], .panel-reg input[type="email"], .panel-reg input[type="password"]{*/
     /*width: 350px;*/
 /*}*/
+
+.w260{
+    width: 260px;
+}
+.mb-10{ margin-bottom: 10px; }
+
+.btm-hr{ border-bottom: 1px solid #eeeeee }

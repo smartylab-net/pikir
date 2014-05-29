@@ -5,3 +5,5 @@ info_comment_create:
 info_comment_reply:
     pattern:  /comment/reply/{complaint}/{comment}/
     defaults: { _controller: InfoCommentBundle:Default:reply }
+    options:
+        expose: true

@@ -1,0 +1,26 @@
+{% extends 'StrokitCoreBundle::mail.html.twig' %}
+
+{% block body_html %}
+
+    <p>
+        Уважаемый(ая) {{ answeredComment.user }}!
+    </p>
+    <p>
+        На Ваш  "<a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}#comment_{{ answeredComment.id }}">комментарий</a>" ответили.
+    </p>
+    <hr/>
+    <div >
+        <p>
+            {{ newComment.user? :'Аноним' }} | {{ newComment.createdAt|format_datetime }}
+            {% if newComment.user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
+            {% if newComment.user == complaint.author %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
+        </p>
+        <p>{{ newComment.comment }}</p>
+
+    </div>
+    <hr/>
+    <p>
+        Ответить на комментарий Вы можете по ссылке <a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}#comment_{{ newComment.id }}">{{ url('info_complaint_complaint',{'id':complaint.id}) }}#comment_{{ newComment.id }}</a>
+    </p>
+
+{% endblock %}

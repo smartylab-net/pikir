@@ -1,10 +1,12 @@
-<div style="border-bottom: 1px solid #eeeeee">
-    <a class="pull-right" href="{{ path('info_comment_reply',{'comment':node['id'],'complaint':complaint.id}) }}">Ответить</a>
+<div id="comment_{{ node['id'] }}" class="btm-hr">
+    <a class="pull-right" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node['id'] }}" onclick="Comment.showForm($(this)); return false;">Ответить</a>
     <p>
         {{ user? :'Аноним' }} | {{ node['createdAt']|format_datetime }}
         {% if user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
         {% if user == complaint.author %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
     </p>
     <p>{{ node['comment'] }}</p>
+
+    <div id="form-block-{{ node['id'] }}"></div>
 
 </div>

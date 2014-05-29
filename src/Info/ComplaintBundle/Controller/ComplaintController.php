@@ -16,7 +16,10 @@ class ComplaintController extends Controller
     {
         $complaint = new Complaint();
         if ($id != null)
-            $complaint->setCompany($this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->find($id));
+        {
+            $company = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->find($id);
+            $complaint->setCompany($company);
+        }
         $form = $this->createForm(new ComplaintType(), $complaint);
         $request = $this->getRequest();
         if ($request->isMethod('post')) {
@@ -35,6 +38,7 @@ class ComplaintController extends Controller
                 }
                 $em->persist($complaint);
                 $em->flush();
+                $this->sendEmailToManager($complaint);
                 return $this->redirect($this->generateUrl('info_complaint_list'));
             }
         }
@@ -98,5 +102,20 @@ class ComplaintController extends Controller
             ->findBy(array(),array('id'=>'desc'),4);
 
         return $this->render('InfoComplaintBundle:Complaint:last_complaints_list.html.twig', array('complaints' => $complaints));
+    }
+
+    private function sendEmailToManager(Complaint $complaint)
+    {
+        $company = $complaint->getCompany();
+        if ($company!= null && $company->getManager()!= null)
+        {
+            $mailer = $this->get('strokit_mailer');
+            $mailer->sendEmailMessage(
+                array('company'=>$company, 'complaint'=>$complaint),
+                $this->container->getParameter('email_from'),
+                $company->getManager()->getEmail(),
+                'InfoComplaintBundle:Mail:complaint_create_manager.html.twig'
+            );
+        }
     }
 }

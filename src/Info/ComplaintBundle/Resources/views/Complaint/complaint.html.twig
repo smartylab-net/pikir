@@ -1,4 +1,10 @@
 {% extends "::base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/infocomment/js/comment.js') }}"></script>
+{% endblock javascripts %}
+
 {% block body %}
     {% include 'InfoComplaintBundle:Complaint:_blocComplaint.html.twig' with {'complaint':complaint,'show_company': true } %}
     {% for treeComment in treeComments %}

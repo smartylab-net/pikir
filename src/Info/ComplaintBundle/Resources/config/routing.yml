@@ -46,3 +46,11 @@ info_complaint_complaint:
     defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
     options:
       expose: true
+
+info_complaint_edit:
+    pattern: /complaint/edit/{complaint}/
+    defaults: { _controller: InfoComplaintBundle:Complaint:editComplaint }
+
+info_complaint_delete:
+    pattern: /complaint/delete/{complaint}/
+    defaults: { _controller: InfoComplaintBundle:Complaint:deleteComplaint }

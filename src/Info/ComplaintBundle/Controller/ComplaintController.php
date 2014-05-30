@@ -8,6 +8,7 @@ use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class ComplaintController extends Controller
 {
@@ -117,5 +118,73 @@ class ComplaintController extends Controller
                 'InfoComplaintBundle:Mail:complaint_create_manager.html.twig'
             );
         }
+    }
+
+    public function deleteComplaintAction(Complaint $complaint)
+    {
+        if ($complaint == null) 
+        {
+            return $this->createNotFoundException();
+        }
+
+
+        if ($complaint->getAuthor() == null || $complaint->getAuthor()!=$this->getUser())
+        {
+            if(!$this->get('security.context')->isGranted('ROLE_MODERATOR'))
+            {
+                throw new AccessDeniedException('Доступ к данной странице ограничен');
+            }
+        }
+        $company = $complaint->getCompany();
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($complaint);
+        $em->flush();
+
+        $complaintRepository = $this->getDoctrine()->getManager()
+            ->getRepository('InfoComplaintBundle:Complaint');
+        $complaintList = $complaintRepository->findAll();
+
+        return $this->redirect($this->generateUrl('info_complaint_homepage'));
+    }
+
+    public function editComplaintAction(Complaint $complaint)
+    {
+        if ($complaint == null)
+        {
+            return $this->createNotFoundException();
+        }
+
+        $company = $complaint->getCompany();
+
+        if ($complaint->getAuthor() == null || $complaint->getAuthor()!=$this->getUser() )
+        {
+            throw new AccessDeniedException('Доступ к данной странице ограничен');
+        }
+
+        $form = $this->createForm( new ComplaintType(),$complaint);
+        $form->remove('company');
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->submit($request);
+            $id = $complaint->getId();
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($complaint);
+                $em->flush();
+                $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Профиль отзывов обновлен');
+                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
+            }
+            else
+            {
+                $this->container->get('session')->getFlashBag()->add('complaint_edit_error', 'Профиль отзывов не сохранен, обнаружена ошибка');
+                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
+            }
+        }
+
+        return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'company'=>$company));
     }
 }

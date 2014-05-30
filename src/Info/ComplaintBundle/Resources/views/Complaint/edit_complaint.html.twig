@@ -1,0 +1,21 @@
+{% extends 'InfoComplaintBundle:Complaint:create_complaint.html.twig' %}
+
+    {% block sessionBlock %}
+        
+        {% if app.session.flashBag.has('complaint_edit_success') %}
+        <div class="alert alert-success">
+        {% for flashMessage in app.session.flashBag.get('complaint_edit_success') %}
+            {{ flashMessage }}
+        {% endfor %}
+        </div>
+        {% endif %}
+
+    {% endblock %}
+    
+    {% block changedBlock %}
+    
+        <div class="page-header">
+            <h1>Редактирование данных отзыва</h1>
+        </div>
+   
+    {% endblock %}

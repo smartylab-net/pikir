@@ -20,46 +20,51 @@
 
 {% block body %}
 
-        {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
+        {% block sessionBlock %}
+            
+            {% endblock %}
+        
+            {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
+            
+                {% block changedBlock %}
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Название компании</label>
+                        <div class="col-lg-10">
+                        {{ form_widget(form.company) }}
+                        </div>
+                    </div>
+                {% endblock %}
+                    
+
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Заголовок</label>
+                    <div class="col-lg-10">
+                        {{ form_widget(form.title) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Текст</label>
+                    <div class="col-lg-10">
+                        {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
+                    </div>
+                </div>
 
 
 
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Название компании</label>
-            <div class="col-lg-10">
-            {{ form_widget(form.company) }}
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Rating</label>
 
+                    <div id="fixed" class="col-lg-10">
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Заголовок</label>
-            <div class="col-lg-10">
-                {{ form_widget(form.title) }}
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Текст</label>
-            <div class="col-lg-10">
-                {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Rating</label>
-
-            <div id="fixed" class="col-lg-10">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
-                {{ form_widget(form.submit) }}
-            </div>
-        </div>
-        {{ form_end(form) }}
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                </div>
+            {{ form_end(form) }}
 {% endblock %}

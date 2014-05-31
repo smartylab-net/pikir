@@ -1,26 +1,32 @@
 {% extends "::base.html.twig" %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#fixed').raty({
-                readOnly: false,
-                starOff: '{{ asset('public/images/img/star-off.png') }}',
-                starOn: '{{ asset('public/images/img/star-on.png') }}',
-                number: 10,
-                width: 250,
-                click: function (score, evt) {
-                    $('#Complaint_rating').val(score);
-                }
+
+    {% block rating %}
+      
+        <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#fixed').raty({
+                    readOnly: false,
+                    starOff: '{{ asset('public/images/img/star-off.png') }}',
+                    starOn: '{{ asset('public/images/img/star-on.png') }}',
+                    number: 5,
+                    width: 140,
+                    click: function (score, evt) {
+                        $('#Complaint_rating').val(score);
+                    }
+                });
             });
-        });
-    </script>
+        </script>          
+    {% endblock %}
+
+    
 {% endblock %}
 
 {% block body %}
 
-        {% block sessionBlock %}
+            {% block sessionBlock %}
             
             {% endblock %}
         
@@ -35,8 +41,6 @@
                     </div>
                 {% endblock %}
                     
-
-
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Заголовок</label>
                     <div class="col-lg-10">
@@ -44,15 +48,12 @@
                     </div>
                 </div>
 
-
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Текст</label>
                     <div class="col-lg-10">
                         {{ form_widget(form.text , {'attr':{'cols':120, 'rows':15} }) }}
                     </div>
                 </div>
-
-
 
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Rating</label>

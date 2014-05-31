@@ -9,6 +9,7 @@
 namespace Info\ComplaintBundle\Controller;
 
 
+use FOS\UserBundle\Model\UserInterface;
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Form\CompanyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,5 +49,21 @@ class ManagerController extends Controller{
         }
 
         return $this->render('InfoComplaintBundle:Manager:edit_company.html.twig',array('form'=>$form->createView()));
+    }
+    //TODO: функционал уведомлений (Как в FB) Новый отзыв, Новый коммент, Новый ответ на коммент, Новая просьба стать представителем компании
+    //TODO: Возможность выбора (Уведомления по Email)
+    //TODO: Добавление компании
+    //TODO: Стать представителем компании
+    //TODO: ЛС
+    public function myCompaniesListAction()
+    {
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $companies = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->findByManager($this->getUser());
+        return $this->render('InfoComplaintBundle:Manager:company_list.html.twig',array('companies'=>$companies));
     }
 }

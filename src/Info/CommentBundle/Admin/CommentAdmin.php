@@ -23,7 +23,8 @@ class CommentAdmin extends Admin{
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('sortable'=>false))
+            ->add('id')
+            ->add('user',null,array('label'=>'Автор'))
             ->addIdentifier('comment', null, array('sortable'=>false, 'label'=>'Комментарий'))
             ->add('_action', 'actions', array(
                 'actions' => array(

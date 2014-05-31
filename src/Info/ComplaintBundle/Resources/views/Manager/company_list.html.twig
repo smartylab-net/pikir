@@ -1,0 +1,11 @@
+{% extends 'ApplicationSonataUserBundle:Profile:action.html.twig' %}
+
+{% block sonata_profile_content %}
+    <div class="row">
+        {% for company in companies %}
+            <div class="col-md-6">
+                {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

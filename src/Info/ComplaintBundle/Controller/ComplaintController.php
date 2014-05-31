@@ -156,8 +156,6 @@ class ComplaintController extends Controller
             return $this->createNotFoundException();
         }
 
-        $company = $complaint->getCompany();
-
         if ($complaint->getAuthor() == null || $complaint->getAuthor()!=$this->getUser() )
         {
             throw new AccessDeniedException('Доступ к данной странице ограничен');
@@ -185,6 +183,6 @@ class ComplaintController extends Controller
             }
         }
 
-        return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'company'=>$company));
+        return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'complaint'=>$complaint));
     }
 }

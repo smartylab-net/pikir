@@ -1,15 +1,32 @@
 {% extends 'InfoComplaintBundle:Complaint:create_complaint.html.twig' %}
 
+    {% block rating %}
+        <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#fixed').raty({
+                    readOnly: false,
+                    starOff: '{{ asset('public/images/img/star-off.png') }}',
+                    starOn: '{{ asset('public/images/img/star-on.png') }}',
+                    number: 5,
+                    width: 250,
+                    score: {{ complaint.rating }},
+                    click: function (score, evt) {
+                        $('#Complaint_rating').val(score);
+                    }
+                });
+            });
+        </script>          
+    {% endblock %}
+    
     {% block sessionBlock %}
-        
         {% if app.session.flashBag.has('complaint_edit_success') %}
-        <div class="alert alert-success">
-        {% for flashMessage in app.session.flashBag.get('complaint_edit_success') %}
-            {{ flashMessage }}
-        {% endfor %}
-        </div>
+            <div class="alert alert-success">
+                {% for flashMessage in app.session.flashBag.get('complaint_edit_success') %}
+                    {{ flashMessage }}
+                {% endfor %}
+            </div>
         {% endif %}
-
     {% endblock %}
     
     {% block changedBlock %}
@@ -17,10 +34,12 @@
         <div class="page-header">
             <h1>Редактирование данных отзыва</h1>
         </div>
+        
         <div class="form-group">
             <label class="col-lg-2 control-label">Название компании</label>
             <div class="col-lg-10">
-            {{ company.name }}
+            {{ complaint.company }}
             </div>
         </div>
+        
     {% endblock %}

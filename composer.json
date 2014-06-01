@@ -34,7 +34,8 @@
         "sonata-project/admin-bundle": "~2.3@dev",
         "sonata-project/core-bundle": "~2.2",
         "hwi/oauth-bundle": "0.4.*@dev",
-        "stof/doctrine-extensions-bundle": "~1.1@dev"
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "sonata-project/seo-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

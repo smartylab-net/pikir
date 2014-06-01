@@ -40,7 +40,7 @@ class ComplaintController extends Controller
                 $em->persist($complaint);
                 $em->flush();
                 $this->sendEmailToManager($complaint);
-                return $this->redirect($this->generateUrl('info_complaint_list'));
+                return $this->redirect($this->generateUrl('info_complaint_complaint',array('id'=>$complaint->getId())));
             }
         }
         $companyRepository = $this->getDoctrine()->getManager()

@@ -122,6 +122,7 @@ sonata_user:
             - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
             - { route: 'sonata_user_change_password', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
             - { route: 'info_manager_company_list', label: 'manager.my_companies_list', domain: 'InfoComplaintBundle'}
+            - { route: 'info_user_notification_edit', label: 'user.my_companies_list', domain: 'SonataUserBundle'}
 
 sonata_block:
     default_contexts: [cms]

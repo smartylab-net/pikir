@@ -1,0 +1,8 @@
+{% extends 'ApplicationSonataUserBundle:Profile:action.html.twig' %}
+
+{% block sonata_profile_title %}
+    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - Настройка уведомлений
+{% endblock %}
+{% block sonata_profile_content %}
+    {{ form(form) }}
+{% endblock %}

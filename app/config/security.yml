@@ -78,6 +78,7 @@ security:
         - { path: ^/admin/, role: ROLE_USER }
         - { path: ^/complaint/create, role: ROLE_USER }
         - { path: ^/manager/, role: ROLE_USER}
+        - { path: ^/profile/me/, role: ROLE_USER}
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
 

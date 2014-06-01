@@ -108,7 +108,7 @@ class ComplaintController extends Controller
     private function sendEmailToManager(Complaint $complaint)
     {
         $company = $complaint->getCompany();
-        if ($company!= null && $company->getManager()!= null)
+        if ($company!= null && $company->getManager()!= null && $company->getManager()->getEmailOnNewComplaint())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(

@@ -106,7 +106,7 @@ class DefaultController extends Controller
     {
         /** @var $complaint Complaint */
         /** @var $newComment Comment */
-        if ($complaint!= null && $complaint->getAuthor()!= null && $complaint->getAuthor() != $newComment->getUser())
+        if ($complaint!= null && $complaint->getAuthor()!= null && $complaint->getAuthor()->getEmailOnNewComment() && $complaint->getAuthor() != $newComment->getUser())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(
@@ -125,7 +125,7 @@ class DefaultController extends Controller
         /** @var $complaint Complaint */
         /** @var $newComment Comment */
         /** @var $answeredComment Comment */
-        if ($answeredComment!= null && $answeredComment->getUser()!= null && $answeredComment->getUser() != $newComment->getUser())
+        if ($answeredComment!= null && $answeredComment->getUser()!= null && $answeredComment->getUser()->getEmailOnReplyToComment() && $answeredComment->getUser() != $newComment->getUser())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(

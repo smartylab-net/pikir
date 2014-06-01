@@ -1,5 +1,5 @@
 info_manager_company_edit:
-    pattern: /company/edit/{company}/
+    pattern: /manager/company/edit/{company}/
     defaults: { _controller: InfoComplaintBundle:Manager:editCompany }
 
 info_manager_company_list:

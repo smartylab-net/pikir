@@ -39,7 +39,7 @@ search_auto:
       
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
-    prefix:   /manager
+    prefix:   /
 
 info_complaint_complaint:
     pattern:  /complaint/{id}

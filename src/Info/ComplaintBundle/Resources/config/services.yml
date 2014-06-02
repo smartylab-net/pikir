@@ -23,6 +23,17 @@ services:
       - ~
     calls:
       - [ setTranslationDomain, [InfoComplaintBundle]]
+
+  sonata.admin.manager_request:
+    class: Info\ComplaintBundle\Admin\ManagerRequestAdmin
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Жалобы и предложения", label: "Запросы на представительство"}
+    arguments:
+      - ~
+      - Info\ComplaintBundle\Entity\ManagerRequest
+      - InfoComplaintBundle:AdminManager
+    calls:
+      - [ setTranslationDomain, [InfoComplaintBundle]]
       
     strokit.company_type:
         class: Info\ComplaintBundle\Form\CompanyType

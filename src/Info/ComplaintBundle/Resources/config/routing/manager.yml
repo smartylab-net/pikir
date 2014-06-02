@@ -3,5 +3,9 @@ info_manager_company_edit:
     defaults: { _controller: InfoComplaintBundle:Manager:editCompany }
 
 info_manager_company_list:
-    pattern: /profile/me/companies
+    pattern: /profile/me/companies/
     defaults: { _controller: InfoComplaintBundle:Manager:myCompaniesList}
+
+info_be_manager_company:
+    pattern: /manager/company/be/{company}/
+    defaults: { _controller: InfoComplaintBundle:Manager:askBeManager}

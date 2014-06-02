@@ -66,6 +66,11 @@
                                             Редактировать данные компании
                                         </a>
                                     {% endif %}
+                                    {% if company.manager == null and app.user != null %}
+                                        <a class="btn be_manager" href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
+                                            Стать представителем компании
+                                        </a>
+                                    {% endif %}
                                     <a class="btn"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">
                                         Добавить отзыв
                                     </a>

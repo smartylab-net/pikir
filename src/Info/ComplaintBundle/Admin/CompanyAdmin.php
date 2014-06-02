@@ -42,6 +42,7 @@ class CompanyAdmin extends Admin
            ->addIdentifier('name')
            ->add('enabled',null,array('label'=>'Активность','editable'=>true))
            ->add('approved',null,array('label'=>'Подтвержден','editable'=>true))
+           ->add('manager',null,array('label'=>'Представитель','editable'=>true))
            ->add('logo')
            ->add('annotation')
            ->add('address')

@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NotificationController extends Controller {
 
-    //TODO: Настройка уведомлений по Email
     public function emailNotificationSettingsAction(Request $request)
     {
         $user = $this->getUser();

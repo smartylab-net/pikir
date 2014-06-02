@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html {{ sonata_seo_html_attributes() }}>
+    <head {{ sonata_seo_head_attributes() }}>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Онлайн книга жалоб и предложений!{% endblock %}</title>
+        {{ sonata_seo_title() }}
+        {{ sonata_seo_metadatas() }}
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_lang_alternates() }}
         {% block stylesheets %}
             <link type="text/css" rel="stylesheet" href="{{ asset('public/css/bootstrap.css') }}"/>
             <link type="text/css" rel="stylesheet" href="{{ asset('public/css/jquery-ui.css') }}"/>

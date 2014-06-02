@@ -18,7 +18,31 @@ class CompanyController extends Controller
     	{
     		throw $this->createNotFoundException('The company does not exist');
     	}
-		
+
+        $media = $company->getLogo();
+        if ($media) {
+            $mediaservice = $this->get('sonata.media.pool');
+            $provider = $mediaservice
+                ->getProvider($media->getProviderName());
+            $format = $provider->getFormatName($media, 'big');
+            $imageurl = $provider->generatePublicUrl($media, $format);
+        }
+        else {
+            $imageurl = "";
+        }
+
+        $seoPage = $this->container->get('sonata.seo.page');
+
+        $seoPage
+            ->setTitle($company->getName())
+            ->addMeta('name', 'description', $company->getAnnotation())
+            ->addMeta('property', 'og:title', $company->getName())
+            ->addMeta('property', 'og:type', 'website')
+            ->addMeta('property', 'og:image', $imageurl)
+            ->addMeta('property', 'og:url',  $this->getRequest()->getUri())
+            ->addMeta('property', 'og:description', $company->getAnnotation())
+        ;
+
 		$complaintList = $complaintRepository->findByCompany($id);
 
         $average = $companyRepository->getComplaintsAverageRating($id);

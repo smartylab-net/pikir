@@ -30,7 +30,7 @@ class DefaultController extends Controller
         $repository = $em->getRepository("InfoComplaintBundle:Complaint");
         $entity = $repository->find($complaint);
         if (!$entity){
-            $this->createNotFoundException("Жалоба не найдена");
+            $this->createNotFoundException("Отзыв не найден");
         }
 
         $form->handleRequest($request);
@@ -55,7 +55,7 @@ class DefaultController extends Controller
         $repository = $em->getRepository("InfoComplaintBundle:Complaint");
         $entity = $repository->find($complaint);
         if (!$entity){
-            $this->createNotFoundException("Жалоба не найдена");
+            $this->createNotFoundException("Отзыв не найден");
         }
         $repository = $em->getRepository("InfoCommentBundle:Comment");
         $entity = $repository->find($comment);
@@ -83,7 +83,7 @@ class DefaultController extends Controller
             $repository = $em->getRepository("InfoComplaintBundle:Complaint");
             $entityComplaint = $repository->find($complaint);
             if (!$entityComplaint){
-                $this->createNotFoundException("Жалоба не найдена");
+                $this->createNotFoundException("Отзыв не найден");
             }
             $repository = $em->getRepository("InfoCommentBundle:Comment");
             $entity = $repository->find($comment);

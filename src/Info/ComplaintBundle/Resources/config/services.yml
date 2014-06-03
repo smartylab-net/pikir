@@ -5,7 +5,7 @@ services:
   sonata.admin.company:
     class: Info\ComplaintBundle\Admin\CompanyAdmin
     tags: 
-      - { name: sonata.admin, manager_type: orm, group: "Жалобы и предложения", label: "Компания"}
+      - { name: sonata.admin, manager_type: orm, group: "Отзывы и предложения", label: "Компания"}
     arguments:
       - ~
       - Info\ComplaintBundle\Entity\Company
@@ -16,7 +16,7 @@ services:
   sonata.admin.complaint:
     class: Info\ComplaintBundle\Admin\ComplaintAdmin
     tags: 
-      - { name: sonata.admin, manager_type: orm, group: "Жалобы и предложения", label: "Жалобы"}
+      - { name: sonata.admin, manager_type: orm, group: "Отзывы и предложения", label: "Отзывы"}
     arguments:
       - ~
       - Info\ComplaintBundle\Entity\Complaint
@@ -27,7 +27,7 @@ services:
   sonata.admin.manager_request:
     class: Info\ComplaintBundle\Admin\ManagerRequestAdmin
     tags:
-      - { name: sonata.admin, manager_type: orm, group: "Жалобы и предложения", label: "Запросы на представительство"}
+      - { name: sonata.admin, manager_type: orm, group: "Отзывы и предложения", label: "Запросы на представительство"}
     arguments:
       - ~
       - Info\ComplaintBundle\Entity\ManagerRequest

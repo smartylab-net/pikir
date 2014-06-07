@@ -24,12 +24,15 @@
     
 {% endblock %}
 
+
 {% block body %}
 
             {% block sessionBlock %}
             
             {% endblock %}
-        
+
+            {% form_theme form.someFile 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
+
             {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
             
                 {% block changedBlock %}
@@ -57,8 +60,14 @@
 
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Rating</label>
-
                     <div id="fixed" class="col-lg-10">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{{ form_label(form.someFile) }}</label>
+                    <div id="fixed" class="col-lg-10">
+                        {{ form_widget(form.someFile) }}
                     </div>
                 </div>
 

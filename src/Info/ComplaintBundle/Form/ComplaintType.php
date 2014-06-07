@@ -36,6 +36,14 @@ class ComplaintType extends AbstractType {
             ->add('title','text',array('label'=>'Тема'),array('required'=>true))
             ->add('text','ckeditor',array('label'=>'Текст', 'config_name' => 'front_config'),array('required'=>true))
             ->add('rating','hidden',array('required'=>true))
+            ->add('someFile', 'sonata_media_type', array(
+                'provider' => 'sonata.media.provider.file',
+                'context'  => 'complaint',
+                'required' => false,
+                'label'=>'Прикрепить файл',
+
+//                'label_attr'=>array('class'=>'col-sm-2 control-label')
+            ))
             ->add('submit','submit');
     }
 

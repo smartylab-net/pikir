@@ -1,0 +1,25 @@
+{% block sonata_media_type_widget %}
+
+    {% form_theme form.binaryContent 'InfoComplaintBundle:Form:file.html.twig' %}
+
+    <div>
+        {% if value is not empty and value.providerReference %}
+            {% if sonata_admin_enabled is defined and sonata_admin_enabled %}
+                <a href="{{ url('admin_sonata_media_media_edit', {id: value.id}) }}"><strong>{{ value.name }}</strong></a>
+            {% else %}
+                <strong>{{ value.name }}</strong>
+            {% endif %}
+            <br />
+        {% endif %}
+
+        {{ block('form_widget') }}
+    </div>
+{% endblock sonata_media_type_widget %}
+
+{% block file_widget %}
+    {% spaceless %}
+        <td>{% set type = type|default('file') %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} />
+        </td>
+    {% endspaceless %}
+{% endblock file_widget %}

@@ -27,7 +27,14 @@ sonata_media:
                 small: { width: 150 , height:150, quality: 95}
                 medium: { width: 200 , height:200, quality: 145}
                 big:   { width: 500 , quality: 90}
+        complaint:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
 
+            formats: []
     cdn:
         server:
             path: %upload_dir% # http://media.sonata-project.org/
@@ -37,5 +44,16 @@ sonata_media:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     true
     providers:
+
+        file:
+            service:    sonata.media.provider.file
+            resizer:    false
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+            allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml']
+            allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain']
+
         image:
             resizer:    sonata.media.resizer.custom # sonata.media.resizer.simple

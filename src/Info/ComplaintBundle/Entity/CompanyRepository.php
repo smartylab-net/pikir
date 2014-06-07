@@ -66,4 +66,26 @@ class CompanyRepository extends EntityRepository
 
         }
     }
+
+    public function getAll($rules = array()){
+        $category = $this->createQueryBuilder('c');
+
+        if (!empty($rules['enabled']))
+        {
+            $category->where('c.enabled = :a')
+                ->setParameter('a', $rules['enabled']);
+        }
+
+        if (isset($rules['parent'])){
+            $category->andWhere('c.parent = :a')
+                ->setParameter('a', $rules['parent']);
+        }
+        else if (array_key_exists('parent',$rules))
+        {
+
+            $category->andWhere('c.parent is null');
+        }
+
+        return $category->getQuery()->getResult();
+    }
 }

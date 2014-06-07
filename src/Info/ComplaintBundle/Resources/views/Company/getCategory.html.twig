@@ -1,22 +1,38 @@
 {% extends "::base.html.twig" %}
 {% block title %}{{ parent() }} : {{ title }}{% endblock %}
 {% block body %}
-    {% if pagination.getTotalItemCount > 0 %}
-        <div class="row">
 
-            {% for company in pagination %}
-                <div class="col-md-6">
-                {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
+    <div class="categories">
+        <div class="titleHeader clearfix">
+            <h4>{{ title }}</h4>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-2">
+            <div id='cssmenu'>
+                {{ knp_menu_render('category_side_menu', {'currentClass': 'active','ancestorClass': 'active','template':'category_side_menu.html.twig'}) }}
+            </div>
+        </div>
+        <div class="col-md-10">
+            {% if pagination.getTotalItemCount > 0 %}
+                <div class="row">
+                    {% for company in pagination %}
+                        <div class="col-md-6">
+                            {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+                <!--end row-->
+                <div class="pagination pagination-right">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% else %}
+                <h2>
+                    В этой категории компаний пока нет
+                </h2>
+            {% endif %}
         </div>
-        <!--end row-->
-        <div class="pagination pagination-right">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    {% else %}
-        <h2>
-            В этой категории компаний пока нет
-        </h2>
-    {% endif %}
+    </div>
+
 {% endblock %}

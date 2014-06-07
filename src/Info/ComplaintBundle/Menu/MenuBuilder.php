@@ -1,22 +1,26 @@
 <?php
-namespace Nurix\CatalogBundle\Menu;
+namespace Info\ComplaintBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Nurix\CatalogBundle\Model\CatalogModel;
-use Nurix\CatalogBundle\Entity;
+use Info\ComplaintBundle\Entity;
 
 class MenuBuilder extends ContainerAware
 {
     private $factory;
+    /**
+     * @var EntityManager
+     */
+    private $em;
 
     /**
      * @param FactoryInterface $factory
      */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory,$em)
     {
         $this->factory = $factory;
+        $this->em = $em;
     }
 
     /**
@@ -26,12 +30,11 @@ class MenuBuilder extends ContainerAware
      */
 
 
-    public function createCatalogLeftMenu(Request $request,$em){
+    public function createCategoryLeftMenu(Request $request){
 
-        $menu = $this->factory->createItem('catalog_side_menu');
+        $menu = $this->factory->createItem('category_side_menu');
         $menu->setCurrentUri($request->getRequestUri());
-        $menu->setChildrenAttribute('class','unstyled');
-        $this->getCatalogMenu($em, $menu);
+        $this->getCategoryMenu($this->em, $menu);
         return $menu;
     }
 
@@ -39,17 +42,18 @@ class MenuBuilder extends ContainerAware
      * @param $em
      * @param $menu
      */
-    public function getCatalogMenu($em, $menu)
+    public function getCategoryMenu($em, $menu)
     {
-        $cm = $em->getRepository("CatalogBundle:Catalog");
+        $cm = $em->getRepository("ApplicationSonataClassificationBundle:Category");
 
-        $catalog = $cm->getAll(array('active' => 1, 'parent' => null));
+        $categories = $cm->findBy(array('enabled' => 1, 'parent' => null));
 
-        foreach ($catalog as $category) {
-            $cat = $menu->addChild($category->getCname(), array('route' => 'nurix_goods_get_catalog', 'routeParameters' => array('cid' => $category->getId())))->setDisplayChildren(true);
-            foreach ($category->getChildren() as $child) {
-                if ($child->getActive())
-                    $cat->addChild($child->getCname(), array('route' => 'nurix_goods_get_catalog', 'routeParameters' => array('cid' => $child->getId())));
+        foreach ($categories as $category) {
+            $cat = $menu->addChild($category->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('cId' => $category->getId())))->setDisplayChildren(true);
+            $subcategory = $cm->findBy(array('parent' => $category->getId(), 'enabled' => true));
+            foreach ($subcategory as $child) {
+                if ($child->getEnabled())
+                    $cat->addChild($child->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('cId' => $child->getId())));
             }
         }
     }

@@ -76,6 +76,14 @@ class Complaint
     private $rating = 0;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="someFile", referencedColumnName="id")
+     * })
+     */
+    private $someFile;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -218,5 +226,21 @@ class Complaint
     public function setAuthor($author)
     {
         $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSomeFile()
+    {
+        return $this->someFile;
+    }
+
+    /**
+     * @param mixed $someFile
+     */
+    public function setSomeFile($someFile)
+    {
+        $this->someFile = $someFile;
     }
 }

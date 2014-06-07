@@ -30,7 +30,7 @@ class DefaultController extends Controller
         $repository = $em->getRepository("InfoComplaintBundle:Complaint");
         $entity = $repository->find($complaint);
         if (!$entity){
-            $this->createNotFoundException("Жалоба не найдена");
+            $this->createNotFoundException("Отзыв не найден");
         }
 
         $form->handleRequest($request);
@@ -55,7 +55,7 @@ class DefaultController extends Controller
         $repository = $em->getRepository("InfoComplaintBundle:Complaint");
         $entity = $repository->find($complaint);
         if (!$entity){
-            $this->createNotFoundException("Жалоба не найдена");
+            $this->createNotFoundException("Отзыв не найден");
         }
         $repository = $em->getRepository("InfoCommentBundle:Comment");
         $entity = $repository->find($comment);
@@ -83,7 +83,7 @@ class DefaultController extends Controller
             $repository = $em->getRepository("InfoComplaintBundle:Complaint");
             $entityComplaint = $repository->find($complaint);
             if (!$entityComplaint){
-                $this->createNotFoundException("Жалоба не найдена");
+                $this->createNotFoundException("Отзыв не найден");
             }
             $repository = $em->getRepository("InfoCommentBundle:Comment");
             $entity = $repository->find($comment);
@@ -106,7 +106,7 @@ class DefaultController extends Controller
     {
         /** @var $complaint Complaint */
         /** @var $newComment Comment */
-        if ($complaint!= null && $complaint->getAuthor()!= null && $complaint->getAuthor() != $newComment->getUser())
+        if ($complaint!= null && $complaint->getAuthor()!= null && $complaint->getAuthor()->getEmailOnNewComment() && $complaint->getAuthor() != $newComment->getUser())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(
@@ -125,7 +125,7 @@ class DefaultController extends Controller
         /** @var $complaint Complaint */
         /** @var $newComment Comment */
         /** @var $answeredComment Comment */
-        if ($answeredComment!= null && $answeredComment->getUser()!= null && $answeredComment->getUser() != $newComment->getUser())
+        if ($answeredComment!= null && $answeredComment->getUser()!= null && $answeredComment->getUser()->getEmailOnReplyToComment() && $answeredComment->getUser() != $newComment->getUser())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(

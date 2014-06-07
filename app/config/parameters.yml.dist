@@ -17,4 +17,4 @@ parameters:
     upload_dir: /uploads/media
     facebook_client_id: 844041712274489
     facebook_client_secret: ac23acb9c864e2ad216f8b4fc3aa891d
-    email_from: {noreply@strokit.net Книга жалоб и предложений}
+    email_from: {noreply@strokit.net Книга отзывов и предложений}

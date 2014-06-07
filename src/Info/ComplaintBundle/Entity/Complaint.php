@@ -26,7 +26,7 @@ class Complaint
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Company", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Company", cascade={"persist"},inversedBy="complaints")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      * })

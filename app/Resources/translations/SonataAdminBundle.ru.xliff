@@ -370,6 +370,14 @@
               <source>short_object_description_placeholder</source>
               <target>short_object_description_placeholder</target>
             </trans-unit>
+            <trans-unit id="action_apply">
+              <source>action_apply</source>
+              <target>Подтвердить</target>
+            </trans-unit>
+            <trans-unit id="flash_apply_success">
+              <source>flash_apply_success</source>
+              <target>Операция успешна</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

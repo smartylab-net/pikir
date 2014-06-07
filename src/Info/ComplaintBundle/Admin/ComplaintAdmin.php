@@ -12,9 +12,9 @@ class ComplaintAdmin extends Admin
    protected function configureFormFields(FormMapper $formMapper)
    {
        $formMapper
-           ->add('title', 'text', array('label' => 'Название жалобы'))
+           ->add('title', 'text', array('label' => 'Название отзыва'))
            ->add('company', 'entity', array('class' => 'Info\ComplaintBundle\Entity\Company'))
-           ->add('text', 'textarea', array('label' => 'Содержание жалобы'))
+           ->add('text', 'textarea', array('label' => 'Содержание отзыва'))
            ->add('rating', 'text', array('label' => 'Рейтинг'))           
        ;
    }

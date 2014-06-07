@@ -2,6 +2,10 @@ info_comment:
     resource: "@InfoCommentBundle/Resources/config/routing.yml"
     prefix:   /
 
+info_user:
+    resource: "@ApplicationSonataUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 info_complaint:
     resource: "@InfoComplaintBundle/Resources/config/routing.yml"
     prefix:   /

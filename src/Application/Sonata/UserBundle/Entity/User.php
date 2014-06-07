@@ -35,6 +35,21 @@ class User extends BaseUser
     protected $resource;
 
     /**
+     * @var boolean $emailOnNewComplaint
+     */
+    protected $emailOnNewComplaint = true;
+
+    /**
+     * @var boolean $emailOnNewComplaint
+     */
+    protected $emailOnNewComment = true;
+
+    /**
+     * @var boolean $emailOnNewComplaint
+     */
+    protected $emailOnReplyToComment = true;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -63,6 +78,54 @@ class User extends BaseUser
     public function __toString()
     {
         return trim($this->getFullname())!=''? $this->getFullname():parent::__toString();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEmailOnNewComplaint()
+    {
+        return $this->emailOnNewComplaint;
+    }
+
+    /**
+     * @param boolean $emailOnNewComplaint
+     */
+    public function setEmailOnNewComplaint($emailOnNewComplaint)
+    {
+        $this->emailOnNewComplaint = $emailOnNewComplaint;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEmailOnNewComment()
+    {
+        return $this->emailOnNewComment;
+    }
+
+    /**
+     * @param boolean $emailOnNewComment
+     */
+    public function setEmailOnNewComment($emailOnNewComment)
+    {
+        $this->emailOnNewComment = $emailOnNewComment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEmailOnReplyToComment()
+    {
+        return $this->emailOnReplyToComment;
+    }
+
+    /**
+     * @param boolean $emailOnReplyToComment
+     */
+    public function setEmailOnReplyToComment($emailOnReplyToComment)
+    {
+        $this->emailOnReplyToComment = $emailOnReplyToComment;
     }
 
 }

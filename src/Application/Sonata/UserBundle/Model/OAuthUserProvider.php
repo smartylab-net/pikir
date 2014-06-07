@@ -87,7 +87,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
             $this->container->get('fos_user.user_manager')->updateUser($user);
 
             $message = \Swift_Message::newInstance()
-                ->setSubject('Сайт жалоб')
+                ->setSubject('Книга отзывов и предложений')
                 ->setFrom('noreply@strokit.net')
                 ->setTo($email)
                 ->setBody('<p>Ваш пароль на сайт: <b>'.$password.'</b></p>', 'text/html')

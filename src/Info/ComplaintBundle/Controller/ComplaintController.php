@@ -40,7 +40,7 @@ class ComplaintController extends Controller
                 $em->persist($complaint);
                 $em->flush();
                 $this->sendEmailToManager($complaint);
-                return $this->redirect($this->generateUrl('info_complaint_list'));
+                return $this->redirect($this->generateUrl('info_complaint_complaint',array('id'=>$complaint->getId())));
             }
         }
         $companyRepository = $this->getDoctrine()->getManager()
@@ -108,7 +108,7 @@ class ComplaintController extends Controller
     private function sendEmailToManager(Complaint $complaint)
     {
         $company = $complaint->getCompany();
-        if ($company!= null && $company->getManager()!= null)
+        if ($company!= null && $company->getManager()!= null && $company->getManager()->getEmailOnNewComplaint())
         {
             $mailer = $this->get('strokit_mailer');
             $mailer->sendEmailMessage(

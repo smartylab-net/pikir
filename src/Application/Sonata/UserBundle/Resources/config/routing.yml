@@ -1,0 +1,3 @@
+info_user_notification_edit:
+    pattern: /profile/me/settings/notification
+    defaults: { _controller: ApplicationSonataUserBundle:Notification:emailNotificationSettings}

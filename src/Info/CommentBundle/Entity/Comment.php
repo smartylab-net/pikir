@@ -68,7 +68,7 @@ class Comment
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"persist"},inversedBy="comments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="complaint_id", referencedColumnName="id")
      * })

@@ -10,7 +10,9 @@
             <generator strategy="AUTO" />
         </id>
         <field name="resource" type="string" column="resource" nullable="true"/>
-
+        <field name="emailOnNewComplaint" type="boolean" column="email_on_new_complaint" nullable="true"/>
+        <field name="emailOnNewComment" type="boolean" column="email_on_new_comment" nullable="true"/>
+        <field name="emailOnReplyToComment" type="boolean" column="email_on_reply_to_comment" nullable="true"/>
     </entity>
 
 </doctrine-mapping>

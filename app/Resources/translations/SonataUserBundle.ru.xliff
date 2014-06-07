@@ -486,6 +486,10 @@
                 <source>form.password_confirmation</source>
                 <target>Подтвердите пароль</target>
             </trans-unit>
+            <trans-unit id="user.my_companies_list">
+                <source>user.my_companies_list</source>
+                <target>Настройки уведомлений</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

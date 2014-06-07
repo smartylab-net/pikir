@@ -29,7 +29,7 @@ class Company
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="logo", referencedColumnName="id")
      * })
@@ -51,7 +51,7 @@ class Company
     private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\ClassificationBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -59,7 +59,7 @@ class Company
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })

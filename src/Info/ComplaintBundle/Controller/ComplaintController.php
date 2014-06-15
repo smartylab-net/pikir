@@ -4,11 +4,17 @@ namespace Info\ComplaintBundle\Controller;
 
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
+use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Cookie;
+use Doctrine\ORM\EntityRepository; 
 
 class ComplaintController extends Controller
 {
@@ -184,5 +190,150 @@ class ComplaintController extends Controller
         }
 
         return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'complaint'=>$complaint));
+    }
+
+    public function voteComplaintAction(Complaint $complaint,  $voteType)
+    {
+        $error = false;
+        $em = $this->getDoctrine()->getManager();
+        $complaintsCommentRating = new ComplaintsCommentRating();
+
+        $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
+        $objectVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedBefore($complaint);
+            
+        if($this->getUser())
+        {
+            $userVoted = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentUser($complaint, $this->getUser());
+            
+            if($objectVotedBefore && $userVoted)
+            {
+    
+                $error = true;
+                 
+            }else{
+
+                $complaintsCommentRating->setAuthor($this->getUser());
+  
+            }
+
+        }else
+        {
+            $request = $this->get('request');
+            $cookie = $request->cookies->get('anonymous-vote');
+            $ip = $request->getClientIp();
+            $anonymVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentAnonymousUser($complaint, $cookie, $ip);
+         
+            if($objectVotedBefore && $anonymVotedBefore)
+            {
+                $error = true;
+            }
+            else{
+    
+                $complaintsCommentRating->setSessionCookie($cookie);
+                $complaintsCommentRating->setIp($ip);
+            }
+        }
+
+        if (!$error) {
+            $complaintsCommentRating->setComplaint($complaint);
+            $voteValue = $complaint->getVote();
+            
+            if ($voteType == 'plus') 
+            {
+                $complaint->setVote( $voteValue + 1);
+
+            }elseif($voteType == 'minus'){
+
+                $complaint->setVote( $voteValue - 1);
+            }
+
+            $em->persist($complaintsCommentRating);        
+            $em->persist($complaint);
+            $em->flush(); 
+        }
+        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$complaint->getVote()); 
+        return new JsonResponse($jsonResponse);
+
+    }
+
+    public function voteCommentAction(Comment $comment,  $voteType)
+    {
+
+        $error = false;
+        $em = $this->getDoctrine()->getManager();
+        $complaintsCommentRating = new ComplaintsCommentRating();
+                   
+        $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
+        $objectVotedBefore = $complaintsCommentRatingRep->getIfCommentVotedBefore($comment);
+
+        if($this->getUser())
+        {
+          
+            $userVoted = $complaintsCommentRatingRep->getIfCommentVotedAndAuthorIsCurrentUser($comment, $this->getUser());
+            
+            if($objectVotedBefore && $userVoted)
+            {
+     
+                $error = true;
+                 
+            }else{
+                
+                $complaintsCommentRating->setAuthor($this->getUser());
+                $complaintsCommentRating->setComment($comment);
+           }
+        }else{
+
+            $request = $this->get('request');
+            $cookie = $request->cookies->get('anonymous-vote');
+            $ip = $request->getClientIp();
+            $anonymVotedBefore = $complaintsCommentRatingRep->getIfCommentVotedAndAuthorIsCurrentAnonymousUser($comment, $cookie, $ip);
+
+            if($objectVotedBefore && $anonymVotedBefore)
+            {
+                $error = true;
+            }
+            else
+            {
+                $complaintsCommentRating->setSessionCookie($cookie);
+                $complaintsCommentRating->setIp($ip);
+            }
+        }
+        
+        if(!$error)
+        {
+            $voteValue = $comment->getVote();
+            $complaintsCommentRating->setComment($comment);
+            
+            if ($voteType == 'plus') 
+            {
+                $comment->setVote( $voteValue + 1);
+
+            }elseif($voteType == 'minus'){
+
+                $comment->setVote( $voteValue - 1);
+            }
+
+            $em->persist($complaintsCommentRating);
+            $em->persist($comment);
+            $em->flush(); 
+        }
+        
+                
+        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$comment->getVote()); 
+        return new JsonResponse($jsonResponse);    
+    }
+
+     public function preExecute()
+    {
+        $request = $this->get('request');
+        $value = $request->cookies->get('anonymous-vote');
+        
+        if(!isset($value))
+        {
+            $cookie = new Cookie('anonymous-vote', time().sha1(time()), time() + 3600 * 24 * 7);
+            $response = new Response();
+            $response->headers->setCookie($cookie);
+            return $response->send();
+        }
     }
 }

@@ -1,6 +1,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
+        <span class = "complaint-voting-block">
+            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{complaint.id}},'plus')"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+            <span id="vote-complaint{{complaint.id}}">{{complaint.vote}}</span>
+            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{complaint.id}},'minus')"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+        </span>
+        
         {% if use_link is defined and use_link == true %}
             <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h2>{{ complaint.title }}</h2></a>
         {% else %}

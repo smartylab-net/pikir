@@ -70,3 +70,15 @@ div.vote-stars{
 .mb-10{ margin-bottom: 10px; }
 
 .btm-hr{ border-bottom: 1px solid #eeeeee }
+
+.comment-voting-block
+{
+    float:right;
+    margin-right: 10px;
+}
+.complaint-voting-block
+{
+    float:right;
+    position: relative;
+    top:10px;
+}

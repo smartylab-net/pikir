@@ -40,3 +40,8 @@ services:
         arguments: []
         tags:
             - { name: form.type, alias: company_type }
+
+  my.controller.listener:
+    class: Info\ComplaintBundle\Listener\ControllerListener
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }           

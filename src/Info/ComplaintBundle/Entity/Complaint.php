@@ -84,6 +84,14 @@ class Complaint
     private $someFile;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="vote", type="integer")
+     * @Assert\NotNull()
+     */
+    private $vote = 0;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -112,6 +120,22 @@ class Complaint
         $this->company = $company;
 
         return $this;
+    }
+
+    /**
+    * @return int
+    */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @param int $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
     }
 
     /**

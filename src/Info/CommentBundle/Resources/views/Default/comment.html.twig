@@ -1,5 +1,10 @@
 <div id="comment_{{ node['id'] }}" class="btm-hr">
     <a class="pull-right" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node['id'] }}" onclick="Comment.showForm($(this)); return false;">Ответить</a>
+    <span class="comment-voting-block">
+            <a href="javascript:void(0)" onclick="Vote.sendVote('comment',{{node.id}},'plus')"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+            <span id="vote-comment{{node.id}}">{{node.vote}}</span>
+            <a href="javascript:void(0)" onclick="Vote.sendVote('comment',{{node.id}},'minus')"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+    </span>
     <p>
         {{ user? :'Аноним' }} | {{ node['createdAt']|format_datetime }}
         {% if user != null and user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}

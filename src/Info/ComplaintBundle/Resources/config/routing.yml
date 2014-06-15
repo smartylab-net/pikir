@@ -54,3 +54,9 @@ info_complaint_edit:
 info_complaint_delete:
     pattern: /complaint/delete/{complaint}/
     defaults: { _controller: InfoComplaintBundle:Complaint:deleteComplaint }
+
+info_complaint_vote:
+    pattern: /vote/{type}-{id}-{voteType}
+    defaults: { _controller: InfoComplaintBundle:Complaint:vote}
+    options:
+        expose: true

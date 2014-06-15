@@ -4,6 +4,7 @@ namespace Info\CommentBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -91,6 +92,14 @@ class Comment
 
     private $createdAt;
 
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="vote", type="integer")
+     * @Assert\NotNull()
+     */
+    private $vote = 0;
 
     public function __construct()
     {
@@ -258,5 +267,21 @@ class Comment
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+     /**
+     * @return int
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @param int $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
     }
 }

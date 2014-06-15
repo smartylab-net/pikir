@@ -5,9 +5,6 @@
             <span id="vote-comment{{node.id}}">{{node.vote}}</span>
             <a href="javascript:void(0)" onclick="Vote.sendVote('comment',{{node.id}},'minus')"><span class="glyphicon glyphicon-thumbs-down"></span></a>
     </span>
-    <a class="make-complaint-comment" data-toggle="modal" data-target="#myModal">
-        Пожаловаться
-    </a>
     <p>
         {{ user? :'Аноним' }} | {{ node['createdAt']|format_datetime }}
         {% if user != null and user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}

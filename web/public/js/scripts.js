@@ -2,7 +2,14 @@ var Vote = {
 
 	sendVote : function(type, id, voteType)
 	{
-		var url = Routing.generate('info_complaint_vote',{'type':type,'id':id,'voteType':voteType}); 
+		if(type == 'complaint')
+		{
+			var url = Routing.generate('info_complaint_vote',{'complaint':id,'voteType':voteType}); 
+		}else
+		{
+			var url = Routing.generate('info_comment_vote',{'comment':id,'voteType':voteType}); 
+		}
+		
 		$.getJSON(url, function(data){
 
 			if(!data.error)

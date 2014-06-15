@@ -82,3 +82,31 @@ div.vote-stars{
     position: relative;
     top:10px;
 }
+.make-complaint{
+    
+    float: right;
+    position: relative;
+    top: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+a.make-complaint:hover{
+    color: red;
+    text-decoration: none;
+}
+
+.make-complaint-comment{
+    float: right;
+    margin-right: 10px;
+}
+a.make-complaint-comment:hover{
+    float: right;
+    margin-right: 10px;
+    text-decoration: none;
+    color: red;
+}
+
+.modal-body >textarea{
+    width:100%;
+    height: 60px;
+}

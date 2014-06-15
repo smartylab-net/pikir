@@ -1,11 +1,31 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-      <span class = "complaint-voting-block">
+        <span class = "complaint-voting-block">
             <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{complaint.id}},'plus')"><span class="glyphicon glyphicon-thumbs-up"></span></a>
             <span id="vote-complaint{{complaint.id}}">{{complaint.vote}}</span>
             <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{complaint.id}},'minus')"><span class="glyphicon glyphicon-thumbs-down"></span></a>
         </span>
+        <a class="make-complaint" data-toggle="modal" data-target="#myModal" href='#'>
+            Пожаловаться
+        </a>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <textarea></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
         {% if use_link is defined and use_link == true %}
             <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}"><h2>{{ complaint.title }}</h2></a>
         {% else %}

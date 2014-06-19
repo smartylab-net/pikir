@@ -24,6 +24,26 @@ services:
     calls:
       - [ setTranslationDomain, [InfoComplaintBundle]]
 
+
+  complaint.menu.builder:
+      class: Info\ComplaintBundle\Menu\MenuBuilder
+      arguments: ["@knp_menu.factory","@doctrine.orm.entity_manager"]
+
+  strokit.menu.category_side_menu:
+      class: Knp\Menu\MenuItem
+      factory_service: complaint.menu.builder
+      factory_method: createCategoryLeftMenu
+      arguments:  [@request]
+      scope: request
+      tags:
+          - { name: knp_menu.menu, alias: category_side_menu } # Named "sidebar" this time
+
+  strokit.company_type:
+    class: Info\ComplaintBundle\Form\CompanyType
+    arguments: []
+    tags:
+      - { name: form.type, alias: company_type }
+
   sonata.admin.manager_request:
     class: Info\ComplaintBundle\Admin\ManagerRequestAdmin
     tags:
@@ -35,12 +55,6 @@ services:
     calls:
       - [ setTranslationDomain, [InfoComplaintBundle]]
       
-    strokit.company_type:
-        class: Info\ComplaintBundle\Form\CompanyType
-        arguments: []
-        tags:
-            - { name: form.type, alias: company_type }
-
   my.controller.listener:
     class: Info\ComplaintBundle\Listener\ControllerListener
     tags:

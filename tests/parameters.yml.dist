@@ -1,1 +1,5 @@
-behat.base_url: 'http://poputka.local'
+
+default:
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url: 'http://poputka.local/app_test.php/'

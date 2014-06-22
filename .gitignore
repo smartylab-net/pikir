@@ -8,3 +8,6 @@
 /app/config/parameters.yml
 /bin/*
 .idea/
+tests/bin/*
+tests/vendor/*
+tests/parameters.yml

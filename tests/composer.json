@@ -1,0 +1,21 @@
+{
+    "name": "strokit/tests",
+    "license": "MIT",
+    "type": "project",
+    "description": "StrOkIT Test Folder",
+    "autoload": {
+        "psr-0": { "": "../src/" }
+    },
+    "require": {
+        "behat/behat": "2.*@stable",
+        "behat/mink": "1.*@stable",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium2-driver": "*",
+        "behat/symfony2-extension": "*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable"
+}

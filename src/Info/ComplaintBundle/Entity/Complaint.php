@@ -38,6 +38,13 @@ class Complaint
      */
     private $comments;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\ComplaintsCommentRating", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
+     */
+    private $votes;
+
+
     /**
      * @var string
      *
@@ -266,5 +273,21 @@ class Complaint
     public function setSomeFile($someFile)
     {
         $this->someFile = $someFile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
     }
 }

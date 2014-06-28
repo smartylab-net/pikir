@@ -87,6 +87,11 @@ class Comment
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\ComplaintsCommentRating", mappedBy="comment", cascade={"persist", "remove" }, orphanRemoval=true)
+     */
+    private $votes;
+
+    /**
      * @ORM\Column(name="created_at", type="datetime")
      */
 
@@ -283,5 +288,21 @@ class Comment
     public function setVote($vote)
     {
         $this->vote = $vote;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
     }
 }

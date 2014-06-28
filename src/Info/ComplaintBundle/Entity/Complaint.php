@@ -40,7 +40,7 @@ class Complaint
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\ComplaintsCommentRating", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\ComplaintsCommentRating", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $votes;
 

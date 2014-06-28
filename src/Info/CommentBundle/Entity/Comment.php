@@ -87,7 +87,7 @@ class Comment
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\ComplaintsCommentRating", mappedBy="comment", cascade={"persist", "remove" }, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\ComplaintsCommentRating", mappedBy="comment", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $votes;
 

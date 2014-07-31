@@ -4,5 +4,7 @@
         <div class="row">
             {% include "InfoComplaintBundle:Complaint:_blocComplaint.html.twig" with {'complaint':complaint,'show_company':true,'use_link':true} %}
         </div>
+    {% else %}
+        <h3>Пока отзывов не было оставлено</h3>
     {% endfor %}
 </div>

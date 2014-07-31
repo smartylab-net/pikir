@@ -4,5 +4,7 @@
         <div class="row">
             {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
         </div>
+    {% else %}
+        <h3>Пока компаний не было добавлено</h3>
     {% endfor %}
 </div>

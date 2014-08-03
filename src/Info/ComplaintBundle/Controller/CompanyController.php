@@ -2,9 +2,12 @@
 
 namespace Info\ComplaintBundle\Controller;
 
+use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class CompanyController extends Controller
 {
@@ -50,6 +53,34 @@ class CompanyController extends Controller
         return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$average[0][1]));
     }
 
+    public function createAction()
+    {
+        if (!$this->getUser())
+        {
+            throw new AccessDeniedException('Доступ к данной странице ограничен');
+        }
+        $company = new Company();
+        $form = $this->createForm( new CompanyType(),$company);
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->submit($request);
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($company);
+                $em->flush();
+                return $this->redirect($this->generateUrl('info_company_homepage',array('id'=>$company->getId())));
+            }
+            else
+            {
+                $this->container->get('session')->getFlashBag()->add('manager.company_edit_error', 'Профиль компании не сохранен, обнаружена ошибка');
+                return $this->redirect($this->generateUrl('info_company_create'));
+            }
+        }
+
+        return $this->render('InfoComplaintBundle:Company:create.html.twig',array('form'=>$form->createView()));
+    }
+
     public function showAllCompaniesAction($id)
     {
         $companies = $this->getDoctrine()
@@ -61,28 +92,6 @@ class CompanyController extends Controller
         }
 
         return $this->render('InfoComplaintBundle:Company:companies_list.html.twig', array('companies' => $companies));
-    }
-
-    public function showAllCategoriesAction()
-    {
-        $categories = $this->getDoctrine()
-            ->getRepository("ApplicationSonataClassificationBundle:Category")
-            ->findBy(array('enabled' => true, 'parent' => null));
-
-        return $this->render('InfoComplaintBundle:HomePage:categories.html.twig', array('categories' => $categories));
-    }
-
-    public function showCategoryAction($id)
-    {
-        $subcategory = $this->getDoctrine()
-            ->getRepository("ApplicationSonataClassificationBundle:Category")
-            ->findBy(array('parent' => $id));
-
-        if (!$subcategory) {
-            throw $this->createNotFoundException('The companies does not exist');
-        }
-
-        return $this->render('InfoComplaintBundle:HomePage:company.html.twig', array('subcategory' => $subcategory));
     }
 
     public function lastAddedCompaniesAction()

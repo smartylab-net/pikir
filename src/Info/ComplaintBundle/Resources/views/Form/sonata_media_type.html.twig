@@ -1,6 +1,7 @@
 {% block sonata_media_type_widget %}
 
     {% form_theme form.binaryContent 'InfoComplaintBundle:Form:file.html.twig' %}
+    {% form_theme form.unlink 'InfoComplaintBundle:Form:file.html.twig' %}
 
     <div>
         {% if value is not empty and value.providerReference %}
@@ -23,3 +24,6 @@
         </td>
     {% endspaceless %}
 {% endblock file_widget %}
+
+{% block checkbox_widget %}
+{% endblock %}

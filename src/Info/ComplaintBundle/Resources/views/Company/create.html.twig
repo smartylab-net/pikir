@@ -1,15 +1,16 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
+    {% form_theme form.logo 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
     <div class="page-header">
-        <h1>Редактирование данных о компании</h1>
+        <h1>Добавление новой компании</h1>
     </div>
 
     {% if app.session.flashBag.has('manager.company_edit_success') %}
         <div class="alert alert-success">
-        {% for flashMessage in app.session.flashBag.get('manager.company_edit_success') %}
-            {{ flashMessage }}
-        {% endfor %}
+            {% for flashMessage in app.session.flashBag.get('manager.company_edit_success') %}
+                {{ flashMessage }}
+            {% endfor %}
         </div>
     {% endif %}
 

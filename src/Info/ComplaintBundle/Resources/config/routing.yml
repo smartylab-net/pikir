@@ -1,5 +1,5 @@
 info_company:
-  resource: "@InfoComplaintBundle/Resources/config/company/routing.yml"
+  resource: "@InfoComplaintBundle/Resources/config/routing/company.yml"
   prefix:   /company
 
 info_complaint_homepage:

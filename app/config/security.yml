@@ -77,6 +77,7 @@ security:
         # Change these rules to adapt them to your needs
         - { path: ^/admin/, role: ROLE_USER }
         - { path: ^/complaint/create, role: ROLE_USER }
+        - { path: ^/company/create, role: ROLE_USER }
         - { path: ^/manager/, role: ROLE_USER}
         - { path: ^/profile/me/, role: ROLE_USER}
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

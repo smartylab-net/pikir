@@ -1,4 +1,5 @@
 {% extends "::base.html.twig" %}
+{% import "@InfoComplaint/Default/stars.html.twig" as stars %}
 
     {% block body %}
 
@@ -30,7 +31,7 @@
                             <div class="container">
 
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                             <h4><small>
                                                 Описание компании:
                                             </small></h4>
@@ -52,11 +53,11 @@
 
                                     {#</div>#}
 
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                             <h4><small>
                                                 Рейтинг
                                             </small></h4>
-                                            <h4>{{average}}</h4>
+                                            {{ stars.show(average) }}
 
                                     </div>
 
@@ -90,8 +91,10 @@
 
             <div class="container">
             <h2>Отзывы</h2>
-                {%for complaint in complaintlist %}
-                    {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint,'use_link':true}) }}
+                {% for complaint in complaintlist %}
+                    {{ include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint,'use_link':true}) }}
+                {% else %}
+                    <h3>Пока отзывов не было оставлено</h3>
                 {% endfor %}
 
             </div> 

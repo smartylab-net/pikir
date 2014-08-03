@@ -1,4 +1,4 @@
-
+{% import "@InfoComplaint/Default/stars.html.twig" as stars %}
 <div class="panel panel-default">
     <div class="panel-heading">
         <span class = "complaint-voting-block">
@@ -42,16 +42,10 @@
         <br/>
         {% endif %}
 
-        {% for i in 1..5 %}
-            {% if (i<=complaint.rating) %}
-                <img src="{{ asset('public/images/img/star-on.png') }}">
-            {% else %}
-                <img src="{{ asset('public/images/img/star-off.png') }}">
-            {% endif %}
-        {% endfor %}
+        {{ stars.show(complaint.rating) }}
             <div class="clear"></div>
         <div class="margin-top20">
-            {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании"~complaint.company.name), 'description':complaint.title } %}
+            {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.title } %}
             {#<div class="pluso" data-background="transparent" data-options="medium,square,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-url="{{ url ('info_complaint_complaint',{'id':complaint.id}) }}" data-title="Отзыв о компании {{ complaint.company.name }}" data-description="{{ complaint.title }}"></div>#}
         </div>
     </div>

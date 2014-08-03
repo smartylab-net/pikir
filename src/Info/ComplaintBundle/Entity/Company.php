@@ -94,7 +94,7 @@ class Company
     public function __construct()
     {
         $this->approved = false;
-        $this->enabled = false;
+        $this->enabled = true;
         $this->created = new \DateTime();
     }
 

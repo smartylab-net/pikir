@@ -1,0 +1,12 @@
+info_company_homepage:
+  pattern:  /show/{id}
+  defaults: { _controller: InfoComplaintBundle:Company:index }
+  options:
+    expose: true
+
+
+info_company_create:
+  pattern:  /create/
+  defaults: { _controller: InfoComplaintBundle:Company:create }
+  options:
+    expose: true

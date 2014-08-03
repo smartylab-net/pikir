@@ -68,13 +68,11 @@ class ManagerController extends Controller{
         return $this->render('InfoComplaintBundle:Manager:company_list.html.twig',array('companies'=>$companies));
     }
 
-    //TODO: Стать представителем компании
     public function askBeManagerAction(Company $company)
     {
         $user = $this->getUser();
         $response = new JsonResponse();
-//        if ($user!= null && $this->getRequest()->isXmlHttpRequest() && $this->getRequest()->isMethod('POST'))
-        if (true)
+        if ($user!= null && $this->getRequest()->isXmlHttpRequest() && $this->getRequest()->isMethod('POST'))
         {
             if ($company->getManager()!=null)
             {
@@ -89,7 +87,6 @@ class ManagerController extends Controller{
             }
             else
             {
-                //TODO: прописать логику
                 $managerRequest = new ManagerRequest($user,$company);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($managerRequest);

@@ -1,0 +1,9 @@
+{% macro show(count) %}
+{% for i in 1..5 %}
+    {% if (i <= count) %}
+        <img src="{{ asset('public/images/img/star-on.png') }}">
+    {% else %}
+        <img src="{{ asset('public/images/img/star-off.png') }}">
+    {% endif %}
+{% endfor %}
+{% endmacro %}

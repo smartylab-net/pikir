@@ -133,22 +133,22 @@ a.make-complaint-comment:hover{
 }
 #cssmenu > ul > li > a {
     padding: 15px 20px;
-    border-left: 1px solid #00224c;
-    border-right: 1px solid #00224c;
-    border-top: 1px solid #00224c;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
     cursor: pointer;
     z-index: 2;
     font-size: 14px;
     font-weight: bold;
     text-decoration: none;
-    color: #ffffff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+    color: #777777;
+    /*text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);*/
     background: #004498;
-    background: -webkit-linear-gradient(#004498, #00397f);
-    background: -moz-linear-gradient(#004498, #00397f);
-    background: -o-linear-gradient(#004498, #00397f);
-    background: -ms-linear-gradient(#004498, #00397f);
-    background: linear-gradient(#004498, #00397f);
+    background: -webkit-linear-gradient(#ffffff, #eeeeee);
+    background: -moz-linear-gradient(#ffffff, #eeeeee);
+    background: -o-linear-gradient(#ffffff, #eeeeee);
+    background: -ms-linear-gradient(#ffffff, #eeeeee);
+    background: linear-gradient(#ffffff, #eeeeee);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 #cssmenu > ul > li > ul > li.active{
@@ -157,13 +157,13 @@ a.make-complaint-comment:hover{
 #cssmenu > ul > li > a:hover,
 #cssmenu > ul > li.active > a,
 #cssmenu > ul > li.open > a {
-    color: #eeeeee;
+    color: #006698;
     background: #00397f;
-    background: -webkit-linear-gradient(#00397f, #002d65);
-    background: -moz-linear-gradient(#00397f, #002d65);
-    background: -o-linear-gradient(#00397f, #002d65);
-    background: -ms-linear-gradient(#00397f, #002d65);
-    background: linear-gradient(#00397f, #002d65);
+    background: -webkit-linear-gradient(#ffffff, #dddddd);
+    background: -moz-linear-gradient(#ffffff, #dddddd);
+    background: -o-linear-gradient(#ffffff, #dddddd);
+    background: -ms-linear-gradient(#ffffff, #dddddd);
+    background: linear-gradient(#ffffff, #dddddd);
 }
 #cssmenu ul ul li a {
     cursor: pointer;

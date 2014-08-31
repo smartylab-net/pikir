@@ -27,7 +27,7 @@
 {% block body %}
     <div class="panel panel-default">
         {% for complaint in complaintlist %}
-           {{   include ('InfoComplaintBundle:Complaint:_blocComplaint.html.twig',{'complaint':complaint,'use_link':true}) }}
+           {{   include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig', {'complaint':complaint}) }}
         {% endfor %}
     </div>
 {% endblock %}

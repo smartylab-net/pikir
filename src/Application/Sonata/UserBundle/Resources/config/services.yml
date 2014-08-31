@@ -8,3 +8,8 @@ services:
             - @service_container
             - @doctrine
             - %user_class_name%
+
+    strokit.twig.gravatar_image_ext:
+        class: Application\Sonata\UserBundle\Twig\GravatarImageExtension
+        tags:
+            - { name: twig.extension }

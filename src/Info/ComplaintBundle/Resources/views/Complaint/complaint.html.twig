@@ -6,7 +6,7 @@
 {% endblock javascripts %}
 
 {% block body %}
-    {% include 'InfoComplaintBundle:Complaint:_blocComplaint.html.twig' with {'complaint':complaint,'show_company': true } %}
+    {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintPage.html.twig' with {'complaint':complaint} %}
     {% for treeComment in treeComments %}
         {{ treeComment|raw }}
     {% endfor %}

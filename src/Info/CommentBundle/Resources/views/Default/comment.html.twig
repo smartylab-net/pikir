@@ -6,6 +6,7 @@
             <a href="javascript:void(0)" onclick="Vote.sendVote('comment',{{node.id}},'minus')"><span class="glyphicon glyphicon-thumbs-down"></span></a>
     </span>
     <p>
+        {{ gravatar_image(user, 30)}}
         {{ user? :'Аноним' }} | {{ node['createdAt']|format_datetime }}
         {% if user != null and user == complaint.company.manager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
         {% if user != null and user == complaint.author %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}

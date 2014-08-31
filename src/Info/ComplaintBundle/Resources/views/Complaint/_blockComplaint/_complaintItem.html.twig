@@ -1,0 +1,58 @@
+{% import "@InfoComplaint/Default/stars.html.twig" as stars %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="complaint-voting-block">
+            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+            </a>
+            <span id="vote-complaint{{ complaint.id }}">
+                {{ complaint.vote }}
+            </span>
+            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+            </a>
+        </span>
+
+        {% block use_link_block %}
+            <h2>{{ complaint.title }}</h2>
+        {% endblock %}
+
+        {% block show_company_block %}
+        {% endblock %}
+        {{ gravatar_image(complaint.author, 30)}} {{ complaint.author? complaint.author:'Аноним' }}  |  {{ complaint.created|format_date }} |
+        Комментариев: {{ complaint.comments|length? : 0 }}
+
+        <div class="row">
+            {% if complaint.author != null and app.user != null and complaint.author == app.user %}
+                <a class="btn" href="{{ path('info_complaint_edit',{ 'complaint':complaint.id }) }}">
+                    Редактировать отзыв
+                </a>
+
+            {% endif %}
+            {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
+                <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}">
+                    Удалить отзыв
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="panel-body">
+        {% block text_block %}
+            {{ complaint.text|raw }}
+        {% endblock %}
+        <br/>
+        {% if complaint.someFile %}
+            <a href="{{ path('sonata_media_download',{'id':complaint.someFile.id,'format':'reference'}) }}">
+                {{ complaint.someFile.name }}
+            </a>
+            <br/>
+        {% endif %}
+
+        {{ stars.show(complaint.rating) }}
+        <div class="clear"></div>
+        <div class="margin-top20">
+            {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.title } %}
+        </div>
+    </div>
+</div>

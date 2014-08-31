@@ -1,0 +1,23 @@
+
+{% block use_link %}
+    <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+        <h2>
+            {{ complaint.title }}
+        </h2>
+    </a>
+{% endblock %}
+
+{% block show_company %}
+    <h4>Компания:
+        <a href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">
+            {{ complaint.company.name }}
+        </a>
+    </h4>
+{% endblock %}
+
+{% block text %}
+    {{ complaint.text| striptags| slice(0, 200)| raw }}
+    <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+        ...
+    </a>
+{% endblock %}

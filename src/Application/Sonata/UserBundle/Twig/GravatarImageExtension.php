@@ -22,7 +22,7 @@ class GravatarImageExtension extends \Twig_Extension
             return null;
         }
         $hash = md5($user->getEmail());
-        $gravatarLink = "http://www.gravatar.com/avatar/$hash?d=mm&s=$imageSize";
+        $gravatarLink = "http://www.gravatar.com/avatar/$hash.png?d=mm&s=$imageSize";
         $attr = '';
         foreach ($options as $key => $value)
             $attr .= $key . '="' . $value . '"';

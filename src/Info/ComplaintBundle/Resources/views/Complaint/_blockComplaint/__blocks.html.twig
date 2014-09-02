@@ -1,4 +1,3 @@
-
 {% block use_link %}
     <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
         <h2>
@@ -16,8 +15,12 @@
 {% endblock %}
 
 {% block text %}
-    {{ complaint.text| striptags| slice(0, 200)| raw }}
-    <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
-        ...
-    </a>
+    {% if (complaint.text|length > 200) %}
+        {{ complaint.text| striptags| slice(0, 200)| raw }}...
+        <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+            Прочитать полностью
+        </a>
+    {% else %}
+        {{ complaint.text|raw }}
+    {% endif %}
 {% endblock %}

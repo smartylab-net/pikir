@@ -322,18 +322,4 @@ class ComplaintController extends Controller
         $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$comment->getVote()); 
         return new JsonResponse($jsonResponse);    
     }
-
-     public function preExecute()
-    {
-        $request = $this->get('request');
-        $value = $request->cookies->get('anonymous-vote');
-        
-        if(!isset($value))
-        {
-            $cookie = new Cookie('anonymous-vote', time().sha1(time()), time() + 3600 * 24 * 7);
-            $response = new Response();
-            $response->headers->setCookie($cookie);
-            return $response->send();
-        }
-    }
 }

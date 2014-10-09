@@ -56,6 +56,6 @@ services:
       - [ setTranslationDomain, [InfoComplaintBundle]]
       
   my.controller.listener:
-    class: Info\ComplaintBundle\Listener\ControllerListener
+    class: Info\ComplaintBundle\Listener\VoteCookieResponseListener
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }           
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

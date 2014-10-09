@@ -2,10 +2,6 @@
     margin-bottom: 30px;
 }
 
-.categories {
-    margin-bottom: 30px;
-}
-
 div.vote-stars{
     position: static !important;
     height: 32px;
@@ -130,6 +126,7 @@ a.make-complaint-comment:hover{
     width: 200px;
     font-family: Helvetica, Arial, sans-serif;
     color: #ffffff;
+    margin-top: 20px;
 }
 #cssmenu > ul > li > a {
     padding: 15px 20px;

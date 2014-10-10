@@ -24,3 +24,9 @@
         {{ complaint.text|raw }}
     {% endif %}
 {% endblock %}
+
+{% block social %}
+    <div class="margin-top20">
+        {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.title } %}
+    </div>
+{% endblock %}

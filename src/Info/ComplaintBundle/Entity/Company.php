@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -163,7 +164,7 @@ class Company
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getComplaints()
     {
@@ -282,11 +283,14 @@ class Company
     public function getAverage()
     {
         $sum = 0;
-        $count = count($this->getComplaints());
-
+        $count = 0;
         foreach ($this->getComplaints() as $complaint)
         {
-            $sum +=$complaint->getRating();
+            $rating = $complaint->getRating();
+            if ($rating) {
+                $sum += $rating;
+                $count++;
+            }
         }
         return $count?$sum/$count:0;
     }

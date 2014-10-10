@@ -51,8 +51,7 @@
 
         {{ stars.show(complaint.rating) }}
         <div class="clear"></div>
-        <div class="margin-top20">
-            {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.title } %}
-        </div>
+        {% block social_block %}
+        {% endblock %}
     </div>
 </div>

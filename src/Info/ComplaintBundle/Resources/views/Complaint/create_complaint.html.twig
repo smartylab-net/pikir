@@ -3,7 +3,7 @@
     {{ parent() }}
 
     {% block rating %}
-      
+
         <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
         <script type="text/javascript">
             $(function () {
@@ -18,63 +18,72 @@
                     }
                 });
             });
-        </script>          
+        </script>
     {% endblock %}
 
-    
+
 {% endblock %}
 
 
 {% block body %}
 
-            {% block sessionBlock %}
-            
-            {% endblock %}
+    {% block sessionBlock %}
 
-            {% form_theme form.someFile 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
+    {% endblock %}
 
-            {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
-            
-                {% block changedBlock %}
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Название компании</label>
-                        <div class="col-md-10">
-                        {{ form_widget(form.company, { 'attr': {'class': 'form-control'} }) }}
-                        </div>
-                    </div>
-                {% endblock %}
-                    
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Заголовок</label>
-                    <div class="col-md-10">
-                        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
-                    </div>
-                </div>
+    {% form_theme form.someFile 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
 
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Текст</label>
-                    <div class="col-md-10">
-                        {{ form_widget(form.text, { 'attr': {'class': 'form-control', 'rows': 7} }) }}
-                    </div>
-                </div>
+    <div class="page-header">
+        <h1>Создание отзыва</h1>
+    </div>
 
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Rating</label>
-                    <div id="fixed" class="col-md-10">
-                    </div>
-                </div>
+    {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
 
-                <div class="form-group">
-                    <label class="col-md-2 control-label">{{ form_label(form.someFile) }}</label>
-                    <div id="fixed" class="col-md-10">
-                        {{ form_widget(form.someFile) }}
-                    </div>
-                </div>
+    {% block changedBlock %}
+        <div class="form-group">
+            <label class="col-md-2 control-label">Название компании</label>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        {{ form_widget(form.submit) }}
-                    </div>
-                </div>
-            {{ form_end(form) }}
+            <div class="col-md-10">
+                {{ form_widget(form.company, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Заголовок</label>
+
+        <div class="col-md-10">
+            {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Текст</label>
+
+        <div class="col-md-10">
+            {{ form_widget(form.text, { 'attr': {'class': 'form-control', 'rows': 7} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Rating</label>
+
+        <div id="fixed" class="col-md-10">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">{{ form_label(form.someFile) }}</label>
+
+        <div id="fixed" class="col-md-10">
+            {{ form_widget(form.someFile) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            {{ form_widget(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

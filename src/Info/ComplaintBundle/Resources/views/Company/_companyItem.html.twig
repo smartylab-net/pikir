@@ -1,40 +1,43 @@
+<div>
+
+    <div class="col-md-4">
+        <div class="thumbnail margin-top20">
+            <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
+                {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+
         <div>
-
-            <div class="col-md-4">
-                <div class="thumbnail margin-top20">
-                    <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
-                        {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-
-                <div>
-                    <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
-                        <h3>{{company.name}}
+            <a href="{{ path('info_company_homepage',{'id':company.id}) }}">
+                <h3>{{ company.name }}
+                    {% if company.approved %}
                         <span
-                                title="{{ company.approved ? "Подтвержденный" : "Неподтвержденный" }}"
-                                class="glyphicon {{ company.approved ? "glyphicon-ok-circle green" : "glyphicon-ban-circle red"}}">
+                                title="Подтвержденный"
+                                class="glyphicon glyphicon-ok-circle green">
                         </span>
-                        </h3>
-                    </a>
-
-                </div>
-                <div>
-                    <p>Количество отзывов: {{ company.complaints|length ? :0 }}</p>
-                    <p class="w260">Рейтинг:
-                        {% for i in 1..5 %}
-                            {% if (i<=company.average) %}
-                                <img src="{{ asset('public/images/img/star-on.png') }}">
-                            {% else %}
-                                <img src="{{ asset('public/images/img/star-off.png') }}">
-                            {% endif %}
-                        {% endfor %}
-                    </p>
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
+                    {% endif %}
+                </h3>
+            </a>
 
         </div>
+        <div>
+            <p>Количество отзывов: {{ company.complaints|length ? :0 }}</p>
+
+            <p class="w260">Рейтинг:
+                {% for i in 1..5 %}
+                    {% if (i<=company.average) %}
+                        <img src="{{ asset('public/images/img/star-on.png') }}">
+                    {% else %}
+                        <img src="{{ asset('public/images/img/star-off.png') }}">
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+
+</div>

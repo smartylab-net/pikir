@@ -21,6 +21,9 @@
                         <div class="col-md-6">
                             {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
                         </div>
+                        {% if loop.index % 2 == 0 %}
+                            <div class="clear"></div>
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <!--end row-->

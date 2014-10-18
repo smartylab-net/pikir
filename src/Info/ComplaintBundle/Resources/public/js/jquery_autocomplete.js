@@ -28,7 +28,7 @@ $(function(){
                     .val( value )
                     .attr( "title", "" )
                     .attr( "name", "company" )
-                    .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+                    .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left form-control" )
                     .autocomplete({
                         delay: 0,
                         minLength: 0,

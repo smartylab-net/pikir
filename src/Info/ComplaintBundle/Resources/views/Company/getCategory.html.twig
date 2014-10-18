@@ -9,12 +9,12 @@
     </div>
 
     <div class="row clearfix">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-4">
             <div id='cssmenu'>
                 {{ knp_menu_render('category_side_menu', {'currentClass': 'active','ancestorClass': 'active','template':'category_side_menu.html.twig'}) }}
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-8">
             {% if pagination.getTotalItemCount > 0 %}
                 <div class="row">
                     {% for company in pagination %}

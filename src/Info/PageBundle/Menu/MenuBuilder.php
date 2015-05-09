@@ -76,7 +76,8 @@ class MenuBuilder extends ContainerAware
         $menu = $this->factory->createItem('bottom');
         $menu->setCurrentUri($request->getRequestUri());
 
-        $menu->setChildrenAttribute('class','nav navbar-nav');
+        $menu->setChildrenAttribute('id','main-menu');
+        $menu->setChildrenAttribute('class','gui-controls');
 
         $this->getPagesMenu($menu, 'bottom');
         return $menu;

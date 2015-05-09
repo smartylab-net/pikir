@@ -1,34 +1,8 @@
 {% extends '::base.html.twig' %}
 {% block body %}
     <div class="row">
-        <div class="col-md-8">
-
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <h1 class="text-center">
-                        Добро пожаловать!
-                    </h1>
-
-                    <p>
-                        На нашем сайте Вы можете оставить отзыв на любую понравившуюся или наоборот непонравившуюся
-                        компанию.
-                        Также Вы сможете получить ответ от компании на свой отзыв.
-                    </p>
-
-                    <p>
-                        Компании же могут через наш сайт наладить линию обратной связи с клиентами.
-                    </p>
-
-                    <div class="text-center">
-                        <a class="btn btn-primary btn-large" href="{{ path('info_complaint_create') }}">Оставить
-                            отзыв</a>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-12">
             {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints') %}
-        </div>
-        <div class="col-md-4">
-            {% render controller('InfoComplaintBundle:Company:lastAddedCompanies') %}
         </div>
     </div>
 {% endblock %}

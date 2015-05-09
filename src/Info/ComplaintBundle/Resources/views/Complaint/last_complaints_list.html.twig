@@ -1,8 +1,8 @@
 <h2> Последние добавленные отзывы</h2>
+<ul class="timeline collapse-lg timeline-hairline">
 {% for complaint in complaints %}
-    <div class="row">
-        {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}
-    </div>
+    {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}
 {% else %}
     <h3>Пока отзывов не было оставлено</h3>
 {% endfor %}
+</ul>

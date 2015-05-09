@@ -74,7 +74,6 @@ div.vote-stars{
 }
 .complaint-voting-block
 {
-    float:right;
     position: relative;
 }
 .make-complaint{
@@ -176,4 +175,15 @@ a.make-complaint-comment:hover{
 
 #Complaint_text {
     /*width: 100%;*/
+}
+
+.line-height1 {
+    line-height: normal;
+}
+.line-height-body {
+    line-height: 1.846153846;
+}
+.menubar-fixed-panel > div.menubar-button {
+    width: 26px;
+    max-width: none;
 }

@@ -187,3 +187,7 @@ a.make-complaint-comment:hover{
     width: 26px;
     max-width: none;
 }
+
+.margin-right10 {
+    margin-right: 10px;
+}

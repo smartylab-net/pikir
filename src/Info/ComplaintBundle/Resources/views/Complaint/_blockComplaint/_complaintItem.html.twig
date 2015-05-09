@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1'}) }}
+        {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
         <span class="text-medium">
                     {{ complaint.author? complaint.author:'Аноним' }} >
                 <a class="text-primary" href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">
@@ -36,13 +36,23 @@
                 </span>
         <br>
                 <span class="opacity-50">
-                    {{ complaint.created|format_date }}
+                    <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                        {{ complaint.created|format_date }}
+                    </a>
                 </span>
     </div>
     <div class="card-body small-padding">
 
         {% block text_block %}
-            {{ complaint.text|raw }}
+
+            {% if (complaint.text|length > 200) %}
+                {{ complaint.text| striptags| slice(0, 200)| raw }}...
+                <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                    Прочитать полностью
+                </a>
+            {% else %}
+                {{ complaint.text|raw }}
+            {% endif %}
         {% endblock %}
         <br/>
         {% if complaint.someFile %}

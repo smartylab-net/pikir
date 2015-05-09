@@ -16,6 +16,7 @@
                 <!-- BEGIN MAIN MENU -->
                 {{ knp_menu_render('main', {'template':'main_menu.html.twig'}) }}
 
+                {{ knp_menu_render('bottom', {'template':'main_menu.html.twig'}) }}
                 <div class="menubar-foot-panel">
                     <small class="no-linebreak hidden-folded">
                         <span class="opacity-75">Copyright © {% if "now"|date("Y") != 2015 %} 2015 - {% endif %}{{ "now"|date("Y") }}</span> <strong>Strokit Developers</strong>

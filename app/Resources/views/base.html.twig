@@ -1,79 +1,81 @@
 <!DOCTYPE html>
 <html {{ sonata_seo_html_attributes() }}>
-    <head {{ sonata_seo_head_attributes() }}>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head {{ sonata_seo_head_attributes() }}>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {{ sonata_seo_title() }}
-        {{ sonata_seo_metadatas() }}
-        {{ sonata_seo_link_canonical() }}
-        {{ sonata_seo_lang_alternates() }}
-        {% block stylesheets %}
+    {{ sonata_seo_title() }}
+    {{ sonata_seo_metadatas() }}
+    {{ sonata_seo_link_canonical() }}
+    {{ sonata_seo_lang_alternates() }}
+    {% block stylesheets %}
 
-            <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-default/bootstrap.css?1422792965') }}" />
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-default/materialadmin.css?1425466319') }}" />
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-default/font-awesome.min.css?1422529194') }}" />
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-default/material-design-iconic-font.min.css?1421434286') }}" />
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/style.css') }}"/>
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body  class="menubar-hoverable menubar-pin menubar-first ">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900'
+              rel='stylesheet' type='text/css'/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-default/bootstrap.css?1422792965') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-default/materialadmin.css?1425466319') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-default/font-awesome.min.css?1422529194') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-default/material-design-iconic-font.min.css?1421434286') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/style.css') }}"/>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body class="menubar-hoverable menubar-pin menubar-first ">
 
-    {% include '::_header.html.twig' %}
+{% include '::_header.html.twig' %}
 
-    <div id="base">
-        <div class="offcanvas">
-        </div>
-        <div id="content">
-            <section>
-                <div class="section-header">
-                    <ol class="breadcrumb">
-                        <li class="active">{% block breadcrumb %}{% endblock %}</li>
-                    </ol>
-                </div>
-                <div class="section-body">
-                    {% block body %}{% endblock %}
-                </div>
-            </section>
-        </div>
-        {% include '::_menu.html.twig' %}
-        <div class="offcanvas">
-
-        </div>
+<div id="base">
+    <div class="offcanvas">
     </div>
+    <div id="content">
+        <section>
+            <div class="section-header">
+                <ol class="breadcrumb">
+                    <li class="active">{% block breadcrumb %}{% endblock %}</li>
+                </ol>
+            </div>
+            <div class="section-body">
+                {% block body %}{% endblock %}
+            </div>
+        </section>
+    </div>
+    {% include '::_menu.html.twig' %}
+    <div class="offcanvas">
 
-    {% include '::_footer.html.twig' %}
+    </div>
+</div>
 
-        {% block javascripts %}
+{% block javascripts %}
 
-            <!-- BEGIN JAVASCRIPT -->
-            <script src="{{ asset('public/js/libs/jquery/jquery-1.11.2.min.js') }}"></script>
-            <script src="{{ asset('public/js/libs/jquery/jquery-migrate-1.2.1.min.js') }}"></script>
-            <script src="{{ asset('public/js/libs/bootstrap/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('public/js/libs/spin.js/spin.min.js') }}"></script>
-            <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
-            <script src="{{ asset('public/js/libs/nanoscroller/jquery.nanoscroller.min.js') }}"></script>
+    <!-- BEGIN JAVASCRIPT -->
+    <script src="{{ asset('public/js/libs/jquery/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery/jquery-migrate-1.2.1.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/spin.js/spin.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/nanoscroller/jquery.nanoscroller.min.js') }}"></script>
 
-            <!-- Put App.js last in your javascript imports -->
-            <script src="{{ asset('public/js/core/source/App.js') }}"></script>
-            <script src="{{ asset('public/js/core/source/AppNavigation.js') }}"></script>
-            <script src="{{ asset('public/js/core/source/AppOffcanvas.js') }}"></script>
-            {#<script src="{{ asset('public/js/core/source/AppCard.js') }}"></script>#}
-            {#<script src="{{ asset('public/js/core/source/AppForm.js') }}"></script>#}
-            <script src="{{ asset('public/js/core/source/AppNavSearch.js') }}"></script>
-            <script src="{{ asset('public/js/core/source/AppVendor.js') }}"></script>
+    <!-- Put App.js last in your javascript imports -->
+    <script src="{{ asset('public/js/core/source/App.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppNavigation.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppOffcanvas.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppCard.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppForm.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppNavSearch.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppVendor.js') }}"></script>
 
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            <script src="{{ asset('public/js/scripts.js') }}"></script>
-            {#<script src="{{ asset('public/js/autocomplete.js') }}"></script>#}
-            <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
-            <script src="{{ asset('public/js/main.js') }}"></script>
-            <script src="{{ asset('public/js/analytics.js') }}"></script>
-            {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
-            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-        {% endblock %}
-    </body>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('public/js/scripts.js') }}"></script>
+    {#<script src="{{ asset('public/js/autocomplete.js') }}"></script>#}
+    <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
+    <script src="{{ asset('public/js/main.js') }}"></script>
+    <script src="{{ asset('public/js/analytics.js') }}"></script>
+    {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
+    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+{% endblock %}
+</body>
 </html>

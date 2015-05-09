@@ -1,10 +1,5 @@
 <li>
-    <div class="timeline-circ circ-xl">
-        {% if complaint.company.logo %}
-            {% thumbnail complaint.company.logo, 'small' with {class: 'img-circle img-responsive'} %}
-        {% else %}
-            <img src="{{ asset('public/images/no-logo.png') }}" class="img-circle img-responsive">
-        {% endif %}
+    <div class="timeline-circ">
     </div>
     <div class="timeline-entry">
         {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItem.html.twig' %}

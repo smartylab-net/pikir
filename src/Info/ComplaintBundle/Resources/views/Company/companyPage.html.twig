@@ -91,12 +91,14 @@
 
             <div class="container">
             <h2>Отзывы</h2>
-                {% for complaint in complaintlist %}
-                    {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
-                {% else %}
-                    <h3>Пока отзывов не было оставлено</h3>
-                {% endfor %}
 
+                <ul class="timeline collapse-lg timeline-hairline">
+                    {% for complaint in complaintlist %}
+                        {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
+                    {% else %}
+                        <h3>Пока отзывов не было оставлено</h3>
+                    {% endfor %}
+                </ul>
             </div> 
         </div>              
            

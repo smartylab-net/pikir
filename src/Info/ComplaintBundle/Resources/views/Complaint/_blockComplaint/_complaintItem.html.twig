@@ -1,44 +1,46 @@
-{% import "@InfoComplaint/Default/stars.html.twig" as stars %}
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card style-default-bright">
+    <div class="card-head small-padding line-height-body">
 
-        {% block use_link_block %}
-            <h2>{{ complaint.title }}</h2>
-        {% endblock %}
-
-        {% block show_company_block %}
-        {% endblock %}
-        {{ gravatar_image(complaint.author, 30)}}
-        <span class="complaint-voting-block">
-            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-            </a>
-            <span id="vote-complaint{{ complaint.id }}">
-                {{ complaint.vote }}
-            </span>
-            <a href="javascript:void(0)" onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-            </a>
-        </span>
-        {{ complaint.author? complaint.author:'Аноним' }}  |  {{ complaint.created|format_date }} |
-        Комментариев: {{ complaint.comments|length? : 0 }}
-
-        <div class="row">
-            {% if complaint.author != null and app.user != null and complaint.author == app.user %}
-                <a class="btn" href="{{ path('info_complaint_edit',{ 'complaint':complaint.id }) }}">
-                    Редактировать отзыв
-                </a>
-
-            {% endif %}
-            {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
-                <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}">
-                    Удалить отзыв
-                </a>
-            {% endif %}
+        <div class="tools">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-icon-toggle dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-angle-down no-margin"></i>
+                    </a>
+                    <ul class="dropdown-menu animation-dock pull-right menu-card-styling" role="menu"
+                        style="text-align: left;">
+                        {% if complaint.author != null and app.user != null and complaint.author == app.user %}
+                            <li>
+                                <a class="btn" href="{{ path('info_complaint_edit',{ 'complaint':complaint.id }) }}">
+                                    Редактировать отзыв
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
+                            <li>
+                                <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}">
+                                    Удалить отзыв
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
+        {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1'}) }}
+        <span class="text-medium">
+                    {{ complaint.author? complaint.author:'Аноним' }} >
+                <a class="text-primary" href="{{ path('info_company_homepage', {'id':complaint.company.id}) }}">
+                    {{ complaint.company.name }}
+                </a>
+                </span>
+        <br>
+                <span class="opacity-50">
+                    {{ complaint.created|format_date }}
+                </span>
     </div>
+    <div class="card-body small-padding">
 
-    <div class="panel-body">
         {% block text_block %}
             {{ complaint.text|raw }}
         {% endblock %}
@@ -49,10 +51,31 @@
             </a>
             <br/>
         {% endif %}
+        <div class="card-actionbar">
+            <div class="card-actionbar-row">
 
-        {{ stars.show(complaint.rating) }}
+                        <span class="complaint-voting-block">
+                            <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
+                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
+                                <span class="glyphicon glyphicon-thumbs-up no-margin"></span>
+                            </a>
+                            <span class="btn pull-left" id="vote-complaint{{ complaint.id }}">
+                                {{ complaint.vote }}
+                            </span>
+                            <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
+                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
+                                <span class="glyphicon glyphicon-thumbs-down no-margin"></span>
+                            </a>
+                        </span>
+                <a class="btn ink-reaction pull-left"
+                   href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                    Комментариев: {{ complaint.comments|length? : 0 }}
+                </a>
+                {% block social_block %}
+                {% endblock %}
+            </div>
+        </div>
         <div class="clear"></div>
-        {% block social_block %}
-        {% endblock %}
+
     </div>
 </div>

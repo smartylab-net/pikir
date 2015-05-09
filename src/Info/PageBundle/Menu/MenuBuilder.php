@@ -34,13 +34,32 @@ class MenuBuilder extends ContainerAware
     {
         $menu = $this->factory->createItem('main');
         $menu->setCurrentUri($request->getRequestUri());
-        $menu->setChildrenAttribute('class','nav navbar-nav');
-        $menu->addChild('Companies', array('route' => 'info_complaint_category','label'=>'Все компании'));
-        $menu->addChild('Create_Company', array('route' => 'info_company_create','label'=>'Добавить компанию'));
-        $menu->addChild('Complaint', array('route' => 'info_complaint_create','label'=>'Добавить отзыв'));
-//        $menu->addChild('Catalog', array('route' => 'nurix_goods_get_catalog','routeParameters'=>array('cid'=>null),'label'=>'Каталог'));
-
-//        $menu->addChild('available', array('route' => 'nurix_catalog_get_available','label'=>'В наличии'));
+        $menu->setChildrenAttribute('id','main-menu');
+        $menu->setChildrenAttribute('class','gui-controls');
+        $menu->addChild('Companies',
+            array(
+                'route' => 'info_complaint_category',
+                'label'=>'Все компании',
+                'extras' => array(
+                    'icon' => 'md md-domain'
+                )
+            ));
+        $menu->addChild('Create_Company',
+            array(
+                'route' => 'info_company_create',
+                'label'=>'Добавить компанию',
+                'extras' => array(
+                    'icon' => 'md md-work'
+                )
+            ));
+        $menu->addChild('Complaint',
+            array(
+                'route' => 'info_complaint_create',
+                'label'=>'Добавить отзыв',
+                'extras' => array(
+                    'icon' => 'md md-create'
+                )
+            ));
 
         $this->getPagesMenu($menu, 'top');
         return $menu;

@@ -26,11 +26,11 @@ var Vote = {
 				
 			}else
 			{
-				alert(data.errorType);
+                toastr.error(data.errorType);
 			}
 		
 		});
 	}
 
-}
+};
 

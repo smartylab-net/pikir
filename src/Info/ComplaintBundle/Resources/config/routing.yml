@@ -65,3 +65,9 @@ info_comment_vote:
     defaults: { _controller: InfoComplaintBundle:Complaint:voteComment}
     options:
         expose: true
+
+upload_image:
+    pattern: /upload/image/
+    defaults: { _controller: InfoComplaintBundle:Default:upload}
+    options:
+        expose: true

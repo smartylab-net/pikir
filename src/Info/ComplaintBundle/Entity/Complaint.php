@@ -44,14 +44,6 @@ class Complaint
      */
     private $votes;
 
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
@@ -80,7 +72,7 @@ class Complaint
      * @ORM\Column(name="rating", type="integer")
      * @Assert\NotNull()
      */
-    private $rating = 0;
+    private $rating = 3;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
@@ -144,23 +136,6 @@ class Complaint
     {
         $this->vote = $vote;
     }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
 
     /**
      * @return int

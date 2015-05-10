@@ -10,10 +10,10 @@ $('.be_manager').click(function(){
     $.post(url,
         function(data)
         {
-            alert(data.message);
+            toastr.info(data.message);
         }
     ).fail(function(data){
-            alert(data.responseJSON.message);
+            toastr.error(data.responseJSON.message);
         });
     return false;
 });

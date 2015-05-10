@@ -73,6 +73,9 @@ class ComplaintController extends Controller
     {
 
         $complaint = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
+        if (!$complaint) {
+            throw $this->createNotFoundException("Отзыв не найден");
+        }
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
         $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
         $userRep = $this->getDoctrine()->getRepository('ApplicationSonataUserBundle:User');

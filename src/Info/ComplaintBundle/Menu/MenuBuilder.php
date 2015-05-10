@@ -1,6 +1,7 @@
 <?php
 namespace Info\ComplaintBundle\Menu;
 
+use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -13,15 +14,65 @@ class MenuBuilder extends ContainerAware
      * @var EntityManager
      */
     private $em;
+    /**
+     * @var \Info\PageBundle\Menu\MenuBuilder
+     */
+    private $pageMenuBuilder;
 
     /**
      * @param FactoryInterface $factory
+     * @param $em
+     * @param $pageMenuBuilder
      */
-    public function __construct(FactoryInterface $factory,$em)
+    public function __construct(FactoryInterface $factory,$em, $pageMenuBuilder)
     {
         $this->factory = $factory;
         $this->em = $em;
+        $this->pageMenuBuilder = $pageMenuBuilder;
     }
+
+    /**
+     * создает главное меню
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return mixed
+     */
+
+    public function createMainMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('main');
+        $menu->setCurrentUri($request->getRequestUri());
+        $menu->setChildrenAttribute('id','main-menu');
+        $menu->setChildrenAttribute('class','gui-controls gui-controls-tree nav');
+        $companiesMenuItem = $menu->addChild('Companies',
+            array(
+                'route' => 'info_complaint_category',
+                'label'=>'Компании',
+                'extras' => array(
+                    'icon' => 'md md-domain'
+                )
+            ));
+        $menu->addChild('Create_Company',
+            array(
+                'route' => 'info_company_create',
+                'label'=>'Добавить компанию',
+                'extras' => array(
+                    'icon' => 'md md-work'
+                )
+            ));
+        $menu->addChild('Complaint',
+            array(
+                'route' => 'info_complaint_create',
+                'label'=>'Добавить отзыв',
+                'extras' => array(
+                    'icon' => 'md md-create'
+                )
+            ));
+
+        $this->getCategoryMenu($this->em, $companiesMenuItem);
+        $this->pageMenuBuilder->getPagesMenu($menu, 'top');
+        return $menu;
+    }
+
 
     /**
      * создает боковое меню каталога
@@ -34,7 +85,6 @@ class MenuBuilder extends ContainerAware
 
         $menu = $this->factory->createItem('category_side_menu');
         $menu->setCurrentUri($request->getRequestUri());
-        $this->getCategoryMenu($this->em, $menu);
         return $menu;
     }
 

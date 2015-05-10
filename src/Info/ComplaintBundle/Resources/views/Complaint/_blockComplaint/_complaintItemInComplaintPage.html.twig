@@ -1,7 +1,7 @@
 {% extends '@InfoComplaint/Complaint/_blockComplaint/_complaintItem.html.twig' %}
 
 {% block social_block %}
-    {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.title } %}
+    {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.text } %}
 {% endblock %}
 
 {% block text_block %}

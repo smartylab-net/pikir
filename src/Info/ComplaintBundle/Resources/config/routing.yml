@@ -8,15 +8,19 @@ info_complaint_homepage:
 
 info_complaint_create:
     pattern:  /complaint/create/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:complaint, id:null }
+    defaults: { _controller: InfoComplaintBundle:Complaint:complaint, id: null }
 
 info_complaint_category:
     pattern:  /category/{cId}
-    defaults: { _controller: InfoComplaintBundle:Category:showCategory, cId:null }
+    defaults: { _controller: InfoComplaintBundle:Category:showCategory, cId: null }
 
 info_complaint_list:
     pattern:  /allComplaint/
     defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+
+info_complaints_last:
+    pattern:  /complaints/last/
+    defaults: { _controller: InfoComplaintBundle:Complaint:lastAddedComplaints}
 
 info_complaint_company_list:
     pattern:  /companiesBy/{id}/

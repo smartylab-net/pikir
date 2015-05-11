@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Cookie;
-use Doctrine\ORM\EntityRepository; 
+use Doctrine\ORM\EntityRepository;
 
 class ComplaintController extends Controller
 {
@@ -106,12 +106,18 @@ class ComplaintController extends Controller
 
     public function lastAddedComplaintsAction()
     {
-
+        $page = $this->getRequest()->get('page', 0);
+        $itemCount = 10;
         $complaints = $this->getDoctrine()
             ->getRepository('InfoComplaintBundle:Complaint')
-            ->findBy(array(),array('id'=>'desc'),4);
+            ->findBy(array(),array('id'=>'desc'), $itemCount, $page * $itemCount);
 
-        return $this->render('InfoComplaintBundle:Complaint:last_complaints_list.html.twig', array('complaints' => $complaints));
+        $page++;
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render('InfoComplaintBundle:Complaint:complaints_list.html.twig', array('complaints' => $complaints, 'page' => $page));
+        } else {
+            return $this->render('InfoComplaintBundle:Complaint:last_complaints_list.html.twig', array('complaints' => $complaints, 'page' => $page));
+        }
     }
 
     private function sendEmailToManager(Complaint $complaint)
@@ -131,29 +137,21 @@ class ComplaintController extends Controller
 
     public function deleteComplaintAction(Complaint $complaint)
     {
-        if ($complaint == null) 
+        if ($complaint == null)
         {
             return $this->createNotFoundException();
         }
 
-
-        if ($complaint->getAuthor() == null || $complaint->getAuthor()!=$this->getUser())
-        {
-            if(!$this->get('security.context')->isGranted('ROLE_MODERATOR'))
-            {
-                throw new AccessDeniedException('Доступ к данной странице ограничен');
-            }
+        if (
+            ($complaint->getAuthor() == null || $complaint->getAuthor() != $this->getUser()) &&
+            !$this->get('security.context')->isGranted('ROLE_MODERATOR')
+        ) {
+            throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
-        $company = $complaint->getCompany();
-        
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($complaint);
         $em->flush();
-
-        $complaintRepository = $this->getDoctrine()->getManager()
-            ->getRepository('InfoComplaintBundle:Complaint');
-        $complaintList = $complaintRepository->findAll();
 
         return $this->redirect($this->generateUrl('info_complaint_homepage'));
     }
@@ -203,20 +201,20 @@ class ComplaintController extends Controller
 
         $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
         $objectVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedBefore($complaint);
-            
+
         if($this->getUser())
         {
             $userVoted = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentUser($complaint, $this->getUser());
-            
+
             if($objectVotedBefore && $userVoted)
             {
-    
+
                 $error = true;
-                 
+
             }else{
 
                 $complaintsCommentRating->setAuthor($this->getUser());
-  
+
             }
 
         }else
@@ -225,13 +223,13 @@ class ComplaintController extends Controller
             $cookie = $request->cookies->get('anonymous-vote');
             $ip = $request->getClientIp();
             $anonymVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentAnonymousUser($complaint, $cookie, $ip);
-         
+
             if($objectVotedBefore && $anonymVotedBefore)
             {
                 $error = true;
             }
             else{
-    
+
                 $complaintsCommentRating->setSessionCookie($cookie);
                 $complaintsCommentRating->setIp($ip);
             }
@@ -240,8 +238,8 @@ class ComplaintController extends Controller
         if (!$error) {
             $complaintsCommentRating->setComplaint($complaint);
             $voteValue = $complaint->getVote();
-            
-            if ($voteType == 'plus') 
+
+            if ($voteType == 'plus')
             {
                 $complaint->setVote( $voteValue + 1);
 
@@ -250,11 +248,11 @@ class ComplaintController extends Controller
                 $complaint->setVote( $voteValue - 1);
             }
 
-            $em->persist($complaintsCommentRating);        
+            $em->persist($complaintsCommentRating);
             $em->persist($complaint);
-            $em->flush(); 
+            $em->flush();
         }
-        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$complaint->getVote()); 
+        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$complaint->getVote());
         return new JsonResponse($jsonResponse);
 
     }
@@ -265,22 +263,18 @@ class ComplaintController extends Controller
         $error = false;
         $em = $this->getDoctrine()->getManager();
         $complaintsCommentRating = new ComplaintsCommentRating();
-                   
         $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
         $objectVotedBefore = $complaintsCommentRatingRep->getIfCommentVotedBefore($comment);
 
         if($this->getUser())
         {
-          
+
             $userVoted = $complaintsCommentRatingRep->getIfCommentVotedAndAuthorIsCurrentUser($comment, $this->getUser());
-            
+
             if($objectVotedBefore && $userVoted)
             {
-     
                 $error = true;
-                 
             }else{
-                
                 $complaintsCommentRating->setAuthor($this->getUser());
                 $complaintsCommentRating->setComment($comment);
            }
@@ -301,13 +295,13 @@ class ComplaintController extends Controller
                 $complaintsCommentRating->setIp($ip);
             }
         }
-        
+
         if(!$error)
         {
             $voteValue = $comment->getVote();
             $complaintsCommentRating->setComment($comment);
-            
-            if ($voteType == 'plus') 
+
+            if ($voteType == 'plus')
             {
                 $comment->setVote( $voteValue + 1);
 
@@ -318,11 +312,11 @@ class ComplaintController extends Controller
 
             $em->persist($complaintsCommentRating);
             $em->persist($comment);
-            $em->flush(); 
+            $em->flush();
         }
-        
-                
-        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$comment->getVote()); 
-        return new JsonResponse($jsonResponse);    
+
+
+        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$comment->getVote());
+        return new JsonResponse($jsonResponse);
     }
 }

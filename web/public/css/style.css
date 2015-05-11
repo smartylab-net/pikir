@@ -194,8 +194,8 @@ a.make-complaint-comment:hover{
 
 .fixed-action-btn {
     position: fixed;
-    right: 33px;
-    bottom: 33px;
+    right: 23px;
+    bottom: 23px;
     padding-top: 15px;
     margin-bottom: 0;
     z-index: 998;

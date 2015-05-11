@@ -1,13 +1,10 @@
 {% extends '::base.html.twig' %}
+{% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints') %}
         </div>
     </div>
-    <div class="fixed-action-btn">
-        <a href="{{ path('info_complaint_create') }}" class="btn ink-reaction btn-floating-action btn-primary">
-            <i class="fa fa-plus"></i>
-        </a>
-    </div>
+    {{ fab.show(path('info_complaint_create')) }}
 {% endblock %}

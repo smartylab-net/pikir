@@ -17,3 +17,11 @@ $('.be_manager').click(function(){
         });
     return false;
 });
+
+$('.gui-folder').mouseenter(function() {
+    $(this).addClass('expanded')
+});
+
+$('.gui-folder').mouseleave(function() {
+    $(this).removeClass('expanded')
+});

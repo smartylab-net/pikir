@@ -56,6 +56,9 @@
     {%- if item.actsLikeLast %}
         {%- set classes = classes|merge([options.lastClass]) %}
     {%- endif %}
+    {%- if item.hasChildren %}
+        {%- set classes = classes|merge(["gui-folder"]) %}
+    {%- endif %}
     {%- set attributes = item.attributes %}
     {%- if classes is not empty %}
         {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
@@ -80,4 +83,15 @@
 
 {% block spanElement %}<span{{ _self.attributes(item.labelAttributes) }}>{{ block('label') }}</span>{% endblock %}
 
-{% block label %}<div class="gui-icon"><i class="{{ item.getExtra('icon', '') }}"></i></div><span class="title">{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw }}{% else %}{{ item.label }}{% endif %}</span>{% endblock %}
+{% block label %}
+    {% if item.level == 1 %}
+    <div class="gui-icon"><i class="{{ item.getExtra('icon', '') }}"></i></div>
+    {% endif %}
+    <span class="title">
+    {% if options.allow_safe_labels and item.getExtra('safe_label', false) %}
+        {{ item.label|raw }}
+    {% else %}
+        {{ item.label }}
+    {% endif %}
+    </span>
+{% endblock %}

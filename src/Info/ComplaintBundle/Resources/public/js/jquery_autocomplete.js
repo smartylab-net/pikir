@@ -6,8 +6,7 @@ $(function(){
                 $( "#company" ).val( ui.item.label );
                 return false;
             },
-            change: function( event, ui ) {
-
+            search: function() {
                 $( "#Complaint_company").val(null);
             },
             select: function( event, ui ) {
@@ -17,4 +16,4 @@ $(function(){
             }
         });
     });
-})
+});

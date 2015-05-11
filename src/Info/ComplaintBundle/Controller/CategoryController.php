@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
         $pagination->setUsedRoute('info_complaint_category');
 
-        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category, 'title' => $category!=null?$category->__toString():"Все категории"));
+        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category, 'title' => $category!=null?$category->__toString():"Список компаний"));
 
     }
 }

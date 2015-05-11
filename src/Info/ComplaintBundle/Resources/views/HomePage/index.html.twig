@@ -5,4 +5,9 @@
             {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints') %}
         </div>
     </div>
+    <div class="fixed-action-btn">
+        <a href="{{ path('info_complaint_create') }}" class="btn ink-reaction btn-floating-action btn-primary">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
 {% endblock %}

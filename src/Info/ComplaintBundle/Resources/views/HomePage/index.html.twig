@@ -1,8 +1,10 @@
 {% extends '::base.html.twig' %}
+{% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints') %}
         </div>
     </div>
+    {{ fab.show(path('info_complaint_create')) }}
 {% endblock %}

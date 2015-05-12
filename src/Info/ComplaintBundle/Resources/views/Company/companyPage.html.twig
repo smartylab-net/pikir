@@ -1,4 +1,5 @@
 {% extends "::base.html.twig" %}
+{% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% import "@InfoComplaint/Default/stars.html.twig" as stars %}
 
     {% block body %}
@@ -100,11 +101,10 @@
                     {% endfor %}
                 </ul>
             </div> 
-        </div>              
-           
-        
+        </div>
 
         
+        {{ fab.show(path('info_complaint_create')) }}
 
     
     {% endblock %}

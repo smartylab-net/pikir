@@ -113,7 +113,7 @@
 	p._initInk = function () {
 		var o = this;
 
-		$('.ink-reaction').on('click', function (e) {
+		$(document).on('click','.ink-reaction', function (e) {
 			var bound = $(this).get(0).getBoundingClientRect();
 			var x = e.clientX - bound.left;
 			var y = e.clientY - bound.top;

@@ -72,7 +72,7 @@ class Complaint
      * @ORM\Column(name="rating", type="integer")
      * @Assert\NotNull()
      */
-    private $rating = 3;
+    private $rating = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})

@@ -6,6 +6,6 @@
     {{ parent() }}
     <link type="text/css" rel="stylesheet" href="{{ asset('public/css/fb.css') }}"/>
 {% endblock stylesheets %}
-{% block body %}
+{% block main_block %}
     {{ block ('fos_user_content') }}
 {% endblock %}

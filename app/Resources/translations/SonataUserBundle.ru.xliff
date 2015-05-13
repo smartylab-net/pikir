@@ -490,6 +490,22 @@
                 <source>user.my_companies_list</source>
                 <target>Настройки уведомлений</target>
             </trans-unit>
+            <trans-unit id="no_account_yet">
+                <source>no_account_yet</source>
+                <target>Еще не зарегистрированы?</target>
+            </trans-unit>
+            <trans-unit id="or">
+                <source>or</source>
+                <target>или</target>
+            </trans-unit>
+            <trans-unit id="login_with">
+                <source>login_with</source>
+                <target>Войти через</target>
+            </trans-unit>
+            <trans-unit id="login">
+                <source>login</source>
+                <target>Авторизация</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

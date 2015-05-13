@@ -30,7 +30,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body class="menubar-hoverable header-fixed menubar-pin ">
-
+{% block main_block %}
 {% include '::_header.html.twig' %}
 
 <div id="base">
@@ -53,7 +53,7 @@
 
     </div>
 </div>
-
+{% endblock %}
 {% block javascripts %}
 
     <!-- BEGIN JAVASCRIPT -->

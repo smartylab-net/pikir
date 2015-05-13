@@ -28,18 +28,18 @@
             </div>
         {% endif %}
     {% endblock %}
+
+    {% block header %}
+    Редактирование данных отзыва
+    {% endblock %}
     
     {% block changedBlock %}
-    
-        <div class="page-header">
-            <h1>Редактирование данных отзыва</h1>
-        </div>
+
         
         <div class="form-group">
-            <label class="col-lg-2 control-label">Название компании</label>
-            <div class="col-lg-10">
-            {{ complaint.company }}
-            </div>
+
+            <input type="text" value="{{ complaint.company }}" disabled="disabled" class="form-control">
+            <label>Название компании</label>
         </div>
         
     {% endblock %}

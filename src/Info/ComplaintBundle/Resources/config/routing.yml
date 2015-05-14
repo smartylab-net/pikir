@@ -4,15 +4,26 @@ info_company:
 
 info_complaint_homepage:
     pattern:  /
-    defaults: { _controller: InfoComplaintBundle:Default:home }
+    defaults:
+        label: "Главная"
+        _controller: InfoComplaintBundle:Default:home
 
 info_complaint_create:
     pattern:  /complaint/create/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:complaint, id: null }
+    defaults:
+        _controller: InfoComplaintBundle:Complaint:complaint
+        id: null
+        label: "Добавить отзыв"
+        parent: info_complaint_homepage
+
 
 info_complaint_category:
     pattern:  /category/{cId}
-    defaults: { _controller: InfoComplaintBundle:Category:showCategory, cId: null }
+    defaults:
+        _controller: InfoComplaintBundle:Category:showCategory
+        cId: null
+        label: "Добавить отзыв"
+        parent: info_complaint_homepage
 
 info_complaint_list:
     pattern:  /allComplaint/

@@ -35,7 +35,8 @@
         "sonata-project/core-bundle": "~2.2",
         "hwi/oauth-bundle": "0.4.*@dev",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
-        "sonata-project/seo-bundle": "dev-master"
+        "sonata-project/seo-bundle": "dev-master",
+        "benoitmariaux/bcm-breadcrumbbundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -56,7 +57,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",

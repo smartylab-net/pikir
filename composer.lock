@@ -1,10 +1,53 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "9be9e3c5b8cb7cb3a3c4676b22aff588",
+    "hash": "c4c71f0a269179f6ac50f3e5d75d10bc",
     "packages": [
+        {
+            "name": "benoitmariaux/bcm-breadcrumbbundle",
+            "version": "dev-master",
+            "target-dir": "BCM/BreadcrumbBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benoitMariaux/BCMBreadcrumbBundle.git",
+                "reference": "11fa5ef169aa8f4113b2d81615972568e0f9f58e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benoitMariaux/BCMBreadcrumbBundle/zipball/11fa5ef169aa8f4113b2d81615972568e0f9f58e",
+                "reference": "11fa5ef169aa8f4113b2d81615972568e0f9f58e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "BCM\\BreadcrumbBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benoît Mariaux",
+                    "email": "benoit.mariaux@gmail.com"
+                }
+            ],
+            "description": "Provides tools to create breadcrumb",
+            "homepage": "https://github.com/benoitMariaux/BCMBreadcrumbBundle",
+            "keywords": [
+                "breadcrumb",
+                "navigation"
+            ],
+            "time": "2014-03-20 07:54:54"
+        },
         {
             "name": "dflydev/markdown",
             "version": "v1.0.3",
@@ -1128,7 +1171,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/7c38520965304c197e024b2129a62035f8e24757",
+                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/c221d9cb4216562a486b966491199e1ed462ab2f",
                 "reference": "7c38520965304c197e024b2129a62035f8e24757",
                 "shasum": ""
             },
@@ -1181,7 +1224,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/8fe09e0daf8405ef784adf125909f0cba1c31d4e",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/c3790c23dbb32bd270da99fa00b42e2c086f906f",
                 "reference": "8fe09e0daf8405ef784adf125909f0cba1c31d4e",
                 "shasum": ""
             },
@@ -1993,7 +2036,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/7ea961c9ef60343a359f513c9fec7fd3bb65ddcb",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5990419ed9cfb54fac4a4b63056c3cd2ceb2f14a",
                 "reference": "7ea961c9ef60343a359f513c9fec7fd3bb65ddcb",
                 "shasum": ""
             },
@@ -2694,7 +2737,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b9994ca93900d05aa12d38f44b886f45e0d0ce2f",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/16474a3f6debe6a4a339238470d96b941904853a",
                 "reference": "b9994ca93900d05aa12d38f44b886f45e0d0ce2f",
                 "shasum": ""
             },
@@ -3062,7 +3105,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/a4e376a6d3df55d1f260013c3cecd65efbfaec63",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/e114b10f5c62cbc361633d666fef281b5240ed27",
                 "reference": "a4e376a6d3df55d1f260013c3cecd65efbfaec63",
                 "shasum": ""
             },
@@ -3353,7 +3396,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/292fad908cd6a02d48bdd8ac9ac76d4cbffd0e59",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/4da29680eb54741bf300b85493308f40e3096000",
                 "reference": "292fad908cd6a02d48bdd8ac9ac76d4cbffd0e59",
                 "shasum": ""
             },
@@ -3614,7 +3657,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/d40eefbc82eafb9b53741d731407f0c46b724bf2",
+                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/39723dc21c5b8cb4d3391f2431889a962fe39153",
                 "reference": "d40eefbc82eafb9b53741d731407f0c46b724bf2",
                 "shasum": ""
             },
@@ -3757,7 +3800,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/928a9f2a76a04832ca65dbbe5d4709cef988348e",
+                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/dc302e31359c58f4eca80abdaadacef79029519a",
                 "reference": "928a9f2a76a04832ca65dbbe5d4709cef988348e",
                 "shasum": ""
             },
@@ -3820,7 +3863,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/a525264fe15427c3e90c2038404ca4d8ab85a1cf",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/eccfe2def49df4a9c69cdc03e674dd338d6587cb",
                 "reference": "a525264fe15427c3e90c2038404ca4d8ab85a1cf",
                 "shasum": ""
             },
@@ -3892,7 +3935,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/3825a4a1a56805b6adcaf6df1f9ec892a653d377",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/2ff8473e33e224af87dc00d48a552a35a75115af",
                 "reference": "3825a4a1a56805b6adcaf6df1f9ec892a653d377",
                 "shasum": ""
             },
@@ -3954,7 +3997,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/suncat2000/MobileDetectBundle/zipball/ba696919e12393c056363d855dec66a079c01373",
+                "url": "https://api.github.com/repos/suncat2000/MobileDetectBundle/zipball/1aa0ec9e75f08d00d6891cc06ccb1bc0cc4c872b",
                 "reference": "ba696919e12393c056363d855dec66a079c01373",
                 "shasum": ""
             },
@@ -4392,7 +4435,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coopTilleuls/CoopTilleulsCKEditorSonataMediaBundle/zipball/c49d4e6a291976eb4ab3dfa226046a5610a69a1b",
+                "url": "https://api.github.com/repos/coopTilleuls/CoopTilleulsCKEditorSonataMediaBundle/zipball/2b7d5ef053cab9c2403e33add173f3305e06c715",
                 "reference": "c49d4e6a291976eb4ab3dfa226046a5610a69a1b",
                 "shasum": ""
             },
@@ -4442,12 +4485,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig-extensions.git",
+                "url": "https://github.com/twigphp/Twig-extensions.git",
                 "reference": "502303198afc1ec0bcc061c6f3a0926f7eb685e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/502303198afc1ec0bcc061c6f3a0926f7eb685e3",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/a155ec01555ffa3aab3e7e042d55aab549c83b75",
                 "reference": "502303198afc1ec0bcc061c6f3a0926f7eb685e3",
                 "shasum": ""
             },
@@ -4491,12 +4534,12 @@
             "version": "v1.15.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig.git",
+                "url": "https://github.com/twigphp/Twig.git",
                 "reference": "1fb5784662f438d7d96a541e305e28b812e2eeed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1fb5784662f438d7d96a541e305e28b812e2eeed",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/1fb5784662f438d7d96a541e305e28b812e2eeed",
                 "reference": "1fb5784662f438d7d96a541e305e28b812e2eeed",
                 "shasum": ""
             },
@@ -4636,7 +4679,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "twig/extensions": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
@@ -4650,8 +4693,11 @@
         "sonata-project/admin-bundle": 20,
         "hwi/oauth-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,
-        "sonata-project/seo-bundle": 20
+        "sonata-project/seo-bundle": 20,
+        "benoitmariaux/bcm-breadcrumbbundle": 20
     },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

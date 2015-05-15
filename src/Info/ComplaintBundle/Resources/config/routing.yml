@@ -18,32 +18,24 @@ info_complaint_create:
 
 
 info_complaint_category:
-    pattern:  /category/{cId}
+    pattern:  /companies/{cId}
     defaults:
         _controller: InfoComplaintBundle:Category:showCategory
         cId: null
-        label: "Добавить отзыв"
+        label: "Компании"
         parent: info_complaint_homepage
-
-info_complaint_list:
-    pattern:  /allComplaint/
-    defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
 
 info_complaints_last:
     pattern:  /complaints/last/
     defaults: { _controller: InfoComplaintBundle:Complaint:lastAddedComplaints}
 
-info_complaint_company_list:
-    pattern:  /companiesBy/{id}/
-    defaults: { _controller: InfoComplaintBundle:Company:showAllCompanies}
-
 SearchEngineBundle_search:
     pattern:   /search/
-    defaults:  { _controller: InfoComplaintBundle:Search:search }
+    defaults:  { _controller: InfoComplaintBundle:Search:search}
 
 SearchEngineBundle_results:
     pattern:   /results/
-    defaults:  { _controller: InfoComplaintBundle:Search:getResults }
+    defaults:  { _controller: InfoComplaintBundle:Search:getResults, label: "Результаты поиска", parent: info_complaint_homepage }
 
 
 search_auto:

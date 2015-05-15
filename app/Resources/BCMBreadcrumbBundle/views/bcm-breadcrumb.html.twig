@@ -1,0 +1,15 @@
+<ol class="breadcrumb">
+    {% for item in items %}
+            {% if item.path and item != items.last %}
+                <li>
+                <a title="{{ item.label|trans({}, 'breadcrumb') }}" href="{{ item.path }}">
+                    {{ item.label|trans({}, 'breadcrumb') }}
+                </a>
+                </li>
+            {% else %}
+                <li class="active">
+                    {{ item.label|trans({}, 'breadcrumb') }}
+                </li>
+            {% endif %}
+    {% endfor %}
+</ol>

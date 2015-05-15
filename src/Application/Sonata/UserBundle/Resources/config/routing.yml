@@ -1,3 +1,6 @@
 info_user_notification_edit:
     pattern: /profile/me/settings/notification
-    defaults: { _controller: ApplicationSonataUserBundle:Notification:emailNotificationSettings}
+    defaults:
+          _controller: ApplicationSonataUserBundle:Notification:emailNotificationSettings
+          label: "Настройка уведомлений"
+          parent: fos_user_profile_show

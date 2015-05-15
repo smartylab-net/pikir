@@ -53,9 +53,7 @@ class ManagerController extends Controller{
 
         return $this->render('InfoComplaintBundle:Manager:edit_company.html.twig',array('form'=>$form->createView()));
     }
-    //TODO: функционал уведомлений (Как в FB) Новый отзыв, Новый коммент, Новый ответ на коммент, Новая просьба стать представителем компании
-    //TODO: Добавление компании
-    //TODO: ЛС
+
     public function myCompaniesListAction()
     {
 

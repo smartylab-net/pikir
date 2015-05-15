@@ -18,16 +18,22 @@ class CategoryController extends Controller
         $categoryRepository = $this->getDoctrine()
             ->getRepository('ApplicationSonataClassificationBundle:Category');
 
-        if(!$categoryRepository||!$companyRepository){
-            throw new \Exception("Ошибка");
-        }
-
         if ($cId)
         {
             $category = $categoryRepository->find($cId);
 
-            if (!$category||!$category->getEnabled())
+            if (!$category||!$category->getEnabled()) {
                 throw $this->createNotFoundException('Page not found 404');
+            }
+            $this->get('strokit.breadcrumbs')->setParams(array('cId' => null));
+            $breadcrumbManager = $this->get('bcm_breadcrumb.manager');
+            $routeName = $this->getRequest()->get('_route');
+            $breadcrumbElement = $category;
+            do {
+                $breadcrumbManager->addItem(
+                    $routeName,
+                    $breadcrumbElement->getName(), array('cId' => $breadcrumbElement->getId()));
+            } while($breadcrumbElement = $breadcrumbElement->getParent());
         }
 
         $paginate = $companyRepository->getCompany($cId);
@@ -40,7 +46,7 @@ class CategoryController extends Controller
 
         $pagination->setUsedRoute('info_complaint_category');
 
-        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category, 'title' => $category!=null?$category->__toString():"Список компаний"));
+        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category));
 
     }
 }

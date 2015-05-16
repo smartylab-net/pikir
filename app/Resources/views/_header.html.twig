@@ -50,11 +50,14 @@
 								</span>
                         </a>
                         <ul class="dropdown-menu animation-dock">
-                            <li class="dropdown-header">Config</li>
-                            <li><a href="{{ path('sonata_user_profile_show') }}">My profile</a></li>
-                            <li><a href="{{ path('info_manager_company_list') }}">My companies</a></li>
+                            <li class="dropdown-header">Настройки</li>
+                            <li><a href="{{ path('sonata_user_profile_show') }}">Мой профиль</a></li>
+                            <li><a href="{{ path('info_manager_company_list') }}">Мои компании</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{ path('sonata_user_security_logout') }}"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('sonata_admin_dashboard') }}"><i class="fa fa-fw fa-dashboard"></i> Админ панель</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('sonata_user_security_logout') }}"><i class="fa fa-fw fa-power-off text-danger"></i> Выйти</a></li>
                         </ul><!--end .dropdown-menu -->
                     </li><!--end .dropdown -->
                 </ul><!--end .header-nav-profile -->

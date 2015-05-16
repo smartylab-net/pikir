@@ -82,6 +82,12 @@
                     Комментариев: {{ complaint.comments|length? : 0 }}
                 </a>
                 {% block social_block %}
+                    <div id="ya-share" class="hide">
+                        <div class="yashare-div" id="share-{{ complaint.id }}"></div>
+                    </div>
+                    <a class="btn ink-reaction pull-left share-popover" href="javascript:void(0);">
+                        Поделиться
+                    </a>
                 {% endblock %}
             </div>
         </div>

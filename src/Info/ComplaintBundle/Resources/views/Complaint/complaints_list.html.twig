@@ -2,11 +2,28 @@
 
 {% endblock %}
 {% if complaints %}
+    {% set ya = "" %}
     <ul class="timeline collapse-lg timeline-hairline">
         {% for complaint in complaints %}
             {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}
+
+            {% set link =  url("info_complaint_complaint",{"id":complaint.id}) %}
+            {% set title = (complaint.author? complaint.author : "Аноним" ) ~ " > " ~ complaint.company.name %}
+            {% set desc =  complaint.text|striptags %}
+            {% set ya = ya ~ 'new Ya.share({
+                            element: "share-' ~ complaint.id ~ '",
+                            elementStyle: {
+                                "type": "none",
+                                "quickServices": ["facebook","twitter","vkontakte","gplus","odnoklassniki"]},
+                            link:  "' ~ link ~ '",
+                            title: "' ~ title ~ '",
+                            description: "' ~ desc ~ '"
+                        }); ' %}
         {% endfor %}
     </ul>
+    <script>
+        {{ ya|raw }}
+    </script>
     <a class="infinite-more-link" href="{{ path('info_complaints_last', {'page' : page }) }}"></a>
 {% else %}
     {% block noelement %}

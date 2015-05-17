@@ -2,7 +2,6 @@
 
 {% endblock %}
 {% if complaints %}
-    {% set ya = "" %}
     <ul class="timeline collapse-lg timeline-hairline">
         {% for complaint in complaints %}
             {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}

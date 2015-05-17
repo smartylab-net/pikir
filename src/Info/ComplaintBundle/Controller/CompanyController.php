@@ -19,19 +19,13 @@ class CompanyController extends Controller
     	$company = $companyRepository->find($id);
     	if(!$company || !$company->getEnabled())
     	{
-    		throw $this->createNotFoundException('The company does not exist');
+    		throw $this->createNotFoundException('Компания не найдена');
     	}
 
+        $imageurl = "";
         $media = $company->getLogo();
         if ($media) {
-            $mediaservice = $this->get('sonata.media.pool');
-            $provider = $mediaservice
-                ->getProvider($media->getProviderName());
-            $format = $provider->getFormatName($media, 'big');
-            $imageurl = $provider->generatePublicUrl($media, $format);
-        }
-        else {
-            $imageurl = "";
+            $imageurl = $this->get('sonata.media.twig.extension')->path($media, 'reference');
         }
 
         $seoPage = $this->container->get('sonata.seo.page');
@@ -45,6 +39,7 @@ class CompanyController extends Controller
             ->addMeta('property', 'og:url',  $this->getRequest()->getUri())
             ->addMeta('property', 'og:description', $company->getAnnotation())
         ;
+        $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
 		$complaintList = $complaintRepository->findByCompany($id);
 
@@ -79,19 +74,6 @@ class CompanyController extends Controller
         }
 
         return $this->render('InfoComplaintBundle:Company:create.html.twig',array('form'=>$form->createView()));
-    }
-
-    public function showAllCompaniesAction($id)
-    {
-        $companies = $this->getDoctrine()
-            ->getRepository('InfoComplaintBundle:Company')
-            ->findBy(array('category' => $id));
-
-        if (!$companies) {
-            throw $this->createNotFoundException('The companies does not exist');
-        }
-
-        return $this->render('InfoComplaintBundle:Company:companies_list.html.twig', array('companies' => $companies));
     }
 
     public function lastAddedCompaniesAction()

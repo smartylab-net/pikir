@@ -50,6 +50,8 @@ class AppKernel extends Kernel
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             //captcha
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            //breadcrumb
+            new BCM\BreadcrumbBundle\BCMBreadcrumbBundle(),
 
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             //application

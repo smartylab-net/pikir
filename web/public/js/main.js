@@ -26,6 +26,7 @@ $('.gui-folder').mouseleave(function() {
 $('.share-popover').popover({
     html : true,
     content: function() {
-        return $('#ya-share').html();
+        var id = $(this).data('id');
+        return $('#ya-share-'+id).html();
     }
 });

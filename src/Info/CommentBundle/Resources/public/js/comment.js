@@ -54,11 +54,10 @@ $(function () {
 
         var code = $(this).find('textarea').code();
         if (code) {
-            var formBlock = $(this).parents('.card');
             $(this).find('textarea').val(code);
 
             $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
-                var list = $('<ul/>').addClass("list-comments").insertBefore(formBlock);
+                var list = $('.list-comments');
                 var newComment = $('<li/>').html(data);
                 newComment.hide();
                 list.append(newComment);

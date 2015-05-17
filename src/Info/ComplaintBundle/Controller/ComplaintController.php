@@ -71,14 +71,27 @@ class ComplaintController extends Controller
         $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
         $options = array(
             'decorate' => true,
-            'rootOpen' => '<ul class="list-comments">',
-            'rootClose' => '</ul>',
+            'rootOpen' => function($tree) {
+                if(count($tree) && ($tree[0]['lvl'] == 0)){
+                    return '';
+                } else {
+                    return '<ul>';
+                }
+            },
+            'rootClose' => function($tree) {
+                if(count($tree) && ($tree[0]['lvl'] == 0)){
+                    return '';
+                } else {
+                    return '</ul>';
+                }
+            },
             'childOpen' => '<li>',
             'childClose' => '</li>',
             'nodeDecorator' => function($node) use (&$complaint, &$commentRep)  {
                     return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));
                 }
         );
+
         $htmlTree = array();
         foreach($nodes as $node)
             $htmlTree[] = $commentRep->childrenHierarchy(

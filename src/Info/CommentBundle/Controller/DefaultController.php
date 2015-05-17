@@ -7,6 +7,7 @@ use Info\ComplaintBundle\Entity\Complaint;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Info\CommentBundle\Entity\Comment;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -21,9 +22,8 @@ class DefaultController extends Controller
         ));
     }
 
-    public function createAction(Complaint $complaint)
+    public function createAction(Request $request, Complaint $complaint)
     {
-        $request = $this->getRequest();
         $comment = new Comment();
         $form = $this->createForm(new CommentType(), $comment);
         $em = $this->getDoctrine()->getManager();
@@ -36,22 +36,15 @@ class DefaultController extends Controller
             $em->flush();
             $this->sendEmailToComplaintAuthor($complaint, $comment);
 
-            $node = array(
-                'id' => $comment->getId(),
-                'comment' => $comment->getComment(),
-                'createdAt' => $comment->getCreatedAt()
-            );
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
-                array('node' => $node, 'complaint' => $complaint, 'user' => $this->getUser())
+                array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
         return new JsonResponse($form->getErrorsAsString(), 400);
     }
 
-    public function replyAction(Complaint $complaint, Comment $comment)
+    public function replyAction(Request $request, Complaint $complaint, Comment $comment)
     {
-        $request = $this->getRequest();
-
         $commentContent = $request->request->get('comment');
         if ($request->isMethod("POST") && $commentContent) {
             $em = $this->getDoctrine()->getManager();
@@ -65,15 +58,11 @@ class DefaultController extends Controller
             if (!($this->sendEmailToCommentAuthor($complaint, $newComment, $comment) && $complaint->getAuthor() == $comment->getUser()))
                 $this->sendEmailToComplaintAuthor($complaint, $newComment);
 
-            $node = array(
-                'id' => $newComment->getId(),
-                'comment' => $newComment->getComment(),
-                'createdAt' => $newComment->getCreatedAt()
-            );
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
-                array('node' => $node, 'complaint' => $complaint, 'user' => $this->getUser())
+                array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
+        return new JsonResponse('Неправильный формат данных', 400);
     }
 
     private function sendEmailToComplaintAuthor(Complaint $complaint, Comment $newComment)

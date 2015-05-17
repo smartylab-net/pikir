@@ -15,6 +15,7 @@
 
 {% block body %}
     {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintPage.html.twig' with {'complaint':complaint} %}
+    <h2>Комментарии</h2>
     <ul class="list-comments">
     {% for treeComment in treeComments %}
         {{ treeComment|raw }}

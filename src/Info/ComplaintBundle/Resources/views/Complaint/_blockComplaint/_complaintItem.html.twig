@@ -77,10 +77,12 @@
                                 <span class="glyphicon glyphicon-thumbs-down no-margin"></span>
                             </a>
                         </span>
+                {% block comment_block %}
                 <a class="btn ink-reaction pull-left"
-                   href="{{ app.request.attributes.get('_route') == 'info_complaint_complaint' ? 'javascript:void(0);' : path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                   href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
                     Комментариев: {{ complaint.comments|length? : 0 }}
                 </a>
+                {% endblock %}
                 {% block social_block %}
                 {% endblock %}
             </div>

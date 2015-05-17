@@ -4,6 +4,9 @@
     {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.text } %}
 {% endblock %}
 
+{% block comment_block %}
+    <span class="btn ink-reaction pull-left">Комментариев: {{ complaint.comments|length? : 0 }}</span>
+{% endblock %}
 {% block text_block %}
     {{ complaint.text|raw }}
 {% endblock %}

@@ -171,7 +171,7 @@ class Complaint
 
     public function __toString()
     {
-        return $this->title;
+        return $this->getText();
     }
 
     public function __construct(){

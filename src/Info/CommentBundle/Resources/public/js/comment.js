@@ -1,30 +1,78 @@
-var Comment = {
-    config : {
+$(function () {
+    $(document).on('click', '.btn-reply-comment', function (e) {
+        var commentId = $(this).data('comment');
+        var complaintId = $(this).data('complaint');
 
-    },
+        var formBlock = $('#form-block-' + commentId);
+        if (formBlock.is(':empty')) {
+            formBlock.hide();
 
-    init : function(config){
-        $.extend(Comment.config, config);
-    },
-
-    showForm : function(t){
-        var formBlock = $('#form-block-'+ t.data('comment')), form, label, btn;
-        if (formBlock.is(':empty')){
-            label = $('<div/>').addClass('form-group')
-                .append($('<div/>').addClass('col-md-2').append($('<label/>').addClass('required').html('Текст комментария')))
-                .append($('<div/>').addClass('col-md-10').append($('<textarea/>').addClass('form-control').attr('placeholder', 'Комментарий').attr('required', 'required').attr('name', 'comment')));
-            form = $("<form/>").addClass('form-horizontal hide mb-10').attr('action', Routing.generate('info_comment_reply', {'complaint':t.data('complaint'), 'comment':t.data('comment')})).attr('method', 'post');
-            btn = $('<div/>').append($('<button/>').addClass('btn btn-primary btn-xs pull-right').attr('name', 'save').attr('type', 'submit').html('Ответить'));
-            formBlock.append(form.append(label).append(btn).append($('<div/>').addClass('clear')));
-        }else{
-            form = formBlock.children('form');
+            var link = Routing.generate('info_comment_reply', {
+                'complaint': complaintId,
+                'comment': commentId
+            });
+            var result = tmpl("reply_form", {id: commentId, link: link});
+            formBlock.append(result);
+            $(formBlock).find('textarea').summernote(
+                {
+                    onImageUpload: Summernote.sendFile
+                });
         }
-        if (t.hasClass('reply')){
-            form.addClass('hide');
-            t.removeClass('reply');
-        }else{
-            form.removeClass('hide');
-            t.addClass('reply');
+        formBlock.toggle('fast');
+    });
+
+    $(document).on('submit','.comment-form-block form',function (e) {
+        var code = $(this).find('textarea').code();
+        if (code) {
+            var formBlock = $(this).parents('.comment-form-block');
+            $(this).find('textarea').val(code);
+            $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
+                var list = formBlock.parent().children('ul');
+                if (list.length == 0) {
+                    list = formBlock.parent().append('<ul/>').find('ul');
+                }
+                var newComment = $('<li/>').html(data);
+                newComment.hide();
+                list.append(newComment);
+                formBlock.hide('fast');
+                formBlock.empty();
+                newComment.show('fast');
+            });
         }
-    }
-};
+        else {
+            toastr.error("Комментарий не может быть пустым")
+        }
+        return false;
+    });
+
+    $(document).on('click','.btn-cancel-form',function(e) {
+        $(this).parents('.comment-form-block').toggle('fast');
+        return false;
+    });
+
+    $('#comment-form').submit(function(e){
+
+        var code = $(this).find('textarea').code();
+        if (code) {
+            $(this).find('textarea').val(code);
+
+            $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
+                var list = $('.list-comments');
+                var newComment = $('<li/>').html(data);
+                newComment.hide();
+                list.append(newComment);
+                $('#comment_comment').code("");
+                newComment.show('fast');
+            });
+        }
+        else {
+            toastr.error("Комментарий не может быть пустым")
+        }
+        return false;
+    });
+
+    $('#comment_comment').summernote(
+        {
+            onImageUpload: Summernote.sendFile
+        });
+});

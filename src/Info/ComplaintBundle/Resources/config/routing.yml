@@ -37,12 +37,11 @@ SearchEngineBundle_results:
     pattern:   /results/
     defaults:  { _controller: InfoComplaintBundle:Search:getResults, label: "Результаты поиска", parent: info_complaint_homepage }
 
-
 search_auto:
     pattern:   /autocomplete/
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
-      expose: true
+        expose: true
       
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
@@ -52,7 +51,7 @@ info_complaint_complaint:
     pattern:  /complaint/{id}
     defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
     options:
-      expose: true
+        expose: true
 
 info_complaint_edit:
     pattern: /complaint/edit/{complaint}/

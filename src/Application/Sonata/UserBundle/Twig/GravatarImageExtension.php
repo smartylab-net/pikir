@@ -18,10 +18,7 @@ class GravatarImageExtension extends \Twig_Extension
     public function gravatarImage($user, $imageSize, $options = array())
     {
         /** @var $user User */
-        if (!($user instanceof User)) {
-            return null;
-        }
-        $hash = md5($user->getEmail());
+        $hash = ($user instanceof User)? md5($user->getEmail()) : "";
         $gravatarLink = "http://www.gravatar.com/avatar/$hash.png?d=mm&s=$imageSize";
         $attr = '';
         foreach ($options as $key => $value)

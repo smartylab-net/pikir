@@ -43,6 +43,14 @@ class MenuBuilder extends ContainerAware
         $menu->setCurrentUri($request->getRequestUri());
         $menu->setChildrenAttribute('id','main-menu');
         $menu->setChildrenAttribute('class','gui-controls gui-controls-tree nav');
+        $menu->addChild('Home',
+            array(
+                'route' => 'info_complaint_homepage',
+                'label'=>'Главная',
+                'extras' => array(
+                    'icon' => 'md md-home'
+                )
+            ));
         $companiesMenuItem = $menu->addChild('Companies',
             array(
                 'route' => 'info_complaint_category',

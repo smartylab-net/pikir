@@ -78,7 +78,7 @@
                             </a>
                         </span>
                 <a class="btn ink-reaction pull-left"
-                   href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                   href="{{ app.request.attributes.get('_route') == 'info_complaint_complaint' ? 'javascript:void(0);' : path ('info_complaint_complaint',{'id':complaint.id}) }}">
                     Комментариев: {{ complaint.comments|length? : 0 }}
                 </a>
                 {% block social_block %}

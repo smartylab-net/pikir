@@ -39,9 +39,7 @@
     <div id="content">
         <section>
             <div class="section-header">
-                <ol class="breadcrumb">
-                    <li class="active">{% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}</li>
-                </ol>
+                {% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}
             </div>
             <div class="section-body">
                 {% block body %}{% endblock %}

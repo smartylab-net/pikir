@@ -69,14 +69,13 @@ class ComplaintController extends Controller
         }
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
         $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
-        $userRep = $this->getDoctrine()->getRepository('ApplicationSonataUserBundle:User');
         $options = array(
             'decorate' => true,
-            'rootOpen' => '<ul>',
+            'rootOpen' => '<ul class="list-comments">',
             'rootClose' => '</ul>',
             'childOpen' => '<li>',
             'childClose' => '</li>',
-            'nodeDecorator' => function($node) use (&$complaint,&$commentRep)  {
+            'nodeDecorator' => function($node) use (&$complaint, &$commentRep)  {
                     return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));
                 }
         );

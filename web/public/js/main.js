@@ -1,6 +1,3 @@
-/**
- * Created by User on 25.05.14.
- */
 $('label.tree-toggler').click(function () {
     $(this).parent().children('ul.tree').toggle(300);
 });
@@ -24,4 +21,12 @@ $('.gui-folder').mouseenter(function() {
 
 $('.gui-folder').mouseleave(function() {
     $(this).removeClass('expanded')
+});
+
+$('.share-popover').popover({
+    html : true,
+    content: function() {
+        var id = $(this).data('id');
+        return $('#ya-share-'+id).html();
+    }
 });

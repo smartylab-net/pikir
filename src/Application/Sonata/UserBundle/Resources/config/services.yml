@@ -13,3 +13,8 @@ services:
         class: Application\Sonata\UserBundle\Twig\GravatarImageExtension
         tags:
             - { name: twig.extension }
+
+    sonata_user.registration.form.type:
+            class: Application\Sonata\UserBundle\Form\Type\RegistrationFormType
+            tags:
+                - { name: form.type, alias: sonata_user_registration }

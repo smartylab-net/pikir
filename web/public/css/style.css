@@ -200,3 +200,16 @@ a.make-complaint-comment:hover{
     margin-bottom: 0;
     z-index: 998;
 }
+
+.popover-content .yashare-div {
+    margin-top: -11px;
+}
+
+.form-errors ul {
+    background-color: #fad7d4;
+    color: #a94442;
+    padding: 15px 15px 15px 30px;
+    margin-bottom: 24px;
+    border: 1px solid #f7bec3;
+    border-radius: 2px;
+}

@@ -6,7 +6,7 @@ namespace Strokit\CoreBundle\Twig;
 use Symfony\Component\DependencyInjection\Container;
 
 class BreadcrumbExtension extends \Twig_Extension {
-        //TODO: создать сервис где будут храниться параметры и TwigExtension для показа в твиге.
+
     private $params = array();
     /**
      * @var Container

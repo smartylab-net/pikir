@@ -67,7 +67,7 @@ class ComplaintController extends Controller
             ));
 
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
-        $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
+        $nodes = $commentRep->getRootCommentsByComplaint($complaint);
         $options = array(
             'decorate' => true,
             'rootOpen' => function($tree) {

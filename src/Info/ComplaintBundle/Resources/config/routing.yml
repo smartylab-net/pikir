@@ -11,7 +11,7 @@ info_complaint_homepage:
 info_complaint_create:
     pattern:  /complaint/create/{id}
     defaults:
-        _controller: InfoComplaintBundle:Complaint:complaint
+        _controller: InfoComplaintBundle:Complaint:createComplaint
         id: null
         label: "Добавить отзыв"
         parent: info_complaint_homepage
@@ -49,7 +49,7 @@ info_manager:
 
 info_complaint_complaint:
     pattern:  /complaint/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
+    defaults: { _controller: InfoComplaintBundle:Complaint:showComplaint}
     options:
         expose: true
 

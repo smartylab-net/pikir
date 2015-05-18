@@ -18,6 +18,11 @@ class BreadcrumbManager extends BaseBreadcrumbManager
         $item->setPath($path);
 
         $this->items->add($item);
+    }
 
+    public function addBreadcrumbsForRoute($routeName, $params) {
+        $this->parameters = $params;
+        $route = $this->router->getRouteCollection()->get($routeName);
+        $this->buildRecursivelyItemsByRoute($route, $routeName);
     }
 }

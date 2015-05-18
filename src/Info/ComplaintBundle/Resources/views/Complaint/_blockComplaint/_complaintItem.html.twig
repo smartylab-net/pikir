@@ -41,26 +41,19 @@
                     </a>
                 </span>
     </div>
-    <div class="card-body small-padding">
+    <div class="card-body small-padding word-break">
 
         {% block text_block %}
 
             {% if (complaint.text|length > 200) %}
                 {{ complaint.text| striptags| slice(0, 200)| raw }}...
-                <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                <a class="text-primary" href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
                     Прочитать полностью
                 </a>
             {% else %}
                 {{ complaint.text|raw }}
             {% endif %}
         {% endblock %}
-        <br/>
-        {% if complaint.someFile %}
-            <a href="{{ path('sonata_media_download',{'id':complaint.someFile.id,'format':'reference'}) }}">
-                {{ complaint.someFile.name }}
-            </a>
-            <br/>
-        {% endif %}
         <div class="card-actionbar">
             <div class="card-actionbar-row">
 
@@ -99,7 +92,6 @@
                 {% endblock %}
             </div>
         </div>
-        <div class="clear"></div>
 
     </div>
 </div>

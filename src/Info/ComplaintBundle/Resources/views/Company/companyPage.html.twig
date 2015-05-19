@@ -1,110 +1,140 @@
 {% extends "::base.html.twig" %}
 {% import "@InfoComplaint/Default/fab.html.twig" as fab %}
-{% import "@InfoComplaint/Default/stars.html.twig" as stars %}
 
-    {% block body %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('public/js/libs/bootstrap-rating/bootstrap-rating-input.min.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/complaint_form.js') }}"></script>
+{% endblock javascripts %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
+{% endblock %}
 
-        <div class="container">
-            
-            <div class="container">
-                <div class="thumbnail">
+{% block body %}
+    <!-- BEGIN PROFILE HEADER -->
+    <section class="full-bleed">
+        {% if company.manager == null and app.user != null %}
+            <a class="btn stick-top-right btn-info"
+               href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
+                Стать представителем компании
+            </a>
+        {% endif %}
 
-                    <div class="row">
-
-                        <div class="col-md-2">
-                            <div class="thumbnail" style="margin-top:20px; margin-left:15px">
-                                {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
-                            </div>
+        <div class="section-body style-default-dark force-padding text-shadow">
+            <div class="img-backdrop" style="background-image: url('{{ asset('public/img/img16.jpg') }}');"></div>
+            <div class="overlay overlay-shade-top stick-top-left height-3"></div>
+            <div class="row">
+                <div class="col-md-3 col-xs-5">
+                    {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
+                    <h3>
+                        {{ company.name }}
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
+                           data-original-title="Компания подтверждена"><i class="fa fa-check-circle"></i></a><br/>
+                        <small>{{ company.category }}</small>
+                        <br />
+                        <div class="star-rating">
+                            <input type="number" name="rating" class="rating" data-min="1" data-max="5" value="{{ average }}"/>
                         </div>
-
-                        <div class="col-md-10">
-
-                            <div class="container">
-                                <h3>{{company.name}}
-                                    <span
-                                        title="{{ company.approved ? "Подтвержденный" : "Неподтвержденный" }}"
-                                        class="glyphicon {{ company.approved ? "glyphicon-ok-circle green" : "glyphicon-ban-circle red"}}">
-                                    </span>
-                                </h3>
-
-                            </div>
-
-                            <div class="container">
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                            <h4><small>
-                                                Описание компании:
-                                            </small></h4>
-                                            <h4>{{ company.annotation }}</h4>
-
-                                    </div>
-                                    <div class="col-md-2">
-                                            <h4><small>
-                                                Количество отзывов:
-                                            </small></h4>
-                                            <h4>{{ company.complaints|length }}</h4>
-
-                                    </div>
-                                    {#<div class="col-md-2">#}
-                                            {#<h4><small>#}
-                                                {#Всего благодарностей:#}
-                                            {#</small></h4>#}
-                                            {#<h4>300</h4>#}
-
-                                    {#</div>#}
-
-                                    <div class="col-md-2">
-                                            <h4><small>
-                                                Рейтинг
-                                            </small></h4>
-                                            {{ stars.show(average) }}
-
-                                    </div>
-
-                                    <div class="col-md-3">
-                                    {% if company.manager != null and app.user != null and company.manager == app.user %}
-                                        <a class="btn" href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}">
-                                            Редактировать данные компании
-                                        </a>
-                                    {% endif %}
-                                    {% if company.manager == null and app.user != null %}
-                                        <a class="btn be_manager" href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
-                                            Стать представителем компании
-                                        </a>
-                                    {% endif %}
-                                    <a class="btn"  href="{{ path("info_complaint_create",{ 'id':company.id}) }}">
-                                        Добавить отзыв
-                                    </a>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                    {%  include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_company_homepage',{'id':company.id}), 'title':"Книга отзывов и предложений. Компания "~company.name, 'description': 'Отзывы о компании'~company.name }  %}
-
-                </div>
+                    </h3>
+                </div><!--end .col -->
+            </div><!--end .row -->
+            <div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
+                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" href="mailto:test@mail.com" target="_blank"
+                   data-original-title="Написать письмо"><i class="fa fa-envelope"></i></a>
+                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                   data-original-title="Страница в Facebook"><i class="fa fa-facebook"></i></a>
+                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                data-original-title="Страница в Twitter"><i class="fa fa-twitter"></i></a>
             </div>
+        </div><!--end .section-body -->
+    </section>
+    <!-- END PROFILE HEADER  -->
 
-            <div class="container">
-            <h2>Отзывы</h2>
+    <ul class="nav nav-tabs" data-toggle="tabs">
+        <li class="active"><a href="#complaints">Отзывы ({{ company.complaints|length }})</a></li>
+        <li><a href="#description">Описание</a></li>
+    </ul>
 
-                <ul class="timeline collapse-lg timeline-hairline">
-                    {% for complaint in complaintlist %}
-                        {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
-                    {% else %}
-                        <h3>Пока отзывов не было оставлено</h3>
-                    {% endfor %}
-                </ul>
-            </div> 
-        </div>
+    <section>
+        <div class="section-body no-margin">
+            <div class="row">
 
-        
-        {{ fab.show(path('info_complaint_create')) }}
+                <div class="tab-content">
+                    <div class="tab-pane active" id="complaints">
+                        <div class="col-md-8">
+                            <h2>Отзывы</h2>
 
-    
-    {% endblock %}
+                            <!-- BEGIN ENTER COMPLAINT -->
+                            <div class="card mb0">
+                                <div class="card-body">
+                                    {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form} %}
+                                </div>
+                            </div>
+                            <!-- END ENTER COMPLAINT -->
+
+                            <!-- BEGIN COMPLAINT ACTIVITY -->
+                            <ul class="timeline collapse-lg timeline-hairline">
+                                {% for complaint in complaintlist %}
+                                    {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
+                                {% else %}
+                                    <h3>Пока отзывов не было оставлено</h3>
+                                {% endfor %}
+                            </ul><!--end #activity -->
+                        </div><!--end .col -->
+
+                        <!-- BEGIN PROFILE MENUBAR -->
+                        <div class="col-lg-offset-1 col-lg-3 col-md-4">
+                            <div class="card card-underline style-default-dark">
+                                <div class="card-head">
+                                    <header class="opacity-75">
+                                        <small>Информация</small>
+                                    </header>
+                                    <div class="tools">
+                                        {% if company.manager != null and app.user != null and company.manager == app.user %}
+                                            <a class="btn btn-icon-toggle ink-reaction" href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}" data-toggle="tooltip" data-placement="top"
+                                               data-original-title="Редактировать данные компании">
+                                                <i class="md md-edit"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div><!--end .tools -->
+                                </div><!--end .card-head -->
+                                <div class="card-body no-padding">
+                                    <ul class="list">
+                                        <li class="tile">
+                                            <a class="tile-content ink-reaction">
+                                                <div class="tile-icon">
+                                                    <i class="md md-location-on"></i>
+                                                </div>
+                                                <div class="tile-text">
+                                                    {{ company.address ? : "не указано"}}
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div><!--end .card-body -->
+                            </div><!--end .card -->
+                        </div><!--end .col -->
+                    </div><!--end .tab-pane -->
+
+                    <div class="tab-pane" id="description">
+                        <div class="card">
+                            <div class="card-body">
+                                <article class="text-columns-2">{{ company.annotation }}</article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PROFILE MENUBAR -->
+
+            </div><!--end .row -->
+        </div><!--end .section-body -->
+    </section>
+    <!-- END CONTENT -->
+
+
+    {{ fab.show(path('info_complaint_create')) }}
+
+{% endblock %}

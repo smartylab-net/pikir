@@ -8,10 +8,11 @@ use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompanyController extends Controller
 {
-    public function indexAction($id)
+    public function indexAction(Request $request, $id)
     {
     	$companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
     	$complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
@@ -36,16 +37,17 @@ class CompanyController extends Controller
             ->addMeta('property', 'og:title', $company->getName())
             ->addMeta('property', 'og:type', 'website')
             ->addMeta('property', 'og:image', $imageurl)
-            ->addMeta('property', 'og:url',  $this->getRequest()->getUri())
+            ->addMeta('property', 'og:url',  $request->getUri())
             ->addMeta('property', 'og:description', $company->getAnnotation())
         ;
         $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
 		$complaintList = $complaintRepository->findByCompany($id);
+        $rating = round($companyRepository->getComplaintsAverageRating($id));
 
-        $average = $companyRepository->getComplaintsAverageRating($id);
+        $form = $this->createForm(new ComplaintType());
       
-        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$average[0][1]));
+        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$rating, 'form'=>$form->createView()));
     }
 
     public function createAction()

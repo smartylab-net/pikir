@@ -213,3 +213,8 @@ a.make-complaint-comment:hover{
     border: 1px solid #f7bec3;
     border-radius: 2px;
 }
+
+.full-bleed .stick-top-right {
+    z-index: 99;
+}
+.mb0 { margin-bottom: 0; }

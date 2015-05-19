@@ -1,0 +1,30 @@
+{{ form_start(form,{'attr': {'class':'form', 'novalidate':true } }) }}
+    {% block changedBlock %}
+        <div class="form-group">
+
+            <input type="text" id="company" name="company" class="form-control">
+            <label>Название компании</label>
+
+            <div style="display: none">
+                {{ form_widget(form.company) }}
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="form-group">
+        {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    {#<div class="form-group">#}
+    {#<label>Rating</label>#}
+
+    {#<div id="fixed" class="col-md-10">#}
+    {#</div>#}
+    {#</div>#}
+
+    <div class="card-actionbar">
+        <div class="card-actionbar-row">
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-flat btn-primary ink-reaction'}}) }}
+        </div>
+    </div>
+{{ form_end(form) }}

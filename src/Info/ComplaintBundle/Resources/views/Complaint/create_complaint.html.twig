@@ -3,37 +3,7 @@
     {{ parent() }}
 
     <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#Complaint_text').summernote(
-                    {
-                        oninit: function () {
-                            $('.note-editable').css('min-height', '150px');
-                        },
-                        onImageUpload: function (files, editor, welEditable) {
-                            sendFile(files[0], editor, welEditable);
-                        }
-                    });
-            function sendFile(file, editor, welEditable) {
-                var data = new FormData();
-                data.append("file", file);
-                $.ajax({
-                    data: data,
-                    type: "POST",
-                    url: Routing.generate('upload_image'),
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (url) {
-                        editor.insertImage(welEditable, url);
-                    },
-                    fail: function(xhr) {
-                        toastr.error("Ошибка при загрузке изображения");
-                    }
-                });
-            }
-        })
-    </script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/complaint_form.js') }}"></script>
     {% block rating %}
 
         <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
@@ -74,37 +44,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            {{ form_start(form,{'attr': {'class':'form', 'novalidate':true } }) }}
-
-            {% block changedBlock %}
-                <div class="form-group">
-
-                    <input type="text" id="company" name="company" class="form-control">
-                    <label>Название компании</label>
-
-                    <div style="display: none">
-                        {{ form_widget(form.company) }}
-                    </div>
-                </div>
-            {% endblock %}
-
-            <div class="form-group">
-                {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}
-            </div>
-
-            {#<div class="form-group">#}
-            {#<label>Rating</label>#}
-
-            {#<div id="fixed" class="col-md-10">#}
-            {#</div>#}
-            {#</div>#}
-
-            <div class="card-actionbar">
-                <div class="card-actionbar-row">
-                    {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-flat btn-primary ink-reaction'}}) }}
-                </div>
-            </div>
-            {{ form_end(form) }}
+            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form} %}
         </div>
     </div>
 {% endblock %}

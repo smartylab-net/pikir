@@ -12,7 +12,7 @@ class CompanyRepository extends EntityRepository
 		return $this->getEntityManager()
             ->createQuery(
                 "SELECT AVG(c.rating) FROM InfoComplaintBundle:Complaint c WHERE c.company = $id AND c.rating != 0"
-            )->getResult();
+            )->getSingleScalarResult();
 	}
 
     public function findLike($name)

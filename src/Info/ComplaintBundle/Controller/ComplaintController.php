@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityRepository;
 class ComplaintController extends Controller
 {
 
-    public function complaintAction($id)
+    public function createComplaintAction($id)
     {
         $complaint = new Complaint();
         if ($id != null)
@@ -49,37 +49,48 @@ class ComplaintController extends Controller
                 return $this->redirect($this->generateUrl('info_complaint_complaint',array('id'=>$complaint->getId())));
             }
         }
-        $companyRepository = $this->getDoctrine()->getManager()
-            ->getRepository('InfoComplaintBundle:Complaint');
-        $companies=$companyRepository
-            ->findAll();
 
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
-            array('form' => $form->createView(),
-                'companies' => $companies)
+            array('form' => $form->createView())
         );
     }
 
-    public function getComplaintAction($id)
+    public function showComplaintAction(Request $request, Complaint $complaint)
     {
+        $breadcrumbManager = $this->get('bcm_breadcrumb.manager');
+        $breadcrumbManager->addItem($request->get('_route'), "Отзыв", array('id' => $complaint->getId()));
+        $company = $complaint->getCompany();
+        $breadcrumbManager->addBreadcrumbsForRoute('info_company_homepage',
+            array(
+                'company_name' => $company->getName(),
+                'id' => $complaint->getCompany()->getId()
+            ));
 
-        $complaint = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
-        if (!$complaint) {
-            throw $this->createNotFoundException("Отзыв не найден");
-        }
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
-        $nodes = $commentRep->findBy(array('complaint'=>$complaint, 'lft'=>1));
-        $userRep = $this->getDoctrine()->getRepository('ApplicationSonataUserBundle:User');
+        $nodes = $commentRep->getRootCommentsByComplaint($complaint);
         $options = array(
             'decorate' => true,
-            'rootOpen' => '<ul>',
-            'rootClose' => '</ul>',
+            'rootOpen' => function($tree) {
+                if(count($tree) && ($tree[0]['lvl'] == 0)){
+                    return '';
+                } else {
+                    return '<ul>';
+                }
+            },
+            'rootClose' => function($tree) {
+                if(count($tree) && ($tree[0]['lvl'] == 0)){
+                    return '';
+                } else {
+                    return '</ul>';
+                }
+            },
             'childOpen' => '<li>',
             'childClose' => '</li>',
-            'nodeDecorator' => function($node) use (&$complaint,&$commentRep)  {
+            'nodeDecorator' => function($node) use (&$complaint, &$commentRep)  {
                     return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));
                 }
         );
+
         $htmlTree = array();
         foreach($nodes as $node)
             $htmlTree[] = $commentRep->childrenHierarchy(

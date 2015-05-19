@@ -2,13 +2,25 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
+    <script src="{{ asset('public/js/summernote.js') }}"></script>
+    <script src="{{ asset('public/js/libs/microtemplating/microtemplating.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomment/js/comment.js') }}"></script>
 {% endblock javascripts %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
+{% endblock %}
+
 {% block body %}
     {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintPage.html.twig' with {'complaint':complaint} %}
+    <h2>Комментарии</h2>
+    <ul class="list-comments">
     {% for treeComment in treeComments %}
         {{ treeComment|raw }}
     {% endfor %}
+    </ul>
     {{ render(controller('InfoCommentBundle:Default:form', { 'complaint': complaint.id })) }}
+    {% include 'InfoCommentBundle:Default:reply-form.html.twig' %}
 {% endblock %}

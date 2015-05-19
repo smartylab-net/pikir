@@ -6,7 +6,7 @@
         Уважаемый(ая) {{ complaint.author }}!
     </p>
     <p>
-        Ваш отзыв "<a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.title }}</a>" прокомментировали.
+        Ваш отзыв для компании <a href="{{ url('info_complaint_complaint',{'id':complaint.id}) }}">{{ complaint.company.name }}</a> прокомментировали.
     </p>
     <hr/>
     <div >

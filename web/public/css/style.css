@@ -201,6 +201,10 @@ a.make-complaint-comment:hover{
     z-index: 998;
 }
 
+.list-comments .small-padding-comment {
+    margin-left: 12px;
+}
+
 .popover-content .yashare-div {
     margin-top: -11px;
 }

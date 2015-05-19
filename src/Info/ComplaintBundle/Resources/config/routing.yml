@@ -11,7 +11,7 @@ info_complaint_homepage:
 info_complaint_create:
     pattern:  /complaint/create/{id}
     defaults:
-        _controller: InfoComplaintBundle:Complaint:complaint
+        _controller: InfoComplaintBundle:Complaint:createComplaint
         id: null
         label: "Добавить отзыв"
         parent: info_complaint_homepage
@@ -37,12 +37,11 @@ SearchEngineBundle_results:
     pattern:   /results/
     defaults:  { _controller: InfoComplaintBundle:Search:getResults, label: "Результаты поиска", parent: info_complaint_homepage }
 
-
 search_auto:
     pattern:   /autocomplete/
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
-      expose: true
+        expose: true
       
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
@@ -50,9 +49,9 @@ info_manager:
 
 info_complaint_complaint:
     pattern:  /complaint/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
+    defaults: { _controller: InfoComplaintBundle:Complaint:showComplaint}
     options:
-      expose: true
+        expose: true
 
 info_complaint_edit:
     pattern: /complaint/edit/{complaint}/

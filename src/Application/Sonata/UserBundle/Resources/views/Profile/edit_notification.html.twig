@@ -1,8 +1,62 @@
-{% extends 'ApplicationSonataUserBundle:Profile:action.html.twig' %}
+{% extends '::base.html.twig' %}
 
-{% block sonata_profile_title %}
-    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - Настройка уведомлений
+{% form_theme form _self %}
+
+{% block body %}
+
+    <div class="row">
+
+        <!-- BEGIN ADD CONTACTS FORM -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-head style-primary">
+                    <header>Настройка уведомлений</header>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {{ form(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-{% block sonata_profile_content %}
-    {{ form(form) }}
-{% endblock %}
+
+
+
+{% block form_label %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            <span>{{ label|trans({}, translation_domain) }}</span>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label %}
+
+{% block form_row %}
+    {% spaceless %}
+        <div class="checkbox checkbox-styled">
+            <label>
+                {{ form_widget(form) }}
+                {{ form_label(form) }}
+            </label>
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block button_row %}
+    {% spaceless %}
+
+        <div class="card-actionbar">
+            <div class="card-actionbar-row">
+                <a class="btn btn-flat" href="{{ path('sonata_user_profile_show') }}">ОТМЕНА</a>
+                {{ form_widget(form, {'attr': {'class':'btn btn-flat btn-accent'}}) }}
+            </div>
+            <!--end .card-actionbar-row -->
+        </div>
+        <div>
+        </div>
+    {% endspaceless %}
+{% endblock button_row %}

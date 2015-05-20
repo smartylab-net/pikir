@@ -217,3 +217,7 @@ a.make-complaint-comment:hover{
     border: 1px solid #f7bec3;
     border-radius: 2px;
 }
+
+.word-break {
+    word-break: break-all;
+}

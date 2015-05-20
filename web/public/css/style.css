@@ -218,6 +218,10 @@ a.make-complaint-comment:hover{
     border-radius: 2px;
 }
 
+.word-break {
+    word-break: break-all;
+}
+
 .full-bleed .stick-top-right {
     z-index: 99;
 }

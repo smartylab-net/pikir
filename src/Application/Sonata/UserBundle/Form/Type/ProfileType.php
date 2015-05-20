@@ -66,14 +66,6 @@ class ProfileType extends AbstractType
                 'label'    => 'form.label_biography',
                 'required' => false
             ))
-            ->add('locale', 'locale', array(
-                'label'    => 'form.label_locale',
-                'required' => false
-            ))
-            ->add('timezone', 'timezone', array(
-                'label'    => 'form.label_timezone',
-                'required' => false
-            ))
             ->add('phone', null, array(
                 'label'    => 'form.label_phone',
                 'required' => false

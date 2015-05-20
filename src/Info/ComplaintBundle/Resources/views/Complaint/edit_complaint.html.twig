@@ -28,18 +28,7 @@
             </div>
         {% endif %}
     {% endblock %}
-
-    {% block header %}
-    Редактирование данных отзыва
-    {% endblock %}
     
-    {% block changedBlock %}
-
-        
-        <div class="form-group">
-
-            <input type="text" value="{{ complaint.company }}" disabled="disabled" class="form-control">
-            <label>Название компании</label>
-        </div>
-        
+    {% block complaint_form %}
+        {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':complaint.company} %}
     {% endblock %}

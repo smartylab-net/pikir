@@ -46,7 +46,7 @@ class CompanyController extends Controller
         $rating = round($companyRepository->getComplaintsAverageRating($id));
 
         $form = $this->createForm(new ComplaintType());
-      
+
         return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$rating, 'form'=>$form->createView()));
     }
 

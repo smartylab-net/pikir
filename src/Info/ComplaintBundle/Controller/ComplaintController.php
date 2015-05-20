@@ -6,7 +6,6 @@ use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Entity\Complaint;
 use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
 use Info\CommentBundle\Entity\Comment;
-use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Cookie;
-use Doctrine\ORM\EntityRepository;
 
 class ComplaintController extends Controller
 {
@@ -106,16 +104,16 @@ class ComplaintController extends Controller
         ));
     }
 
-    public function lastAddedComplaintsAction()
+    public function lastAddedComplaintsAction(Request $request)
     {
-        $page = $this->getRequest()->get('page', 0);
+        $page = $request->get('page', 0);
         $itemCount = 10;
         $complaints = $this->getDoctrine()
             ->getRepository('InfoComplaintBundle:Complaint')
             ->findBy(array(),array('id'=>'desc'), $itemCount, $page * $itemCount);
 
         $page++;
-        if ($this->getRequest()->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             return $this->render('InfoComplaintBundle:Complaint:complaints_list.html.twig', array('complaints' => $complaints, 'page' => $page));
         } else {
             return $this->render('InfoComplaintBundle:Complaint:last_complaints_list.html.twig', array('complaints' => $complaints, 'page' => $page));
@@ -158,8 +156,9 @@ class ComplaintController extends Controller
         return $this->redirect($this->generateUrl('info_complaint_homepage'));
     }
 
-    public function editComplaintAction(Complaint $complaint)
+    public function editComplaintAction($id)
     {
+        $complaint = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
         if ($complaint == null)
         {
             return $this->createNotFoundException();

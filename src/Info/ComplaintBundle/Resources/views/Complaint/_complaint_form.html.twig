@@ -1,15 +1,16 @@
 {{ form_start(form,{'attr': {'class':'form', 'novalidate':true } }) }}
-    {% block changedBlock %}
-        <div class="form-group">
 
+    <div class="form-group">
+        <label>Название компании</label>
+        {% if company is defined %}
+            <input type="text" value="{{ company.name }}" disabled="disabled" id="company" name="company" class="form-control">
+        {% else %}
             <input type="text" id="company" name="company" class="form-control">
-            <label>Название компании</label>
-
             <div style="display: none">
                 {{ form_widget(form.company) }}
             </div>
-        </div>
-    {% endblock %}
+        {% endif %}
+    </div>
 
     <div class="form-group">
         {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}

@@ -42,7 +42,7 @@ search_auto:
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
         expose: true
-      
+
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
     prefix:   /
@@ -54,8 +54,12 @@ info_complaint_complaint:
         expose: true
 
 info_complaint_edit:
-    pattern: /complaint/edit/{complaint}/
-    defaults: { _controller: InfoComplaintBundle:Complaint:editComplaint }
+    pattern: /complaint/edit/{id}/
+    defaults:
+        _controller: InfoComplaintBundle:Complaint:editComplaint
+        id: null
+        label: 'Редактирование отзыва'
+        parent: info_complaint_homepage
 
 info_complaint_delete:
     pattern: /complaint/delete/{complaint}/

@@ -11,7 +11,7 @@
                         style="text-align: left;">
                         {% if complaint.author != null and app.user != null and complaint.author == app.user %}
                             <li>
-                                <a class="btn" href="{{ path('info_complaint_edit',{ 'complaint':complaint.id }) }}">
+                                <a class="btn" href="{{ path('info_complaint_edit',{ 'id':complaint.id }) }}">
                                     Редактировать отзыв
                                 </a>
                             </li>

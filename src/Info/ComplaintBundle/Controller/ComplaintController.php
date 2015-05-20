@@ -182,12 +182,12 @@ class ComplaintController extends Controller
                 $em->persist($complaint);
                 $em->flush();
                 $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Профиль отзывов обновлен');
-                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
+                return $this->redirect($this->generateUrl('info_complaint_edit',array('id'=>$id)));
             }
             else
             {
                 $this->container->get('session')->getFlashBag()->add('complaint_edit_error', 'Профиль отзывов не сохранен, обнаружена ошибка');
-                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
+                return $this->redirect($this->generateUrl('info_complaint_edit',array('id'=>$id)));
             }
         }
 

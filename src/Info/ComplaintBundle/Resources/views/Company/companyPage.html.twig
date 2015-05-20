@@ -75,7 +75,18 @@
                                 {% for complaint in complaintlist %}
                                     {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
                                 {% else %}
-                                    <h3>Пока отзывов не было оставлено</h3>
+                                    <li>
+                                        <div class="timeline-circ">
+                                        </div>
+                                        <div class="timeline-entry">
+                                            <div class="card style-default-bright">
+                                                <div class="card-head small-padding line-height-body">
+                                                    На данный момент для компании {{ company.name }} не оставлено ни одного отзыва. <br />
+                                                    Будьте первым, <a href="{{ path('info_complaint_create', {'id':company.id}) }}" class="text-primary">оставьте отзыв</a> о компании.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul><!--end #activity -->
                         </div><!--end .col -->

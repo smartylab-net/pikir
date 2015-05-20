@@ -30,3 +30,5 @@ $('.share-popover').popover({
         return $('#ya-share-'+id).html();
     }
 });
+
+$(":input").inputmask();

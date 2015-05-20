@@ -233,10 +233,10 @@ sonata_seo:
     default:          sonata.seo.page.default
     encoding:         UTF-8
     page:
-        title:            Онлайн книга отзывов и предложений
+        title:            Книга отзывов и предложений
         metas:
             name:
-                keywords:             foo bar
+                keywords:             Книга отзывов и предложений, жалобы
                 description:          The description
                 robots:               index, follow
 
@@ -248,7 +248,7 @@ sonata_seo:
                 # Open Graph information
                 # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
                 'og:site_name':       Pikir.strokit.net
-                'og:description':     Онлайн Книга отзывов и предложений
+                'og:description':     Книга отзывов и предложений
 
             http-equiv:
                 'Content-Type':         text/html; charset=utf-8

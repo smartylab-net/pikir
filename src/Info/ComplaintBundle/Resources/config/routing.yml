@@ -55,7 +55,10 @@ info_complaint_complaint:
 
 info_complaint_edit:
     pattern: /complaint/edit/{complaint}/
-    defaults: { _controller: InfoComplaintBundle:Complaint:editComplaint }
+    defaults:
+        _controller: InfoComplaintBundle:Complaint:editComplaint
+        label: "Редактировать отзыв"
+        parent: info_complaint_homepage
 
 info_complaint_delete:
     pattern: /complaint/delete/{complaint}/

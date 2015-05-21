@@ -1,0 +1,139 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="card tabs-left style-default-light">
+
+        <!-- BEGIN SEARCH BAR -->
+        <div class="card-body style-primary no-y-padding">
+            <form class="form form-inverse">
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-content">
+                            <input type="text" class="form-control" id="searchInput" name="search"
+                                   placeholder="Введите ваш запрос">
+
+                            <div class="form-control-line"></div>
+                        </div>
+                        <div class="input-group-btn">
+                            <button class="btn btn-floating-action btn-default-bright" type="submit"><i
+                                        class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!--end .form-group -->
+            </form>
+        </div>
+        <!--end .card-body -->
+        <!-- END SEARCH BAR -->
+
+        <!-- BEGIN TAB RESULTS -->
+        <ul class="card-head nav nav-tabs tabs-accent" data-toggle="tabs">
+            <li class="active"><a href="#companies">Компании</a></li>
+            <li><a href="#complaints">Отзывы</a></li>
+        </ul>
+        <!-- END TAB RESULTS -->
+
+        <!-- BEGIN TAB CONTENT -->
+        <div class="card-body tab-content style-default-bright">
+            <div class="tab-pane active" id="companies">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!-- BEGIN TAB HEADER -->
+                        <div class="margin-bottom-xxl">
+                            <span class="text-light text-lg">Результаты поиска по запросу "{{ searchValue }}
+                                " <strong>{{ companies|length }}</strong></span>
+                        </div>
+                        <!--end .margin-bottom-xxl -->
+                        <!-- END TAB HEADER -->
+
+                        <!-- BEGIN RESULT LIST -->
+                        <div class="list-results list-results-underlined">
+                            {% for company in companies %}
+                                <div class="col-xs-12">
+
+                                    {% if company.logo %}
+                                        {% thumbnail company.logo, 'small' with {class: 'pull-left width-3', width:null, height:null} %}
+                                    {% else %}
+                                        <img src="{{ asset('public/images/no-logo.png') }}" class="pull-left width-3">
+                                    {% endif %}
+                                    <p>
+                                        <a class="text-medium text-lg text-primary"
+                                           href="{{ path('info_company_homepage', {'id' : company.id}) }}">{{ company.name }}</a><br>
+                                        <a class="opacity-75" href="#">{{ company.address }}</a>
+                                    </p>
+
+                                    <div class="contain-xs pull-left">
+                                        {{ company.annotation }}
+                                    </div>
+                                </div><!--end .col -->
+                            {% endfor %}
+                        </div>
+                        <!--end .list-results -->
+                        <!-- END RESULTS LIST -->
+
+                    </div>
+                    <!--end .col -->
+                </div>
+                <!--end .row -->
+            </div>
+            <!--end .tab-pane -->
+
+            <div class="tab-pane" id="complaints">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!-- BEGIN TAB HEADER -->
+                        <div class="margin-bottom-xxl">
+                            <span class="text-light text-lg">Результаты поиска по запросу "{{ searchValue }}
+                                " <strong>{{ complaints|length }}</strong></span>
+                        </div>
+                        <!--end .margin-bottom-xxl -->
+                        <!-- END TAB HEADER -->
+
+                        <!-- BEGIN RESULT LIST -->
+                        <div class="list-results list-results-underlined">
+                            {% for complaint in complaints %}
+                                <div class="col-xs-12">
+                                    <p>
+
+                                        {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
+                                        <span class="text-medium">
+                                        <a href="{{ path('info_complaint_complaint', {'id':complaint.id}) }}">
+                                            {{ complaint.author? complaint.author:'Аноним' }} > {{ complaint.company.name }}
+                                        </a>
+                                        </span>
+                                                                <br>
+                                        <span class="opacity-50">
+                                            <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                                                {{ complaint.created|format_date }}
+                                            </a>
+                                        </span>
+                                    </p>
+
+                                    <div class="contain-xs pull-left">
+                                        {% if (complaint.text|length > 200) %}
+                                            {{ complaint.text| striptags| slice(0, 200)| raw }}...
+                                        {% else %}
+                                            {{ complaint.text| striptags| raw }}
+                                        {% endif %}
+                                    </div>
+                                </div><!--end .col -->
+                            {% endfor %}
+                        </div>
+                        <!--end .list-results -->
+                        <!-- END RESULTS LIST -->
+
+                    </div>
+                    <!--end .col -->
+                </div>
+                <!--end .row -->
+            </div>
+        </div>
+        <!--end .card-body -->
+        <!-- END TAB CONTENT -->
+
+    </div>
+{% endblock %}

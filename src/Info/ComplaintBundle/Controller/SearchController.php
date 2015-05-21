@@ -7,9 +7,12 @@
  */
 namespace Info\ComplaintBundle\Controller;
 
+use Buzz\Message\Response;
 use Info\ComplaintBundle\Form;
+use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,62 +23,39 @@ use Info\ComplaintBundle\Form\SearchHandler;
 
 class SearchController extends Controller
 {
-
-    public function searchAction()
-    {
-        // Generation of the form
-        $form = $this->container->get('form.factory')->createBuilder(new SearchType())->getForm();
-
-        // return the form view
-        return $this->render('InfoComplaintBundle:Default:search.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
     public function autoCompleteAction()
     {
         $name = $this->getRequest()->query->get('term');
         $em = $this->get('doctrine.orm.entity_manager');
-        $companies = $em->getRepository('InfoComplaintBundle:Company')->findLike($name);
+        $companies = $em->getRepository('InfoComplaintBundle:Company')->findLikeAutocomplete($name);
 
         return new JsonResponse($companies);
     }
 
-    public function completeAction()
+    public function searchAction(Request $request)
     {
-        return $this->render('@InfoComplaint/Default/complete.html.twig');
-    }
 
-    public function getResultsAction()
-    {
-        // We recover the user request
-        $request = $this->container->get('request');
+        $form = $this->createForm(new SearchType());
+        $form->submit($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $searchValue = $data["search"];
 
-        // We need to create again a form object for the formHandler
-        $form = $this->container->get('form.factory')->createBuilder(new searchType())->getForm();
+            $companyRepository = $this->getDoctrine()
+                ->getRepository('InfoComplaintBundle:Company');
+            $complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
 
-        $formHandler = new SearchHandler($form, $request, $this->getDoctrine()->getManager());
+            $companies = $companyRepository->findLike($searchValue);
+            $complaints = $complaintRepository->findLike($searchValue);
 
-        if ($formHandler->process()) {
-
-            // title sent
-            $name = $form['name']->getData();
-
-            $repository = $this->getDoctrine()
-                                ->getManager()
-                                ->getRepository('InfoComplaintBundle:Company');
-
-            $companies_list = $repository->findLike( $name );
-
-            // return the results view
-            return $this->render('InfoComplaintBundle:Default:results.html.twig', array(
-                'companies' => $companies_list
+            return $this->render('InfoComplaintBundle:Search:results.html.twig', array(
+                'companies' => $companies,
+                'complaints' => $complaints,
+                'searchValue' => $searchValue
             ));
+        } else {
+            throw new HttpException(400, $form->getErrorsAsString());
         }
 
-        // return the form view
-        // return $this->render('InfoComplaintBundle:Default:search.html.twig', [
-        //     'form' => $form->createView(),
-        // ]);
     }
 }

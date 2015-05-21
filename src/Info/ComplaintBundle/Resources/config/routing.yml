@@ -29,13 +29,9 @@ info_complaints_last:
     pattern:  /complaints/last/
     defaults: { _controller: InfoComplaintBundle:Complaint:lastAddedComplaints}
 
-SearchEngineBundle_search:
+info_search:
     pattern:   /search/
-    defaults:  { _controller: InfoComplaintBundle:Search:search}
-
-SearchEngineBundle_results:
-    pattern:   /results/
-    defaults:  { _controller: InfoComplaintBundle:Search:getResults, label: "Результаты поиска", parent: info_complaint_homepage }
+    defaults:  { _controller: InfoComplaintBundle:Search:search, label: "Результаты поиска", parent: info_complaint_homepage }
 
 search_auto:
     pattern:   /autocomplete/

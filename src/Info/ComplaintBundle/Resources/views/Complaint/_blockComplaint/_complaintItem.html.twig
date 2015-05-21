@@ -51,7 +51,7 @@
                     Прочитать полностью
                 </a>
             {% else %}
-                {{ complaint.text|raw }}
+                {{ complaint.text|striptags| raw }}
             {% endif %}
         {% endblock %}
         <div class="card-actionbar">

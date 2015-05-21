@@ -226,3 +226,9 @@ a.make-complaint-comment:hover{
     z-index: 99;
 }
 .mb0 { margin-bottom: 0; }
+
+.ui-autocomplete {
+    position: absolute;
+    cursor: default;
+    z-index:3000 !important;
+}

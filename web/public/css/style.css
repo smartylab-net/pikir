@@ -221,3 +221,8 @@ a.make-complaint-comment:hover{
 .word-break {
     word-break: break-all;
 }
+
+.full-bleed .stick-top-right {
+    z-index: 99;
+}
+.mb0 { margin-bottom: 0; }

@@ -1,5 +1,5 @@
 {% if company.logo %}
-    {% thumbnail company.logo, 'small' %}
+    {% thumbnail company.logo, 'small' with {'class': 'img-circle border-white border-xl img-responsive auto-width', 'alt': company.name} %}
 {% else %}
-    <img src="{{ asset('public/images/no-logo.png') }}" width="150" height="150">
+    <img class="img-circle border-white border-xl img-responsive" src="{{ asset('public/images/noimage.gif') }}" width="150" height="150">
 {% endif %}

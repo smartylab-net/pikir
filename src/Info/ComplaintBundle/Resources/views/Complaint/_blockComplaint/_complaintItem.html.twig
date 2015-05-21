@@ -78,13 +78,7 @@
                 {% endblock %}
                 {% block social_block %}
                     <div id="ya-share-{{ complaint.id }}" class="hide">
-                        <div class="yashare-div yashare-auto-init"
-                             data-yashareL10n="ru"
-                             data-yashareType="none"
-                             data-yashareQuickServices="facebook,twitter,vkontakte,gplus,odnoklassniki"
-                             data-yashareDescription="{{ complaint.text|striptags }}"
-                             data-yashareLink="{{ url("info_complaint_complaint",{"id":complaint.id}) }}"
-                             data-yashareTitle="{{ (complaint.author? complaint.author : "Аноним") ~ " > " ~ complaint.company.name }}"></div>
+                        {%  include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':(complaint.author? complaint.author : "Аноним") ~ " > " ~ complaint.company.name, 'description': complaint.text|striptags }  %}
                     </div>
                     <a class="btn ink-reaction pull-left share-popover" data-id="{{ complaint.id }}" href="javascript:void(0);">
                         Поделиться

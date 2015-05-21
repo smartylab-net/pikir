@@ -1,0 +1,31 @@
+{{ form_start(form,{'attr': {'class':'form', 'novalidate':true } }) }}
+
+    <div class="form-group">
+        <label>Название компании</label>
+        {% if company is defined %}
+            <input type="text" value="{{ company.name }}" disabled="disabled" id="company" name="company" class="form-control">
+        {% else %}
+            <input type="text" id="company" name="company" class="form-control">
+            <div style="display: none">
+                {{ form_widget(form.company) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    {#<div class="form-group">#}
+    {#<label>Rating</label>#}
+
+    {#<div id="fixed" class="col-md-10">#}
+    {#</div>#}
+    {#</div>#}
+
+    <div class="card-actionbar">
+        <div class="card-actionbar-row">
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-flat btn-primary ink-reaction'}}) }}
+        </div>
+    </div>
+{{ form_end(form) }}

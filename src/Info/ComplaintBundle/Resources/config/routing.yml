@@ -42,7 +42,7 @@ search_auto:
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
         expose: true
-      
+
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
     prefix:   /

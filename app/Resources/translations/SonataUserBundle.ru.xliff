@@ -12,7 +12,7 @@
             </trans-unit>
             <trans-unit id="title_user_edit_profile">
                 <source>title_user_edit_profile</source>
-                <target>Редактировать</target>
+                <target>Редактировать профиль</target>
             </trans-unit>
             <trans-unit id="title_user_authentication">
                 <source>title_user_authentication</source>

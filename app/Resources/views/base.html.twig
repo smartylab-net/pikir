@@ -23,6 +23,7 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/toastr/toastr.css') }}">
         <link type="text/css" rel="stylesheet"
               href="{{ asset('public/css/theme-1/libs/jquery-ui/jquery-ui-theme.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/select2/select2.css') }}"/>
         <link type="text/css" rel="stylesheet"
               href="{{ asset('public/css/spinner.css') }}"/>
 
@@ -41,7 +42,7 @@
             <div class="section-header">
                 {% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}
             </div>
-            <div class="section-body">
+            <div class="section-body contain-lg">
                 {% block body %}{% endblock %}
             </div>
         </section>
@@ -62,6 +63,8 @@
     <script src="{{ asset('public/js/libs/spin.js/spin.min.js') }}"></script>
     <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
     <script src="{{ asset('public/js/libs/nanoscroller/jquery.nanoscroller.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('public/js/libs/toastr/toastr.js') }}"></script>
 
     <!-- Put App.js last in your javascript imports -->
@@ -73,6 +76,7 @@
     <script src="{{ asset('public/js/core/source/AppNavSearch.js') }}"></script>
     <script src="{{ asset('public/js/core/source/AppVendor.js') }}"></script>
 
+    <script src="{{ asset('public/js/summernote.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="{{ asset('public/js/scripts.js') }}"></script>

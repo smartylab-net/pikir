@@ -18,3 +18,9 @@ services:
             class: Application\Sonata\UserBundle\Form\Type\RegistrationFormType
             tags:
                 - { name: form.type, alias: sonata_user_registration }
+
+    sonata.user.profile.form.type:
+            class: Application\Sonata\UserBundle\Form\Type\ProfileType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: sonata_user_profile }

@@ -37,7 +37,7 @@ sonata_user_register:
     prefix: /register
 
 sonata_user_change_password:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+    resource: "@ApplicationSonataUserBundle/Resources/config/sonata_change_password_1.xml"
     prefix: /profile
 
 sonata_user:

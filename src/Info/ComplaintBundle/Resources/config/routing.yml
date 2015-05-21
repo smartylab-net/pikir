@@ -54,11 +54,10 @@ info_complaint_complaint:
         expose: true
 
 info_complaint_edit:
-    pattern: /complaint/edit/{id}/
+    pattern: /complaint/edit/{complaint}/
     defaults:
         _controller: InfoComplaintBundle:Complaint:editComplaint
-        id: null
-        label: 'Редактирование отзыва'
+        label: "Редактировать отзыв"
         parent: info_complaint_homepage
 
 info_complaint_delete:

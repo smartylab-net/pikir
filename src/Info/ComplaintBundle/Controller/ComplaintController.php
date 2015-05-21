@@ -156,9 +156,8 @@ class ComplaintController extends Controller
         return $this->redirect($this->generateUrl('info_complaint_homepage'));
     }
 
-    public function editComplaintAction($id)
+    public function editComplaintAction(Complaint $complaint)
     {
-        $complaint = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint')->find($id);
         if ($complaint == null)
         {
             return $this->createNotFoundException();
@@ -185,7 +184,7 @@ class ComplaintController extends Controller
             } else {
                 $this->container->get('session')->getFlashBag()->add('complaint_edit_error', 'Профиль отзывов не сохранен, обнаружена ошибка');
             }
-            return $this->redirect($this->generateUrl('info_complaint_edit',array('id'=>$id)));
+            return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
         }
 
         return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'complaint'=>$complaint));

@@ -35,14 +35,14 @@
                     </h3>
                 </div><!--end .col -->
             </div><!--end .row -->
-            <div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
+            {#<div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" href="mailto:test@mail.com" target="_blank"
                    data-original-title="Написать письмо"><i class="fa fa-envelope"></i></a>
                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
                    data-original-title="Страница в Facebook"><i class="fa fa-facebook"></i></a>
                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
                 data-original-title="Страница в Twitter"><i class="fa fa-twitter"></i></a>
-            </div>
+            </div>#}
         </div><!--end .section-body -->
     </section>
     <!-- END PROFILE HEADER  -->
@@ -141,6 +141,6 @@
     <!-- END CONTENT -->
 
 
-    {{ fab.show(path('info_complaint_create')) }}
+    {{ fab.show(path('info_complaint_create', {'id':company.id})) }}
 
 {% endblock %}

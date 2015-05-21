@@ -46,7 +46,7 @@
                             {{ gravatar_image(app.user, 30) }}
 								<span class="profile-info">
 									{{ app.user }}
-									<small>{% if is_granted('ROLE_ADMIN') %} Администратор {% else %} Пользователь {% endif %}</small>
+									<small>{% if is_granted('ROLE_ADMIN') %} Администратор {% elseif is_granted('ROLE_MODERATOR')  %} Модератор {% else %} Пользователь {% endif %}</small>
 								</span>
                         </a>
                         <ul class="dropdown-menu animation-dock">

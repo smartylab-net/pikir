@@ -15,9 +15,3 @@ services:
               - ~
           calls:
               - [ setTranslationDomain, [InfoCommentBundle]]
-
-    strokit.comment_count:
-        class: Info\CommentBundle\Twig\CommentCountExtension
-        arguments: [@doctrine.orm.entity_manager]
-        tags:
-            - { name: twig.extension }

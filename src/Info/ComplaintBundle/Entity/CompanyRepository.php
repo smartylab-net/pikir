@@ -23,7 +23,7 @@ class CompanyRepository extends EntityRepository
             ->andWhere('p.enabled = :enabled')
             ->setParameter('name','%'.$name . '%')
             ->setParameter('enabled',true)
-            ->getQuery()->getResult();
+            ->getQuery();
         return $result;
     }
 

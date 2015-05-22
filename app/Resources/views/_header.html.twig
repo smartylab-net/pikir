@@ -24,12 +24,7 @@
                 <ul class="header-nav header-nav-options">
                     <li>
                         <!-- Search form -->
-                        <form class="navbar-search" role="search" action="{{ path('info_search') }}">
-                            <div class="form-group">
-                                <input id="searching" class="form-control" name="search[search]" placeholder="Поиск" type="text">
-                            </div>
-                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-                        </form>
+                        {{ search_form() }}
                     </li>
                 </ul><!--end .header-nav-options -->
 

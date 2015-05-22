@@ -1,0 +1,45 @@
+<div class="tab-pane {% if active == COMPANY_TAB %} active {% endif %}" id="companies">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- BEGIN TAB HEADER -->
+            <div class="margin-bottom-xxl">
+                            <span class="text-light text-lg">Результаты поиска по запросу "{{ searchValue }}
+                                " <strong>{{ companies.getTotalItemCount }}</strong></span>
+            </div>
+            <!--end .margin-bottom-xxl -->
+            <!-- END TAB HEADER -->
+
+            <!-- BEGIN RESULT LIST -->
+            <div class="list-results list-results-underlined">
+                {% for company in companies %}
+                    <div class="col-xs-12">
+
+                        {% if company.logo %}
+                            {% thumbnail company.logo, 'small' with {class: 'pull-left width-3', width:null, height:null} %}
+                        {% else %}
+                            <img src="{{ asset('public/images/no-logo.png') }}" class="pull-left width-3">
+                        {% endif %}
+                        <p>
+                            <a class="text-medium text-lg text-primary"
+                               href="{{ path('info_company_homepage', {'id' : company.id}) }}">{{ company.name }}</a><br>
+                            <a class="opacity-75" href="#">{{ company.address }}</a>
+                        </p>
+
+                        <div class="contain-xs pull-left">
+                            {{ company.annotation }}
+                        </div>
+                    </div><!--end .col -->
+                {% endfor %}
+            </div>
+            <!--end .list-results -->
+            <!-- END RESULTS LIST -->
+
+            {{ knp_pagination_render(companies) }}
+
+        </div>
+        <!--end .col -->
+    </div>
+    <!--end .row -->
+</div>
+<!--end .tab-pane -->

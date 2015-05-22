@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SearchType extends AbstractType {
+class SearchType extends AbstractType
+{
 
     /**
      * Returns the name of this type.
@@ -17,16 +18,11 @@ class SearchType extends AbstractType {
     {
         return "search";
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search','text', array(),array('required'=>true));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'csrf_protection'   => false,
-        ));
+            ->add('search', 'text', array(), array('required' => true, 'placeholder' => "Введите ваш запрос"))
+            ->setMethod('GET');
     }
 }

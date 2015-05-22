@@ -53,6 +53,7 @@ class DefaultController extends Controller
             $newComment->setUser($this->getUser());
             $newComment->setParent($comment);
             $newComment->setComment($commentContent);
+            $newComment->setComplaint($complaint);
             $em->persist($newComment);
             $em->flush();
             if (!($this->sendEmailToCommentAuthor($complaint, $newComment, $comment) && $complaint->getAuthor() == $comment->getUser()))

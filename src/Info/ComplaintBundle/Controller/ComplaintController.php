@@ -135,7 +135,7 @@ class ComplaintController extends Controller
         }
     }
 
-    public function deleteComplaintAction(Complaint $complaint)
+    public function deleteComplaintAction(Request $request, Complaint $complaint)
     {
         if ($complaint == null)
         {
@@ -149,11 +149,15 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
+        $companyId = $complaint->getCompany()->getId();
         $em = $this->getDoctrine()->getManager();
         $em->remove($complaint);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('info_complaint_homepage'));
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array('success' => true), 200);
+        }
+        return $this->redirect($this->generateUrl('info_company_homepage', array('id'=> $companyId)));
     }
 
     public function editComplaintAction(Complaint $complaint)

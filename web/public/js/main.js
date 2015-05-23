@@ -32,3 +32,19 @@ $('.share-popover').popover({
 });
 
 $(":input").inputmask();
+
+var removeComplaint = function(t,id) {
+    $.ajax({
+        url: t.attr('href'),
+        type: 'GET',
+        success: function(json) {
+            $('#complaint_'+id).hide(500, function() {
+                $(this).remove();
+            });
+            toastr.success("Отзыв удален");
+        },
+        error: function(xhr) {
+            toastr.error("Ошибка при удалении отзыва");
+        }
+    });
+};

@@ -6,141 +6,169 @@
     <script src="{{ asset('public/js/libs/bootstrap-rating/bootstrap-rating-input.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
 {% endblock javascripts %}
+{% block main_block %}
+    {% include '::_header.html.twig' %}
 
-{% block body %}
-    <!-- BEGIN PROFILE HEADER -->
-    <section class="full-bleed">
-        {% if company.manager == null and app.user != null %}
-            <a class="btn stick-top-right btn-info"
-               href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
-                Стать представителем компании
-            </a>
-        {% endif %}
+    <div id="base">
+        <div id="content">
+            <!-- BEGIN PROFILE HEADER -->
+            <section class="full-bleed">
+                {% if company.manager == null and app.user != null %}
+                    <a class="btn stick-top-right btn-info"
+                       href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
+                        Стать представителем компании
+                    </a>
+                {% endif %}
 
-        <div class="section-body style-default-dark force-padding text-shadow">
-            <div class="img-backdrop" style="background-image: url('{{ asset('public/img/img16.jpg') }}');"></div>
-            <div class="overlay overlay-shade-top stick-top-left height-3"></div>
-            <div class="row">
-                <div class="col-md-3 col-xs-5">
-                    {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
-                    <h3>
-                        {{ company.name }}
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
-                           data-original-title="Компания подтверждена"><i class="fa fa-check-circle"></i></a><br/>
-                        <small>{{ company.category }}</small>
-                        <br />
-                        <div class="star-rating">
-                            <input type="number" name="rating" class="rating" data-min="1" data-max="5" value="{{ average }}"/>
+                <div class="section-body style-default-dark force-padding text-shadow">
+                    <div class="img-backdrop"
+                         style="background-image: url('{{ asset('public/img/img16.jpg') }}');"></div>
+                    <div class="overlay overlay-shade-top stick-top-left height-3"></div>
+                    <div class="row">
+                        <div class="col-md-3 col-xs-5">
+                            {% include 'InfoComplaintBundle:Company:_company_logo.html.twig' with {'company':company} %}
+                            <h3>
+                                {{ company.name }}
+                                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
+                                   data-original-title="Компания подтверждена"><i
+                                            class="fa fa-check-circle"></i></a><br/>
+                                <small>{{ company.category }}</small>
+                                <br/>
+
+                                {#<div class="star-rating">
+                                    <input type="number" name="rating" class="rating" data-min="1" data-max="5"
+                                           value="{{ average }}"/>
+                                </div>#}
+                            </h3>
                         </div>
-                    </h3>
-                </div><!--end .col -->
-            </div><!--end .row -->
-            {#<div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
-                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" href="mailto:test@mail.com" target="_blank"
-                   data-original-title="Написать письмо"><i class="fa fa-envelope"></i></a>
-                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
-                   data-original-title="Страница в Facebook"><i class="fa fa-facebook"></i></a>
-                <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
-                data-original-title="Страница в Twitter"><i class="fa fa-twitter"></i></a>
-            </div>#}
-        </div><!--end .section-body -->
-    </section>
-    <!-- END PROFILE HEADER  -->
+                        <!--end .col -->
+                    </div>
+                    <!--end .row -->
+                    {#<div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" href="mailto:test@mail.com" target="_blank"
+                           data-original-title="Написать письмо"><i class="fa fa-envelope"></i></a>
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                           data-original-title="Страница в Facebook"><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                        data-original-title="Страница в Twitter"><i class="fa fa-twitter"></i></a>
+                    </div>#}
+                </div>
+                <!--end .section-body -->
+            </section>
+            <!-- END PROFILE HEADER  -->
 
-    <ul class="nav nav-tabs" data-toggle="tabs">
-        <li class="active"><a href="#complaints">Отзывы ({{ company.complaints|length }})</a></li>
-        <li><a href="#description">Описание</a></li>
-    </ul>
+            <ul class="nav nav-tabs" data-toggle="tabs">
+                <li class="active"><a href="#complaints">Отзывы ({{ company.complaints|length }})</a></li>
+                <li><a href="#description">Описание</a></li>
+            </ul>
 
-    <section>
-        <div class="section-body no-margin">
-            <div class="row">
+            <section>
+                <div class="section-body no-margin">
+                    <div class="row">
 
-                <div class="tab-content">
-                    <div class="tab-pane active" id="complaints">
-                        <div class="col-md-8">
-                            <h2>Отзывы</h2>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="complaints">
+                                <div class="col-md-8">
+                                    <h2>Отзывы</h2>
 
-                            <!-- BEGIN ENTER COMPLAINT -->
-                            {# TODO надо сделать форму #}
-                            {#<div class="card mb0">
-                                <div class="card-body">
-                                    {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company} %}
-                                </div>
-                            </div>#}
-                            <!-- END ENTER COMPLAINT -->
-
-                            <!-- BEGIN COMPLAINT ACTIVITY -->
-                            <ul class="timeline collapse-lg timeline-hairline">
-                                {% for complaint in complaintlist %}
-                                    {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
-                                {% else %}
-                                    <li>
-                                        <div class="timeline-circ">
+                                    <!-- BEGIN ENTER COMPLAINT -->
+                                    {# TODO надо сделать форму #}
+                                    {#<div class="card mb0">
+                                        <div class="card-body">
+                                            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company} %}
                                         </div>
-                                        <div class="timeline-entry">
-                                            <div class="card style-default-bright">
-                                                <div class="card-head small-padding line-height-body">
-                                                    На данный момент для компании {{ company.name }} не оставлено ни одного отзыва. <br />
-                                                    Будьте первым, <a href="{{ path('info_complaint_create', {'id':company.id}) }}" class="text-primary">оставьте отзыв</a> о компании.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul><!--end #activity -->
-                        </div><!--end .col -->
+                                    </div>#}
+                                    <!-- END ENTER COMPLAINT -->
 
-                        <!-- BEGIN PROFILE MENUBAR -->
-                        <div class="col-lg-offset-1 col-lg-3 col-md-4">
-                            <div class="card card-underline style-default-dark">
-                                <div class="card-head">
-                                    <header class="opacity-75">
-                                        <small>Информация</small>
-                                    </header>
-                                    <div class="tools">
-                                        {% if company.manager != null and app.user != null and company.manager == app.user %}
-                                            <a class="btn btn-icon-toggle ink-reaction" href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}" data-toggle="tooltip" data-placement="top"
-                                               data-original-title="Редактировать данные компании">
-                                                <i class="md md-edit"></i>
-                                            </a>
-                                        {% endif %}
-                                    </div><!--end .tools -->
-                                </div><!--end .card-head -->
-                                <div class="card-body no-padding">
-                                    <ul class="list">
-                                        <li class="tile">
-                                            <a class="tile-content ink-reaction">
-                                                <div class="tile-icon">
-                                                    <i class="md md-location-on"></i>
+                                    <!-- BEGIN COMPLAINT ACTIVITY -->
+                                    <ul class="timeline collapse-lg timeline-hairline">
+                                        {% for complaint in complaintlist %}
+                                            {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
+                                        {% else %}
+                                            <li>
+                                                <div class="timeline-circ">
                                                 </div>
-                                                <div class="tile-text">
-                                                    {{ company.address ? : "не указано"}}
+                                                <div class="timeline-entry">
+                                                    <div class="card style-default-bright">
+                                                        <div class="card-head small-padding line-height-body">
+                                                            На данный момент для компании {{ company.name }} не
+                                                            оставлено ни одного отзыва. <br/>
+                                                            Будьте первым, <a
+                                                                    href="{{ path('info_complaint_create', {'id':company.id}) }}"
+                                                                    class="text-primary">оставьте отзыв</a> о компании.
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </a>
-                                        </li>
+                                            </li>
+                                        {% endfor %}
                                     </ul>
-                                </div><!--end .card-body -->
-                            </div><!--end .card -->
-                        </div><!--end .col -->
-                    </div><!--end .tab-pane -->
+                                    <!--end #activity -->
+                                </div>
+                                <!--end .col -->
 
-                    <div class="tab-pane" id="description">
-                        <div class="card">
-                            <div class="card-body">
-                                <article class="text-columns-2">{{ company.annotation }}</article>
+                                <!-- BEGIN PROFILE MENUBAR -->
+                                <div class="col-lg-offset-1 col-lg-3 col-md-4">
+                                    <div class="card card-underline style-default-dark">
+                                        <div class="card-head">
+                                            <header class="opacity-75">
+                                                <small>Информация</small>
+                                            </header>
+                                            <div class="tools">
+                                                {% if company.manager != null and app.user != null and company.manager == app.user %}
+                                                    <a class="btn btn-icon-toggle ink-reaction"
+                                                       href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       data-original-title="Редактировать данные компании">
+                                                        <i class="md md-edit"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <!--end .tools -->
+                                        </div>
+                                        <!--end .card-head -->
+                                        <div class="card-body no-padding">
+                                            <ul class="list">
+                                                <li class="tile">
+                                                    <a class="tile-content ink-reaction">
+                                                        <div class="tile-icon">
+                                                            <i class="md md-location-on"></i>
+                                                        </div>
+                                                        <div class="tile-text">
+                                                            {{ company.address ? : "не указано" }}
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--end .card-body -->
+                                    </div>
+                                    <!--end .card -->
+                                </div>
+                                <!--end .col -->
+                            </div>
+                            <!--end .tab-pane -->
+
+                            <div class="tab-pane" id="description">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <article class="text-columns-2">{{ company.annotation }}</article>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- END PROFILE MENUBAR -->
+
                     </div>
+                    <!--end .row -->
                 </div>
-                <!-- END PROFILE MENUBAR -->
+                <!--end .section-body -->
+            </section>
+            <!-- END CONTENT -->
 
-            </div><!--end .row -->
-        </div><!--end .section-body -->
-    </section>
-    <!-- END CONTENT -->
+            {{ fab.show(path('info_complaint_create', {'id':company.id})) }}
 
-
-    {{ fab.show(path('info_complaint_create', {'id':company.id})) }}
-
+        </div>
+        {% include '::_menu.html.twig' %}
+        <div class="offcanvas">
+    </div>
 {% endblock %}

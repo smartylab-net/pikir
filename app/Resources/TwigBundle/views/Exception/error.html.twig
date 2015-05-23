@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{ 'error_page.an_error_occurred'|trans({}, 'StrokitCoreBundle') }}: {{ status_text }}{% endblock %}
+{% block breadcrumb %}{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -8,4 +8,7 @@
             <h2 class="text-light">{{ 'error_page.error_message'|trans({'%status_code%': status_code, '%status_text%': status_text}, 'StrokitCoreBundle') }}</h2>
         </div><!--end .col -->
     </div>
+
+
+    {{ error_search_form() }}
 {% endblock %}

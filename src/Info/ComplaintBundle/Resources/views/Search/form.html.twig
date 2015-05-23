@@ -1,0 +1,6 @@
+{{ form_start(form, {'attr':{'class':'navbar-search','role':'search'},'action':path('info_search')}) }}
+<div class="form-group">
+    {{ form_widget(form.search, {'attr':{'class':'form-control'}}) }}
+</div>
+<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+{{ form_end(form) }}

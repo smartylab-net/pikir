@@ -51,7 +51,7 @@
                     Прочитать полностью
                 </a>
             {% else %}
-                {{ complaint.text|raw }}
+                {{ complaint.text|striptags| raw }}
             {% endif %}
         {% endblock %}
         <div class="card-actionbar">
@@ -73,7 +73,7 @@
                 {% block comment_block %}
                 <a class="btn ink-reaction pull-left"
                    href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
-                    Комментариев: {{ complaint|comment_count }}
+                    Комментариев: {{ complaint.comments|length }}
                 </a>
                 {% endblock %}
                 {% block social_block %}

@@ -1,0 +1,51 @@
+{% extends "::base.html.twig" %}
+{% set COMPANY_TAB = 'company' %}
+{% set COMPLAINT_TAB = 'complaint' %}
+{% set COMMENT_TAB = 'comment' %}
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="card tabs-left style-default-light">
+
+        <!-- BEGIN SEARCH BAR -->
+        <div class="card-body style-primary no-y-padding">
+            {{ form_start(form, {'attr':{'class':'form form-inverse'}}) }}
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-content">
+                            {{ form_widget(form.search, {'attr':{'class':'form-control'}}) }}
+                            <div class="form-control-line"></div>
+                        </div>
+                        <div class="input-group-btn">
+                            <button class="btn btn-floating-action btn-default-bright" type="submit"><i
+                                        class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!--end .form-group -->
+            {{ form_end(form) }}
+        </div>
+        <!--end .card-body -->
+        <!-- END SEARCH BAR -->
+
+        <!-- BEGIN TAB RESULTS -->
+        <ul class="card-head nav nav-tabs tabs-accent" data-toggle="tabs">
+            <li {% if active == COMPANY_TAB %} class="active" {% endif %}><a href="#companies">Компании</a></li>
+            <li {% if active == COMPLAINT_TAB %} class="active" {% endif %}><a href="#complaints">Отзывы</a></li>
+            <li {% if active == COMMENT_TAB %} class="active" {% endif %}><a href="#comments">Комментарии</a></li>
+        </ul>
+        <!-- END TAB RESULTS -->
+
+        <!-- BEGIN TAB CONTENT -->
+        <div class="card-body tab-content style-default-bright">
+
+            {% include 'InfoComplaintBundle:Search:_companies.html.twig' %}
+            {% include 'InfoComplaintBundle:Search:_complaints.html.twig' %}
+            {% include 'InfoComplaintBundle:Search:_comments.html.twig' %}
+
+        </div>
+        <!--end .card-body -->
+        <!-- END TAB CONTENT -->
+
+    </div>
+{% endblock %}

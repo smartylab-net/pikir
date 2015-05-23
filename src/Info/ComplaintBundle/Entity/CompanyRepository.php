@@ -18,14 +18,25 @@ class CompanyRepository extends EntityRepository
     public function findLike($name)
     {
         $result= $this->createQueryBuilder('p')
-            ->select("p.id as value, p.name as label, 'info_company_homepage' as route")
+            ->select("p")
+            ->where('p.name like :name')
+            ->andWhere('p.enabled = :enabled')
+            ->setParameter('name','%'.$name . '%')
+            ->setParameter('enabled',true)
+            ->getQuery();
+        return $result;
+    }
+
+    public function findLikeAutocomplete($name)
+    {
+        $result= $this->createQueryBuilder('p')
+            ->select("p.id as value, p.name as label")
             ->where('p.name like :name')
             ->andWhere('p.enabled = :enabled')
             ->setParameter('name','%'.$name . '%')
             ->setParameter('enabled',true)
             ->getQuery()->getArrayResult();
         return $result;
-
     }
 
     public function getCompany($cId){

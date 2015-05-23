@@ -27,7 +27,7 @@
         "sonata-project/news-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
         "tilleuls/ckeditor-sonata-media-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "^2.4@dev",
         "mobiledetect/mobiledetectlib": "2.7.*",
         "suncat/mobile-detect-bundle": "dev-master",
         "gregwar/captcha-bundle": "dev-master",

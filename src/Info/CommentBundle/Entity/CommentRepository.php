@@ -22,4 +22,16 @@ class CommentRepository extends NestedTreeRepository {
         }
         return $commentCount;
     }
+
+    public function findLike($search)
+    {
+        return $this->createQueryBuilder('p')
+            ->select("p")
+            ->leftJoin('p.user', 'u')
+            ->where('p.comment like :search')
+            ->orWhere('u.firstname like :search')
+            ->orWhere('u.lastname like :search')
+            ->setParameter('search','%'.$search . '%')
+            ->getQuery();
+    }
 }

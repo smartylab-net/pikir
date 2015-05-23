@@ -1,0 +1,24 @@
+
+
+{% block form_row %}
+    {% spaceless %}
+
+        <div class="form-group floating-label">
+            {{ form_widget(form, {'attr':{'class':'form-control'}}) }}
+            {{ form_label(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+
+{% block button_row %}
+    {% spaceless %}
+
+        <div class="card-actionbar">
+            <div class="card-actionbar-row">
+                {{ form_widget(form, {'attr': {'class':'btn btn-flat btn-accent'}}) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock button_row %}
+

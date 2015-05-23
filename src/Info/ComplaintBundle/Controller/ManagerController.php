@@ -31,6 +31,9 @@ class ManagerController extends Controller{
         {
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
+
+        $breadcrumbExtension = $this->get('strokit.breadcrumbs');
+        $breadcrumbExtension->setParams(array('id' => $company->getId(), 'company_name' =>$company->getName()));
         $form = $this->createForm( new CompanyType(),$company);
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
@@ -51,7 +54,7 @@ class ManagerController extends Controller{
             }
         }
 
-        return $this->render('InfoComplaintBundle:Manager:edit_company.html.twig',array('form'=>$form->createView()));
+        return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView()));
     }
 
     public function myCompaniesListAction()

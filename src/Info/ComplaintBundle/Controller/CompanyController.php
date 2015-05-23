@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
     	$companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
     	$complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
-    	
+
     	$company = $companyRepository->find($id);
     	if(!$company || !$company->getEnabled())
     	{
@@ -75,7 +75,7 @@ class CompanyController extends Controller
             }
         }
 
-        return $this->render('InfoComplaintBundle:Company:create.html.twig',array('form'=>$form->createView()));
+        return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView()));
     }
 
     public function lastAddedCompaniesAction()

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e3972ad2d1117f77da1ffaa409a3a171",
+    "hash": "b7d7779c31fb442a357a40b1da332c45",
     "packages": [
         {
             "name": "benoitmariaux/bcm-breadcrumbbundle",

@@ -50,8 +50,7 @@ class CompanyType extends AbstractType{
                 'attr'=>array('class'=>'form-control')
             ))
             ->add('submit','submit',array(
-                'label'=>'Сохранить',
-                'attr'=>array('class'=>'btn btn-primary')
+                'label'=>'Сохранить'
             ));
     }
 

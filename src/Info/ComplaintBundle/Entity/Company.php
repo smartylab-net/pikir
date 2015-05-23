@@ -4,11 +4,13 @@ namespace Info\ComplaintBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Company
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\CompanyRepository")
  */
 class Company
@@ -91,6 +93,11 @@ class Company
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -278,6 +285,22 @@ class Company
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
     }
 
     public function getAverage()

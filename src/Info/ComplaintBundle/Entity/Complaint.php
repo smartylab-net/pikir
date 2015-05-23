@@ -6,11 +6,13 @@ use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Complaint
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\ComplaintRepository")
  */
 
@@ -89,6 +91,11 @@ class Complaint
      * @Assert\NotNull()
      */
     private $vote = 0;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -264,5 +271,21 @@ class Complaint
     public function setVotes($votes)
     {
         $this->votes = $votes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
     }
 }

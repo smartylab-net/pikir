@@ -18,7 +18,10 @@
                         {% endif %}
                         {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
                             <li>
-                                <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}">
+                                <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}"
+                                    {% if app.request.attributes.get('_route') != 'info_complaint_complaint' %}
+                                        onclick="removeComplaint($(this), {{ complaint.id }});return false;"
+                                    {% endif %}>
                                     Удалить отзыв
                                 </a>
                             </li>

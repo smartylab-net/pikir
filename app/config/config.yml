@@ -258,3 +258,9 @@ sonata_seo:
             'xmlns':              http://www.w3.org/1999/xhtml
             'xmlns:og':           http://opengraphprotocol.org/schema/
             #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/DoctrineMigrations
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations

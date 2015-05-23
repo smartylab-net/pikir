@@ -38,7 +38,9 @@ var removeComplaint = function(t,id) {
         url: t.attr('href'),
         type: 'GET',
         success: function(json) {
-            $('#complaint_'+id).remove();
+            $('#complaint_'+id).hide(500, function() {
+                $(this).remove();
+            });
             toastr.success("Отзыв удален");
         },
         error: function(xhr) {

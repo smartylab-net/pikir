@@ -5,7 +5,13 @@
     {{ parent() }}
     <script src="{{ asset('public/js/libs/bootstrap-rating/bootstrap-rating-input.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
+    <script src="{{ asset('bundles/infocomplaint/js/company.js') }}"></script>
+    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
 {% endblock javascripts %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
+{% endblock %}
 {% block main_block %}
     {% include '::_header.html.twig' %}
 
@@ -72,16 +78,23 @@
                                     <h2>Отзывы</h2>
 
                                     <!-- BEGIN ENTER COMPLAINT -->
-                                    {# TODO надо сделать форму #}
-                                    {#<div class="card mb0">
-                                        <div class="card-body">
-                                            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company} %}
+                                    <div class="card mb0">
+                                        <div class="card-head">
+                                            <header>Оставить отзыв</header>
+                                            <div class="tools">
+                                                <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                                            </div>
                                         </div>
-                                    </div>#}
+                                        <div class="card-body no-padding height-9" style="display: block;">
+                                            <div class="card-body" id="complaint-form">
+                                                {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company, 'isCompanyPage':1} %}
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- END ENTER COMPLAINT -->
 
                                     <!-- BEGIN COMPLAINT ACTIVITY -->
-                                    <ul class="timeline collapse-lg timeline-hairline">
+                                    <ul class="timeline collapse-lg timeline-hairline" id="company_complaints">
                                         {% for complaint in complaintlist %}
                                             {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInCompanyPage.html.twig', {'complaint':complaint}) }}
                                         {% else %}
@@ -102,6 +115,9 @@
                                             </li>
                                         {% endfor %}
                                     </ul>
+                                    <div class="pagination pagination-right">
+                                        {{ knp_pagination_render(complaintlist) }}
+                                    </div>
                                     <!--end #activity -->
                                 </div>
                                 <!--end .col -->

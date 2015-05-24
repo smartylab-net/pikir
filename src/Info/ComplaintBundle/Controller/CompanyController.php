@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CompanyController extends Controller
 {
+    const ITEMS_PER_PAGE = 10;
+
     public function indexAction(Request $request, $id)
     {
     	$companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
@@ -42,12 +44,20 @@ class CompanyController extends Controller
         ;
         $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
-		$complaintList = $complaintRepository->findByCompany($id);
+		$complaintList = $complaintRepository->findByCompany($id, array('created'=>'desc'));
         $rating = round($companyRepository->getComplaintsAverageRating($id));
 
-        $form = $this->createForm(new ComplaintType());
+        $complaint = new Complaint();
+        $complaint->setCompany($company);
+        $form = $this->createForm(new ComplaintType(), $complaint, array(
+            'action' => $this->generateUrl('info_complaint_create')));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator
+            ->paginate($complaintList,
+                $this->get('request')->query->get('page', 1),
+                self::ITEMS_PER_PAGE);
 
-        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$rating, 'form'=>$form->createView()));
+        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$pagination, 'average'=>$rating, 'form'=>$form->createView()));
     }
 
     public function createAction()

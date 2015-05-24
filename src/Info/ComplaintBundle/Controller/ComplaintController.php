@@ -17,16 +17,16 @@ use Symfony\Component\HttpFoundation\Cookie;
 class ComplaintController extends Controller
 {
 
-    public function createComplaintAction($id)
+    public function createComplaintAction(Request $request, $id)
     {
         $complaint = new Complaint();
+        $company = null;
         if ($id != null)
         {
             $company = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company')->find($id);
             $complaint->setCompany($company);
         }
         $form = $this->createForm(new ComplaintType(), $complaint);
-        $request = $this->getRequest();
         if ($request->isMethod('post')) {
             $form->submit($request);
             if($form->isValid()){
@@ -44,12 +44,15 @@ class ComplaintController extends Controller
                 $em->persist($complaint);
                 $em->flush();
                 $this->sendEmailToManager($complaint);
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonResponse(array('complaint'=>$this->renderView("InfoComplaintBundle:Complaint/_blockComplaint:_complaintItemInCompanyPage.html.twig", array('complaint'=>$complaint))));
+                }
                 return $this->redirect($this->generateUrl('info_complaint_complaint',array('id'=>$complaint->getId())));
             }
         }
 
         return $this->render('InfoComplaintBundle:Complaint:create_complaint.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(), 'company'=>$company)
         );
     }
 

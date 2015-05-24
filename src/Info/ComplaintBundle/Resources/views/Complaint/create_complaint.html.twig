@@ -48,7 +48,7 @@
     <div class="card">
         <div class="card-body">
             {% block complaint_form %}
-            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form} %}
+            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company} %}
             {% endblock complaint_form %}
         </div>
     </div>

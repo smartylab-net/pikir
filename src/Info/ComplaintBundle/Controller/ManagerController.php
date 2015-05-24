@@ -20,8 +20,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ManagerController extends Controller{
 
-    public function editCompanyAction(Company $company)
+    public function editCompanyAction($slug)
     {
+        $companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
+        $company = $companyRepository->findOneBy(array('slug'=>$slug));
         if ($company == null)
         {
             return $this->createNotFoundException();
@@ -33,25 +35,24 @@ class ManagerController extends Controller{
         }
 
         $breadcrumbExtension = $this->get('strokit.breadcrumbs');
-        $breadcrumbExtension->setParams(array('id' => $company->getId(), 'company_name' =>$company->getName()));
+        $breadcrumbExtension->setParams(array('company_name' => $company->getName()));
         $form = $this->createForm( new CompanyType(),$company);
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
-            $id = $company->getId();
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($company);
                 $em->flush();
                 $this->container->get('session')->getFlashBag()->add('manager.company_edit_success', 'Профиль компании обновлен');
-                return $this->redirect($this->generateUrl('info_manager_company_edit',array('company'=>$id)));
             }
             else
             {
                 $this->container->get('session')->getFlashBag()->add('manager.company_edit_error', 'Профиль компании не сохранен, обнаружена ошибка');
-                return $this->redirect($this->generateUrl('info_manager_company_edit',array('company'=>$id)));
             }
+            return $this->redirect($this->generateUrl('info_manager_company_edit',array('slug'=>$slug)));
+
         }
 
         return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView()));

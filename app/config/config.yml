@@ -237,9 +237,13 @@ hwi_oauth:
             facebook: facebookUid
 
 stof_doctrine_extensions:
+    class:
+        sluggable: Strokit\CoreBundle\Listener\SluggableListener
     orm:
         default:
             tree: true
+            sluggable: true
+
 sonata_seo:
     default:          sonata.seo.page.default
     encoding:         UTF-8

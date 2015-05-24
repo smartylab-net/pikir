@@ -107,11 +107,11 @@ class MenuBuilder extends ContainerAware
         $categories = $cm->findBy(array('enabled' => 1, 'parent' => null));
 
         foreach ($categories as $category) {
-            $cat = $menu->addChild($category->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('cId' => $category->getId())))->setDisplayChildren(true);
+            $cat = $menu->addChild($category->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('categorySlug' => $category->getSlug())))->setDisplayChildren(true);
             $subcategory = $cm->findBy(array('parent' => $category->getId(), 'enabled' => true));
             foreach ($subcategory as $child) {
                 if ($child->getEnabled())
-                    $cat->addChild($child->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('cId' => $child->getId())));
+                    $cat->addChild($child->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('categorySlug' => $child->getSlug())));
             }
         }
     }

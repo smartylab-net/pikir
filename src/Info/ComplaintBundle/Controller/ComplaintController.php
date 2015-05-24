@@ -64,7 +64,7 @@ class ComplaintController extends Controller
         $breadcrumbManager->addBreadcrumbsForRoute('info_company_homepage',
             array(
                 'company_name' => $company->getName(),
-                'id' => $complaint->getCompany()->getId()
+                'slug' => $complaint->getCompany()->getSlug()
             ));
 
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
@@ -152,7 +152,7 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
-        $companyId = $complaint->getCompany()->getId();
+        $companySlug = $complaint->getCompany()->getSlug();
         $em = $this->getDoctrine()->getManager();
         $em->remove($complaint);
         $em->flush();
@@ -160,7 +160,7 @@ class ComplaintController extends Controller
         if ($request->isXmlHttpRequest()) {
             return new JsonResponse(array('success' => true), 200);
         }
-        return $this->redirect($this->generateUrl('info_company_homepage', array('id'=> $companyId)));
+        return $this->redirect($this->generateUrl('info_company_homepage', array('slug'=> $companySlug)));
     }
 
     public function editComplaintAction(Complaint $complaint)

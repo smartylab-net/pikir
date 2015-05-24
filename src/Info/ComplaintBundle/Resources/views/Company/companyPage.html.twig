@@ -20,7 +20,7 @@
             <!-- BEGIN PROFILE HEADER -->
             <section class="full-bleed">
                 {% if company.manager == null and app.user != null %}
-                    <a class="btn stick-top-right btn-info"
+                    <a class="btn stick-top-right btn-info be_manager"
                        href="{{ path('info_be_manager_company',{ 'company':company.id }) }}">
                         Стать представителем компании
                     </a>
@@ -132,7 +132,7 @@
                                             <div class="tools">
                                                 {% if company.manager != null and app.user != null and company.manager == app.user %}
                                                     <a class="btn btn-icon-toggle ink-reaction"
-                                                       href="{{ path('info_manager_company_edit',{ 'company':company.id }) }}"
+                                                       href="{{ path('info_manager_company_edit',{ 'slug':company.slug }) }}"
                                                        data-toggle="tooltip" data-placement="top"
                                                        data-original-title="Редактировать данные компании">
                                                         <i class="md md-edit"></i>

@@ -1,5 +1,5 @@
 info_company_homepage:
-  pattern:  /show/{id}
+  pattern:  /show/{slug}
   defaults:
         _controller: InfoComplaintBundle:Company:index
         label: "{company_name}"

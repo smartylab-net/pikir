@@ -1,16 +1,10 @@
 var Vote = {
 
     sendVote: function (type, id, voteType) {
-        var url;
-        if (type == 'complaint') {
-            url = Routing.generate('info_complaint_vote', {'complaint': id, 'voteType': voteType});
-        } else {
-            url = Routing.generate('info_comment_vote', {'comment': id, 'voteType': voteType});
-        }
+        var url =Routing.generate('info_vote', {'type':type,'id': id, 'voteType': voteType});
 
-        $.getJSON(url, function (data) {
-
-            if (!data.error) {
+        $.getJSON(url)
+            .done(function (data) {
                 if (type == 'complaint') {
                     idValue = 'vote-complaint' + id;
                     $("#" + idValue).html(data.voteValue);
@@ -18,12 +12,9 @@ var Vote = {
                     idValue = 'vote-comment' + id;
                     $("#" + idValue).html(data.voteValue);
                 }
-
-            } else {
-                toastr.error(data.errorType);
-            }
-
-        });
+            }).fail(function(data){
+                toastr.error(data.responseJSON.error);
+            });
     }
 
 };

@@ -43,7 +43,9 @@ class ComplaintController extends Controller
                 }
                 $em->persist($complaint);
                 $em->flush();
-                $this->sendEmailToManager($complaint);
+                if ($this->shouldSendEmailToManager($complaint->getCompany())) {
+                    $this->get('info_complaint.mailer')->sendEmailToManager($complaint);
+                }
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(array('complaint'=>$this->renderView("InfoComplaintBundle:Complaint/_blockComplaint:_complaintItemInCompanyPage.html.twig", array('complaint'=>$complaint))));
                 }
@@ -123,21 +125,6 @@ class ComplaintController extends Controller
         }
     }
 
-    private function sendEmailToManager(Complaint $complaint)
-    {
-        $company = $complaint->getCompany();
-        if ($company!= null && $company->getManager()!= null && $company->getManager()->getEmailOnNewComplaint())
-        {
-            $mailer = $this->get('strokit_mailer');
-            $mailer->sendEmailMessage(
-                array('company'=>$company, 'complaint'=>$complaint),
-                $this->container->getParameter('email_from'),
-                $company->getManager()->getEmail(),
-                'InfoComplaintBundle:Mail:complaint_create_manager.html.twig'
-            );
-        }
-    }
-
     public function deleteComplaintAction(Request $request, Complaint $complaint)
     {
         if ($complaint == null)
@@ -197,130 +184,62 @@ class ComplaintController extends Controller
         return $this->render('InfoComplaintBundle:Complaint:edit_complaint.html.twig',array('form'=>$form->createView(), 'complaint'=>$complaint));
     }
 
-    public function voteComplaintAction(Complaint $complaint,  $voteType)
+    public function voteAction(Request $request, $type, $id, $voteType)
     {
-        $error = false;
-        $em = $this->getDoctrine()->getManager();
-        $complaintsCommentRating = new ComplaintsCommentRating();
-
+        $userVoted = false;
+        $anonymVotedBefore = false;
+        $entityManager = $this->getDoctrine()->getManager();
         $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
-        $objectVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedBefore($complaint);
+        $element = null;
 
-        if($this->getUser())
-        {
-            $userVoted = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentUser($complaint, $this->getUser());
+        if ($type == 'complaint') {
+            $element = $entityManager->getRepository('InfoComplaintBundle:Complaint')->find($id);
+        } elseif ($type == 'comment') {
+            $element = $entityManager->getRepository('InfoCommentBundle:Comment')->find($id);
+        }
+        if ($element == null) {
+            return new JsonResponse(array('error' => "Элемент не найден"), 404);
+        }
 
-            if($objectVotedBefore && $userVoted)
-            {
+        $complaintsCommentRating = new ComplaintsCommentRating();
+        $complaintsCommentRating->setType($type);
+        $complaintsCommentRating->setElementId($id);
+        $complaintsCommentRating->setAuthor($this->getUser());
 
-                $error = true;
-
-            }else{
-
-                $complaintsCommentRating->setAuthor($this->getUser());
-
-            }
-
-        }else
-        {
-            $request = $this->get('request');
+        if ($this->getUser()) {
+            $userVoted = $complaintsCommentRatingRep->findOneBy(array('elementId'=> $id, 'type' => $type, 'author' => $this->getUser()));
+        } else {
             $cookie = $request->cookies->get('anonymous-vote');
             $ip = $request->getClientIp();
-            $anonymVotedBefore = $complaintsCommentRatingRep->getIfComplaintVotedAndAuthorIsCurrentAnonymousUser($complaint, $cookie, $ip);
+            $complaintsCommentRating->setSessionCookie($cookie);
+            $complaintsCommentRating->setIp($ip);
 
-            if($objectVotedBefore && $anonymVotedBefore)
-            {
-                $error = true;
-            }
-            else{
-
-                $complaintsCommentRating->setSessionCookie($cookie);
-                $complaintsCommentRating->setIp($ip);
-            }
+            $anonymVotedBefore = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
         }
+        $isVoted = $userVoted || $anonymVotedBefore;
+        if (!$isVoted) {
+            $voteValue = $element->getVote();
 
-        if (!$error) {
-            $complaintsCommentRating->setComplaint($complaint);
-            $voteValue = $complaint->getVote();
-
-            if ($voteType == 'plus')
-            {
-                $complaint->setVote( $voteValue + 1);
-
-            }elseif($voteType == 'minus'){
-
-                $complaint->setVote( $voteValue - 1);
+            if ($voteType == 'plus') {
+                $element->setVote($voteValue + 1);
+            } elseif ($voteType == 'minus') {
+                $element->setVote($voteValue - 1);
             }
 
-            $em->persist($complaintsCommentRating);
-            $em->persist($complaint);
-            $em->flush();
+            $entityManager->persist($complaintsCommentRating);
+            $entityManager->persist($element);
+            $entityManager->flush();
+            return new JsonResponse(array('voteValue' => $element->getVote()));
+        } else {
+            return new JsonResponse(array('error' => "Вы уже голосовали"), 400);
         }
-        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$complaint->getVote());
-        return new JsonResponse($jsonResponse);
-
     }
-
-    public function voteCommentAction(Comment $comment,  $voteType)
+    /**
+     * @param $company
+     * @return bool
+     */
+    private function shouldSendEmailToManager(Company $company)
     {
-
-        $error = false;
-        $em = $this->getDoctrine()->getManager();
-        $complaintsCommentRating = new ComplaintsCommentRating();
-        $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
-        $objectVotedBefore = $complaintsCommentRatingRep->getIfCommentVotedBefore($comment);
-
-        if($this->getUser())
-        {
-
-            $userVoted = $complaintsCommentRatingRep->getIfCommentVotedAndAuthorIsCurrentUser($comment, $this->getUser());
-
-            if($objectVotedBefore && $userVoted)
-            {
-                $error = true;
-            }else{
-                $complaintsCommentRating->setAuthor($this->getUser());
-                $complaintsCommentRating->setComment($comment);
-           }
-        }else{
-
-            $request = $this->get('request');
-            $cookie = $request->cookies->get('anonymous-vote');
-            $ip = $request->getClientIp();
-            $anonymVotedBefore = $complaintsCommentRatingRep->getIfCommentVotedAndAuthorIsCurrentAnonymousUser($comment, $cookie, $ip);
-
-            if($objectVotedBefore && $anonymVotedBefore)
-            {
-                $error = true;
-            }
-            else
-            {
-                $complaintsCommentRating->setSessionCookie($cookie);
-                $complaintsCommentRating->setIp($ip);
-            }
-        }
-
-        if(!$error)
-        {
-            $voteValue = $comment->getVote();
-            $complaintsCommentRating->setComment($comment);
-
-            if ($voteType == 'plus')
-            {
-                $comment->setVote( $voteValue + 1);
-
-            }elseif($voteType == 'minus'){
-
-                $comment->setVote( $voteValue - 1);
-            }
-
-            $em->persist($complaintsCommentRating);
-            $em->persist($comment);
-            $em->flush();
-        }
-
-
-        $jsonResponse = array('error'=>$error,'errorType'=>"Вы уже голосовали", 'voteValue'=>$comment->getVote());
-        return new JsonResponse($jsonResponse);
+        return $company != null && $company->getManager() != null && $company->getManager()->getEmailOnNewComplaint();
     }
 }

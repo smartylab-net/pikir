@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $comment->setComplaint($complaint);
             $em->persist($comment);
             $em->flush();
-            $this->sendEmailToComplaintAuthor($complaint, $comment);
+            $this->getMailer()->sendEmailToComplaintAuthor($complaint, $comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -56,8 +56,11 @@ class DefaultController extends Controller
             $newComment->setComplaint($complaint);
             $em->persist($newComment);
             $em->flush();
-            if (!($this->sendEmailToCommentAuthor($complaint, $newComment, $comment) && $complaint->getAuthor() == $comment->getUser()))
-                $this->sendEmailToComplaintAuthor($complaint, $newComment);
+            if ($this->shouldSendEmailToCommentAuthor($newComment, $comment)) {
+                $this->getMailer()->sendEmailToCommentAuthor($complaint, $newComment, $comment);
+            } elseif ($this->shouldSendEmailToComplaintAuthor($complaint, $newComment)){
+                $this->getMailer()->sendEmailToComplaintAuthor($complaint, $newComment);
+            }
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -66,42 +69,6 @@ class DefaultController extends Controller
         return new JsonResponse('Неправильный формат данных', 400);
     }
 
-    private function sendEmailToComplaintAuthor(Complaint $complaint, Comment $newComment)
-    {
-        if ($this->shouldSendEmailToComplaintAuthor($complaint, $newComment)) {
-            $this->getMailer()->sendEmailMessage(
-                array(
-                    'comment' => $newComment,
-                    'title' => 'Ваш отзыв прокомментировали',
-                    'complaint' => $complaint
-                ),
-                $this->container->getParameter('email_from'),
-                $complaint->getAuthor()->getEmail(),
-                'InfoCommentBundle:Mail:complaint_comment.html.twig'
-            );
-            return true;
-        }
-        return false;
-    }
-
-    private function sendEmailToCommentAuthor(Complaint $complaint, Comment $newComment, Comment $answeredComment)
-    {
-        if ($this->shouldSendEmailToCommentAuthor($newComment, $answeredComment)) {
-            $this->getMailer()->sendEmailMessage(
-                array(
-                    'newComment' => $newComment,
-                    'answeredComment' => $answeredComment,
-                    'title' => 'На ваш комментарий ответили',
-                    'complaint' => $complaint
-                ),
-                $this->container->getParameter('email_from'),
-                $complaint->getAuthor()->getEmail(),
-                'InfoCommentBundle:Mail:comment_reply.html.twig'
-            );
-            return true;
-        }
-        return false;
-    }
 
     /**
      * @param $complaint
@@ -123,11 +90,8 @@ class DefaultController extends Controller
         return $answeredComment != null && $answeredComment->getUser() != null && $answeredComment->getUser()->getEmailOnReplyToComment() && $answeredComment->getUser() != $newComment->getUser();
     }
 
-    /**
-     * @return \Strokit\CoreBundle\Mailer\Mailer
-     */
     private function getMailer()
     {
-        return $this->get('strokit_mailer');
+        return $this->get('info_complaint.mailer');
     }
 }

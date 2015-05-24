@@ -20,8 +20,6 @@ class Mailer
     function sendEmailMessage($context, $fromEmail, $toEmail, $templateName = "StrokitCoreBundle::mail.html.twig")
     {
         $message = \Swift_Message::newInstance();
-//        $img['logo']   = $message->embed(\Swift_Image::fromPath('public/images/no-logo.png'));
-//        $context['img'] = $img;
         $template = $this->twig->loadTemplate($templateName);
         $subject = $template->renderBlock('subject', $context);
         $htmlBody = $template->renderBlock('body_html', $context);

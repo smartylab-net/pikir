@@ -3,7 +3,7 @@ info_manager_company_edit:
     defaults:
         _controller: InfoComplaintBundle:Manager:editCompany
         label: "Редактирование данных о компании"
-        parent: info_complaint_category
+        parent: info_company_homepage
 
 info_manager_company_list:
     pattern: /profile/me/companies/

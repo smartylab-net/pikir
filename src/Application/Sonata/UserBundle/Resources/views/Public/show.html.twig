@@ -1,0 +1,155 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+
+        <!-- BEGIN CONTACT DETAILS -->
+        <div class="card-tiles">
+            <div class="hbox-md col-md-12">
+                <div class="hbox-column col-md-9">
+                    <div class="row">
+
+                        <!-- BEGIN CONTACTS NAV -->
+                        <!--end .col -->
+                        <!-- END CONTACTS NAV -->
+
+                        <!-- BEGIN CONTACTS MAIN CONTENT -->
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="margin-bottom-xxl">
+                                <div class="pull-left width-3 clearfix hidden-xs">
+                                    {{ gravatar_image(user, 80, {'class': 'img-circle size-2'}) }}
+                                </div>
+                                <h1 class="text-light no-margin">{{ user }}</h1>
+                                <h5>
+                                    {{ role(user) }}
+                                </h5>
+                            </div>
+                            <!--end .margin-bottom-xxl -->
+                            <ul class="nav nav-tabs" data-toggle="tabs">
+                                <li class="active"><a href="#activity">ОТЗЫВЫ</a></li>
+                                <li><a href="#details">БИОГРАФИЯ</a></li>
+                            </ul>
+                            <div class="tab-content">
+
+                                <!-- BEGIN CONTACTS ACTIVITY -->
+                                <div class="tab-pane active" id="activity">
+                                    <ul class="timeline collapse-lg timeline-hairline" id="company_complaints">
+                                        {% for complaint in complaintlist %}
+                                            {{ include ('@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig', {'complaint':complaint, 'isLight':true}) }}
+                                        {% else %}
+                                            <li>
+                                                <div class="timeline-circ">
+                                                </div>
+                                                <div class="timeline-entry">
+                                                    <div class="card style-default-light">
+                                                        <div class="card-head small-padding line-height-body">
+                                                            На данный момент пользователь {{ user }} не
+                                                            оставил ни одного отзыва. <br/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <!--end #activity -->
+                                <!-- END CONTACTS ACTIVITY -->
+
+                                <!-- BEGIN CONTACTS DETAILS -->
+                                <div class="tab-pane" id="details">
+                                    <h3 class="opacity-50">Биография</h3>
+                                    <article>
+                                        {% if user.biography %}
+                                            {{ user.biography|raw }}
+                                        {% else %}
+                                            <p>
+                                                Пользователь еще не заполнено
+                                            </p>
+                                        {% endif %}
+                                    </article>
+                                </div>
+                                <!--end #details -->
+                                <!-- END CONTACTS DETAILS -->
+
+                            </div>
+                            <!--end .tab-content -->
+                        </div>
+                        <!--end .col -->
+                        <!-- END CONTACTS MAIN CONTENT -->
+
+                    </div>
+                    <!--end .row -->
+                </div>
+                <!--end .hbox-column -->
+
+                <!-- BEGIN CONTACTS COMMON DETAILS -->
+                <div class="hbox-column col-md-3 style-default-light">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>Инфо о пользователе</h4>
+                            <br>
+                            <dl class="dl-horizontal dl-icon">
+                                <dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
+                                <dd>
+                                    <span class="opacity-50">День рождения</span><br>
+                                <span class="text-medium">
+                                    {% if user.dateOfBirth %}
+                                        {{ user.dateOfBirth|format_date }}
+                                    {% else %}
+                                        Неизвестно
+                                    {% endif %}
+                                </span>
+                                </dd>
+                            </dl>
+                            <!--end .dl-horizontal -->
+                            <br>
+                            <h4>Контактная информация</h4>
+                            <br>
+                            <dl class="dl-horizontal dl-icon">
+                                <dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
+                                <dd>
+                                    <span class="opacity-50">Телефон</span><br>
+                                <span class="text-medium">
+                                    {% if user.phone %}
+                                        {{ user.phone }}
+                                    {% else %}
+                                        Неизвестно
+                                    {% endif %}
+                                </span><br>
+                                </dd>
+                                <dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
+                                <dd>
+                                    <span class="opacity-50">Email</span><br>
+                                    <a class="text-medium" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                                </dd>
+                                <dt><span class="md md-language md-lg opacity-50"></span></dt>
+                                <dd>
+                                    <span class="opacity-50">Веб-сайт</span><br>
+
+                                    {% if user.website %}
+                                        <a class="text-medium" target="_blank" href="{{ user.website }}">{{ user.website }}</a>
+                                    {% else %}
+                                        <span class="text-medium">
+                                            Неизвестно
+                                        </span>
+                                    {% endif %}
+                                </dd>
+                                <dd class="full-width"></dd>
+                            </dl>
+                            <!--end .dl-horizontal -->
+                        </div>
+                        <!--end .col -->
+                    </div>
+                    <!--end .row -->
+                </div>
+                <!--end .hbox-column -->
+                <!-- END CONTACTS COMMON DETAILS -->
+
+            </div>
+            <!--end .hbox-md -->
+        </div>
+        <!--end .card-tiles -->
+        <!-- END CONTACT DETAILS -->
+
+    </div>
+{% endblock %}

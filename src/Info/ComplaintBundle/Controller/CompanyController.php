@@ -13,13 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 class CompanyController extends Controller
 {
     const ITEMS_PER_PAGE = 10;
-
-    public function indexAction(Request $request, $id)
+    public function indexAction(Request $request, $slug)
     {
     	$companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
     	$complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
-
-    	$company = $companyRepository->find($id);
+    	
+    	$company = $companyRepository->findOneBy(array('slug' => $slug));
     	if(!$company || !$company->getEnabled())
     	{
     		throw $this->createNotFoundException('Компания не найдена');
@@ -44,7 +43,8 @@ class CompanyController extends Controller
         ;
         $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
-		$complaintList = $complaintRepository->findByCompany($id, array('created'=>'desc'));
+        $id = $company->getId();
+		$complaintList = $complaintRepository->findByCompany($id);
         $rating = round($companyRepository->getComplaintsAverageRating($id));
 
         $complaint = new Complaint();
@@ -76,7 +76,7 @@ class CompanyController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($company);
                 $em->flush();
-                return $this->redirect($this->generateUrl('info_company_homepage',array('id'=>$company->getId())));
+                return $this->redirect($this->generateUrl('info_company_homepage',array('slug'=>$company->getSlug())));
             }
             else
             {

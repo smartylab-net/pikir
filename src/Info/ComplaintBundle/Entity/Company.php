@@ -99,6 +99,12 @@ class Company
      */
     private $deletedAt;
 
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->approved = false;
@@ -316,5 +322,21 @@ class Company
             }
         }
         return $count?$sum/$count:0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

@@ -1,5 +1,5 @@
 info_manager_company_edit:
-    pattern: /manager/company/edit/{company}/
+    pattern: /manager/company/edit/{slug}/
     defaults:
         _controller: InfoComplaintBundle:Manager:editCompany
         label: "Редактирование данных о компании"

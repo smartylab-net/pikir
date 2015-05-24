@@ -18,10 +18,10 @@ info_complaint_create:
 
 
 info_complaint_category:
-    pattern:  /companies/{cId}
+    pattern:  /companies/{categorySlug}
     defaults:
         _controller: InfoComplaintBundle:Category:showCategory
-        cId: null
+        categorySlug: null
         label: "Компании"
         parent: info_complaint_homepage
 

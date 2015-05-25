@@ -26,7 +26,6 @@ class Version20150524201949 extends AbstractMigration
         $this->addSql('Update ComplaintsCommentRating c set type="comment", element_id=comment_id where c.comment_id IS NOT NULL');
         $this->addSql('Update ComplaintsCommentRating c set type="complaint", element_id=complaint_id where c.complaint_id IS NOT NULL');
         $this->addSql('ALTER TABLE ComplaintsCommentRating DROP complaint_id, DROP comment_id');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_800230D3989D9B62 ON Company (slug)');
     }
 
     /**
@@ -44,7 +43,5 @@ class Version20150524201949 extends AbstractMigration
         $this->addSql('ALTER TABLE ComplaintsCommentRating DROP element_id, DROP type');
         $this->addSql('ALTER TABLE ComplaintsCommentRating ADD CONSTRAINT FK_49113F05EDAE188E FOREIGN KEY (complaint_id) REFERENCES Complaint (id)');
         $this->addSql('ALTER TABLE ComplaintsCommentRating ADD CONSTRAINT FK_49113F05F8697D13 FOREIGN KEY (comment_id) REFERENCES Comment (id)');
-        $this->addSql('CREATE INDEX IDX_49113F05EDAE188E ON ComplaintsCommentRating (complaint_id)');
-        $this->addSql('CREATE INDEX IDX_49113F05F8697D13 ON ComplaintsCommentRating (comment_id)');
     }
 }

@@ -25,6 +25,7 @@ file that was distributed with this source code.
             onImageUpload: Summernote.sendFile
         });
         $('.datepicker-element').datepicker({
+            format: "yyyy-mm-dd",
             language: 'ru'
         });
     </script>
@@ -41,7 +42,7 @@ file that was distributed with this source code.
 
     {{ form_errors(form) }}
 
-    {% form_theme form _self %}
+    {% form_theme form ':Form:form_theme.html.twig' %}
     <div class="row">
 
         <!-- BEGIN EDIT PROFILE FORM -->

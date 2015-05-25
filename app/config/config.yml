@@ -110,8 +110,10 @@ fos_user:
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
     registration:
-            form:
-                type: sonata_user_registration
+        form:
+            type: sonata_user_registration
+        confirmation:
+            enabled:    true
 
 sonata_intl:
     timezone:

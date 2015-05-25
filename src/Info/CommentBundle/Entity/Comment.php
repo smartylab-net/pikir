@@ -88,11 +88,6 @@ class Comment
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\ComplaintsCommentRating", mappedBy="comment", cascade={"persist", "remove" }, orphanRemoval=true)
-     */
-    private $votes;
-
-    /**
      * @ORM\Column(name="created_at", type="datetime")
      */
 

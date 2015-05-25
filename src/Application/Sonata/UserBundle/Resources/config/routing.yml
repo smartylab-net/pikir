@@ -4,3 +4,10 @@ info_user_notification_edit:
           _controller: ApplicationSonataUserBundle:Notification:emailNotificationSettings
           label: "Настройка уведомлений"
           parent: fos_user_profile_show
+
+user_public_show:
+    pattern: /user/{user}
+    defaults:
+          _controller: ApplicationSonataUserBundle:Public:show
+          label: "{user_name}"
+          parent: info_complaint_homepage

@@ -14,6 +14,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    strokit.twig.user_ext:
+        class: Application\Sonata\UserBundle\Twig\UserExtension
+        arguments: [@security.context, @security.access.decision_manager]
+        tags:
+            - { name: twig.extension }
+
     sonata_user.registration.form.type:
             class: Application\Sonata\UserBundle\Form\Type\RegistrationFormType
             tags:

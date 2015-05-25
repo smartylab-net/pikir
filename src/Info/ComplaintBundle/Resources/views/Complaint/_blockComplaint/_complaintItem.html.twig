@@ -1,4 +1,4 @@
-<div class="card style-default-bright">
+<div class="card {% if isLight is defined %}style-default-light{% else %}style-default-bright{% endif %}">
     <div class="card-head small-padding line-height-body">
 
         <div class="tools">
@@ -32,7 +32,14 @@
         </div>
         {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
         <span class="text-medium">
-                    {{ complaint.author? complaint.author:'Аноним' }} >
+            {% if complaint.author %}
+                <a href="{{ path('user_public_show', {'user': complaint.author.id}) }}">
+                    {{ complaint.author }}
+                </a>
+            {% else %}
+                Аноним
+            {% endif %}
+                    >
                 <a class="text-primary" href="{{ path('info_company_homepage', {'slug':complaint.company.slug}) }}">
                     {{ complaint.company.name }}
                 </a>

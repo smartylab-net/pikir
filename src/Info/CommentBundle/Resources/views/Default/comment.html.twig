@@ -4,7 +4,14 @@
     <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
     <div class="card-body">
         <h4 class="comment-title">
-            {{ user? :'Аноним' }}
+
+            {% if user %}
+                <a href="{{ path('user_public_show', {'user': user.id}) }}">
+                    {{ user }}
+                </a>
+            {% else %}
+                Аноним
+            {% endif %}
             <small>{{ node.createdAt|format_datetime }}</small>
             {% if isManager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
             {% if isAuthor %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}

@@ -2,16 +2,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
-    <script src="{{ asset('public/js/summernote.js') }}"></script>
     <script src="{{ asset('public/js/libs/microtemplating/microtemplating.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomment/js/comment.js') }}"></script>
 {% endblock javascripts %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
-{% endblock %}
 
 {% block body %}
     {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintPage.html.twig' with {'complaint':complaint} %}

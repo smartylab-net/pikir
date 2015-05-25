@@ -60,7 +60,7 @@
                                     <h3 class="opacity-50">Биография</h3>
                                     <article>
                                         {% if user.biography %}
-                                            {{ user.biography|raw }}
+                                            {{ user.biography|striptags }}
                                         {% else %}
                                             <p>
                                                 Пользователь еще не заполнил

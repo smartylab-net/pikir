@@ -20,7 +20,7 @@
         <p>
             {{ complaint.author }}
         </p>
-        <p>{{ complaint.text|raw }}</p>
+        <p>{{ complaint.text|striptags }}</p>
     </div>
 
     <hr/>

@@ -16,7 +16,7 @@ class CommentType extends AbstractType
                     'placeholder' => 'Комментарий'
                 )
             ))
-            ->add('save', 'submit', array('label'=>'Сохранить', 'attr'=>array('class'=>'btn btn-primary btn-xs pull-right')))
+            ->add('save', 'submit', array('label'=>'Отправить', 'attr'=>array('class'=>'btn btn-primary btn-xs pull-right')))
         ;
     }
 

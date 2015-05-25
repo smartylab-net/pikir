@@ -15,15 +15,8 @@ file that was distributed with this source code.
     <script src="{{ asset('public/js/libs/moment/moment.min.js') }}"></script>
     <script src="{{ asset('public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('public/js/libs/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js') }}"></script>
-    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
     <script type="text/javascript">
         $(".select2").select2();
-        $("#sonata_user_profile_form_biography").summernote({
-            oninit: function () {
-                $('.note-editable').css('min-height', '100px');
-            },
-            onImageUpload: Summernote.sendFile
-        });
         $('.datepicker-element').datepicker({
             format: "yyyy-mm-dd",
             language: 'ru'
@@ -35,7 +28,6 @@ file that was distributed with this source code.
     {{ parent() }}
 
     <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/bootstrap-datepicker/datepicker3.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
 {% endblock %}
 
 {% block body %}

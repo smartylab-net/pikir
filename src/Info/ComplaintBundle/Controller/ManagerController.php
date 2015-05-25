@@ -29,7 +29,8 @@ class ManagerController extends Controller{
             return $this->createNotFoundException();
         }
 
-        if ($company->getManager() == null || $company->getManager()!=$this->getUser())
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')
+            && ($company->getManager() == null || $company->getManager()!=$this->getUser()))
         {
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }

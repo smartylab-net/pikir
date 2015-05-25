@@ -2,10 +2,17 @@
 
     <div class="form-group {% if isCompanyPage is defined %}hide{% endif %}">
         <label>Название компании</label>
-        <input type="text" id="company" name="company" class="form-control" {% if company is defined and company is not null %} value="{{ company.name }}" disabled="disabled"{% endif %}>
-        <div style="display: none">
-            {{ form_widget(form.company) }}
-        </div>
+
+        {% if company is defined and company is not null %}
+            <p class="form-control-static">{{ company.name }}</p>
+        {% else %}
+        <input type="text" id="company" name="company" class="form-control">
+        {% endif %}
+        {% if form.company is defined %}
+            <div style="display: none">
+                {{ form_widget(form.company) }}
+            </div>
+        {% endif %}
     </div>
 
     <div class="form-group">
@@ -20,7 +27,7 @@
     {#</div>#}
 
     <div class="card-actionbar">
-        <div class="card-actionbar-row">
+        <div class="card-actionbar-row no-padding">
             {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-flat btn-primary ink-reaction'}}) }}
         </div>
     </div>

@@ -44,7 +44,7 @@ class CompanyController extends Controller
         $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
         $id = $company->getId();
-		$complaintList = $complaintRepository->findByCompany($id);
+		$complaintList = $complaintRepository->findBy(array('company' => $id), array('id'=>'desc'));
         $rating = round($companyRepository->getComplaintsAverageRating($id));
 
         $complaint = new Complaint();

@@ -40,12 +40,6 @@ class Complaint
      */
     private $comments;
 
-
-    /**
-     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\ComplaintsCommentRating", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
-     */
-    private $votes;
-
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})

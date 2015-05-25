@@ -38,7 +38,9 @@
                                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
                                    data-original-title="Компания подтверждена"><i
                                             class="fa fa-check-circle"></i></a><br/>
-                                <small>{{ company.category }}</small>
+                                <a href="{{ path('info_complaint_category',{'categorySlug':company.category.slug}) }}">
+                                    <small>{{ company.category }}</small>
+                                </a>
                                 <br/>
 
                                 {#<div class="star-rating">
@@ -72,9 +74,9 @@
                 <div class="section-body no-margin">
                     <div class="row">
 
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="complaints">
-                                <div class="col-md-8">
+                        <div class="col-md-8">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="complaints">
                                     <h2>Отзывы</h2>
 
                                     <!-- BEGIN ENTER COMPLAINT -->
@@ -82,13 +84,12 @@
                                         <div class="card-head">
                                             <header>Оставить отзыв</header>
                                             <div class="tools">
-                                                <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                                                <a class="btn btn-icon-toggle btn-collapse"><i
+                                                            class="fa fa-angle-down"></i></a>
                                             </div>
                                         </div>
-                                        <div class="card-body no-padding height-9" style="display: block;">
-                                            <div class="card-body" id="complaint-form">
-                                                {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company, 'isCompanyPage':1} %}
-                                            </div>
+                                        <div class="card-body" id="complaint-form">
+                                            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company, 'isCompanyPage':1} %}
                                         </div>
                                     </div>
                                     <!-- END ENTER COMPLAINT -->
@@ -119,58 +120,64 @@
                                         {{ knp_pagination_render(complaintlist) }}
                                     </div>
                                     <!--end #activity -->
-                                </div>
-                                <!--end .col -->
 
-                                <!-- BEGIN PROFILE MENUBAR -->
-                                <div class="col-lg-offset-1 col-lg-3 col-md-4">
-                                    <div class="card card-underline style-default-dark">
-                                        <div class="card-head">
-                                            <header class="opacity-75">
-                                                <small>Информация</small>
-                                            </header>
-                                            <div class="tools">
-                                                {% if company.manager != null and app.user != null and company.manager == app.user %}
-                                                    <a class="btn btn-icon-toggle ink-reaction"
-                                                       href="{{ path('info_manager_company_edit',{ 'slug':company.slug }) }}"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Редактировать данные компании">
-                                                        <i class="md md-edit"></i>
-                                                    </a>
+                                </div>
+                                <!--end .tab-pane -->
+
+                                <div class="tab-pane" id="description">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <article class="text-columns-2">
+                                                {% if company.annotation %}
+                                                    {{ company.annotation }}
+                                                {% else %}
+                                                    Описание еще не добавлено
                                                 {% endif %}
-                                            </div>
-                                            <!--end .tools -->
+                                            </article>
                                         </div>
-                                        <!--end .card-head -->
-                                        <div class="card-body no-padding">
-                                            <ul class="list">
-                                                <li class="tile">
-                                                    <a class="tile-content ink-reaction">
-                                                        <div class="tile-icon">
-                                                            <i class="md md-location-on"></i>
-                                                        </div>
-                                                        <div class="tile-text">
-                                                            {{ company.address ? : "не указано" }}
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!--end .card-body -->
                                     </div>
-                                    <!--end .card -->
                                 </div>
-                                <!--end .col -->
                             </div>
-                            <!--end .tab-pane -->
+                            <!--end .col -->
+                        </div>
 
-                            <div class="tab-pane" id="description">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <article class="text-columns-2">{{ company.annotation }}</article>
+                        <!-- BEGIN PROFILE MENUBAR -->
+                        <div class="col-lg-offset-1 col-lg-3 col-md-4">
+                            <div class="card card-underline style-default-dark">
+                                <div class="card-head">
+                                    <header class="opacity-75">
+                                        <small>Информация</small>
+                                    </header>
+                                    <div class="tools">
+                                        {% if company.manager != null and app.user != null and company.manager == app.user or is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-icon-toggle ink-reaction"
+                                               href="{{ path('info_manager_company_edit',{ 'slug':company.slug }) }}"
+                                               data-toggle="tooltip" data-placement="top"
+                                               data-original-title="Редактировать данные компании">
+                                                <i class="md md-edit"></i>
+                                            </a>
+                                        {% endif %}
                                     </div>
+                                    <!--end .tools -->
                                 </div>
+                                <!--end .card-head -->
+                                <div class="card-body no-padding">
+                                    <ul class="list">
+                                        <li class="tile">
+                                            <a class="tile-content ink-reaction">
+                                                <div class="tile-icon">
+                                                    <i class="md md-location-on"></i>
+                                                </div>
+                                                <div class="tile-text">
+                                                    {{ company.address ? : "не указано" }}
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--end .card-body -->
                             </div>
+                            <!--end .card -->
                         </div>
                         <!-- END PROFILE MENUBAR -->
 
@@ -184,7 +191,8 @@
             {{ fab.show(path('info_complaint_create', {'id':company.id})) }}
 
         </div>
-        {% include '::_menu.html.twig' %}
-        <div class="offcanvas">
+    </div>
+    {% include '::_menu.html.twig' %}
+    <div class="offcanvas">
     </div>
 {% endblock %}

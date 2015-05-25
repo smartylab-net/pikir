@@ -54,9 +54,10 @@ class ProfileType extends AbstractType
                 'label'    => 'form.label_lastname',
                 'required' => false
             ))
-            ->add('dateOfBirth', 'text', array(
+            ->add('dateOfBirth', 'date', array(
                 'label'    => 'form.label_date_of_birth',
-                'required' => false
+                'required' => false,
+                'widget' => 'single_text'
             ))
             ->add('website', 'url', array(
                 'label'    => 'form.label_website',

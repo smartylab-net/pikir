@@ -35,6 +35,9 @@
         <replace file="${property}" value="mailer_password: ${mail_password}">
             <replacetoken>mailer_password: null</replacetoken>
         </replace>
+        <replace file="${property}" value="mailer_encryption: ${mail_encryption}">
+            <replacetoken>mailer_encryption: null</replacetoken>
+        </replace>
     </target>
 
     <target name="clean" description="clean up" >

@@ -65,7 +65,10 @@ class ProfileType extends AbstractType
             ))
             ->add('biography', 'textarea', array(
                 'label'    => 'form.label_biography',
-                'required' => false
+                'required' => false,
+                'attr'     => array(
+                    'rows' => 1
+                )
             ))
             ->add('phone', null, array(
                 'label'    => 'form.label_phone',

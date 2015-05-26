@@ -33,9 +33,11 @@
                                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
                                    data-original-title="Компания подтверждена"><i
                                             class="fa fa-check-circle"></i></a><br/>
+                                {% if company.category %}
                                 <a href="{{ path('info_complaint_category',{'categorySlug':company.category.slug}) }}">
                                     <small>{{ company.category }}</small>
                                 </a>
+                                {% endif %}
                                 <br/>
 
                                 {#<div class="star-rating">

@@ -1,12 +1,13 @@
 {{ form_start(form,{'attr': {'class':'form', 'novalidate':true } }) }}
 
-    <div class="form-group {% if isCompanyPage is defined %}hide{% endif %}">
-        <label>Название компании</label>
+    <div class="form-group {% if isCompanyPage is defined %}hide{% else %}floating-label{% endif %}">
 
         {% if company is defined and company is not null %}
+            <label>Название компании</label>
             <p class="form-control-static">{{ company.name }}</p>
         {% else %}
-        <input type="text" id="company" name="company" class="form-control">
+            <input type="text" id="company" name="company" class="form-control">
+            <label>Название компании</label>
         {% endif %}
         {% if form.company is defined %}
             <div style="display: none">
@@ -15,8 +16,9 @@
         {% endif %}
     </div>
 
-    <div class="form-group">
-        {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}
+    <div class="form-group floating-label">
+        {{ form_widget(form.text, { 'attr': {'class': 'form-control autosize', 'rows': 1} }) }}
+        {{ form_label(form.text) }}
     </div>
 
     {#<div class="form-group">#}

@@ -11,13 +11,12 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment', 'textarea', array(
-                'label' => 'Текст комментария',
+                'label' => 'Комментарий',
                 'attr' => array(
-                    'placeholder' => 'Комментарий'
+                    'rows' => 1
                 )
             ))
-            ->add('save', 'submit', array('label'=>'Отправить', 'attr'=>array('class'=>'btn btn-primary btn-xs pull-right')))
-        ;
+            ->add('save', 'submit', array('label' => 'Отправить', 'attr' => array('class' => 'btn btn-primary btn-xs pull-right')));
     }
 
     public function getName()

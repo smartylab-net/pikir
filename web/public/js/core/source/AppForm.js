@@ -41,9 +41,7 @@
 		});
 		
 		// Init textarea autosize
-		$('textarea.autosize').on('focus', function () {
-			$(this).autosize({append: ''});
-		});
+        $('textarea.autosize').autosize({append: ''});
 	};
 	
 	// =========================================================================

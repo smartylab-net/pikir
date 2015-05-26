@@ -32,9 +32,9 @@ class ComplaintType extends AbstractType {
                 'empty_data'  => null,
                 'empty_value' => '',
                 'required'=>false))
-            ->add('text','textarea', array('required'=>true))
+            ->add('text','textarea', array('required'=>true, 'label' => 'Текст отзыва'))
             ->add('rating','hidden',array('required'=>true))
-            ->add('submit','submit', array('label' => 'Сохранить'));
+            ->add('submit','submit', array('label' => 'Добавить'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

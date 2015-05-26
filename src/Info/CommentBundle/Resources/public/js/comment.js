@@ -13,6 +13,7 @@ $(function () {
             });
             var result = tmpl("reply_form", {id: commentId, link: link});
             formBlock.append(result);
+            formBlock.find('textarea.autosize').autosize({append: ''});
         }
         formBlock.toggle('fast');
     });

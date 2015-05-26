@@ -1,11 +1,4 @@
 $(function () {
-    $('#Complaint_text').summernote({
-        oninit: function () {
-            $('.note-editable').css('min-height', '150px');
-        },
-        onImageUpload: Summernote.sendFile
-    });
-
     $('.card-head .tools .btn-collapse').on('click', function (e) {
         var card = $(e.currentTarget).closest('.card');
         materialadmin.AppCard.toggleCardCollapse(card);

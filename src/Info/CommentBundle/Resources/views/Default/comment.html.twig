@@ -1,6 +1,6 @@
 {% set isManager = user != null and user == complaint.company.manager %}
 {% set isAuthor = user != null and user == complaint.author %}
-<div id="comment_{{ node.id }}" class="card">
+<div id="comment_{{ node.id }}" class="card word-break">
     <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
     <div class="card-body">
         <h4 class="comment-title">
@@ -17,7 +17,7 @@
             {% if isAuthor %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
         </h4>
         <a class="btn btn-default-dark stick-top-right btn-reply-comment" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node.id }}">Ответить</a>
-        {{ node.comment|raw }}
+        {{ node.comment|striptags }}
     </div>
 </div><!--end .card -->
 

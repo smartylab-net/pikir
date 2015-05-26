@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $comment->setComplaint($complaint);
             $em->persist($comment);
             $em->flush();
-            $this->getMailer()->sendEmailToComplaintAuthor($complaint, $comment);
+            $this->getMailer()->sendEmailToComplaintAuthor($comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -59,7 +59,7 @@ class DefaultController extends Controller
             if ($this->shouldSendEmailToCommentAuthor($newComment, $comment)) {
                 $this->getMailer()->sendEmailToCommentAuthor($complaint, $newComment, $comment);
             } elseif ($this->shouldSendEmailToComplaintAuthor($complaint, $newComment)){
-                $this->getMailer()->sendEmailToComplaintAuthor($complaint, $newComment);
+                $this->getMailer()->sendEmailToComplaintAuthor($newComment);
             }
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',

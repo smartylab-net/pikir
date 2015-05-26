@@ -1,14 +1,9 @@
 <div class="card style-default-bright">
-    {{ form_start(form,{'attr':{'class':'form-horizontal', 'novalidate':true, 'id':'comment-form'} }) }}
-    <div class="card-head small-padding line-height-body">
-        <header>Добавить комментарий</header>
-    </div>
+    {{ form_start(form,{'attr':{'class':'form', 'novalidate':true, 'id':'comment-form'} }) }}
     <div class="card-body small-padding">
-        <div class="col-md-2">
+        <div class="form-group floating-label">
+            {{ form_widget(form.comment,{'attr':{'class':'form-control autosize'} }) }}
             {{ form_label(form.comment) }}
-        </div>
-        <div class="col-md-10">
-            {{ form_widget(form.comment,{'attr':{'class':'form-control'} }) }}
         </div>
     </div>
     <div class="card-actionbar">

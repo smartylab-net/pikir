@@ -13,19 +13,15 @@ $(function () {
             });
             var result = tmpl("reply_form", {id: commentId, link: link});
             formBlock.append(result);
-            $(formBlock).find('textarea').summernote(
-                {
-                    onImageUpload: Summernote.sendFile
-                });
+            formBlock.find('textarea.autosize').autosize({append: ''});
         }
         formBlock.toggle('fast');
     });
 
     $(document).on('submit','.comment-form-block form',function (e) {
-        var code = $(this).find('textarea').code();
-        if (code) {
+        var comment = $(this).find('textarea').val();
+        if (comment.trim()) {
             var formBlock = $(this).parents('.comment-form-block');
-            $(this).find('textarea').val(code);
             $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
                 var list = formBlock.parent().children('ul');
                 if (list.length == 0) {
@@ -52,16 +48,13 @@ $(function () {
 
     $('#comment-form').submit(function(e){
 
-        var code = $(this).find('textarea').code();
-        if (code) {
-            $(this).find('textarea').val(code);
-
+        var comment = $(this).find('textarea').val();
+        if (comment.trim()) {
             $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
                 var list = $('.list-comments');
                 var newComment = $('<li/>').html(data);
                 newComment.hide();
                 list.append(newComment);
-                $('#comment_comment').code("");
                 newComment.show('fast');
             });
         }
@@ -70,9 +63,4 @@ $(function () {
         }
         return false;
     });
-
-    $('#comment_comment').summernote(
-        {
-            onImageUpload: Summernote.sendFile
-        });
 });

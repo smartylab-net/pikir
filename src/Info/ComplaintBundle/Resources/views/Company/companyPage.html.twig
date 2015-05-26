@@ -6,12 +6,7 @@
     <script src="{{ asset('public/js/libs/bootstrap-rating/bootstrap-rating-input.min.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/company.js') }}"></script>
-    <script src="{{ asset('public/js/libs/summernote/summernote.min.js') }}"></script>
 {% endblock javascripts %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/summernote/summernote.css') }}">
-{% endblock %}
 {% block main_block %}
     {% include '::_header.html.twig' %}
 
@@ -38,9 +33,11 @@
                                 <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top"
                                    data-original-title="Компания подтверждена"><i
                                             class="fa fa-check-circle"></i></a><br/>
+                                {% if company.category %}
                                 <a href="{{ path('info_complaint_category',{'categorySlug':company.category.slug}) }}">
                                     <small>{{ company.category }}</small>
                                 </a>
+                                {% endif %}
                                 <br/>
 
                                 {#<div class="star-rating">

@@ -1,4 +1,5 @@
 
+{% extends 'form_div_layout.html.twig' %}
 
 {% block form_row %}
     {% spaceless %}
@@ -9,7 +10,6 @@
         </div>
     {% endspaceless %}
 {% endblock form_row %}
-
 
 {% block button_row %}
     {% spaceless %}
@@ -22,6 +22,10 @@
     {% endspaceless %}
 {% endblock button_row %}
 
+{% block textarea_widget %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' autosize'}) %}
+    {{ parent() }}
+{% endblock textarea_widget %}
 
 {% block date_widget %}
     {% spaceless %}

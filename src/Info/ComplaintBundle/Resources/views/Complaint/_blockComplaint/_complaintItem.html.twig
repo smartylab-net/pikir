@@ -32,7 +32,13 @@
             </div>
         </div>
         {% endif %}
-        {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
+        {% if complaint.author %}
+        <a href="{{ path('user_public_show', {'user': complaint.author.id}) }}">
+            {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
+        </a>
+        {% else %}
+            {{ gravatar_image(null, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
+        {% endif %}
         <span class="text-medium">
             {% if complaint.author %}
                 <a href="{{ path('user_public_show', {'user': complaint.author.id}) }}">
@@ -68,20 +74,19 @@
         {% endblock %}
         <div class="card-actionbar">
             <div class="card-actionbar-row">
-
-                        <span class="complaint-voting-block">
-                            <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
-                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
-                                <span class="md md-thumb-up no-margin"></span>
-                            </a>
-                            <span class="btn pull-left" id="vote-complaint{{ complaint.id }}">
-                                {{ complaint.vote }}
-                            </span>
-                            <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
-                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
-                                <span class="md md-thumb-down no-margin"></span>
-                            </a>
-                        </span>
+                <span class="complaint-voting-block">
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                       data-type="complaint" data-id="{{ complaint.id }}" data-votetype="plus">
+                        <span class="md md-thumb-up no-margin"></span>
+                    </a>
+                    <span class="btn pull-left vote-value">
+                        {{ complaint.vote }}
+                    </span>
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                       data-type="complaint" data-id="{{ complaint.id }}" data-votetype="minus">
+                        <span class="md md-thumb-down no-margin"></span>
+                    </a>
+                </span>
                 {% block comment_block %}
                 <a class="btn ink-reaction pull-left"
                    href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">

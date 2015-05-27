@@ -193,11 +193,22 @@ class ComplaintController extends Controller
         $cookie = $request->cookies->get('anonymous-vote');
         $ip = $request->getClientIp();
 
+        if ($voteType == 'plus') {
+            $voteValue = 1;
+        } else if ($voteType == 'minus'){
+            $voteValue = -1;
+        } else {
+            return new JsonResponse(array('error' => "Неверный запрос"), 400);
+        }
+
         if ($type == 'complaint') {
             $element = $entityManager->getRepository('InfoComplaintBundle:Complaint')->find($id);
         } elseif ($type == 'comment') {
             $element = $entityManager->getRepository('InfoCommentBundle:Comment')->find($id);
+        } else {
+            return new JsonResponse(array('error' => "Неверный запрос"), 400);
         }
+
         if ($element == null) {
             return new JsonResponse(array('error' => "Элемент не найден"), 404);
         }
@@ -208,28 +219,33 @@ class ComplaintController extends Controller
         } else {
             $vote = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
         }
-        if ($vote !== null) {
+
+        if ($vote === null) {
             $newComplaintsCommentRating = new ComplaintsCommentRating();
             $newComplaintsCommentRating->setType($type);
             $newComplaintsCommentRating->setElementId($id);
             $newComplaintsCommentRating->setAuthor($this->getUser());
             $newComplaintsCommentRating->setSessionCookie($cookie);
             $newComplaintsCommentRating->setIp($ip);
-            $voteValue = $element->getVote();
+            $newComplaintsCommentRating->setVote($voteValue);
 
-            if ($voteType == 'plus') {
-                $element->setVote($voteValue + 1);
-            } elseif ($voteType == 'minus') {
-                $element->setVote($voteValue - 1);
-            }
+            $element->setVote($element->getVote() + $voteValue);
 
             $entityManager->persist($newComplaintsCommentRating);
-            $entityManager->persist($element);
-            $entityManager->flush();
-            return new JsonResponse(array('voteValue' => $element->getVote()));
         } else {
-            return new JsonResponse(array('error' => "Вы уже голосовали"), 400);
+
+            if ($vote->getVote() == $voteValue) {
+                return new JsonResponse(array('error' => "Вы уже голосовали"), 400);
+            }
+
+            $element->setVote($element->getVote() - $vote->getVote() + $voteValue);
+            $vote->setVote($voteValue);
+            $entityManager->persist($vote);
         }
+
+        $entityManager->persist($element);
+        $entityManager->flush();
+        return new JsonResponse(array('voteValue' => $element->getVote()));
     }
     /**
      * @param $company

@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20150527204246 extends AbstractMigration
+class Version20150528002820 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20150527204246 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE ComplaintsCommentRating ADD vote VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE ComplaintsCommentRating ADD vote INT NOT NULL');
     }
 
     /**

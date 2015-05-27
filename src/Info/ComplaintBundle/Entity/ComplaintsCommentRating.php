@@ -59,7 +59,7 @@ class ComplaintsCommentRating
     /**
      * @var string
      *
-     * @ORM\Column(name="vote", type="string")
+     * @ORM\Column(name="vote", type="integer")
      */
     private $vote;
 

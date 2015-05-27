@@ -1,6 +1,7 @@
 <div class="card {% if isLight is defined %}style-default-light{% else %}style-default-bright{% endif %}">
     <div class="card-head small-padding line-height-body">
 
+        {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
         <div class="tools">
             <div class="btn-group">
                 <div class="btn-group">
@@ -30,6 +31,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
         <span class="text-medium">
             {% if complaint.author %}
@@ -69,15 +71,15 @@
 
                         <span class="complaint-voting-block">
                             <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
-                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
-                                <span class="md md-thumb-down no-margin"></span>
+                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
+                                <span class="md md-thumb-up no-margin"></span>
                             </a>
                             <span class="btn pull-left" id="vote-complaint{{ complaint.id }}">
                                 {{ complaint.vote }}
                             </span>
                             <a class="btn btn-icon-toggle ink-reaction pull-left" href="javascript:void(0)"
-                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'plus')">
-                                <span class="md md-thumb-up no-margin"></span>
+                               onclick="Vote.sendVote('complaint',{{ complaint.id }},'minus')">
+                                <span class="md md-thumb-down no-margin"></span>
                             </a>
                         </span>
                 {% block comment_block %}

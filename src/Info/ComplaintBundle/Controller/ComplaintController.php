@@ -187,11 +187,11 @@ class ComplaintController extends Controller
 
     public function voteAction(Request $request, $type, $id, $voteType)
     {
-        $userVoted = false;
-        $anonymVotedBefore = false;
         $entityManager = $this->getDoctrine()->getManager();
         $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
         $element = null;
+        $cookie = $request->cookies->get('anonymous-vote');
+        $ip = $request->getClientIp();
 
         if ($type == 'complaint') {
             $element = $entityManager->getRepository('InfoComplaintBundle:Complaint')->find($id);
@@ -202,23 +202,19 @@ class ComplaintController extends Controller
             return new JsonResponse(array('error' => "Элемент не найден"), 404);
         }
 
-        $complaintsCommentRating = new ComplaintsCommentRating();
-        $complaintsCommentRating->setType($type);
-        $complaintsCommentRating->setElementId($id);
-        $complaintsCommentRating->setAuthor($this->getUser());
 
         if ($this->getUser()) {
-            $userVoted = $complaintsCommentRatingRep->findOneBy(array('elementId'=> $id, 'type' => $type, 'author' => $this->getUser()));
+            $vote = $complaintsCommentRatingRep->findOneBy(array('elementId'=> $id, 'type' => $type, 'author' => $this->getUser()));
         } else {
-            $cookie = $request->cookies->get('anonymous-vote');
-            $ip = $request->getClientIp();
-            $complaintsCommentRating->setSessionCookie($cookie);
-            $complaintsCommentRating->setIp($ip);
-
-            $anonymVotedBefore = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
+            $vote = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
         }
-        $isVoted = $userVoted || $anonymVotedBefore;
-        if (!$isVoted) {
+        if ($vote !== null) {
+            $newComplaintsCommentRating = new ComplaintsCommentRating();
+            $newComplaintsCommentRating->setType($type);
+            $newComplaintsCommentRating->setElementId($id);
+            $newComplaintsCommentRating->setAuthor($this->getUser());
+            $newComplaintsCommentRating->setSessionCookie($cookie);
+            $newComplaintsCommentRating->setIp($ip);
             $voteValue = $element->getVote();
 
             if ($voteType == 'plus') {
@@ -227,7 +223,7 @@ class ComplaintController extends Controller
                 $element->setVote($voteValue - 1);
             }
 
-            $entityManager->persist($complaintsCommentRating);
+            $entityManager->persist($newComplaintsCommentRating);
             $entityManager->persist($element);
             $entityManager->flush();
             return new JsonResponse(array('voteValue' => $element->getVote()));

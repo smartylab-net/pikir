@@ -1,10 +1,12 @@
 <li class="complaint-item" id="complaint_{{ complaint.id }}">
     <div class="timeline-circ circ-xl">
+        <a href="{{ path('info_company_homepage', {'slug': complaint.company.slug}) }}">
         {% if complaint.company.logo %}
             {% thumbnail complaint.company.logo, 'small' with {class: 'img-circle img-responsive'} %}
         {% else %}
             <img src="{{ asset('public/images/no-logo.png') }}" class="img-circle img-responsive">
         {% endif %}
+        </a>
     </div>
     <div class="timeline-entry">
 

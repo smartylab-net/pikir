@@ -7,11 +7,7 @@
     <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
     <script src="{{ asset('bundles/infocomplaint/js/company.js') }}"></script>
 {% endblock javascripts %}
-{% block main_block %}
-    {% include '::_header.html.twig' %}
-
-    <div id="base">
-        <div id="content">
+{% block content_block %}
             <!-- BEGIN PROFILE HEADER -->
             <section class="full-bleed">
                 {% if company.manager == null and app.user != null %}
@@ -186,10 +182,4 @@
             <!-- END CONTENT -->
 
             {{ fab.show(path('info_complaint_create', {'id':company.id})) }}
-
-        </div>
-    </div>
-    {% include '::_menu.html.twig' %}
-    <div class="offcanvas">
-    </div>
 {% endblock %}

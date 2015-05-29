@@ -38,6 +38,7 @@
     <div class="offcanvas">
     </div>
     <div id="content">
+        {% block content_block %}
         <section>
             <div class="section-header">
                 {% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}
@@ -46,6 +47,7 @@
                 {% block body %}{% endblock %}
             </div>
         </section>
+        {% endblock %}
     </div>
     {% include '::_menu.html.twig' %}
     <div class="offcanvas">

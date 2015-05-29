@@ -173,10 +173,6 @@ a.make-complaint-comment:hover{
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-#Complaint_text {
-    /*width: 100%;*/
-}
-
 .line-height1 {
     line-height: normal;
 }
@@ -231,4 +227,8 @@ a.make-complaint-comment:hover{
     position: absolute;
     cursor: default;
     z-index:3000 !important;
+}
+
+textarea.autosize {
+    max-width: 100%;
 }

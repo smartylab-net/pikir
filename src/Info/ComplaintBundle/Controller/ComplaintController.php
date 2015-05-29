@@ -187,53 +187,65 @@ class ComplaintController extends Controller
 
     public function voteAction(Request $request, $type, $id, $voteType)
     {
-        $userVoted = false;
-        $anonymVotedBefore = false;
         $entityManager = $this->getDoctrine()->getManager();
         $complaintsCommentRatingRep = $this->getDoctrine()->getRepository("InfoComplaintBundle:ComplaintsCommentRating");
         $element = null;
+        $cookie = $request->cookies->get('anonymous-vote');
+        $ip = $request->getClientIp();
+
+        if ($voteType == 'plus') {
+            $voteValue = 1;
+        } else if ($voteType == 'minus'){
+            $voteValue = -1;
+        } else {
+            return new JsonResponse(array('error' => "Неверный запрос"), 400);
+        }
 
         if ($type == 'complaint') {
             $element = $entityManager->getRepository('InfoComplaintBundle:Complaint')->find($id);
         } elseif ($type == 'comment') {
             $element = $entityManager->getRepository('InfoCommentBundle:Comment')->find($id);
+        } else {
+            return new JsonResponse(array('error' => "Неверный запрос"), 400);
         }
+
         if ($element == null) {
             return new JsonResponse(array('error' => "Элемент не найден"), 404);
         }
 
-        $complaintsCommentRating = new ComplaintsCommentRating();
-        $complaintsCommentRating->setType($type);
-        $complaintsCommentRating->setElementId($id);
-        $complaintsCommentRating->setAuthor($this->getUser());
 
         if ($this->getUser()) {
-            $userVoted = $complaintsCommentRatingRep->findOneBy(array('elementId'=> $id, 'type' => $type, 'author' => $this->getUser()));
+            $vote = $complaintsCommentRatingRep->findOneBy(array('elementId'=> $id, 'type' => $type, 'author' => $this->getUser()));
         } else {
-            $cookie = $request->cookies->get('anonymous-vote');
-            $ip = $request->getClientIp();
-            $complaintsCommentRating->setSessionCookie($cookie);
-            $complaintsCommentRating->setIp($ip);
-
-            $anonymVotedBefore = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
+            $vote = $complaintsCommentRatingRep->findOneBy(array('elementId' => $id, 'sessionCookie' => $cookie, 'ip' => $ip));
         }
-        $isVoted = $userVoted || $anonymVotedBefore;
-        if (!$isVoted) {
-            $voteValue = $element->getVote();
 
-            if ($voteType == 'plus') {
-                $element->setVote($voteValue + 1);
-            } elseif ($voteType == 'minus') {
-                $element->setVote($voteValue - 1);
+        if ($vote === null) {
+            $newComplaintsCommentRating = new ComplaintsCommentRating();
+            $newComplaintsCommentRating->setType($type);
+            $newComplaintsCommentRating->setElementId($id);
+            $newComplaintsCommentRating->setAuthor($this->getUser());
+            $newComplaintsCommentRating->setSessionCookie($cookie);
+            $newComplaintsCommentRating->setIp($ip);
+            $newComplaintsCommentRating->setVote($voteValue);
+
+            $element->setVote($element->getVote() + $voteValue);
+
+            $entityManager->persist($newComplaintsCommentRating);
+        } else {
+
+            if ($vote->getVote() == $voteValue) {
+                return new JsonResponse(array('error' => "Вы уже голосовали"), 400);
             }
 
-            $entityManager->persist($complaintsCommentRating);
-            $entityManager->persist($element);
-            $entityManager->flush();
-            return new JsonResponse(array('voteValue' => $element->getVote()));
-        } else {
-            return new JsonResponse(array('error' => "Вы уже голосовали"), 400);
+            $element->setVote($element->getVote() - $vote->getVote() + $voteValue);
+            $vote->setVote($voteValue);
+            $entityManager->persist($vote);
         }
+
+        $entityManager->persist($element);
+        $entityManager->flush();
+        return new JsonResponse(array('voteValue' => $element->getVote()));
     }
     /**
      * @param $company

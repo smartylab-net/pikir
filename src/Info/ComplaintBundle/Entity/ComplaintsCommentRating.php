@@ -56,6 +56,13 @@ class ComplaintsCommentRating
      */
     private $type;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vote", type="integer")
+     */
+    private $vote;
+
 
     /**
      * Get id
@@ -145,5 +152,21 @@ class ComplaintsCommentRating
     public function setElementId($elementId)
     {
         $this->elementId = $elementId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @param string $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
     }
 }

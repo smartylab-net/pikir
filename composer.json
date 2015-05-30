@@ -27,7 +27,7 @@
         "sonata-project/news-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
         "tilleuls/ckeditor-sonata-media-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "^2.4@dev",
         "mobiledetect/mobiledetectlib": "2.7.*",
         "suncat/mobile-detect-bundle": "dev-master",
         "gregwar/captcha-bundle": "dev-master",
@@ -36,6 +36,7 @@
         "hwi/oauth-bundle": "0.4.*@dev",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "sonata-project/seo-bundle": "dev-master",
+        "benoitmariaux/bcm-breadcrumbbundle": "dev-master",
         "doctrine/migrations": "1.0.*@dev",
         "doctrine/doctrine-migrations-bundle": "1.0.*"
     },
@@ -58,7 +59,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",

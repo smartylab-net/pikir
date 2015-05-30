@@ -1,12 +1,15 @@
-<h3>Добавить комментарий</h3>
-{{ form_start(form,{'attr':{'class':'form-horizontal'} }) }}
-
-<div class="form-group">
-    <div class="col-md-2">
-    {{ form_label(form.comment) }}
+<div class="card style-default-bright">
+    {{ form_start(form,{'attr':{'class':'form', 'novalidate':true, 'id':'comment-form'} }) }}
+    <div class="card-body small-padding">
+        <div class="form-group floating-label">
+            {{ form_widget(form.comment,{'attr':{'class':'form-control autosize'} }) }}
+            {{ form_label(form.comment) }}
+        </div>
     </div>
-    <div class="col-md-10">
-        {{ form_widget(form.comment,{'attr':{'class':'form-control'} }) }}
+    <div class="card-actionbar">
+        <div class="card-actionbar-row">
+            {{ form_widget(form.save,{'attr':{'class':'btn ink-reaction'} }) }}
+        </div>
     </div>
+    {{ form_end(form) }}
 </div>
-{{ form_end(form) }}

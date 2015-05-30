@@ -1,10 +1,16 @@
 info_manager_company_edit:
-    pattern: /manager/company/edit/{company}/
-    defaults: { _controller: InfoComplaintBundle:Manager:editCompany }
+    pattern: /manager/company/edit/{slug}/
+    defaults:
+        _controller: InfoComplaintBundle:Manager:editCompany
+        label: "Редактирование данных о компании"
+        parent: info_company_homepage
 
 info_manager_company_list:
     pattern: /profile/me/companies/
-    defaults: { _controller: InfoComplaintBundle:Manager:myCompaniesList}
+    defaults:
+        _controller: InfoComplaintBundle:Manager:myCompaniesList
+        label: "Мои компании"
+        parent: fos_user_profile_show
 
 info_be_manager_company:
     pattern: /manager/company/be/{company}/

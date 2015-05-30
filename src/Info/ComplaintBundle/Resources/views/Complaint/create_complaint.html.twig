@@ -1,29 +1,26 @@
 {% extends "::base.html.twig" %}
 {% block javascripts %}
     {{ parent() }}
-
     {% block rating %}
 
         <script src="{{ asset('bundles/infocomplaint/js/jquery_autocomplete.js') }}"></script>
-        <script type="text/javascript">
-            $(function () {
-                $('#fixed').raty({
-                    readOnly: false,
-                    starOff: '{{ asset('public/images/img/star-off.png') }}',
-                    starOn: '{{ asset('public/images/img/star-on.png') }}',
-                    number: 5,
-                    width: 140,
-                    click: function (score, evt) {
-                        $('#Complaint_rating').val(score);
-                    }
-                });
-            });
-        </script>
+        {#<script type="text/javascript">#}
+        {#$(function () {#}
+        {#$('#fixed').raty({#}
+        {#readOnly: false,#}
+        {#starOff: '{{ asset('public/images/img/star-off.png') }}',#}
+        {#starOn: '{{ asset('public/images/img/star-on.png') }}',#}
+        {#number: 5,#}
+        {#width: 140,#}
+        {#click: function (score, evt) {#}
+        {#$('#Complaint_rating').val(score);#}
+        {#}#}
+        {#});#}
+        {#});#}
+        {#</script>#}
     {% endblock %}
 
-
 {% endblock %}
-
 
 {% block body %}
 
@@ -31,59 +28,11 @@
 
     {% endblock %}
 
-    {% form_theme form.someFile 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
-
-    <div class="page-header">
-        <h1>Создание отзыва</h1>
-    </div>
-
-    {{ form_start(form,{'attr': {'class':'form-horizontal' } }) }}
-
-    {% block changedBlock %}
-        <div class="form-group">
-            <label class="col-md-2 control-label">Название компании</label>
-
-            <div class="col-md-10">
-                {{ form_widget(form.company, { 'attr': {'class': 'form-control'} }) }}
-            </div>
-        </div>
-    {% endblock %}
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Заголовок</label>
-
-        <div class="col-md-10">
-            {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+    <div class="card">
+        <div class="card-body">
+            {% block complaint_form %}
+            {% include "@InfoComplaint/Complaint/_complaint_form.html.twig" with {'form' : form, 'company':company} %}
+            {% endblock complaint_form %}
         </div>
     </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Текст</label>
-
-        <div class="col-md-10">
-            {{ form_widget(form.text, { 'attr': {'class': 'form-control', 'rows': 7} }) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Rating</label>
-
-        <div id="fixed" class="col-md-10">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">{{ form_label(form.someFile) }}</label>
-
-        <div id="fixed" class="col-md-10">
-            {{ form_widget(form.someFile) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            {{ form_widget(form.submit) }}
-        </div>
-    </div>
-    {{ form_end(form) }}
 {% endblock %}

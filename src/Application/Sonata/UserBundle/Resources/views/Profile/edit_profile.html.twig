@@ -9,31 +9,127 @@ file that was distributed with this source code.
 
 #}
 
-{% extends "SonataUserBundle:Profile:action.html.twig" %}
-
-{% block sonata_profile_title %}
-    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}
+{% extends "::base.html.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('public/js/libs/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('public/js/libs/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js') }}"></script>
+    <script type="text/javascript">
+        $(".select2").select2();
+        $('.datepicker-element').datepicker({
+            format: "yyyy-mm-dd",
+            language: 'ru'
+        });
+        $('.input-group-addon').click(function(e){
+            $('.datepicker-element').datepicker('show');
+        })
+    </script>
 {% endblock %}
 
-{% block sonata_profile_content %}
-    {#{% sonata_template_box 'This is the user profile edition template. Feel free to override it.' %}#}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/bootstrap-datepicker/datepicker3.css') }}">
+{% endblock %}
+
+{% block body %}
 
     {{ form_errors(form) }}
 
-    {% form_theme form _self %}
+    {% form_theme form ':Form:form_theme.html.twig' %}
+    <div class="row">
 
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ "title_user_account" | trans({}, 'SonataUserBundle')}}</h3>
-        </div>
-        <div class="panel-body">
-            <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="form-horizontal">
-                {{ form_widget(form) }}
-                <div class="form-actions">
-                    <button type="submit" name="submit"  class="btn btn-primary pull-right">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+        <!-- BEGIN EDIT PROFILE FORM -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-head style-primary">
+                    <header>{{ "title_user_edit_profile" | trans({}, 'SonataUserBundle') }}</header>
                 </div>
-            </form>
+                {{ form_start(form, {'attr':{'role':'form', 'class':'form'}, 'action': path('sonata_user_profile_edit')}) }}
+
+                <!-- BEGIN HEADER FIELDS -->
+                <div class="card-body style-primary form-inverse">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        {{ form_widget(form.firstname, {'attr': {'class':"form-control input-lg"}}) }}
+                                        {{ form_label(form.firstname) }}
+                                    </div>
+                                </div>
+                                <!--end .col -->
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        {{ form_widget(form.lastname, {'attr': {'class':"form-control input-lg"}}) }}
+                                        {{ form_label(form.lastname) }}
+                                    </div>
+                                </div>
+                                <!--end .col -->
+                            </div>
+                            <!--end .row -->
+                        </div>
+                        <!--end .col -->
+                    </div>
+                    <!--end .row -->
+                </div>
+                <!--end .card-body -->
+                <!-- END HEADER FIELDS -->
+
+                <!-- BEGIN BODY FIELDS -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group">
+                            {{ form_widget(form.phone, {'attr': {'class':"form-control", 'data-inputmask': "'mask':'9(999) 999999'"}}) }}
+                            {{ form_label(form.phone) }}
+                        </div>
+                        <div class="form-group floating-label ">
+                            {{ form_widget(form.website, {'attr': {'class':"form-control"}}) }}
+                            {{ form_label(form.website) }}
+                        </div>
+                        <div class="form-group floating-label ">
+                            {{ form_widget(form.gender, {'attr': {'class':"form-control"}}) }}
+                            {{ form_label(form.gender) }}
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group date">
+                                <div class="input-group-content">
+                                    {{ form_widget(form.dateOfBirth, {'attr': {'class':"form-control datepicker-element"}}) }}
+                                    {{ form_label(form.dateOfBirth) }}
+                                </div>
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group floating-label">
+                            {{ form_widget(form.biography, {'attr': {'class':"form-control autosize"}}) }}
+                            {{ form_label(form.biography) }}
+                        </div>
+                    </div>
+                    <!--end .row -->
+                </div>
+                <!--end .card-body.tab-content -->
+                <!-- BEGIN BODY FIELDS -->
+
+                <!-- BEGIN FORM FOOTER -->
+                <div class="card-actionbar">
+                    <div class="card-actionbar-row">
+                        <a class="btn btn-flat" href="{{ path('sonata_user_profile_show') }}">ОТМЕНА</a>
+                        <button type="submit"
+                                class="btn btn-flat btn-accent">Сохранить</button>
+                    </div>
+                    <!--end .card-actionbar-row -->
+                </div>
+                <!--end .card-actionbar -->
+                <!-- END FORM FOOTER -->
+
+                {{ form_end(form) }}
+            </div>
+            <!--end .card -->
         </div>
+        <!--end .col -->
+        <!-- END EDIT PROFILE FORM -->
+
     </div>
 
     {#{% render url("sonata_user_profile_edit_authentication") %}#}

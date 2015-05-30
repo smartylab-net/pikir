@@ -1,36 +1,19 @@
-var Vote = {
+$(document).on('click', '.vote', function(e) {
 
-	sendVote : function(type, id, voteType)
-	{
-		if(type == 'complaint')
-		{
-			var url = Routing.generate('info_complaint_vote',{'complaint':id,'voteType':voteType}); 
-		}else
-		{
-			var url = Routing.generate('info_comment_vote',{'comment':id,'voteType':voteType}); 
-		}
-		
-		$.getJSON(url, function(data){
+    var parent = $(this).parent();
+    var self = $(this);
+    var url =Routing.generate('info_vote', {
+        'type':$(this).attr('data-type'),
+        'id': $(this).attr('data-id'),
+        'voteType': $(this).attr('data-votetype')
+    });
 
-			if(!data.error)
-			{
-				if(type == 'complaint')
-				{
-					idValue = 'vote-complaint'+id;
-					$("#"+idValue).html(data.voteValue);
-				}else
-				{
-					idValue = 'vote-comment'+id;
-					$("#"+idValue).html(data.voteValue);
-				}
-				
-			}else
-			{
-				alert(data.errorType);
-			}
-		
-		});
-	}
-
-}
-
+    $.getJSON(url)
+        .done(function (data) {
+            parent.find('.vote-value').html(data.voteValue);
+            parent.find('.vote').removeClass('text-primary');
+            self.addClass('text-primary');
+        }).fail(function(data){
+            toastr.error(data.responseJSON.error);
+        });
+});

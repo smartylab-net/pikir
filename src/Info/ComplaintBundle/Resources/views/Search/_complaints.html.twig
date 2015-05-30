@@ -1,0 +1,51 @@
+<div class="tab-pane {% if active == COMPLAINT_TAB %} active {% endif %}" id="complaints">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- BEGIN TAB HEADER -->
+            <div class="margin-bottom-xxl">
+                <span class="text-light text-lg">Результаты поиска по запросу "{{ searchValue }}" <strong>{{ complaints.getTotalItemCount }}</strong></span>
+            </div>
+            <!--end .margin-bottom-xxl -->
+            <!-- END TAB HEADER -->
+
+            <!-- BEGIN RESULT LIST -->
+            <div class="list-results list-results-underlined">
+                {% for complaint in complaints %}
+                    <div class="col-xs-12">
+                        <p>
+
+                            {{ gravatar_image(complaint.author, 30, {'class' :'img-circle img-responsive pull-left width-1 margin-right10'}) }}
+                            <span class="text-medium">
+                                        <a href="{{ path('info_complaint_complaint', {'id':complaint.id}) }}">
+                                            {{ complaint.author? complaint.author:'Аноним' }}
+                                            > {{ complaint.company.name }}
+                                        </a>
+                                        </span>
+                            <br>
+                                        <span class="opacity-50">
+                                            <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
+                                                {{ complaint.created|format_date }}
+                                            </a>
+                                        </span>
+                        </p>
+
+                        <div class="contain-xs pull-left">
+                            {% if (complaint.text|length > 200) %}
+                                {{ complaint.text| striptags| slice(0, 200)| raw }}...
+                            {% else %}
+                                {{ complaint.text| striptags| raw }}
+                            {% endif %}
+                        </div>
+                    </div><!--end .col -->
+                {% endfor %}
+            </div>
+            <!--end .list-results -->
+            <!-- END RESULTS LIST -->
+
+            {{ knp_pagination_render(complaints) }}
+        </div>
+        <!--end .col -->
+    </div>
+    <!--end .row -->
+</div>

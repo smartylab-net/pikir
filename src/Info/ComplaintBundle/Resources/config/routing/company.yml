@@ -1,12 +1,18 @@
 info_company_homepage:
-  pattern:  /show/{id}
-  defaults: { _controller: InfoComplaintBundle:Company:index }
+  pattern:  /show/{slug}
+  defaults:
+        _controller: InfoComplaintBundle:Company:index
+        label: "{company_name}"
+        parent: info_complaint_category
   options:
     expose: true
 
 
 info_company_create:
   pattern:  /create/
-  defaults: { _controller: InfoComplaintBundle:Company:create }
+  defaults:
+        _controller: InfoComplaintBundle:Company:create
+        label: "Добавить компанию"
+        parent: info_complaint_category
   options:
     expose: true

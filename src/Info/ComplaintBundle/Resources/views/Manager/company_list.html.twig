@@ -1,13 +1,12 @@
 {% extends 'ApplicationSonataUserBundle:Profile:action.html.twig' %}
 
 {% block sonata_profile_title %}
-    {{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ 'manager.my_companies_list'|trans({}, 'InfoComplaintBundle') }}
 {% endblock %}
 
 {% block sonata_profile_content %}
     <div class="row">
         {% for company in companies %}
-            <div class="col-md-6">
+            <div class="col-md-4">
                 {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
             </div>
         {% endfor %}

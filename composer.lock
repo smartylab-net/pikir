@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6b79dd4e72ae5334f58edb85d60e18fd",
+    "hash": "b7d7779c31fb442a357a40b1da332c45",
     "packages": [
+        {
+            "name": "benoitmariaux/bcm-breadcrumbbundle",
+            "version": "dev-master",
+            "target-dir": "BCM/BreadcrumbBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benoitMariaux/BCMBreadcrumbBundle.git",
+                "reference": "11fa5ef169aa8f4113b2d81615972568e0f9f58e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benoitMariaux/BCMBreadcrumbBundle/zipball/11fa5ef169aa8f4113b2d81615972568e0f9f58e",
+                "reference": "11fa5ef169aa8f4113b2d81615972568e0f9f58e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "BCM\\BreadcrumbBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benoît Mariaux",
+                    "email": "benoit.mariaux@gmail.com"
+                }
+            ],
+            "description": "Provides tools to create breadcrumb",
+            "homepage": "https://github.com/benoitMariaux/BCMBreadcrumbBundle",
+            "keywords": [
+                "breadcrumb",
+                "navigation"
+            ],
+            "time": "2014-03-20 07:54:54"
+        },
         {
             "name": "dflydev/markdown",
             "version": "v1.0.3",
@@ -1248,7 +1290,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/a4176fcf74d9232cadbbce9a15c8d712d60c9c28",
+                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/4aba359e71fe332079d9bd6762ebaafd7c8edb09",
                 "reference": "7c38520965304c197e024b2129a62035f8e24757",
                 "shasum": ""
             },
@@ -2105,16 +2147,15 @@
         {
             "name": "knplabs/knp-paginator-bundle",
             "version": "dev-master",
-            "target-dir": "Knp/Bundle/PaginatorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "7ea961c9ef60343a359f513c9fec7fd3bb65ddcb"
+                "reference": "800eb12f225573869b6f04d77a6e329a6da9110f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5990419ed9cfb54fac4a4b63056c3cd2ceb2f14a",
-                "reference": "7ea961c9ef60343a359f513c9fec7fd3bb65ddcb",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/800eb12f225573869b6f04d77a6e329a6da9110f",
+                "reference": "800eb12f225573869b6f04d77a6e329a6da9110f",
                 "shasum": ""
             },
             "require": {
@@ -2123,6 +2164,9 @@
                 "symfony/framework-bundle": "~2.0",
                 "twig/twig": "~1.5"
             },
+            "require-dev": {
+                "symfony/expression-language": "~2.4"
+            },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -2130,8 +2174,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Knp\\Bundle\\PaginatorBundle": ""
+                "psr-4": {
+                    "Knp\\Bundle\\PaginatorBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2159,7 +2203,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2014-03-04 08:53:05"
+            "time": "2015-05-20 15:09:02"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2814,7 +2858,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/1a4c53d0da0aab9a945a53b7c7f415c4cec41b7b",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/c26ac009e6f2de4f84b019fd600c0b04f6510bc6",
                 "reference": "b9994ca93900d05aa12d38f44b886f45e0d0ce2f",
                 "shasum": ""
             },
@@ -4756,7 +4800,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "twig/extensions": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
@@ -4771,6 +4815,7 @@
         "hwi/oauth-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,
         "sonata-project/seo-bundle": 20,
+        "benoitmariaux/bcm-breadcrumbbundle": 20,
         "doctrine/migrations": 20
     },
     "prefer-stable": false,

@@ -25,28 +25,6 @@ class MenuBuilder extends ContainerAware
     }
 
     /**
-     * создает главное меню
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return mixed
-     */
-
-    public function createMainMenu(Request $request)
-    {
-        $menu = $this->factory->createItem('main');
-        $menu->setCurrentUri($request->getRequestUri());
-        $menu->setChildrenAttribute('class','nav navbar-nav');
-        $menu->addChild('Companies', array('route' => 'info_complaint_category','label'=>'Все компании'));
-        $menu->addChild('Create_Company', array('route' => 'info_company_create','label'=>'Добавить компанию'));
-        $menu->addChild('Complaint', array('route' => 'info_complaint_create','label'=>'Добавить отзыв'));
-//        $menu->addChild('Catalog', array('route' => 'nurix_goods_get_catalog','routeParameters'=>array('cid'=>null),'label'=>'Каталог'));
-
-//        $menu->addChild('available', array('route' => 'nurix_catalog_get_available','label'=>'В наличии'));
-
-        $this->getPagesMenu($menu, 'top');
-        return $menu;
-    }
-
-    /**
      * создает боковое меню
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed
@@ -57,13 +35,14 @@ class MenuBuilder extends ContainerAware
         $menu = $this->factory->createItem('bottom');
         $menu->setCurrentUri($request->getRequestUri());
 
-        $menu->setChildrenAttribute('class','nav navbar-nav');
+        $menu->setChildrenAttribute('id','main-menu');
+        $menu->setChildrenAttribute('class','gui-controls');
 
         $this->getPagesMenu($menu, 'bottom');
         return $menu;
     }
 
-    private function getPagesMenu(ItemInterface $menu,$position)
+    public function getPagesMenu(ItemInterface $menu,$position)
     {
         $pagesRepository=$this->em->getRepository('InfoPageBundle:Pages');
         $pages = $pagesRepository->findBy(array('position'=>$position));

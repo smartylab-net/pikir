@@ -27,7 +27,17 @@ services:
 
   complaint.menu.builder:
       class: Info\ComplaintBundle\Menu\MenuBuilder
-      arguments: ["@knp_menu.factory","@doctrine.orm.entity_manager"]
+      arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@strokit.menu_builder"]
+
+  strokit.menu.main:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: complaint.menu.builder
+      factory_method: createMainMenu
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+          - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+
 
   strokit.menu.category_side_menu:
       class: Knp\Menu\MenuItem
@@ -59,3 +69,14 @@ services:
     class: Info\ComplaintBundle\Listener\VoteCookieResponseListener
     tags:
       - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+
+  strokit.search:
+      class: Info\ComplaintBundle\Twig\SearchExtension
+      arguments: [@service_container]
+      tags:
+          - { name: twig.extension }
+
+  info_complaint.mailer:
+      class: Info\ComplaintBundle\Service\Mailer
+      arguments: [@strokit_mailer, %email_from%]

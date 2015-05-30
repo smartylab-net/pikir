@@ -1,5 +1,12 @@
 {% extends '@InfoComplaint/Complaint/_blockComplaint/_complaintItem.html.twig' %}
 
-{% use '@InfoComplaint/Complaint/_blockComplaint/__blocks.html.twig' with show_company as show_company_block %}
+{% block social_block %}
+    {% include '@InfoComplaint/Default/social.html.twig' with {'url': url ('info_complaint_complaint',{'id':complaint.id}), 'title':("Отзыв о компании "~complaint.company.name), 'description':complaint.text } %}
+{% endblock %}
 
-{% use '@InfoComplaint/Complaint/_blockComplaint/__blocks.html.twig' with social as social_block %}
+{% block comment_block %}
+    <span class="btn ink-reaction pull-left">Комментариев: {{ complaint.comments|length }}</span>
+{% endblock %}
+{% block text_block %}
+    {{ complaint.text|striptags }}
+{% endblock %}

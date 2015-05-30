@@ -1,45 +1,94 @@
 <!DOCTYPE html>
 <html {{ sonata_seo_html_attributes() }}>
-    <head {{ sonata_seo_head_attributes() }}>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {{ sonata_seo_title() }}
-        {{ sonata_seo_metadatas() }}
-        {{ sonata_seo_link_canonical() }}
-        {{ sonata_seo_lang_alternates() }}
-        {% block stylesheets %}
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/bootstrap.cosmo.css') }}"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/jquery-ui.css') }}"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('public/css/style.css') }}"/>
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+<head {{ sonata_seo_head_attributes() }}>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% include '::_header.html.twig' %}
-    <div class="container">
+    {{ sonata_seo_title() }}
+    {{ sonata_seo_metadatas() }}
+    {{ sonata_seo_link_canonical() }}
+    {{ sonata_seo_lang_alternates() }}
+    {% block stylesheets %}
 
-        {% block body %}{% endblock %}
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900'
+              rel='stylesheet' type='text/css'/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/bootstrap.css') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-1/materialadmin.css') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-1/font-awesome.min.css') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-1/material-design-iconic-font.min.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/style.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/toastr/toastr.css') }}">
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/theme-1/libs/jquery-ui/jquery-ui-theme.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/select2/select2.css') }}"/>
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('public/css/spinner.css') }}"/>
+
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body class="menubar-hoverable header-fixed ">
+{% block main_block %}
+{% include '::_header.html.twig' %}
+
+<div id="base">
+    <div class="offcanvas">
     </div>
-
-    {% include '::_footer.html.twig' %}
-
-        {% block javascripts %}
-            <script src="{{ asset('public/js/jquery-1.10.2.min.js') }}"></script>
-            <script src="{{ asset('public/js/jquery.min.js') }}"></script>
-            <script src="{{ asset('bundles/infocomplaint/js/jquery-ui.js') }}"></script>
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('public/js/scripts.js') }}"></script>
-            <script src="{{ asset('public/js/autocomplete.js') }}"></script>
-            <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
-            <script src="{{ asset('public/js/main.js') }}"></script>
-            <script src="{{ asset('public/js/analytics.js') }}"></script>
-            {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
-            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+    <div id="content">
+        {% block content_block %}
+        <section>
+            <div class="section-header">
+                {% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}
+            </div>
+            <div class="section-body contain-lg">
+                {% block body %}{% endblock %}
+            </div>
+        </section>
         {% endblock %}
-    </body>
+    </div>
+    {% include '::_menu.html.twig' %}
+    <div class="offcanvas">
+
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+
+    <!-- BEGIN JAVASCRIPT -->
+    <script src="{{ asset('public/js/libs/jquery/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery/jquery-migrate-1.2.1.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/spin.js/spin.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/nanoscroller/jquery.nanoscroller.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('public/js/libs/toastr/toastr.js') }}"></script>
+    <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
+
+    <!-- Put App.js last in your javascript imports -->
+    <script src="{{ asset('public/js/core/source/App.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppNavigation.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppOffcanvas.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppCard.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppForm.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppNavSearch.js') }}"></script>
+    <script src="{{ asset('public/js/core/source/AppVendor.js') }}"></script>
+
+    <script src="{{ asset('public/js/summernote.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('public/js/scripts.js') }}"></script>
+    <script src="{{ asset('public/js/autocomplete.js') }}"></script>
+    <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
+    <script src="{{ asset('public/js/main.js') }}"></script>
+    <script src="{{ asset('public/js/analytics.js') }}"></script>
+    {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
+    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+{% endblock %}
+</body>
 </html>

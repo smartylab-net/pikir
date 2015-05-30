@@ -5,9 +5,20 @@ services:
 #    strokit_core.example:
 #        class: %strokit_core.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-    templating.engine.twig:
-        class: Strokit\CoreBundle\Twig\TwigEngine
-        arguments: ["@twig","@templating.name_parser","@templating.locator","@mobile_detect.mobile_detector"]
+#    templating.engine.twig:
+#        class: Strokit\CoreBundle\Twig\TwigEngine
+#        arguments: ["@twig","@templating.name_parser","@templating.locator","@mobile_detect.mobile_detector"]
+
+    strokit.breadcrumbs:
+        class: Strokit\CoreBundle\Twig\BreadcrumbExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+    bcm_breadcrumb.manager:
+        class: Strokit\CoreBundle\Service\BreadcrumbManager
+        arguments: [@request, @router, @templating]
+        scope: request
 
     strokit_mailer:
         class: Strokit\CoreBundle\Mailer\Mailer

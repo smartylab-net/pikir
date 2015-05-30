@@ -25,33 +25,26 @@ class CompanyType extends AbstractType{
                 'context'  => 'company',
                 'required' => false,
                 'label'=>'Логотип',
-                'label_attr'=>array('class'=>'col-sm-2 control-label')
             ))
             ->add('name','text',array(
                 'required'=>true,
                 'label'=>'Название',
-                'label_attr'=>array('class'=>'col-sm-2 control-label'),
                 'attr'=>array('class'=>'form-control')
             ))
             ->add('address','text',array(
                 'label'=>'Адрес',
-                'label_attr'=>array('class'=>'col-sm-2 control-label'),
                 'attr'=>array('class'=>'form-control')
             ))
             ->add('annotation','textarea',array(
                 'label'=>'Описание',
-                'label_attr'=>array('class'=>'col-sm-2 control-label'),
-                'attr'=>array('class'=>'form-control')
+                'attr'=>array('rows' => 1)
             ))
             ->add('category','entity',array(
                 'label' => 'Категория',
                 'class' => 'Application\Sonata\ClassificationBundle\Entity\Category',
-                'label_attr'=>array('class'=>'col-sm-2 control-label'),
-                'attr'=>array('class'=>'form-control')
             ))
             ->add('submit','submit',array(
-                'label'=>'Сохранить',
-                'attr'=>array('class'=>'btn btn-primary')
+                'label'=>'Сохранить'
             ));
     }
 

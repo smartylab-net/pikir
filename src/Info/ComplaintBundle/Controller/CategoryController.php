@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CategoryController extends Controller
 {
-    public function showCategoryAction($cId)
+    public function showCategoryAction($categorySlug)
     {
         $category = null;
 
@@ -18,19 +18,25 @@ class CategoryController extends Controller
         $categoryRepository = $this->getDoctrine()
             ->getRepository('ApplicationSonataClassificationBundle:Category');
 
-        if(!$categoryRepository||!$companyRepository){
-            throw new \Exception("Ошибка");
-        }
-
-        if ($cId)
+        if ($categorySlug)
         {
-            $category = $categoryRepository->find($cId);
+            $category = $categoryRepository->findOneBy(array('slug' => $categorySlug));
 
-            if (!$category||!$category->getEnabled())
+            if (!$category||!$category->getEnabled()) {
                 throw $this->createNotFoundException('Page not found 404');
+            }
+            $this->get('strokit.breadcrumbs')->setParams(array('cId' => null));
+            $breadcrumbManager = $this->get('bcm_breadcrumb.manager');
+            $routeName = $this->getRequest()->get('_route');
+            $breadcrumbElement = $category;
+            do {
+                $breadcrumbManager->addItem(
+                    $routeName,
+                    $breadcrumbElement->getName(), array('categorySlug' => $breadcrumbElement->getSlug()));
+            } while($breadcrumbElement = $breadcrumbElement->getParent());
         }
 
-        $paginate = $companyRepository->getCompany($cId);
+        $paginate = $companyRepository->getCompany($category);
 
         $paginator = $this->get('knp_paginator');
 
@@ -40,7 +46,7 @@ class CategoryController extends Controller
 
         $pagination->setUsedRoute('info_complaint_category');
 
-        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category, 'title' => $category!=null?$category->__toString():"Все категории"));
+        return $this->render('InfoComplaintBundle:Company:getCategory.html.twig', array('pagination' => $pagination, 'catalog' => $category));
 
     }
 }

@@ -4,11 +4,13 @@ namespace Info\ComplaintBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Company
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\CompanyRepository")
  */
 class Company
@@ -91,6 +93,17 @@ class Company
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -280,6 +293,22 @@ class Company
         $this->category = $category;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
     public function getAverage()
     {
         $sum = 0;
@@ -293,5 +322,21 @@ class Company
             }
         }
         return $count?$sum/$count:0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

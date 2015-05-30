@@ -6,11 +6,13 @@ use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Complaint
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Info\ComplaintBundle\Entity\ComplaintRepository")
  */
 
@@ -37,20 +39,6 @@ class Complaint
      * @ORM\OneToMany(targetEntity="Info\CommentBundle\Entity\Comment", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
      */
     private $comments;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Info\ComplaintBundle\Entity\ComplaintsCommentRating", mappedBy="complaint", cascade={"persist", "remove" }, orphanRemoval=true)
-     */
-    private $votes;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
 
     /**
      * @var User
@@ -97,6 +85,11 @@ class Complaint
      * @Assert\NotNull()
      */
     private $vote = 0;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -146,23 +139,6 @@ class Complaint
     }
 
     /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-
-    /**
      * @return int
      */
     public function getRating()
@@ -196,7 +172,7 @@ class Complaint
 
     public function __toString()
     {
-        return $this->title;
+        return $this->getId()."";
     }
 
     public function __construct(){
@@ -289,5 +265,21 @@ class Complaint
     public function setVotes($votes)
     {
         $this->votes = $votes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
     }
 }

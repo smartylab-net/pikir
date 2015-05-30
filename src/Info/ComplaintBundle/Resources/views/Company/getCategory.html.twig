@@ -1,27 +1,16 @@
 {% extends "::base.html.twig" %}
-{% block title %}{{ parent() }} : {{ title }}{% endblock %}
+{% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% block body %}
 
-    <div class="categories">
-        <div class="titleHeader clearfix">
-            <h4>{{ title }}</h4>
-        </div>
-    </div>
-
     <div class="row clearfix">
-        <div class="col-md-3 col-sm-4">
-            <div id='cssmenu'>
-                {{ knp_menu_render('category_side_menu', {'currentClass': 'active','ancestorClass': 'active','template':'category_side_menu.html.twig'}) }}
-            </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
+        <div class="col-md-12">
             {% if pagination.getTotalItemCount > 0 %}
                 <div class="row">
                     {% for company in pagination %}
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             {% include "InfoComplaintBundle:Company:_companyItem.html.twig" with {'company':company} %}
                         </div>
-                        {% if loop.index % 2 == 0 %}
+                        {% if loop.index % 3 == 0 %}
                             <div class="clear"></div>
                         {% endif %}
                     {% endfor %}
@@ -37,5 +26,7 @@
             {% endif %}
         </div>
     </div>
+
+    {{ fab.show(path('info_company_create')) }}
 
 {% endblock %}

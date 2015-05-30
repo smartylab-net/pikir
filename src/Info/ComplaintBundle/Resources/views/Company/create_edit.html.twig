@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"
+            src="{{ asset('public/js/libs/bootstrap-file-input/bootstrap-file-input.js') }}"></script>
+    <script type="text/javascript">
+        $('input[type=file]').bootstrapFileInput();
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    {% form_theme form ':Form:form_theme.html.twig' %}
+
+    {% form_theme form.logo 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
+
+    {% if app.session.flashBag.has('manager.company_edit_success') %}
+        <div class="alert alert-success">
+            {% for flashMessage in app.session.flashBag.get('manager.company_edit_success') %}
+                {{ flashMessage }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+    <div class="card">
+        <div class="card-body">
+            {{ form_start(form,{'attr': { 'role':'form', 'class':'form'} }) }}
+
+            {{ form_row(form.name) }}
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-content">
+                        <input type="text" class="form-control" id="company_logo_name" disabled="disabled">
+                        {{ form_label(form.logo) }}
+                    </div>
+                    <div class="input-group-btn">
+                        {{ form_widget(form.logo, {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_row(form.address) }}
+            {{ form_row(form.annotation) }}
+            {{ form_row(form.category) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

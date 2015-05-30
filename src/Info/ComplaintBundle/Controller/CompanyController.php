@@ -8,30 +8,26 @@ use Info\ComplaintBundle\Form\CompanyType;
 use Info\ComplaintBundle\Form\ComplaintType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompanyController extends Controller
 {
-    public function indexAction($id)
+    const ITEMS_PER_PAGE = 10;
+    public function indexAction(Request $request, $slug)
     {
     	$companyRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Company');
     	$complaintRepository = $this->getDoctrine()->getRepository('InfoComplaintBundle:Complaint');
     	
-    	$company = $companyRepository->find($id);
+    	$company = $companyRepository->findOneBy(array('slug' => $slug));
     	if(!$company || !$company->getEnabled())
     	{
-    		throw $this->createNotFoundException('The company does not exist');
+    		throw $this->createNotFoundException('Компания не найдена');
     	}
 
+        $imageurl = "";
         $media = $company->getLogo();
         if ($media) {
-            $mediaservice = $this->get('sonata.media.pool');
-            $provider = $mediaservice
-                ->getProvider($media->getProviderName());
-            $format = $provider->getFormatName($media, 'big');
-            $imageurl = $provider->generatePublicUrl($media, $format);
-        }
-        else {
-            $imageurl = "";
+            $imageurl = $this->get('sonata.media.twig.extension')->path($media, 'reference');
         }
 
         $seoPage = $this->container->get('sonata.seo.page');
@@ -42,15 +38,26 @@ class CompanyController extends Controller
             ->addMeta('property', 'og:title', $company->getName())
             ->addMeta('property', 'og:type', 'website')
             ->addMeta('property', 'og:image', $imageurl)
-            ->addMeta('property', 'og:url',  $this->getRequest()->getUri())
+            ->addMeta('property', 'og:url',  $request->getUri())
             ->addMeta('property', 'og:description', $company->getAnnotation())
         ;
+        $this->get('strokit.breadcrumbs')->setParams(array('company_name' => $company->getName()));
 
-		$complaintList = $complaintRepository->findByCompany($id);
+        $id = $company->getId();
+		$complaintList = $complaintRepository->findBy(array('company' => $id), array('id'=>'desc'));
+        $rating = round($companyRepository->getComplaintsAverageRating($id));
 
-        $average = $companyRepository->getComplaintsAverageRating($id);
-      
-        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$complaintList, 'average'=>$average[0][1]));
+        $complaint = new Complaint();
+        $complaint->setCompany($company);
+        $form = $this->createForm(new ComplaintType(), $complaint, array(
+            'action' => $this->generateUrl('info_complaint_create')));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator
+            ->paginate($complaintList,
+                $this->get('request')->query->get('page', 1),
+                self::ITEMS_PER_PAGE);
+
+        return $this->render('InfoComplaintBundle:Company:companyPage.html.twig', array('company' => $company,'complaintlist'=>$pagination, 'average'=>$rating, 'form'=>$form->createView()));
     }
 
     public function createAction()
@@ -69,7 +76,7 @@ class CompanyController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($company);
                 $em->flush();
-                return $this->redirect($this->generateUrl('info_company_homepage',array('id'=>$company->getId())));
+                return $this->redirect($this->generateUrl('info_company_homepage',array('slug'=>$company->getSlug())));
             }
             else
             {
@@ -78,20 +85,7 @@ class CompanyController extends Controller
             }
         }
 
-        return $this->render('InfoComplaintBundle:Company:create.html.twig',array('form'=>$form->createView()));
-    }
-
-    public function showAllCompaniesAction($id)
-    {
-        $companies = $this->getDoctrine()
-            ->getRepository('InfoComplaintBundle:Company')
-            ->findBy(array('category' => $id));
-
-        if (!$companies) {
-            throw $this->createNotFoundException('The companies does not exist');
-        }
-
-        return $this->render('InfoComplaintBundle:Company:companies_list.html.twig', array('companies' => $companies));
+        return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView()));
     }
 
     public function lastAddedCompaniesAction()

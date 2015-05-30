@@ -44,20 +44,25 @@ class ComplaintsCommentRating
     private $sessionCookie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="complaint_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="element_id", type="integer")
      */
-    private $complaint;
+    private $elementId;
+
 
     /**
-     * @ORM\ManyToOne(targetEntity="Info\CommentBundle\Entity\Comment", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
-     * })
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
      */
-    private $comment;
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vote", type="integer")
+     */
+    private $vote;
+
 
     /**
      * Get id
@@ -118,44 +123,50 @@ class ComplaintsCommentRating
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getComplaint()
+    public function getType()
     {
-        return $this->complaint;
+        return $this->type;
     }
 
     /**
-     * Set complaint
-     *
-     * @param \Info\ComplaintBundle\Entity\Complaint $complaint
-     * @return ComplaintCommentRating
+     * @param string $type
      */
-    public function setComplaint(\Info\ComplaintBundle\Entity\Complaint $complaint = null)
+    public function setType($type)
     {
-        $this->complaint = $complaint;
-
-        return $this;
+        $this->type = $type;
     }
 
     /**
      * @return mixed
      */
-    public function getComment()
+    public function getElementId()
     {
-        return $this->comment;
+        return $this->elementId;
     }
 
     /**
-     * Set comment
-     *
-     * @param \Info\CommentBundle\Entity\Comment $comment
-     * @return ComplaintCommentRating
+     * @param mixed $elementId
      */
-    public function setComment(\Info\CommentBundle\Entity\Comment $comment = null)
+    public function setElementId($elementId)
     {
-        $this->comment = $comment;
+        $this->elementId = $elementId;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @param string $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
     }
 }

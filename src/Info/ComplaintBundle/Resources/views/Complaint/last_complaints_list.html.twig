@@ -1,8 +1,8 @@
+{% extends 'InfoComplaintBundle:Complaint:complaints_list.html.twig' %}
+{% block header %}
 <h2> Последние добавленные отзывы</h2>
-{% for complaint in complaints %}
-    <div class="row">
-        {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}
-    </div>
-{% else %}
-    <h3>Пока отзывов не было оставлено</h3>
-{% endfor %}
+{% endblock %}
+
+{% block noelement %}
+<h3>Пока отзывов не было оставлено</h3>
+{% endblock %}

@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             //js Routing
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             //users
@@ -50,6 +51,8 @@ class AppKernel extends Kernel
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             //captcha
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            //breadcrumb
+            new BCM\BreadcrumbBundle\BCMBreadcrumbBundle(),
 
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             //application
@@ -68,7 +71,6 @@ class AppKernel extends Kernel
             //Doctrine Extension
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
-            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

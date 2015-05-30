@@ -4,64 +4,70 @@ info_company:
 
 info_complaint_homepage:
     pattern:  /
-    defaults: { _controller: InfoComplaintBundle:Default:home }
+    defaults:
+        label: "Главная"
+        _controller: InfoComplaintBundle:Default:home
 
 info_complaint_create:
     pattern:  /complaint/create/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:complaint, id:null }
+    defaults:
+        _controller: InfoComplaintBundle:Complaint:createComplaint
+        id: null
+        label: "Добавить отзыв"
+        parent: info_complaint_homepage
+
 
 info_complaint_category:
-    pattern:  /category/{cId}
-    defaults: { _controller: InfoComplaintBundle:Category:showCategory, cId:null }
+    pattern:  /companies/{categorySlug}
+    defaults:
+        _controller: InfoComplaintBundle:Category:showCategory
+        categorySlug: null
+        label: "Компании"
+        parent: info_complaint_homepage
 
-info_complaint_list:
-    pattern:  /allComplaint/
-    defaults: { _controller: InfoComplaintBundle:Complaint:allComplaint}
+info_complaints_last:
+    pattern:  /complaints/last/
+    defaults: { _controller: InfoComplaintBundle:Complaint:lastAddedComplaints}
 
-info_complaint_company_list:
-    pattern:  /companiesBy/{id}/
-    defaults: { _controller: InfoComplaintBundle:Company:showAllCompanies}
-
-SearchEngineBundle_search:
+info_search:
     pattern:   /search/
-    defaults:  { _controller: InfoComplaintBundle:Search:search }
-
-SearchEngineBundle_results:
-    pattern:   /results/
-    defaults:  { _controller: InfoComplaintBundle:Search:getResults }
-
+    defaults:  { _controller: InfoComplaintBundle:Search:search, label: "Результаты поиска", parent: info_complaint_homepage }
 
 search_auto:
     pattern:   /autocomplete/
     defaults:  { _controller: InfoComplaintBundle:Search:autoComplete }
     options:
-      expose: true
-      
+        expose: true
+
 info_manager:
     resource: "@InfoComplaintBundle/Resources/config/routing/manager.yml"
     prefix:   /
 
 info_complaint_complaint:
     pattern:  /complaint/{id}
-    defaults: { _controller: InfoComplaintBundle:Complaint:getComplaint}
+    defaults: { _controller: InfoComplaintBundle:Complaint:showComplaint}
     options:
-      expose: true
+        expose: true
 
 info_complaint_edit:
     pattern: /complaint/edit/{complaint}/
-    defaults: { _controller: InfoComplaintBundle:Complaint:editComplaint }
+    defaults:
+        _controller: InfoComplaintBundle:Complaint:editComplaint
+        label: "Редактировать отзыв"
+        parent: info_complaint_homepage
 
 info_complaint_delete:
     pattern: /complaint/delete/{complaint}/
     defaults: { _controller: InfoComplaintBundle:Complaint:deleteComplaint }
 
-info_complaint_vote:
-    pattern: /complaint/vote/{complaint}-{voteType}
-    defaults: { _controller: InfoComplaintBundle:Complaint:voteComplaint}
+info_vote:
+    pattern: /{type}/vote/{id}-{voteType}
+    defaults: { _controller: InfoComplaintBundle:Complaint:vote}
     options:
         expose: true
-info_comment_vote:
-    pattern: /comment/vote/{comment}-{voteType}
-    defaults: { _controller: InfoComplaintBundle:Complaint:voteComment}
+
+upload_image:
+    pattern: /upload/image/
+    defaults: { _controller: InfoComplaintBundle:Default:upload}
     options:
         expose: true

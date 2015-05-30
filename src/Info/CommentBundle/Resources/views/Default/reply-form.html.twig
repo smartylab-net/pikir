@@ -1,0 +1,22 @@
+<script type="text/html" id="reply_form">
+    <ul>
+        <li>
+            <div class="card style-default-bright">
+                <form class="form" action="<%=link%>" novalidate method="post">
+                    <div class="card-body small-padding-comment">
+                        <div class="form-group floating-label">
+                            <textarea name="comment" required="required" rows="1" class="form-control autosize"></textarea>
+                            <label>Комментарий</label>
+                        </div>
+                    </div>
+                    <div class="card-actionbar">
+                        <div class="card-actionbar-row">
+                            <a href="javascript:void(0);" class="btn ink-reaction btn-cancel-form">Отмена</a>
+                            <button type="submit" class="btn ink-reaction">Ответить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</script>

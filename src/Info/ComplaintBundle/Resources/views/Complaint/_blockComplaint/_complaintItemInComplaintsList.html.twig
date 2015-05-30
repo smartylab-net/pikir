@@ -1,8 +1,15 @@
-{% extends '@InfoComplaint/Complaint/_blockComplaint/_complaintItem.html.twig' %}
+<li class="complaint-item" id="complaint_{{ complaint.id }}">
+    <div class="timeline-entry">
+        {% include '@InfoComplaint/Complaint/_blockComplaint/_complaintItem.html.twig' %}
+    </div>
+    <div class="timeline-circ circ-xl">
+        <a href="{{ path('info_company_homepage', {'slug': complaint.company.slug}) }}">
+        {% if complaint.company.logo %}
+            {% thumbnail complaint.company.logo, 'small' with {class: 'img-circle img-responsive'} %}
+        {% else %}
+            <img src="{{ asset('public/images/noimage.gif') }}" class="img-circle img-responsive">
+        {% endif %}
+        </a>
+    </div>
 
-{% use '@InfoComplaint/Complaint/_blockComplaint/__blocks.html.twig' with use_link as use_link_block %}
-
-{% use '@InfoComplaint/Complaint/_blockComplaint/__blocks.html.twig' with show_company as show_company_block %}
-
-{% use '@InfoComplaint/Complaint/_blockComplaint/__blocks.html.twig' with text as text_block %}
-
+</li>

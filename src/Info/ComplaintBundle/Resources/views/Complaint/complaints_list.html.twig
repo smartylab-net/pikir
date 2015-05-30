@@ -1,0 +1,14 @@
+{% block header %}
+
+{% endblock %}
+{% if complaints %}
+    <ul class="timeline collapse-lg timeline-hairline">
+        {% for complaint in complaints %}
+            {% include "@InfoComplaint/Complaint/_blockComplaint/_complaintItemInComplaintsList.html.twig" with {'complaint':complaint} %}
+        {% endfor %}
+    </ul>
+    <a class="infinite-more-link" href="{{ path('info_complaints_last', {'page' : page }) }}"></a>
+{% else %}
+    {% block noelement %}
+    {% endblock %}
+{% endif %}

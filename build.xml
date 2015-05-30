@@ -1,4 +1,4 @@
-<project name="Nurix" basedir=".">
+<project name="Pikir" basedir=".">
     <description>
         simple example build file
     </description>
@@ -27,13 +27,16 @@
             <replacetoken>mailer_transport: smtp</replacetoken>
         </replace>
         <replace file="${property}" value="mailer_host: ${mail_host}">
-            <replacetoken>mailer_host: localhost</replacetoken>
+            <replacetoken>mailer_host: 127.0.0.1</replacetoken>
         </replace>
         <replace file="${property}" value="mailer_user: ${mail_login}">
             <replacetoken>mailer_user: null</replacetoken>
         </replace>
         <replace file="${property}" value="mailer_password: ${mail_password}">
             <replacetoken>mailer_password: null</replacetoken>
+        </replace>
+        <replace file="${property}" value="mailer_encryption: ${mail_encryption}">
+            <replacetoken>mailer_encryption: null</replacetoken>
         </replace>
     </target>
 

@@ -1,34 +1,23 @@
 {% extends '::base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/waypoints/shortcuts/infinite.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/home.js') }}"></script>
+{% endblock %}
+{% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% block body %}
     <div class="row">
-        <div class="col-md-8">
-
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <h1 class="text-center">
-                        Добро пожаловать!
-                    </h1>
-
-                    <p>
-                        На нашем сайте Вы можете оставить отзыв на любую понравившуюся или наоборот непонравившуюся
-                        компанию.
-                        Также Вы сможете получить ответ от компании на свой отзыв.
-                    </p>
-
-                    <p>
-                        Компании же могут через наш сайт наладить линию обратной связи с клиентами.
-                    </p>
-
-                    <div class="text-center">
-                        <a class="btn btn-primary btn-large" href="{{ path('info_complaint_create') }}">Оставить
-                            отзыв</a>
-                    </div>
-                </div>
-            </div>
-            {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints') %}
-        </div>
-        <div class="col-md-4">
-            {% render controller('InfoComplaintBundle:Company:lastAddedCompanies') %}
+        <div class="col-md-12">
+            {% render controller('InfoComplaintBundle:Complaint:lastAddedComplaints', {page: 0}) %}
         </div>
     </div>
+    <div id="loader" class="row">
+        <div class="text-center">
+            <svg class="spinner" width="33px" height="33px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+        </div>
+    </div>
+    {{ fab.show(path('info_complaint_create')) }}
 {% endblock %}

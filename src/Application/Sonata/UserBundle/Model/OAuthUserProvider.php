@@ -50,12 +50,11 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
         $username = $response->getUsername();
-        $nickname = $response->getNickname();
         $email    = $response->getEmail();
 
         $resourceOwnerName = $response->getResourceOwner()->getName();
 
-        $user = $this->findUser($response, $email, $resourceOwnerName, $nickname);
+        $user = $this->findUser($response, $email, $resourceOwnerName, $username);
 
         if (null === $user) {
             /** @var $user User */
@@ -147,10 +146,10 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
      * @param UserResponseInterface $response
      * @param $email
      * @param $resourceOwnerName
-     * @param $nickname
+     * @param $username
      * @return null|object
      */
-    protected function findUser(UserResponseInterface $response, $email, $resourceOwnerName, $nickname)
+    protected function findUser(UserResponseInterface $response, $email, $resourceOwnerName, $username)
     {
         $user = null;
         if (!is_null($email)) {
@@ -163,14 +162,14 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
         }
         if ($user == null && $resourceOwnerName == 'facebook') {
             $user = $this->repository->findOneBy(
-                array('facebookUid' => $nickname)
+                array('facebookUid' => $username)
             );
             if ($user != null && $email != $user->getEmail()) {
                 $user->setEmail($email);
             }
         } else if ($user == null) {
             $user = $this->repository->findOneBy(
-                array('resource' => $resourceOwnerName, 'username' => $nickname)
+                array('resource' => $resourceOwnerName, 'username' => $username)
             );
             return $user;
         }

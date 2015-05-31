@@ -8,5 +8,5 @@
     <span class="btn ink-reaction pull-left">Комментариев: {{ complaint.comments|length }}</span>
 {% endblock %}
 {% block text_block %}
-    {{ complaint.text|striptags }}
+    {{ complaint.text|striptags | raw }}
 {% endblock %}

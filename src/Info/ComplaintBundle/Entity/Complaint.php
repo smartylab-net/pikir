@@ -220,7 +220,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getAuthor()
     {

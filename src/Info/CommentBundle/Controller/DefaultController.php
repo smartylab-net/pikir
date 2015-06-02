@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $comment->setComplaint($complaint);
             $em->persist($comment);
             $em->flush();
-            $this->getMailer()->sendEmailToComplaintAuthor($comment);
+            $this->getNotificationService()->sendEmailToComplaintAuthor($comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -56,11 +56,8 @@ class DefaultController extends Controller
             $newComment->setComplaint($complaint);
             $em->persist($newComment);
             $em->flush();
-            if ($this->shouldSendEmailToCommentAuthor($newComment, $comment)) {
-                $this->getMailer()->sendEmailToCommentAuthor($complaint, $newComment, $comment);
-            } elseif ($this->shouldSendEmailToComplaintAuthor($complaint, $newComment)){
-                $this->getMailer()->sendEmailToComplaintAuthor($newComment);
-            }
+            $this->getNotificationService()->notifyComplaintAuthor($newComment);
+            $this->getNotificationService()->notifyCommentAuthor($newComment, $comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -69,29 +66,8 @@ class DefaultController extends Controller
         return new JsonResponse('Неправильный формат данных', 400);
     }
 
-
-    /**
-     * @param $complaint
-     * @param $newComment
-     * @return bool
-     */
-    private function shouldSendEmailToComplaintAuthor(Complaint $complaint,Comment $newComment)
+    private function getNotificationService()
     {
-        return $complaint != null && $complaint->getAuthor() != null && $complaint->getAuthor()->getEmailOnNewComment() && $complaint->getAuthor() != $newComment->getUser();
-    }
-
-    /**
-     * @param $newComment
-     * @param $answeredComment
-     * @return bool
-     */
-    private function shouldSendEmailToCommentAuthor(Comment $newComment,Comment $answeredComment)
-    {
-        return $answeredComment != null && $answeredComment->getUser() != null && $answeredComment->getUser()->getEmailOnReplyToComment() && $answeredComment->getUser() != $newComment->getUser();
-    }
-
-    private function getMailer()
-    {
-        return $this->get('info_complaint.mailer');
+        return $this->get('info_complaint.service.notification_service');
     }
 }

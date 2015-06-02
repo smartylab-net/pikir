@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Controller;
 
+use Info\ComplaintBundle\Service\WAMPClient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,6 +12,7 @@ class DefaultController extends Controller
 {
     public function homeAction()
     {
+        $wampNotificationService = new WAMPClient();
         return $this->render('InfoComplaintBundle:HomePage:index.html.twig');
     }
 

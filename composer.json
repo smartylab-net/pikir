@@ -38,7 +38,8 @@
         "sonata-project/seo-bundle": "dev-master",
         "benoitmariaux/bcm-breadcrumbbundle": "dev-master",
         "doctrine/migrations": "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle": "1.0.*"
+        "doctrine/doctrine-migrations-bundle": "1.0.*",
+        "voryx/thruway": "0.3.*"
     },
     "scripts": {
         "post-install-cmd": [

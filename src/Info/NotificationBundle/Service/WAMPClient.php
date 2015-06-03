@@ -1,6 +1,6 @@
 <?php
 
-namespace Info\ComplaintBundle\Service;
+namespace Info\NotificationBundle\Service;
 
 use Thruway\ClientSession;
 use Thruway\Logging\Logger;

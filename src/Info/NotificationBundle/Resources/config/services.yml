@@ -1,0 +1,24 @@
+parameters:
+#    info_notification.example.class: Info\NotificationBundle\Example
+
+services:
+#    info_notification.example:
+#        class: %info_notification.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+
+  info_complaint.service.wamp_client:
+      class: Info\NotifcationBundle\Service\WAMPClient
+      arguments: [ @logger, %notification_prefix%, %notification_realm%, %notification_url% ]
+
+  info_complaint.mailer:
+      class: Info\NotifcationBundle\Service\MailNotificationService
+      arguments: [@strokit_mailer, %email_from%]
+
+  info_complaint.service.site_notification_service:
+      class: Info\NotifcationBundle\Service\SiteNotificationService
+      arguments: [ @doctrine.orm.entity_manager, @info_complaint.service.wamp_client ]
+
+  info_complaint.service.notification_service:
+      class: Info\NotifcationBundle\Service\NotificationService
+      arguments:  [ @info_complaint.mailer, @info_complaint.service.site_notification_service ]

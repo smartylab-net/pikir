@@ -71,6 +71,7 @@ class AppKernel extends Kernel
             //Doctrine Extension
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
+            new Info\NotificationBundle\InfoNotificationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

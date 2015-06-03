@@ -12,7 +12,6 @@ class DefaultController extends Controller
 {
     public function homeAction()
     {
-        $wampNotificationService = new WAMPClient();
         return $this->render('InfoComplaintBundle:HomePage:index.html.twig');
     }
 

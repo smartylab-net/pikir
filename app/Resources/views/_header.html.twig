@@ -26,6 +26,31 @@
                         <!-- Search form -->
                         {{ search_form() }}
                     </li>
+                    <li class="dropdown hidden-xs">
+                        <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown">
+                            <i class="fa fa-bell"></i><sup class="badge style-danger">4</sup>
+                        </a>
+                        <ul class="dropdown-menu animation-expand">
+                            <li class="dropdown-header">Уведомления</li>
+                            <li>
+                                <a class="alert alert-callout alert-warning" href="javascript:void(0);">
+                                    <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                                    <strong>Alex Anistor</strong><br>
+                                    <small>Testing functionality...</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="alert alert-callout alert-info" href="javascript:void(0);">
+                                    <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar3.jpg?1404026799" alt="">
+                                    <strong>Alicia Adell</strong><br>
+                                    <small>Reviewing last changes...</small>
+                                </a>
+                            </li>
+                            <li class="dropdown-header">Options</li>
+                            <li><a href="../../html/pages/login.html">View all messages <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+                            <li><a href="../../html/pages/login.html">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+                        </ul><!--end .dropdown-menu -->
+                    </li>
                 </ul><!--end .header-nav-options -->
 
                 {% if not app.user %}

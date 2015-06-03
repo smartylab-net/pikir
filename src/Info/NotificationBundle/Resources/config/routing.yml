@@ -1,0 +1,5 @@
+info_notification_show:
+    pattern:  /notification/{notification}
+    defaults: { _controller: InfoNotificationBundle:Default:show }
+    options:
+        expose: true

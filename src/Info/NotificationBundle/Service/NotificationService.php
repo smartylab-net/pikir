@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Info\ComplaintBundle\Service;
+namespace Info\NotificationBundle\Service;
 
 
 use Info\CommentBundle\Entity\Comment;

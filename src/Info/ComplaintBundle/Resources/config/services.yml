@@ -76,19 +76,3 @@ services:
       arguments: [@service_container]
       tags:
           - { name: twig.extension }
-
-  info_complaint.service.wamp_client:
-      class: Info\ComplaintBundle\Service\WAMPClient
-      arguments: [ @logger, %notification_prefix%, %notification_realm%, %notification_url% ]
-
-  info_complaint.mailer:
-      class: Info\ComplaintBundle\Service\MailNotificationService
-      arguments: [@strokit_mailer, %email_from%]
-
-  info_complaint.service.site_notification_service:
-      class: Info\ComplaintBundle\Service\SiteNotificationService
-      arguments: [ @doctrine.orm.entity_manager.abstract, @info_complaint.service.wamp_client ]
-
-  info_complaint.service.notification_service:
-  	  class: Info\ComplaintBundle\Service\NotificationService
-  	  arguments: [ @info_complaint.mailer, @info_complaint.service.site_notification_service ]

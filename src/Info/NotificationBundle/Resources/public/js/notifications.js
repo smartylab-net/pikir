@@ -14,7 +14,7 @@ var connection = new autobahn.Connection({
 connection.onopen = function (session) {
 
     function onevent1(args) {
-        console.log("new message"+args[0]);
+        console.log("new message: "+args[0]);
     }
 
     session.subscribe('com.myapp.topic1', onevent1);

@@ -1,1 +1,3 @@
-{{ notification|raw }}
+<a class="alert alert-callout alert-info" href="{{ notification.url }}">
+    {{ notification.message|raw }}
+</a>

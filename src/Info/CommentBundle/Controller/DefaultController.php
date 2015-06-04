@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $comment->setComplaint($complaint);
             $em->persist($comment);
             $em->flush();
-            $this->getNotificationService()->sendEmailToComplaintAuthor($comment);
+            $this->getNotificationService()->notifyComplaintAuthor($comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
@@ -57,7 +57,7 @@ class DefaultController extends Controller
             $em->persist($newComment);
             $em->flush();
             $this->getNotificationService()->notifyComplaintAuthor($newComment);
-            $this->getNotificationService()->notifyCommentAuthor($newComment, $comment);
+            $this->getNotificationService()->notifyCommentAuthor($newComment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())

@@ -27,27 +27,24 @@ class WAMPClient {
      * @return bool
      * @throws \Exception
      */
-    public function publish($topicName, $arguments)
+    public function publish($topicName, array $arguments)
     {
-        $result = false;
         $client = new Client($this->realm);
         $client->addTransportProvider(new PawlTransportProvider($this->url));
         $client->setAttemptRetry(false);
 
-        $client->on('open', function (ClientSession $session, AbstractTransport $transport) use ($topicName, $arguments, &$result) {
+        $client->on('open', function (ClientSession $session, AbstractTransport $transport) use ($topicName, $arguments) {
 
             $session->publish($topicName, $arguments, [], ["acknowledge" => true])->then(
-                function () use ($transport, $session, &$result) {
-                    $result = true;
+                function () use ($transport, $session) {
                     $session->close();
-                }, function ($error) use ($transport, $session, &$result) {
-                $result = false;
+                },
+                function ($error) use ($transport, $session) {
                 $session->close();
-            }
+                }
             );
         });
 
         $client->start();
-        return $result;
     }
 }

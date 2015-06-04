@@ -17,7 +17,7 @@ connection.onopen = function (session) {
         console.log("new message: "+args[0]);
     }
 
-    session.subscribe('com.myapp.topic1', onevent1);
+    session.subscribe('pikir.notification' + settings.user_id, onevent1);
 };
 
 connection.open();

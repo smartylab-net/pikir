@@ -49,7 +49,7 @@ class Notification
     /**
      * @var boolean
      *
-     * @ORM\Column(name="read", type="boolean")
+     * @ORM\Column(name="is_read", type="boolean")
      */
     private $read = false;
 

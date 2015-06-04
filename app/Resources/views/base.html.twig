@@ -88,6 +88,11 @@
     <script src="{{ asset('public/js/main.js') }}"></script>
     <script src="{{ asset('public/js/analytics.js') }}"></script>
     {% if app.user %}
+    <script>
+        var settings = {
+            user_id : '{{ app.user.id }}'
+        };
+    </script>
     <script src="{{ asset('bundles/infonotification/js/autobahn.min.bin.js') }}"></script>
     <script src="{{ asset('bundles/infonotification/js/notifications.js') }}"></script>
     {% endif %}

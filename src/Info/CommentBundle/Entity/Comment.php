@@ -2,7 +2,7 @@
 
 namespace Info\CommentBundle\Entity;
 
-use FOS\UserBundle\Model\User;
+use Application\Sonata\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Info\ComplaintBundle\Entity\Complaint;
@@ -156,7 +156,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {

@@ -29,7 +29,9 @@ class NotificationService {
             if ($answeredComment->getUser()->getEmailOnReplyToComment()) {
                 $this->mailNotificationService->sendEmailToCommentAuthor($newComment);
             }
-            //TODO: notify on site
+            if ($answeredComment->getUser()->isNotifyOnReplyToComment()) {
+                $this->siteNotificationService->notifyCommentAuthor($newComment);
+            }
         }
     }
 

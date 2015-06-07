@@ -76,7 +76,3 @@ services:
       arguments: [@service_container]
       tags:
           - { name: twig.extension }
-
-  info_complaint.mailer:
-      class: Info\ComplaintBundle\Service\Mailer
-      arguments: [@strokit_mailer, %email_from%]

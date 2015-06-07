@@ -43,9 +43,7 @@ class ComplaintController extends Controller
                 }
                 $em->persist($complaint);
                 $em->flush();
-                if ($this->shouldSendEmailToManager($complaint->getCompany())) {
-                    $this->get('info_complaint.mailer')->sendEmailToManager($complaint);
-                }
+                $this->get('info_complaint.service.notification_service')->notifyManager($complaint);
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(array('complaint'=>$this->renderView("InfoComplaintBundle:Complaint/_blockComplaint:_complaintItemInCompanyPage.html.twig", array('complaint'=>$complaint))));
                 }
@@ -246,13 +244,5 @@ class ComplaintController extends Controller
         $entityManager->persist($element);
         $entityManager->flush();
         return new JsonResponse(array('voteValue' => $element->getVote()));
-    }
-    /**
-     * @param $company
-     * @return bool
-     */
-    private function shouldSendEmailToManager(Company $company)
-    {
-        return $company != null && $company->getManager() != null && $company->getManager()->getEmailOnNewComplaint();
     }
 }

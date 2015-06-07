@@ -2,8 +2,10 @@
 
 namespace Info\CommentBundle\Entity;
 
+use Application\Sonata\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Info\ComplaintBundle\Entity\Complaint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -138,7 +140,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return Complaint
      */
     public function getComplaint()
     {
@@ -154,7 +156,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -162,7 +164,7 @@ class Comment
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -173,6 +175,10 @@ class Comment
     {
         $this->parent = $parent;
     }
+
+    /**
+     * @return Comment
+     */
 
     public function getParent()
     {

@@ -232,3 +232,8 @@ a.make-complaint-comment:hover{
 textarea.autosize {
     max-width: 100%;
 }
+
+.dropdown-menu > li > a.read-notification,
+.list .tile .read-notification {
+    color: #96999c;
+}

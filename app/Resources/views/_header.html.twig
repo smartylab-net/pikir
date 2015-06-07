@@ -26,6 +26,11 @@
                         <!-- Search form -->
                         {{ search_form() }}
                     </li>
+                    {% if app.user %}
+                    <li class="dropdown">
+                        {{ notification_header() }}
+                    </li>
+                    {% endif %}
                 </ul><!--end .header-nav-options -->
 
                 {% if not app.user %}

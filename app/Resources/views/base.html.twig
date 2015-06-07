@@ -87,6 +87,18 @@
     <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
     <script src="{{ asset('public/js/main.js') }}"></script>
     <script src="{{ asset('public/js/analytics.js') }}"></script>
+    {% if app.user %}
+    <script>
+        var settings = {
+            user_id : '{{ app.user.id }}',
+            notification_prefix: '{{ notification_prefix }}',
+            notification_realm: '{{ notification_realm }}',
+            notification_url: '{{ notification_url }}'
+        };
+    </script>
+    <script src="{{ asset('bundles/infonotification/js/autobahn.min.bin.js') }}"></script>
+    <script src="{{ asset('bundles/infonotification/js/notifications.js') }}"></script>
+    {% endif %}
     {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 {% endblock %}

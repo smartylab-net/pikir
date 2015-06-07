@@ -83,7 +83,7 @@
             <replacetoken>database_password: null</replacetoken>
         </replace>
     </target>
-    <target name="parameters">
+    <target name="parameters_replace">
         <replace file="${property}" value="database_name: ${notification_url}">
             <replacetoken>notification_url: ws://127.0.0.1:3000</replacetoken>
         </replace>

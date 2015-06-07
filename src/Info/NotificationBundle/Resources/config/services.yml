@@ -1,10 +1,4 @@
-parameters:
-#    info_notification.example.class: Info\NotificationBundle\Example
-
 services:
-#    info_notification.example:
-#        class: %info_notification.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
 
   info_complaint.service.wamp_client:
       class: Info\NotificationBundle\Service\WAMPClient
@@ -21,7 +15,6 @@ services:
   info_complaint.service.notification_service:
       class: Info\NotificationBundle\Service\NotificationService
       arguments:  [ @info_complaint.mailer, @info_complaint.service.site_notification_service ]
-
 
   strokit.notifications_twig:
       class: Info\NotificationBundle\Twig\NotificationExtension

@@ -102,7 +102,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return Company
      */
     public function getCompany()
     {

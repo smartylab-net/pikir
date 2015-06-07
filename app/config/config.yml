@@ -34,6 +34,10 @@ twig:
         resources:
             - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
+    globals:
+        notification_prefix: "%notification_prefix%"
+        notification_realm: "%notification_realm%"
+        notification_url: "%notification_url%"
 
 # Assetic Configuration
 assetic:
@@ -64,6 +68,7 @@ doctrine:
         types:
             json: Sonata\Doctrine\Types\JsonType
             pagetype_enum: Info\PageBundle\DBAL\PageTypeEnum
+            notification_type: Info\NotificationBundle\DBAL\NotificationTypeEnum
         mapping_types:
             enum: string
 

@@ -35,12 +35,15 @@ class WAMPClient {
 
         $client->on('open', function (ClientSession $session, AbstractTransport $transport) use ($topicName, $arguments) {
 
-            $session->publish($topicName, $arguments, [], ["acknowledge" => true])->then(
-                function () use ($transport, $session) {
+            $topic = $this->prefix . $topicName;
+            $session->publish($topic, $arguments, [], ["acknowledge" => true])->then(
+                function () use ($transport, $session, $topic) {
+                    Logger::debug($session, "message send to ".$topic );
                     $session->close();
                 },
                 function ($error) use ($transport, $session) {
-                $session->close();
+                    Logger::error($session, $error );
+                    $session->close();
                 }
             );
         });

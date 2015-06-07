@@ -43,7 +43,9 @@ class NotificationService {
             if ($complaint->getAuthor()->getEmailOnNewComment()) {
                 $this->mailNotificationService->sendEmailToComplaintAuthor($newComment);
             }
-            //TODO: notify on site
+            if ($complaint->getAuthor()->isNotifyOnNewComplaint()) {
+                $this->siteNotificationService->notifyComplaintAuthor($newComment);
+            }
         }
     }
 
@@ -54,7 +56,9 @@ class NotificationService {
             if ($company->getManager()->getEmailOnNewComplaint()) {
                 $this->mailNotificationService->sendEmailToManager($complaint);
             }
-            //TODO: notify on site
+            if ($company->getManager()->isNotifyOnNewComplaint()) {
+                $this->siteNotificationService->notifyManager($complaint);
+            }
         }
     }
 }

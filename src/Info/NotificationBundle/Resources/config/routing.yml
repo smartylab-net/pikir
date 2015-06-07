@@ -1,5 +1,22 @@
 info_notification_show:
-    pattern:  /notification/{notification}
+    pattern:  /notifications/show/{notification}
     defaults: { _controller: InfoNotificationBundle:Default:show }
     options:
         expose: true
+
+info_notification_open:
+    pattern:  /notifications/open/{notification}
+    defaults: { _controller: InfoNotificationBundle:Default:open }
+    options:
+        expose: true
+
+info_notification_mark_as_read:
+    pattern:  /notifications/mark_as_read
+    defaults: { _controller: InfoNotificationBundle:Default:markAsRead }
+
+info_notification_see_all:
+    pattern:  /notifications/see_all
+    defaults:
+          _controller: InfoNotificationBundle:Default:seeAll
+          label: "Уведомления"
+          parent: info_complaint_homepage

@@ -3,6 +3,7 @@
 namespace Info\NotificationBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use FOS\UserBundle\Entity\User;
 
 /**
  * NotificationRepository
@@ -12,4 +13,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class NotificationRepository extends EntityRepository
 {
+    public function markAsRead(User $user)
+    {
+        return $this->getEntityManager()->createQuery("
+            UPDATE Info\NotificationBundle\Entity\Notification n set n.read = TRUE where n.user = :user
+        ")->setParameter('user', $user->getId())
+            ->execute();
+    }
+
+    public function countUnreadMessages($user)
+    {
+        return $this->getEntityManager()
+            ->createQuery("select count(n) from Info\NotificationBundle\Entity\Notification n WHERE n.user = :user and n.read = FALSE")
+            ->setParameter('user', $user)
+            ->getSingleScalarResult();
+    }
+
+    public function findUserNotifications($user, $count = null)
+    {
+        return $this->findBy(array('user' => $user), array('id' => 'desc'), $count);
+    }
 }

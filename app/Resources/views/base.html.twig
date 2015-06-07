@@ -90,7 +90,10 @@
     {% if app.user %}
     <script>
         var settings = {
-            user_id : '{{ app.user.id }}'
+            user_id : '{{ app.user.id }}',
+            notification_prefix: '{{ notification_prefix }}',
+            notification_realm: '{{ notification_realm }}',
+            notification_url: '{{ notification_url }}'
         };
     </script>
     <script src="{{ asset('bundles/infonotification/js/autobahn.min.bin.js') }}"></script>

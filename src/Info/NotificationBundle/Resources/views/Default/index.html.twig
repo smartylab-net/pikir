@@ -1,3 +1,37 @@
-<a class="alert alert-callout alert-info" href="{{ notification.url }}">
-    {{ notification.message|raw }}
-</a>
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-head style-primary">
+            <header>
+                Уведомления
+            </header>
+            <div class="tools">
+                <a class="btn btn-icon-toggle" href="{{ path('info_user_notification_edit') }}"><i class="md md-settings"></i></a>
+            </div>
+        </div><!--end .card-head -->
+        <div class="card-body no-padding">
+            <ul class="list divider-full-bleed">
+
+                {% for notification in notifications %}
+                    <li class="tile">
+                        <a class="tile-content ink-reaction" href="{{ path('info_notification_open', {'notification': notification.id}) }}">
+                            <span class="pull-right {% if notification.read == true %}read-notification{% endif %}">
+                                <small>{{ notification.createdAt|format_date() }}</small>
+                            </span>
+                            <div class="tile-text {% if notification.read == true %}read-notification{% endif %}">
+                                {{ notification_message(notification) }}
+                            </div>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="tile">
+                        <a href="javascript:void(0);">
+                            <small>Уведомлений пока нет</small>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div><!--end .card-body -->
+    </div>
+{% endblock %}

@@ -80,6 +80,7 @@ security:
         - { path: ^/company/create, role: ROLE_USER }
         - { path: ^/manager/, role: ROLE_USER}
         - { path: ^/profile/me/, role: ROLE_USER}
+        - { path: ^/notifications/, role: ROLE_USER }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
 

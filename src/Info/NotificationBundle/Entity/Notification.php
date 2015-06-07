@@ -3,6 +3,7 @@
 namespace Info\NotificationBundle\Entity;
 
 use Application\Sonata\UserBundle\Entity\User;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,10 +26,16 @@ class Notification
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text")
+     * @ORM\Column(name="type", type="notification_type")
      */
-    private $message;
+    private $type;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="element_id", type="integer")
+     */
+    private $elementId;
 
     /**
      * @var User
@@ -54,6 +61,34 @@ class Notification
     private $read = false;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->setUpdatedAt(new \DateTime());
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime());
+        }
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -61,29 +96,6 @@ class Notification
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set message
-     *
-     * @param string $message
-     * @return Notification
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return string 
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 
     /**
@@ -139,5 +151,69 @@ class Notification
     public function setRead($read)
     {
         $this->read = $read;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getElementId()
+    {
+        return $this->elementId;
+    }
+
+    /**
+     * @param string $elementId
+     */
+    public function setElementId($elementId)
+    {
+        $this->elementId = $elementId;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

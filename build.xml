@@ -84,10 +84,10 @@
         </replace>
     </target>
     <target name="parameters_replace">
-        <replace file="${property}" value="database_name: ${notification_url}">
+        <replace file="${property}" value="notification_url: ${notification_url}">
             <replacetoken>notification_url: ws://127.0.0.1:3000</replacetoken>
         </replace>
-        <replace file="${property}" value="database_name: ${notification_prefix}">
+        <replace file="${property}" value="notification_prefix: ${notification_prefix}">
             <replacetoken>notification_prefix: pikir_</replacetoken>
         </replace>
     </target>

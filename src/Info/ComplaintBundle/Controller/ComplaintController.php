@@ -72,7 +72,7 @@ class ComplaintController extends Controller
         // SEO
         $seoPage = $this->container->get('sonata.seo.page');
 
-        $title = sprintf("%s оставил отзыв на компанию %s", $this->getUser(), $company->getName());
+        $title = sprintf("%s оставил отзыв на компанию %s", $complaint->getAuthor(), $company->getName());
         $description = $complaint->getText();
         $seoPage
             ->setTitle($title)

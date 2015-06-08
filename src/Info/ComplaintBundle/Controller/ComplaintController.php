@@ -58,6 +58,7 @@ class ComplaintController extends Controller
 
     public function showComplaintAction(Request $request, Complaint $complaint)
     {
+        // BREADCRUMBS
         $breadcrumbManager = $this->get('bcm_breadcrumb.manager');
         $breadcrumbManager->addItem($request->get('_route'), "Отзыв", array('id' => $complaint->getId()));
         $company = $complaint->getCompany();
@@ -66,6 +67,24 @@ class ComplaintController extends Controller
                 'company_name' => $company->getName(),
                 'slug' => $complaint->getCompany()->getSlug()
             ));
+        // END BREADCRUMBS
+
+        // SEO
+        $seoPage = $this->container->get('sonata.seo.page');
+
+        $title = sprintf("%s оставил отзыв на компанию %s", $this->getUser(), $company->getName());
+        $description = $complaint->getText();
+        $seoPage
+            ->setTitle($title)
+            ->addMeta('name', 'description', $description)
+            ->addMeta('property', 'og:title', $title)
+            ->addMeta('property', 'og:type', 'website')
+            ->addMeta('property', 'og:url',  $request->getUri())
+            ->addMeta('property', 'og:description', $description)
+        ;
+        // END SEO
+
+        // COMMENTS
 
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
         $nodes = $commentRep->getRootCommentsByComplaint($complaint);
@@ -100,6 +119,8 @@ class ComplaintController extends Controller
                 $options,
                 true
             );
+
+        //ENDCOMMENTS
 
         return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
             'complaint' => $complaint,

@@ -272,8 +272,8 @@ sonata_seo:
 
                 # Open Graph information
                 # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
-                'og:site_name':       Pikir.strokit.net
-                'og:description':     Книга отзывов и предложений
+                'og:site_name':       Книга отзывов и предложений
+                'og:description':     Здесь вы можете рассказать другим пользователям о том, что Вам не понравилось в том или ином месте
 
             http-equiv:
                 'Content-Type':         text/html; charset=utf-8

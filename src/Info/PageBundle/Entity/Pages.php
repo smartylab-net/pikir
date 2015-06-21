@@ -34,21 +34,21 @@ class Pages
     private $url;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="position", type="pagetype_enum", nullable=false)
-     */
-    private $position;
-
-    /**
      * @ORM\Column(type="string")
      */
     private $title;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $iconClass;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $content;
+
+
 
     /**
      * Set title
@@ -99,22 +99,6 @@ class Pages
     /**
      * @return string
      */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param string $position
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    }
-
-    /**
-     * @return string
-     */
     public function getUrl()
     {
         return $this->url;
@@ -126,5 +110,21 @@ class Pages
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIconClass()
+    {
+        return $this->iconClass;
+    }
+
+    /**
+     * @param mixed $iconClass
+     */
+    public function setIconClass($iconClass)
+    {
+        $this->iconClass = $iconClass;
     }
 }

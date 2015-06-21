@@ -1,7 +1,3 @@
-nurix_create_pages:
+info_page:
     pattern:  /{url}.html
-    defaults: { _controller: InfoPageBundle:Page:index }
-
-nurix_create_pages_old:
-    pattern:  /pages/{url}/
     defaults: { _controller: InfoPageBundle:Page:index }

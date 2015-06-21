@@ -18,7 +18,6 @@ class PageAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('url')
-            ->add('position')
             ->add('title')
             ->add('content')
         ;
@@ -29,7 +28,7 @@ class PageAdmin extends Admin
         $formMapper
             ->with('Страница')
             ->add('url')
-            ->add('position','choice',array('label'=>'положение','choices'=>PageTypeEnum::getArray()))
+            ->add('iconClass',null, array('label' => 'Иконка', 'attr' => array('placeholder' => 'md md-alarm')))
             ->add('title',null,array('label'=>'Заголовок'))
             ->add('content', 'ckeditor', array('attr' => array('class' => 'span10', 'rows' => 20), 'config_name' => 'cke_config'))
             ->end()
@@ -41,7 +40,6 @@ class PageAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->addIdentifier('url')
-            ->add('position')
             ->add('title')
         ;
     }

@@ -1,8 +1,10 @@
 <?php
 namespace Info\ComplaintBundle\Menu;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Info\ComplaintBundle\Entity;
@@ -14,21 +16,15 @@ class MenuBuilder extends ContainerAware
      * @var EntityManager
      */
     private $em;
-    /**
-     * @var \Info\PageBundle\Menu\MenuBuilder
-     */
-    private $pageMenuBuilder;
 
     /**
      * @param FactoryInterface $factory
      * @param $em
-     * @param $pageMenuBuilder
      */
-    public function __construct(FactoryInterface $factory,$em, $pageMenuBuilder)
+    public function __construct(FactoryInterface $factory,$em)
     {
         $this->factory = $factory;
         $this->em = $em;
-        $this->pageMenuBuilder = $pageMenuBuilder;
     }
 
     /**
@@ -77,7 +73,7 @@ class MenuBuilder extends ContainerAware
             ));
 
         $this->getCategoryMenu($this->em, $companiesMenuItem);
-        $this->pageMenuBuilder->getPagesMenu($menu, 'top');
+        $this->getPagesMenu($menu, 'top');
         return $menu;
     }
 
@@ -114,5 +110,26 @@ class MenuBuilder extends ContainerAware
                     $cat->addChild($child->getName(), array('route' => 'info_complaint_category', 'routeParameters' => array('categorySlug' => $child->getSlug())));
             }
         }
+    }
+
+    public function getPagesMenu(ItemInterface $menu)
+    {
+        /** @var ObjectRepository $pagesRepository */
+        $pagesRepository=$this->em->getRepository('InfoPageBundle:Pages');
+        $pages = $pagesRepository->findAll();
+
+        foreach ($pages as $page)
+        {
+            /** @var Pages $page */
+            $menu->addChild($page->getTitle(),
+                array(
+                    'route' => 'nurix_create_pages',
+                    'routeParameters' => array('url' => $page->getUrl()),
+                    'extras' => array(
+                        'icon' => $page->getIconClass()
+                    )
+                ));
+        }
+
     }
 }

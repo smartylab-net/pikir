@@ -27,7 +27,7 @@ services:
 
   complaint.menu.builder:
       class: Info\ComplaintBundle\Menu\MenuBuilder
-      arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@strokit.menu_builder"]
+      arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager"]
 
   strokit.menu.main:
       class: Knp\Menu\MenuItem # the service definition requires setting the class

@@ -123,7 +123,7 @@ class MenuBuilder extends ContainerAware
             /** @var Pages $page */
             $menu->addChild($page->getTitle(),
                 array(
-                    'route' => 'nurix_create_pages',
+                    'route' => 'info_page',
                     'routeParameters' => array('url' => $page->getUrl()),
                     'extras' => array(
                         'icon' => $page->getIconClass()

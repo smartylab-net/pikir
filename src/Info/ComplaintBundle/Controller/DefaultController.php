@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Controller;
 
+use Info\ComplaintBundle\Service\WAMPClient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;

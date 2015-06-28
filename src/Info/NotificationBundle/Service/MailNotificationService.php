@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Info\ComplaintBundle\Service;
+namespace Info\NotificationBundle\Service;
 
 
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
 
-class Mailer
+class MailNotificationService
 {
 
 
@@ -35,8 +35,9 @@ class Mailer
         );
     }
 
-    public function sendEmailToCommentAuthor(Comment $newComment, Comment $answeredComment)
+    public function sendEmailToCommentAuthor(Comment $newComment)
     {
+        $answeredComment = $newComment->getParent();
         $this->mailer->sendEmailMessage(
             array(
                 'newComment' => $newComment,

@@ -34,6 +34,10 @@ twig:
         resources:
             - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
+    globals:
+        notification_prefix: "%notification_prefix%"
+        notification_realm: "%notification_realm%"
+        notification_url: "%notification_url%"
 
 # Assetic Configuration
 assetic:
@@ -64,6 +68,7 @@ doctrine:
         types:
             json: Sonata\Doctrine\Types\JsonType
             pagetype_enum: Info\PageBundle\DBAL\PageTypeEnum
+            notification_type: Info\NotificationBundle\DBAL\NotificationTypeEnum
         mapping_types:
             enum: string
 
@@ -267,8 +272,8 @@ sonata_seo:
 
                 # Open Graph information
                 # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
-                'og:site_name':       Pikir.strokit.net
-                'og:description':     Книга отзывов и предложений
+                'og:site_name':       Книга отзывов и предложений
+                'og:description':     Здесь вы можете рассказать другим пользователям о том, что Вам не понравилось в том или ином месте
 
             http-equiv:
                 'Content-Type':         text/html; charset=utf-8

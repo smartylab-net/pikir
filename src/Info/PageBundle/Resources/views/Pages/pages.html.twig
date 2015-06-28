@@ -1,15 +1,31 @@
 {% extends  '::base.html.twig' %}
 
-{% block title %}
-    {{ parent() }} : {{ page.title }}
-{% endblock %}
 {% block body %}
 
-    <div class="page-header">
-        <h1>{{ page.title }}</h1>
-    </div>
+    <div class="card card-tiles style-default-light">
 
-    <article class="blog-article">
-        {{ page.content|raw }}
-    </article>
+        <!-- BEGIN BLOG POST HEADER -->
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-primary">
+                    <h2>{{ page.title }}</h2>
+                </div>
+            </div><!--end .col -->
+            <!--end .col -->
+        </div><!--end .row -->
+        <!-- END BLOG POST HEADER -->
+
+        <div class="row">
+
+            <!-- BEGIN BLOG POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    <div class="card-body">
+                        {{ page.content|raw }}
+                    </div><!--end .card-body -->
+                </article>
+            </div><!--end .col -->
+            <!-- END BLOG POST TEXT -->
+        </div><!--end .row -->
+    </div>
 {% endblock %}

@@ -32,7 +32,7 @@ class CategoryController extends Controller
             do {
                 $breadcrumbManager->addItem(
                     $routeName,
-                    $breadcrumbElement->getName(), array('cId' => $breadcrumbElement->getId()));
+                    $breadcrumbElement->getName(), array('categorySlug' => $breadcrumbElement->getSlug()));
             } while($breadcrumbElement = $breadcrumbElement->getParent());
         }
 

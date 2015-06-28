@@ -113,7 +113,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return Company
      */
     public function getCompany()
     {
@@ -226,7 +226,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getAuthor()
     {

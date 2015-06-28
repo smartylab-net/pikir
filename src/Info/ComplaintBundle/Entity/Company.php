@@ -2,6 +2,7 @@
 
 namespace Info\ComplaintBundle\Entity;
 
+use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -257,7 +258,7 @@ class Company
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getManager()
     {
@@ -265,7 +266,7 @@ class Company
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
      */
     public function setManager($user)
     {

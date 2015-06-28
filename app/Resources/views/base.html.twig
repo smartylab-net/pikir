@@ -31,7 +31,7 @@
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
-<body class="menubar-hoverable header-fixed menubar-pin ">
+<body class="menubar-hoverable header-fixed ">
 {% block main_block %}
 {% include '::_header.html.twig' %}
 
@@ -39,6 +39,7 @@
     <div class="offcanvas">
     </div>
     <div id="content">
+        {% block content_block %}
         <section>
             <div class="section-header">
                 {% block breadcrumb %}{{ bcm_breadcrumbs() }}{% endblock %}
@@ -47,6 +48,7 @@
                 {% block body %}{% endblock %}
             </div>
         </section>
+        {% endblock %}
     </div>
     {% include '::_menu.html.twig' %}
     <div class="offcanvas">
@@ -86,8 +88,45 @@
     <script src="{{ asset('public/js/jquery-colorbox/jquery.colorbox-min.js') }}"></script>
     <script src="{{ asset('public/js/main.js') }}"></script>
     <script src="{{ asset('public/js/analytics.js') }}"></script>
+    {# NOTIFICATIONS BEGIN#}
+    {% if app.user %}
+    <script>
+        var settings = {
+            user_id : '{{ app.user.id }}',
+            notification_prefix: '{{ notification_prefix }}',
+            notification_realm: '{{ notification_realm }}',
+            notification_url: '{{ notification_url }}'
+        };
+    </script>
+    <script src="{{ asset('bundles/infonotification/js/autobahn.min.bin.js') }}"></script>
+    <script src="{{ asset('bundles/infonotification/js/notifications.js') }}"></script>
+    {% endif %}
+    {# NOTIFICATIONS END#}
     {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
+    {% if app.session.flashBag.get("fos_user_send_confirmation_email/email") %}
+
+        <!-- BEGIN SIMPLE MODAL MARKUP -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>На ваш e-mail отправлена ссылка для активации регистрации</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- END SIMPLE MODAL MARKUP -->
+        <script>
+            $(function() {
+                $('#confirmModal').modal('show');
+            })
+        </script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

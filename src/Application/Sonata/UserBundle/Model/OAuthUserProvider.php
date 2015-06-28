@@ -37,7 +37,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
     private $container;
 
     /**
-     * @var mixed
+     * @var UserRepository $repository
      */
     protected $repository;
 
@@ -50,21 +50,11 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
         $username = $response->getUsername();
-        $nickname = $response->getNickname();
-//        $realname = $response->getRealName();
         $email    = $response->getEmail();
 
         $resourceOwnerName = $response->getResourceOwner()->getName();
 
-        if (!is_null($email)){
-            $user = $this->repository->findOneBy(
-                array('resource' => $resourceOwnerName, 'email' => $email)
-            );
-        }else{
-            $user = $this->repository->findOneBy(
-                array('resource' => $resourceOwnerName, 'username' => $nickname)
-            );
-        }
+        $user = $this->findUser($response, $email, $resourceOwnerName, $username);
 
         if (null === $user) {
             /** @var $user User */
@@ -76,6 +66,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
                 $user->setFirstname($responseData['first_name']);
                 $user->setLastname($responseData['last_name']);
                 $user->setFacebookName($response->getRealName());
+                $user->setFacebookUid($username);
             }
 
             $password = $this->generate_password(6);
@@ -84,15 +75,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
             $user->setEmail($email);
             $user->setLastLogin(new \DateTime());
             $user->setPlainPassword($password);
-            $this->container->get('fos_user.user_manager')->updateUser($user);
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Книга отзывов и предложений')
-                ->setFrom('noreply@strokit.net')
-                ->setTo($email)
-                ->setBody('<p>Ваш пароль на сайт: <b>'.$password.'</b></p>', 'text/html')
-            ;
-            $this->container->get('mailer')->send($message);
+            $this->save($user);
         }
 
         return $user;
@@ -138,5 +121,58 @@ class OAuthUserProvider implements UserProviderInterface, OAuthAwareUserProvider
             $pass .= $arr[$index];
         }
         return $pass;
+    }
+
+    private function connect(User $user,UserResponseInterface $response)
+    {
+        $resourceOwnerName = $response->getResourceOwner()->getName();
+        if ($resourceOwnerName == 'facebook') {
+            $user->setFacebookUid($response->getUsername());
+            $user->setFacebookName($response->getRealName());
+            $user->setResource($resourceOwnerName);
+            $this->save($user);
+        }
+    }
+
+    /**
+     * @param $user
+     */
+    protected function save($user)
+    {
+        $this->container->get('fos_user.user_manager')->updateUser($user);
+    }
+
+    /**
+     * @param UserResponseInterface $response
+     * @param $email
+     * @param $resourceOwnerName
+     * @param $username
+     * @return null|object
+     */
+    protected function findUser(UserResponseInterface $response, $email, $resourceOwnerName, $username)
+    {
+        $user = null;
+        if (!is_null($email)) {
+            $user = $this->repository->findOneBy(
+                array('email' => $email)
+            );
+            if ($user != null) {
+                $this->connect($user, $response);
+            }
+        }
+        if ($user == null && $resourceOwnerName == 'facebook') {
+            $user = $this->repository->findOneBy(
+                array('facebookUid' => $username)
+            );
+            if ($user != null && $email != $user->getEmail()) {
+                $user->setEmail($email);
+            }
+        } else if ($user == null) {
+            $user = $this->repository->findOneBy(
+                array('resource' => $resourceOwnerName, 'username' => $username)
+            );
+            return $user;
+        }
+        return $user;
     }
 }

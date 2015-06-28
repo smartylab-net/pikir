@@ -75,14 +75,14 @@
         <div class="card-actionbar">
             <div class="card-actionbar-row">
                 <span class="complaint-voting-block">
-                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote {% if complaint|is_voted('complaint', 1) %}text-primary {% endif %}" href="javascript:void(0)"
                        data-type="complaint" data-id="{{ complaint.id }}" data-votetype="plus">
                         <span class="md md-thumb-up no-margin"></span>
                     </a>
                     <span class="btn pull-left vote-value">
                         {{ complaint.vote }}
                     </span>
-                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote {% if complaint|is_voted('complaint', -1) %}text-primary {% endif %}" href="javascript:void(0)"
                        data-type="complaint" data-id="{{ complaint.id }}" data-votetype="minus">
                         <span class="md md-thumb-down no-margin"></span>
                     </a>

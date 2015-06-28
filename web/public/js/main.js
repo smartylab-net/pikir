@@ -43,6 +43,11 @@ $(function () {
     });
 
     $(":input").inputmask();
+
+    $(".group-img").live('click', function() {
+        $.colorbox({href:$(this).attr('href'), open:true});
+        return false;
+    });
 });
 
 var removeComplaint = function (t, id) {

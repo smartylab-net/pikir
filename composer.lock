@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7d7779c31fb442a357a40b1da332c45",
+    "hash": "5e0bbd88473fd1e09efcc25e9e206dc1",
     "packages": [
         {
             "name": "benoitmariaux/bcm-breadcrumbbundle",
@@ -47,6 +47,54 @@
                 "navigation"
             ],
             "time": "2014-03-20 07:54:54"
+        },
+        {
+            "name": "cboden/ratchet",
+            "version": "v0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ratchetphp/Ratchet.git",
+                "reference": "6b247c05251b4b5cbd14243366b649f99a0e5681"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ratchetphp/Ratchet/zipball/6b247c05251b4b5cbd14243366b649f99a0e5681",
+                "reference": "6b247c05251b4b5cbd14243366b649f99a0e5681",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/http": "^3.6",
+                "php": ">=5.3.9",
+                "react/socket": "^0.3 || ^0.4",
+                "symfony/http-foundation": "^2.2",
+                "symfony/routing": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ratchet\\": "src/Ratchet"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP WebSocket library",
+            "homepage": "http://socketo.me",
+            "keywords": [
+                "Ratchet",
+                "WebSockets",
+                "server",
+                "sockets"
+            ],
+            "time": "2015-05-27 12:51:05"
         },
         {
             "name": "dflydev/markdown",
@@ -714,7 +762,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/abb87d84ed21fd30c27bd3b52252a495a36d32fb",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/43619782df4e9ae6be6b24557f0429471eeee848",
                 "reference": "a4f14d3a3d397104e557ec65d1a4e43bb86e4ddf",
                 "shasum": ""
             },
@@ -1484,7 +1532,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/2e12c7ab9cf83ce0d3e9d6a98315bbf21ab23ab3",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/d7caff8257d7b5807f2f56d03d7bddca6484265b",
                 "reference": "8fe09e0daf8405ef784adf125909f0cba1c31d4e",
                 "shasum": ""
             },
@@ -2295,7 +2343,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/800eb12f225573869b6f04d77a6e329a6da9110f",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/84accca9c921dcbdc9c4be3ba0366a25f8d779b3",
                 "reference": "800eb12f225573869b6f04d77a6e329a6da9110f",
                 "shasum": ""
             },
@@ -2915,68 +2963,6 @@
             "time": "2012-12-21 11:40:51"
         },
         {
-            "name": "punkave/symfony2-file-uploader-bundle",
-            "version": "dev-master",
-            "target-dir": "PunkAve/FileUploaderBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "414ba0afa11076dab1e30654d9cae7ee583154d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/414ba0afa11076dab1e30654d9cae7ee583154d8",
-                "reference": "414ba0afa11076dab1e30654d9cae7ee583154d8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/framework-bundle": "2.*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "PunkAve\\FileUploaderBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Boutell",
-                    "email": "tom@punkave.com"
-                },
-                {
-                    "name": "Wes John-Alder",
-                    "email": "wes@punkave.com"
-                }
-            ],
-            "description": "Multiple file uploads for Symfony2 with the BlueImp uploader. Also scales uploaded images",
-            "homepage": "https://github.com/punkave/symfony2-file-uploader-bundle",
-            "keywords": [
-                "Image transform",
-                "Symfony Bundle",
-                "blueimp",
-                "bundle",
-                "file",
-                "multiple file upload",
-                "punkave",
-                "symfony",
-                "symfony-2.0",
-                "symfony-2.1",
-                "upload",
-                "uploader"
-            ],
-            "time": "2015-03-26 19:13:38"
-        },
-        {
             "name": "ratchet/pawl",
             "version": "v0.1.2",
             "source": {
@@ -3063,7 +3049,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/dns/zipball/f0c14078c28e5be0f05bad7cdbb610175e9662a2",
+                "url": "https://api.github.com/repos/reactphp/dns/zipball/e61f53c03be1ee277d4dd9650412285a64a0a4d2",
                 "reference": "f0c14078c28e5be0f05bad7cdbb610175e9662a2",
                 "shasum": ""
             },
@@ -3233,7 +3219,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/socket-client/zipball/98b609589281b2cc717c04e87b1efd9a626001b5",
+                "url": "https://api.github.com/repos/reactphp/socket-client/zipball/3cc3f860a6942ea5c0e0384c9b4ee27149753eff",
                 "reference": "98b609589281b2cc717c04e87b1efd9a626001b5",
                 "shasum": ""
             },
@@ -3464,7 +3450,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/dcbc7d0ebd218712d85bbba8b82b65333fea277b",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/2ec433d17d8cd571079f01aff196f177594cfc8f",
                 "reference": "b9994ca93900d05aa12d38f44b886f45e0d0ce2f",
                 "shasum": ""
             },
@@ -3832,7 +3818,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/43096bfc8700e49c06f32a5bfcba6143c360834d",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/071236bac32480df2dddccb8d12409a67008c0ff",
                 "reference": "a4e376a6d3df55d1f260013c3cecd65efbfaec63",
                 "shasum": ""
             },
@@ -4123,7 +4109,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/4da29680eb54741bf300b85493308f40e3096000",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/b02f2983f6056366db47939ef615a23091c9b05a",
                 "reference": "292fad908cd6a02d48bdd8ac9ac76d4cbffd0e59",
                 "shasum": ""
             },
@@ -4384,7 +4370,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/97883dad465440544b3c491a2ea169b3d2c7a9b4",
+                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/d6ef6ba9be1912cc239cae2be9c214e20803224c",
                 "reference": "d40eefbc82eafb9b53741d731407f0c46b724bf2",
                 "shasum": ""
             },
@@ -4527,7 +4513,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/dc302e31359c58f4eca80abdaadacef79029519a",
+                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/98c61b20917b9ceb95022fff02b5f47df52c1371",
                 "reference": "928a9f2a76a04832ca65dbbe5d4709cef988348e",
                 "shasum": ""
             },
@@ -4590,7 +4576,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/ad8f174171f584205eb6849e7b426a0e383e37b5",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/84bd30c53edc80e728edec4b0e3af2552283e1e3",
                 "reference": "a525264fe15427c3e90c2038404ca4d8ab85a1cf",
                 "shasum": ""
             },
@@ -5314,6 +5300,67 @@
             "time": "2014-02-13 10:19:29"
         },
         {
+            "name": "voryx/thruway",
+            "version": "0.3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voryx/Thruway.git",
+                "reference": "d709f80df23791506db54d4c4e0576ea7a4c68ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voryx/Thruway/zipball/d709f80df23791506db54d4c4e0576ea7a4c68ab",
+                "reference": "d709f80df23791506db54d4c4e0576ea7a4c68ab",
+                "shasum": ""
+            },
+            "require": {
+                "cboden/ratchet": "0.3.*",
+                "guzzle/guzzle": "~3.9",
+                "php": ">=5.4",
+                "psr/log": "~1",
+                "ratchet/pawl": "0.1.*",
+                "react/socket": "0.4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Thruway": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Bonneau",
+                    "email": "matt@bonneau.net",
+                    "role": "Developer"
+                },
+                {
+                    "name": "David Dan",
+                    "email": "davidwdan@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP WAMP2 library",
+            "keywords": [
+                "Autobahn",
+                "WAMP",
+                "WAMP2",
+                "WebSockets",
+                "client",
+                "server",
+                "sockets"
+            ],
+            "time": "2015-05-25 14:20:54"
+        },
+        {
             "name": "willdurand/jsonp-callback-validator",
             "version": "v1.1.0",
             "source": {
@@ -5422,8 +5469,7 @@
         "stof/doctrine-extensions-bundle": 20,
         "sonata-project/seo-bundle": 20,
         "benoitmariaux/bcm-breadcrumbbundle": 20,
-        "doctrine/migrations": 20,
-        "punkave/symfony2-file-uploader-bundle": 20
+        "doctrine/migrations": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -48,7 +48,8 @@ $(function () {
 
     $('#comment-form').submit(function(e){
 
-        var comment = $(this).find('textarea').val();
+        var textarea = $(this).find('textarea');
+        var comment = textarea.val();
         if (comment.trim()) {
             $.post($(this).attr('action'), $(this).serialize()).done(function (data) {
                 var list = $('.list-comments');
@@ -56,6 +57,7 @@ $(function () {
                 newComment.hide();
                 list.append(newComment);
                 newComment.show('fast');
+                textarea.val('');
             });
         }
         else {

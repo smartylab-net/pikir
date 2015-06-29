@@ -72,6 +72,13 @@
                 {{ complaint.text| striptags| raw }}
             {% endif %}
         {% endblock %}
+
+        <div class="img-block">
+            {% for gallery in complaint.gallery.galleryHasMedias %}
+                <a href="{% path gallery.media, 'big' %}" rel="gal_{{ complaint.id }}" class="group-img">{% thumbnail gallery.media, 'small' %}</a>
+            {% endfor %}
+        </div>
+
         <div class="card-actionbar">
             <div class="card-actionbar-row">
                 <span class="complaint-voting-block">

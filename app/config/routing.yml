@@ -90,3 +90,7 @@ hwi_oauth_redirect:
 
 facebook_login:
     pattern: /login/check-facebook
+
+oneup_uploader:
+    resource: .
+    type: uploader

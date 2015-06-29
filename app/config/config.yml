@@ -289,3 +289,12 @@ doctrine_migrations:
     namespace: Application\Migrations
     table_name: migration_versions
     name: Application Migrations
+oneup_uploader:
+    mappings:
+        gallery:
+            frontend: blueimp # or any uploader you use in the frontend
+            enable_cancelation: true
+            use_orphanage: true
+    orphanage:
+        maxage: 86400
+        directory: %kernel.root_dir%/../web/uploads/orphanage

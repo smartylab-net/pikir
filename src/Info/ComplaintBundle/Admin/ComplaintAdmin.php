@@ -12,7 +12,6 @@ class ComplaintAdmin extends Admin
    protected function configureFormFields(FormMapper $formMapper)
    {
        $formMapper
-           ->add('title', 'text', array('label' => 'Название отзыва'))
            ->add('company', 'entity', array('class' => 'Info\ComplaintBundle\Entity\Company'))
            ->add('text', 'textarea', array('label' => 'Содержание отзыва'))
            ->add('rating', 'text', array('label' => 'Рейтинг'))           
@@ -23,7 +22,6 @@ class ComplaintAdmin extends Admin
    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
    {
        $datagridMapper
-           ->add('title')
            ->add('company')
            ->add('text')
            ->add('rating')
@@ -34,7 +32,6 @@ class ComplaintAdmin extends Admin
    protected function configureListFields(ListMapper $listMapper)
    {
        $listMapper
-           ->addIdentifier('title')
           ->add('company')
            ->add('text')
            ->add('rating')

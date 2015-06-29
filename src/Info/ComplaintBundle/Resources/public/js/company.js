@@ -17,6 +17,8 @@ $(function () {
                     form.find('.note-editable').empty();
                     newComplaint.show(500);
                     toastr.success("Ваш отзыв добавлен");
+                    $('#files').empty();
+                    $('#progress').hide();
                 } else {
                     toastr.error("Ошибка при добавлении отзыва");
                 }

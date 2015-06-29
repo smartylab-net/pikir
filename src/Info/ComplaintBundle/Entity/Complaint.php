@@ -4,7 +4,6 @@ namespace Info\ComplaintBundle\Entity;
 
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -92,6 +91,18 @@ class Complaint
     private $deletedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="gallery", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $gallery;
+
+    public function __construct() {
+        $this->created = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -174,11 +185,6 @@ class Complaint
     {
         return $this->getId()."";
     }
-
-    public function __construct(){
-        $this->created = new DateTime();
-    }
-
 
     /**
      * Set created
@@ -281,5 +287,21 @@ class Complaint
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * @param mixed $gallery
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
     }
 }

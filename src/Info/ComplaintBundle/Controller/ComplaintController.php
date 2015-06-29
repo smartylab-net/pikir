@@ -2,12 +2,17 @@
 
 namespace Info\ComplaintBundle\Controller;
 
+use Application\Sonata\MediaBundle\Entity\Gallery;
+use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Entity\Complaint;
 use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Form\ComplaintType;
+use Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -40,6 +45,41 @@ class ComplaintController extends Controller
                     $company->setName($request->get('company'));
                     $em->persist($company);
                     $complaint->setCompany($company);
+                }
+                /** @var FilesystemOrphanageStorage $manager */
+                $manager = $this->get('oneup_uploader.orphanage_manager')->get('gallery');
+                $files = iterator_to_array($manager->getFiles());
+                // upload all files to the configured storage
+                if (!empty($files)) {
+                    $gallery = new Gallery();
+                    $gallery->setName("Complaint gallery");
+                    $gallery->setDefaultFormat("default_big");
+                    $gallery->setContext("complaint");
+                    $gallery->setEnabled(true);
+                    $gallery->setCreatedAt(new \DateTime());
+                    /** @var SplFileInfo $file */
+                    foreach ($files as $i=>$file) {
+                        $media = new Media();
+                        $media->setName($file->getBasename());
+                        $media->setEnabled(true);
+                        $media->setBinaryContent($file->getRealPath());
+                        $media->setContext('complaint');
+                        $media->setProviderName('sonata.media.provider.image');
+                        $mediaManager = $this->get("sonata.media.manager.media");
+                        $mediaManager->save($media);
+                        unlink($file->getRealPath()); //удаляем временные файлы
+
+                        $galleryHasMedia = new GalleryHasMedia();
+                        $galleryHasMedia->setGallery($gallery);
+                        $galleryHasMedia->setMedia($media);
+                        $galleryHasMedia->setEnabled(true);
+                        $galleryHasMedia->setPosition($i);
+                        $galleryHasMedia->setCreatedAt(new \DateTime());
+                        $em->persist($galleryHasMedia);
+                        $gallery->addGalleryHasMedias($galleryHasMedia);
+                    }
+                    $em->persist($gallery);
+                    $complaint->setGallery($gallery);
                 }
                 $em->persist($complaint);
                 $em->flush();
@@ -158,8 +198,19 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
-        $companySlug = $complaint->getCompany()->getSlug();
         $em = $this->getDoctrine()->getManager();
+        if (!is_null($complaint->getGallery())) {
+            $mediaManager = $this->get("sonata.media.manager.media");
+            foreach ($complaint->getGallery()->getGalleryHasMedias() as $galleryMedia) {
+                $media = $galleryMedia->getMedia();
+                $provider = $this->get($media->getProviderName());
+                $provider->removeThumbnails($media);
+                $em->remove($galleryMedia);
+                $mediaManager->delete($media);
+            }
+        }
+
+        $companySlug = $complaint->getCompany()->getSlug();
         $em->remove($complaint);
         $em->flush();
 

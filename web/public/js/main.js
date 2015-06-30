@@ -45,7 +45,18 @@ $(function () {
     $(":input").inputmask();
 
     $(".group-img").live('click', function() {
-        $.colorbox({href:$(this).attr('href'), open:true});
+        var $this = $(this);
+        var rel = $this.attr('rel');
+
+        // Build colorbox sequence
+        $this.closest('div') // parent container
+            .find('a[rel="'+rel+'"]').colorbox({ // find all matching items & init colorbox on them
+                open: false, // don't open, just init
+                rel: rel // use the rel
+            });
+
+        // Open the specific link's colorbox
+        $this.colorbox({open: true});
         return false;
     });
 });

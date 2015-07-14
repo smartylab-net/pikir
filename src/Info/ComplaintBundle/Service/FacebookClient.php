@@ -12,7 +12,8 @@ use Monolog\Logger;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class FacebookClient {
+class FacebookClient
+{
 
     /** @var RouterInterface */
     private $router;
@@ -26,7 +27,8 @@ class FacebookClient {
     /** @var \Facebook\Facebook */
     private $fb;
 
-    public function __construct($router, $logger, $appId, $appSecret, $accessToken, $pageId) {
+    public function __construct($router, $logger, $appId, $appSecret, $accessToken, $pageId)
+    {
 
         $this->router = $router;
         $this->logger = $logger;
@@ -45,13 +47,14 @@ class FacebookClient {
         ]);
     }
 
-    public function post(Complaint $complaint) {
+    public function post(Complaint $complaint)
+    {
 
         $link = $this->router->generate('info_complaint_complaint', array('id' => $complaint->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $linkData = [
             'link' => $link,
-            'message' => $complaint->getText(),
+            'message' => sprintf("%s > %s \n%s", $complaint->getAuthor(), $complaint->getCompany()->getName(), $complaint->getText()),
             'appsecret_proof' => $this->appsecretProof,
         ];
 
@@ -61,9 +64,9 @@ class FacebookClient {
             $graphNode = $response->getGraphNode();
             $this->logger->debug('Posted with id: ' . $graphNode['id']);
             return true;
-        } catch(FacebookResponseException $e) {
+        } catch (FacebookResponseException $e) {
             $this->logger->error('Graph returned an error: ' . $e->getMessage());
-        } catch(FacebookSDKException $e) {
+        } catch (FacebookSDKException $e) {
             $this->logger->error('Facebook SDK returned an error: ' . $e->getMessage());
         }
         return false;

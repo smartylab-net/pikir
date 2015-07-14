@@ -1,7 +1,6 @@
 $(document).ready(function() {
     var prBar = $('#progress .progress-bar');
     $('#fileupload').fileupload({
-        url: '{{ oneup_uploader_endpoint("gallery") }}',
         dataType: 'json',
         limitMultiFileUploads: 4,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -14,11 +13,16 @@ $(document).ready(function() {
         $('#progress').show();
         prBar.addClass('progress-bar-success').removeClass('progress-bar-danger');
     }).on('fileuploaddone', function (event, data) {
-        $.each(data.files, function (index, file) {
-            $('<div class="box">').appendTo('#files');
-            $('.box').last().html('<span>'+file.name+'</span>');
-        });
+        var boxCount = $('.box').size();
+        if (boxCount % 4 == 0) {
+            $('<div class="card"/>').html($('<div class="card-body"/>')).appendTo('#files');
+        }
+        var box = $('<div class="box">').appendTo($('#files .card').last().find('.card-body'));
+        $('<img class="col-lg-3"/>').attr('src', data.result.filepath).appendTo(box);
     }).on('fileuploadfail', function (event, data) {
         prBar.removeClass('progress-bar-success').addClass('progress-bar-danger').css('width', '100%');
-    }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    }).on('fileuploadcompleted', function (event, data) {
+        $('#progress').hide();
+    })
+        .prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 });

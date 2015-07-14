@@ -83,6 +83,7 @@ class ComplaintController extends Controller
                 }
                 $em->persist($complaint);
                 $em->flush();
+                $this->container->get('strokit.facebookclient')->post($complaint);
                 $this->get('info_complaint.service.notification_service')->notifyManager($complaint);
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(array('complaint'=>$this->renderView("InfoComplaintBundle:Complaint/_blockComplaint:_complaintItemInCompanyPage.html.twig", array('complaint'=>$complaint))));

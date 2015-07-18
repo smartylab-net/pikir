@@ -39,6 +39,7 @@ class ManagerController extends Controller{
         $breadcrumbExtension->setParams(array('company_name' => $company->getName()));
         $form = $this->createForm( new CompanyType(),$company);
         $request = $this->getRequest();
+        $message = null;
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
             if ($form->isValid())
@@ -46,17 +47,15 @@ class ManagerController extends Controller{
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($company);
                 $em->flush();
-                $this->container->get('session')->getFlashBag()->add('manager.company_edit_success', 'Профиль компании обновлен');
+                return $this->redirect($this->generateUrl('info_company_homepage',array('slug'=>$slug)));
             }
             else
             {
-                $this->container->get('session')->getFlashBag()->add('manager.company_edit_error', 'Профиль компании не сохранен, обнаружена ошибка');
+                $message = 'Профиль компании не сохранен, обнаружена ошибка';
             }
-            return $this->redirect($this->generateUrl('info_manager_company_edit',array('slug'=>$slug)));
 
         }
-
-        return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView()));
+        return $this->render('@InfoComplaint/Company/create_edit.html.twig',array('form'=>$form->createView(), 'message' => $message));
     }
 
     public function myCompaniesListAction()

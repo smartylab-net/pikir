@@ -19,6 +19,26 @@ class CompanyAdmin extends Admin
            ->add('logo', 'sonata_type_model_list', array('required'=>false ,'label' => 'Логотип компании'), array('link_parameters' => array('context' =>'company')))
            ->add('annotation', 'textarea', array('required'=>false,'label' => 'Описание компании'))
            ->add('address', 'text', array('required'=>false, 'label' => 'Адрес компании'))
+           ->add('phone','text',array(
+               'label'=>'Номер телефона',
+               'required' => false,
+           ))
+           ->add('site','text',array(
+               'label'=>'Сайт',
+               'required' => false
+           ))
+           ->add('facebook','text',array(
+               'label'=>'Страница в Facebook',
+               'required' => false
+           ))
+           ->add('twitter','text',array(
+               'label'=>'Страница в Twitter',
+               'required' => false
+           ))
+           ->add('instagram','text',array(
+               'label'=>'Страница в Instagram',
+               'required' => false
+           ))
            ->add('category', 'sonata_type_model_list',array('label' => 'Категория'))
        ;
    }
@@ -43,8 +63,6 @@ class CompanyAdmin extends Admin
            ->add('enabled',null,array('label'=>'Активность','editable'=>true))
            ->add('approved',null,array('label'=>'Подтвержден','editable'=>true))
            ->add('manager',null,array('label'=>'Представитель','editable'=>true))
-           ->add('logo')
-           ->add('annotation')
            ->add('address')
 
        ;

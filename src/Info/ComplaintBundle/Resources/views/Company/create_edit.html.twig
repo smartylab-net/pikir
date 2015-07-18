@@ -6,6 +6,8 @@
     <script type="text/javascript">
         $('input[type=file]').bootstrapFileInput();
     </script>
+    <script src="{{ asset('public/js/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery-validation/dist/additional-methods.min.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -14,18 +16,16 @@
 
     {% form_theme form.logo 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
 
-    {% if app.session.flashBag.has('manager.company_edit_success') %}
-        <div class="alert alert-success">
-            {% for flashMessage in app.session.flashBag.get('manager.company_edit_success') %}
-                {{ flashMessage }}
-            {% endfor %}
+    {% if message %}
+        <div class="alert alert-danger">
+            {{ message }}
         </div>
     {% endif %}
 
 
     <div class="card">
         <div class="card-body">
-            {{ form_start(form,{'attr': { 'role':'form', 'class':'form'} }) }}
+            {{ form_start(form,{'attr': { 'role':'form', 'class':'form form-validate'} }) }}
 
             {{ form_row(form.name) }}
 
@@ -40,9 +40,6 @@
                     </div>
                 </div>
             </div>
-            {{ form_row(form.address) }}
-            {{ form_row(form.annotation) }}
-            {{ form_row(form.category) }}
 
             {{ form_end(form) }}
         </div>

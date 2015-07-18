@@ -49,14 +49,20 @@
                         <!--end .col -->
                     </div>
                     <!--end .row -->
-                    {#<div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" href="mailto:test@mail.com" target="_blank"
-                           data-original-title="Написать письмо"><i class="fa fa-envelope"></i></a>
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                    <div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
+                        {% if company.instagram %}
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" target="_blank" href="{{ company.instagram }}"
+                           data-original-title="Страница в Instagram"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if company.facebook %}
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" target="_blank" rel="nofollow" href="{{ company.facebook }}"
                            data-original-title="Страница в Facebook"><i class="fa fa-facebook"></i></a>
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" rel="nofollow"
+                        {% endif %}
+                        {% if company.twitter %}
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" target="_blank" rel="nofollow" href="{{ company.twitter }}"
                         data-original-title="Страница в Twitter"><i class="fa fa-twitter"></i></a>
-                    </div>#}
+                        {% endif %}
+                    </div>
                 </div>
                 <!--end .section-body -->
             </section>
@@ -167,6 +173,26 @@
                                                 </div>
                                                 <div class="tile-text">
                                                     {{ company.address ? : "не указано" }}
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="tile">
+                                            <a class="tile-content ink-reaction">
+                                                <div class="tile-icon">
+                                                    <i class="fa fa-phone"></i>
+                                                </div>
+                                                <div class="tile-text">
+                                                    {{ company.phone ? : "не указано" }}
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="tile">
+                                            <a class="tile-content ink-reaction" {% if company.site %}target="_blank" href="{{ company.site }}"{% endif %}>
+                                                <div class="tile-icon">
+                                                    <i class="fa fa-external-link"></i>
+                                                </div>
+                                                <div class="tile-text">
+                                                    {{ company.site ? : "не указано" }}
                                                 </div>
                                             </a>
                                         </li>

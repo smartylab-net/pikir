@@ -6,6 +6,7 @@ use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Company
@@ -53,6 +54,60 @@ class Company
      * @ORM\Column(name="address", type="string", nullable=true)
      */
     private $address;
+
+    /**
+     * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/http(s?):\/\/(www\.)?(facebook|fb).com(\/(.*))?/",
+     *     message="Адрес страницы введен неверно"
+     * )
+     * @ORM\Column(name="facebook", type="string", nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/http(s?):\/\/(www\.)?(twitter).com(\/(.*))?/",
+     *     message="Адрес страницы введен неверно"
+     * )
+     * @ORM\Column(name="twitter", type="string", nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     *
+     * @Assert\Url(
+     *     message="Адрес сайта введен неверно"
+     * )
+     * @ORM\Column(name="site", type="string", nullable=true)
+     */
+    private $site;
+
+    /**
+     * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/http(s?):\/\/(www\.)?(instagram).com(\/(.*))?/",
+     *     message="Адрес страницы введен неверно"
+     * )
+     * @ORM\Column(name="instagram", type="string", nullable=true)
+     */
+    private $instagram;
+
+    /**
+     * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/(\+|-|\(|\)|\d|\ )+/",
+     *     message="Номер телефона введен неверно"
+     * )
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    private $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\ClassificationBundle\Entity\Category", cascade={"persist"})
@@ -339,5 +394,85 @@ class Company
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * @param string $facebook
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param string $twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param string $site
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstagram()
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * @param string $instagram
+     */
+    public function setInstagram($instagram)
+    {
+        $this->instagram = $instagram;
     }
 }

@@ -29,19 +29,42 @@ class CompanyType extends AbstractType{
             ->add('name','text',array(
                 'required'=>true,
                 'label'=>'Название',
-                'attr'=>array('class'=>'form-control')
             ))
-            ->add('address','text',array(
-                'label'=>'Адрес',
-                'attr'=>array('class'=>'form-control')
+            ->add('category','entity',array(
+                'label' => 'Категория',
+                'class' => 'Application\Sonata\ClassificationBundle\Entity\Category',
             ))
             ->add('annotation','textarea',array(
                 'label'=>'Описание',
                 'attr'=>array('rows' => 1)
             ))
-            ->add('category','entity',array(
-                'label' => 'Категория',
-                'class' => 'Application\Sonata\ClassificationBundle\Entity\Category',
+            ->add('address','text',array(
+                'label'=>'Адрес',
+                'required' => false,
+            ))
+            ->add('phone','text',array(
+                'label'=>'Номер телефона',
+                'required' => false,
+            ))
+            ->add('site','text',array(
+                'label'=>'Сайт',
+                'required' => false,
+                'attr'=>array('data-rule-url' => 'true')
+            ))
+            ->add('facebook','text',array(
+                'label'=>'Страница в Facebook',
+                'required' => false,
+                'attr'=>array('data-rule-url' => 'true')
+            ))
+            ->add('twitter','text',array(
+                'label'=>'Страница в Twitter',
+                'required' => false,
+                'attr'=>array('data-rule-url' => 'true')
+            ))
+            ->add('instagram','text',array(
+                'label'=>'Страница в Instagram',
+                'required' => false,
+                'attr'=>array('data-rule-url' => 'true', 'data-rule-regex' => 'http(s?):\/\/(www\.)?(instagram).com(\/(.*))?')
             ))
             ->add('submit','submit',array(
                 'label'=>'Сохранить'

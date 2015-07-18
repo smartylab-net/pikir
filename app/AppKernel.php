@@ -74,6 +74,7 @@ class AppKernel extends Kernel
             new Info\NotificationBundle\InfoNotificationBundle(),
             //jquery Upload
             new Oneup\UploaderBundle\OneupUploaderBundle(),
+            new Info\ReportBundle\InfoReportBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -11,3 +11,4 @@
 tests/bin/*
 tests/vendor/*
 tests/parameters.yml
+web/js

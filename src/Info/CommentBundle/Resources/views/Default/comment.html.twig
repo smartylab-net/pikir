@@ -1,7 +1,34 @@
 {% set isManager = user != null and user == complaint.company.manager %}
 {% set isAuthor = user != null and user == complaint.author %}
 <div id="comment_{{ node.id }}" class="card word-break">
-    <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
+
+    {% if complaint.author != null and app.user != null %}
+        <div class="card-head small-padding line-height-body pull-right">
+            <div class="tools">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-icon-toggle dropdown-toggle" style="z-index: 55555;" data-toggle="dropdown">
+                            <i class="fa fa-angle-down no-margin"></i>
+                        </a>
+                        <ul class="dropdown-menu animation-dock pull-right menu-card-styling" role="menu"
+                            style="text-align: left;">
+                            <li>
+                                <a class="btn" href="javascript:void(0);" onclick="Report.showForm('comment', {{ node.id }});return false;">
+                                    Пожаловаться на комментарий
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <a href="{{ path('user_public_show', {'user': user.id}) }}">
+        <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
+    </a>
+
     <div class="card-body">
         <h4 class="comment-title">
 
@@ -16,7 +43,7 @@
             {% if isManager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
             {% if isAuthor %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
         </h4>
-        <a class="btn btn-default-dark stick-top-right btn-reply-comment" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node.id }}">Ответить</a>
+        <a class="btn btn-default-dark stick-bottom-right btn-reply-comment" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node.id }}">Ответить</a>
         {{ node.comment|striptags }}
     </div>
 </div><!--end .card -->

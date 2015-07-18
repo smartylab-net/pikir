@@ -40,7 +40,7 @@ class DefaultController extends Controller
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
-        return new JsonResponse($form->getErrorsAsString(), 400);
+        return new JsonResponse(array('msg'=>$form->getErrorsAsString()), 400);
     }
 
     public function replyAction(Request $request, Complaint $complaint, Comment $comment)
@@ -63,7 +63,7 @@ class DefaultController extends Controller
                 array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
-        return new JsonResponse('Неправильный формат данных', 400);
+        return new JsonResponse(array('msg'=>'Неправильный формат данных'), 400);
     }
 
     private function getNotificationService()

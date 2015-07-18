@@ -1,0 +1,7 @@
+parameters:
+#    info_report.example.class: Info\ReportBundle\Example
+
+services:
+#    info_report.example:
+#        class: %info_report.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

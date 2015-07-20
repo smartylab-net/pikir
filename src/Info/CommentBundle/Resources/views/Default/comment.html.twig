@@ -7,7 +7,7 @@
             <div class="tools">
                 <div class="btn-group">
                     <div class="btn-group">
-                        <a href="#" class="btn btn-icon-toggle dropdown-toggle" style="z-index: 55555;" data-toggle="dropdown">
+                        <a href="#" class="btn btn-icon-toggle dropdown-toggle" style="z-index: 555;" data-toggle="dropdown">
                             <i class="fa fa-angle-down no-margin"></i>
                         </a>
                         <ul class="dropdown-menu animation-dock pull-right menu-card-styling" role="menu"
@@ -25,7 +25,7 @@
     {% endif %}
 
 
-    <a href="{{ path('user_public_show', {'user': user.id}) }}">
+    <a href="{% if user %}{{ path('user_public_show', {'user': user.id}) }}{% endif %}">
         <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
     </a>
 

@@ -65,6 +65,13 @@ class Report
     private $user;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_read", type="boolean")
+     */
+    private $read = false;
+
+    /**
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
@@ -160,5 +167,21 @@ class Report
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRead()
+    {
+        return $this->read;
+    }
+
+    /**
+     * @param boolean $read
+     */
+    public function setRead($read)
+    {
+        $this->read = $read;
     }
 }

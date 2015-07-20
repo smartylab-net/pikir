@@ -43,9 +43,16 @@ class DefaultController extends Controller
                 $em->persist($report);
                 $em->flush();
 
+                $this->getNotificationService()->notifyModerators($report);
+
                 return new JsonResponse();
             }
         }
         return new JsonResponse(array('msg'=>'Error'), 500);
+    }
+
+    private function getNotificationService()
+    {
+        return $this->get('info_complaint.service.notification_service');
     }
 }

@@ -4,8 +4,10 @@
 namespace Info\NotificationBundle\Service;
 
 
+use Application\Sonata\UserBundle\Entity\User;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ReportBundle\Entity\Report;
 
 class MailNotificationService
 {
@@ -59,6 +61,16 @@ class MailNotificationService
             $this->emailFrom,
             $company->getManager()->getEmail(),
             'InfoComplaintBundle:Mail:complaint_create_manager.html.twig'
+        );
+    }
+
+    public function sendEmailAboutReportToModerators(User $moderator, Report $report)
+    {
+        $this->mailer->sendEmailMessage(
+            array('report' => $report, 'moder'=>$moderator),
+            $this->emailFrom,
+            $moderator->getEmail(),
+            'InfoReportBundle:Mail:report_to_moderator.html.twig'
         );
     }
 }

@@ -300,22 +300,6 @@ class Comment
     /**
      * @return mixed
      */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDeletedAt()
     {
         return $this->deletedAt;
@@ -327,5 +311,10 @@ class Comment
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    function __toString()
+    {
+        return $this->getId() . '';
     }
 }

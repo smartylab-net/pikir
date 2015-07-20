@@ -10,11 +10,15 @@ class NotificationTypeEnum extends EnumType
     const COMMENT_TO_COMPLAINT = 'comment';
 
     const COMPLAINT_TO_COMPANY = 'complaint';
+
+    const COMMENT_REPORT = 'comment_report';
+
+    const COMPLAINT_REPORT = 'complaint_report';
     protected $name = 'notification_type';
-    protected $values = array(self::COMMENT_REPLY, self::COMMENT_TO_COMPLAINT, self::COMPLAINT_TO_COMPANY);
+    protected $values = array(self::COMMENT_REPLY, self::COMMENT_TO_COMPLAINT, self::COMPLAINT_TO_COMPANY, self::COMMENT_REPORT, self::COMPLAINT_REPORT);
 
     public static function getArray()
     {
-        return array(self::COMMENT_REPLY => self::COMMENT_REPLY, self::COMMENT_TO_COMPLAINT => self::COMMENT_TO_COMPLAINT, self::COMPLAINT_TO_COMPANY => self::COMPLAINT_TO_COMPANY);
+        return array(self::COMMENT_REPLY => self::COMMENT_REPLY, self::COMMENT_TO_COMPLAINT => self::COMMENT_TO_COMPLAINT, self::COMPLAINT_TO_COMPANY => self::COMPLAINT_TO_COMPANY, self::COMPLAINT_REPORT => self::COMPLAINT_REPORT, self::COMMENT_REPORT => self::COMMENT_REPORT);
     }
 }

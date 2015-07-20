@@ -47,6 +47,12 @@ class NotificationExtension extends \Twig_Extension {
         } elseif ($notification->getType() == NotificationTypeEnum::COMPLAINT_TO_COMPANY) {
             $complaint = $this->entityManager->find("InfoComplaintBundle:Complaint", $notification->getElementId());
             return $this->templating->render("InfoNotificationBundle:Message:complaint_company.html.twig", array('complaint' => $complaint));
+        } elseif ($notification->getType() == NotificationTypeEnum::COMPLAINT_REPORT) {
+            $report = $this->entityManager->find("InfoReportBundle:Report", $notification->getElementId());
+            return $this->templating->render("InfoNotificationBundle:Message:complaint_report.html.twig", array('report' => $report));
+        } elseif ($notification->getType() == NotificationTypeEnum::COMMENT_REPORT) {
+            $report = $this->entityManager->find("InfoReportBundle:Report", $notification->getElementId());
+            return $this->templating->render("InfoNotificationBundle:Message:comment_report.html.twig", array('report' => $report));
         }
     }
 

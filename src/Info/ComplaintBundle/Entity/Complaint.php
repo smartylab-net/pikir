@@ -260,22 +260,6 @@ class Complaint
     /**
      * @return mixed
      */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDeletedAt()
     {
         return $this->deletedAt;

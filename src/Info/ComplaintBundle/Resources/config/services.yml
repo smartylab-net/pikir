@@ -86,3 +86,13 @@ services:
       arguments: [@service_container, @doctrine.orm.entity_manager]
       tags:
           - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: onUpload }
+
+  strokit.facebookclient:
+      class: Info\ComplaintBundle\Service\FacebookClient
+      arguments:
+        - @router
+        - @logger
+        - %facebook_client_id%
+        - %facebook_client_secret%
+        - %facebook_client_access_token%
+        - %facebook_client_page_id%

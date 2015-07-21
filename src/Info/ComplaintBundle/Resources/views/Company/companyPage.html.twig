@@ -51,7 +51,7 @@
                     <!--end .row -->
                     <div class="overlay overlay-shade-bottom stick-bottom-left force-padding text-right">
                         {% if company.instagram %}
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" target="_blank" href="{{ company.instagram }}"
+                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" target="_blank" rel="nofollow" href="{{ company.instagram }}"
                            data-original-title="Страница в Instagram"><i class="fa fa-instagram"></i></a>
                         {% endif %}
                         {% if company.facebook %}
@@ -187,7 +187,7 @@
                                             </a>
                                         </li>
                                         <li class="tile">
-                                            <a class="tile-content ink-reaction" {% if company.site %}target="_blank" href="{{ company.site }}"{% endif %}>
+                                            <a class="tile-content ink-reaction" rel="nofollow"{% if company.site %} target="_blank" href="{{ company.site }}"{% endif %}>
                                                 <div class="tile-icon">
                                                     <i class="fa fa-external-link"></i>
                                                 </div>

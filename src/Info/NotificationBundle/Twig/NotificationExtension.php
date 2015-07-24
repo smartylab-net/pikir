@@ -60,6 +60,10 @@ class NotificationExtension extends \Twig_Extension {
                 $report = $this->entityManager->find("InfoReportBundle:Report", $notification->getElementId());
                 $message = $this->templating->render("InfoNotificationBundle:Message:comment_report.html.twig", array('report' => $report));
                 break;
+            case NotificationTypeEnum::COMPLAINT_VOTE :
+                $vote = $this->entityManager->find("InfoComplaintBundle:ComplaintsCommentRating", $notification->getElementId());
+                $message = $this->templating->render("InfoNotificationBundle:Message:complaint_vote.html.twig", array('vote' => $vote));
+                break;
             default :
                 $logger = $this->container->get('logger');
                 $logger->error('Notification type error, id = ' . $notification->getId());

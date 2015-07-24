@@ -8,6 +8,7 @@ use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
 use Info\ReportBundle\Entity\Report;
 
 class NotificationService {
@@ -81,6 +82,16 @@ class NotificationService {
                 }
                 $this->siteNotificationService->notifyModeratorsAboutReport($moder, $report);
             }
+        }
+    }
+
+    /**
+     * @param Complaint|Comment $element
+     * @param ComplaintsCommentRating $vote
+     */
+    public function notifyElementLiked($element, ComplaintsCommentRating $vote) {
+        if ($element instanceof Complaint) {
+            $this->siteNotificationService->notifyComplaintLiked($element, $vote);
         }
     }
 }

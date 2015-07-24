@@ -292,17 +292,16 @@ class ComplaintController extends Controller
         }
 
         if ($vote === null) {
-            $newComplaintsCommentRating = new ComplaintsCommentRating();
-            $newComplaintsCommentRating->setType($type);
-            $newComplaintsCommentRating->setElementId($id);
-            $newComplaintsCommentRating->setAuthor($this->getUser());
-            $newComplaintsCommentRating->setSessionCookie($cookie);
-            $newComplaintsCommentRating->setIp($ip);
-            $newComplaintsCommentRating->setVote($voteValue);
+            $vote = new ComplaintsCommentRating();
+            $vote->setType($type);
+            $vote->setElementId($id);
+            $vote->setAuthor($this->getUser());
+            $vote->setSessionCookie($cookie);
+            $vote->setIp($ip);
+            $vote->setVote($voteValue);
 
             $element->setVote($element->getVote() + $voteValue);
 
-            $entityManager->persist($newComplaintsCommentRating);
         } else {
 
             if ($vote->getVote() == $voteValue) {
@@ -311,11 +310,13 @@ class ComplaintController extends Controller
 
             $element->setVote($element->getVote() - $vote->getVote() + $voteValue);
             $vote->setVote($voteValue);
-            $entityManager->persist($vote);
         }
 
+        $entityManager->persist($vote);
         $entityManager->persist($element);
         $entityManager->flush();
+
+        $this->get('info_complaint.service.notification_service')->notifyElementLiked($element, $vote);
         return new JsonResponse(array('voteValue' => $element->getVote()));
     }
 }

@@ -6495,13 +6495,13 @@ sub.badge {
 .list-comments > li {
   margin-bottom: 20px;
 }
-.list-comments > li ul {
+.list-comments > li ul.sub-comments {
   padding-top: 10px;
   padding-left: 60px;
   list-style: none;
   border-left: 1px solid #d9d9d9;
 }
-.list-comments > li ul li {
+.list-comments > li ul li.sub-li-comments {
   padding-top: 10px;
 }
 .list-comments .card {

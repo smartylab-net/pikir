@@ -1,0 +1,35 @@
+{% extends 'StrokitCoreBundle::mail.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ report.complaint is not null ? 'Отзыв' : 'Комментарий' }} получил жалобу.
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+    <p>
+        Уважаемый(ая) {{ moder }}!
+    </p>
+    <p>
+        Получена жалоба на
+            {% if report.complaint is null %}
+                <a href="{{ url('info_complaint_complaint',{'id':report.comment.complaint.id}) }}#comment_{{ report.comment.id }}">комментарий</a>.
+            {% else %}
+                <a href="{{ url('info_complaint_complaint',{'id':report.complaint.id}) }}">отзыв</a>.
+            {% endif %}
+    </p>
+
+    <hr/>
+    <div>
+        <p>
+            Автор жалобы <a href="{{ url('user_public_show', {'user': report.user.id}) }}">{{ report.user }}</a>
+        </p>
+        {% if report.complaint is not null %}
+            <p>{{ report.complaint.text|striptags }}</p>
+        {% else %}
+            <p>{{ report.comment.comment|striptags }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -4,8 +4,11 @@
 namespace Info\NotificationBundle\Service;
 
 
+use Application\Sonata\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ReportBundle\Entity\Report;
 
 class NotificationService {
     /**
@@ -17,9 +20,15 @@ class NotificationService {
      */
     private $siteNotificationService;
 
-    public function __construct(MailNotificationService $mailNotificationService, SiteNotificationService $siteNotificationService) {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    public function __construct(MailNotificationService $mailNotificationService, SiteNotificationService $siteNotificationService, EntityManager $entityManager) {
         $this->mailNotificationService = $mailNotificationService;
         $this->siteNotificationService = $siteNotificationService;
+        $this->em                      = $entityManager;
     }
 
     public function notifyCommentAuthor(Comment $newComment)
@@ -58,6 +67,19 @@ class NotificationService {
             }
             if ($company->getManager()->isNotifyOnNewComplaint()) {
                 $this->siteNotificationService->notifyManager($complaint);
+            }
+        }
+    }
+
+    public function notifyModerators(Report $report) {
+        $moderators = $this->em->getRepository("ApplicationSonataUserBundle:User")->getModerators();
+        if (is_array($moderators)) {
+            /** @var User $moder */
+            foreach ($moderators as $moder) {
+                if ($moder->isEmailOnReport()) {
+                    $this->mailNotificationService->sendEmailAboutReportToModerators($moder, $report);
+                }
+                $this->siteNotificationService->notifyModeratorsAboutReport($moder, $report);
             }
         }
     }

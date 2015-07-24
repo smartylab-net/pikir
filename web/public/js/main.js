@@ -61,7 +61,13 @@ $(function () {
     });
 });
 
-var removeComplaint = function (t, id) {
+var removeComplaint = function (t, id, route) {
+    if (!confirm("Вы уверены что хотите удалить отзыв?")) {
+        return false;
+    }
+    if (route == 'info_complaint_complaint') {
+        return true;
+    }
     $.ajax({
         url: t.attr('href'),
         type: 'GET',
@@ -75,4 +81,5 @@ var removeComplaint = function (t, id) {
             toastr.error("Ошибка при удалении отзыва");
         }
     });
+    return false;
 };

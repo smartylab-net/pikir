@@ -50,6 +50,11 @@ class User extends BaseUser
     protected $emailOnReplyToComment = true;
 
     /**
+     * @var boolean $emailOnReport
+     */
+    protected $emailOnReport = true;
+
+    /**
      * @var boolean $notifyOnNewComplaint
      */
     protected $notifyOnNewComplaint = true;
@@ -189,6 +194,22 @@ class User extends BaseUser
     public function setNotifyOnReplyToComment($notifyOnReplyToComment)
     {
         $this->notifyOnReplyToComment = $notifyOnReplyToComment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEmailOnReport()
+    {
+        return $this->emailOnReport;
+    }
+
+    /**
+     * @param boolean $emailOnReport
+     */
+    public function setEmailOnReport($emailOnReport)
+    {
+        $this->emailOnReport = $emailOnReport;
     }
 
 }

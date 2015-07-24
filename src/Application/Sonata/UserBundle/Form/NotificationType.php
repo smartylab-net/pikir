@@ -22,6 +22,7 @@ class NotificationType extends AbstractType{
         $builder->add('emailOnNewComplaint',null,array('label'=>'Уведомлять по Email при получении новых отзывов'))
                 ->add('emailOnNewComment',null,array('label'=>'Уведомлять по Email при получении нового комментария'))
                 ->add('emailOnReplyToComment',null,array('label'=>'Уведомлять по Email при ответе на мой комментарий'))
+                ->add('emailOnReport',null,array('label'=>'Уведомлять по Email при получении жалоб'))
                 ->add('notifyOnNewComplaint',null,array('label'=>'Уведомлять на сайте при получении новых отзывов'))
                 ->add('notifyOnNewComment',null,array('label'=>'Уведомлять на сайте при получении нового комментария'))
                 ->add('notifyOnReplyToComment',null,array('label'=>'Уведомлять на сайте при ответе на мой комментарий'))

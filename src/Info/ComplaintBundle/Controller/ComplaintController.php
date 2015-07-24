@@ -135,7 +135,7 @@ class ComplaintController extends Controller
                 if(count($tree) && ($tree[0]['lvl'] == 0)){
                     return '';
                 } else {
-                    return '<ul>';
+                    return '<ul class="sub-comments">';
                 }
             },
             'rootClose' => function($tree) {
@@ -145,7 +145,7 @@ class ComplaintController extends Controller
                     return '</ul>';
                 }
             },
-            'childOpen' => '<li>',
+            'childOpen' => '<li class="sub-li-comments">',
             'childClose' => '</li>',
             'nodeDecorator' => function($node) use (&$complaint, &$commentRep)  {
                     return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));

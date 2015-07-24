@@ -14,7 +14,7 @@ services:
 
   info_complaint.service.notification_service:
       class: Info\NotificationBundle\Service\NotificationService
-      arguments:  [ @info_complaint.mailer, @info_complaint.service.site_notification_service ]
+      arguments:  [ @info_complaint.mailer, @info_complaint.service.site_notification_service, @doctrine.orm.entity_manager ]
 
   strokit.notifications_twig:
       class: Info\NotificationBundle\Twig\NotificationExtension

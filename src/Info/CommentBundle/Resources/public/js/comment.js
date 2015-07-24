@@ -57,7 +57,7 @@ $(function () {
                 newComment.hide();
                 list.append(newComment);
                 newComment.show('fast');
-                textarea.val('');
+                textarea.val('').css('height', 0);
             });
         }
         else {

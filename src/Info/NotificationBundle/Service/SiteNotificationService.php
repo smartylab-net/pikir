@@ -60,8 +60,7 @@ class SiteNotificationService {
     public function notifyManager(Complaint $complaint)
     {
         $user = $complaint->getCompany()->getManager();
-        $url = $this->router->generate('info_complaint_complaint', array('id' => $complaint->getId()));
-        $notification = $this->createNotification($complaint, $user, NotificationTypeEnum::COMPLAINT_TO_COMPANY, $url);
+        $notification = $this->createNotification($complaint, $user, NotificationTypeEnum::COMPLAINT_TO_COMPANY, $this->getComplaintURL($complaint));
 
         $this->WAMPClient->publish(self::$topic.$user->getId(), [$notification->getId()]);
     }
@@ -69,7 +68,7 @@ class SiteNotificationService {
     public function notifyModeratorsAboutReport(User $moder, Report $report)
     {
         if (!is_null($report->getComplaint())) {
-            $url = $this->router->generate('info_complaint_complaint', array('id' => $report->getComplaint()->getId()));
+            $url = $this->getComplaintURL($report->getComplaint());
             $type = NotificationTypeEnum::COMPLAINT_REPORT;
         } else {
             $url = $this->getCommentURL($report->getComment());
@@ -87,6 +86,15 @@ class SiteNotificationService {
     private function getCommentURL(Comment $newComment)
     {
         return $this->router->generate('info_complaint_complaint', array('id' => $newComment->getComplaint()->getId())) . "#comment_" . $newComment->getId();
+    }
+
+    /**
+     * @param Complaint $complaint
+     * @return string
+     */
+    private function getComplaintURL(Complaint $complaint)
+    {
+        return $this->router->generate('info_complaint_complaint', array('id' => $complaint->getId()));
     }
 
     /**

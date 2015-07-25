@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @Gedmo\Tree(type="nested")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Info\CommentBundle\Entity\CommentRepository")
  */
 class Comment
@@ -109,9 +108,15 @@ class Comment
      */
     private $deletedAt;
 
+    /**
+     * @ORM\Column(name="editedAt", type="datetime", nullable=true)
+     */
+    private $editedAt;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->editedAt = new \DateTime();
     }
     /**
      * Get id
@@ -316,5 +321,21 @@ class Comment
     function __toString()
     {
         return $this->getId() . '';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEditedAt()
+    {
+        return $this->editedAt;
+    }
+
+    /**
+     * @param mixed $editedAt
+     */
+    public function setEditedAt($editedAt)
+    {
+        $this->editedAt = $editedAt;
     }
 }

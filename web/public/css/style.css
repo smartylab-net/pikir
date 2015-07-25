@@ -253,3 +253,8 @@ textarea.autosize {
 .img-block a img {
     margin-right: 0!important;
 }
+
+.comment-form-block ul:first-child {
+    padding-top: 10px;
+    list-style: none;
+}

@@ -1,5 +1,5 @@
 <div class="card style-default-bright">
-    {{ form_start(form,{'attr':{'class':'form', 'novalidate':true, 'id':'comment-form'} }) }}
+    {{ form_start(form,{'attr':{'class':'form', 'novalidate':true, 'onSubmit':'return Comment.sendComment($(this));', 'data-type':'main-comment-form'} }) }}
     <div class="card-body small-padding">
         <div class="form-group floating-label">
             {{ form_widget(form.comment,{'attr':{'class':'form-control autosize'} }) }}

@@ -2,7 +2,7 @@
     <ul>
         <li>
             <div class="card style-default-bright">
-                <form class="form" action="<%=link%>" novalidate method="post">
+                <form class="form" data-type="<%=type%>" data-id="<%=id%>" onsubmit="return Comment.sendComment($(this));" action="<%=link%>" novalidate method="post">
                     <div class="card-body small-padding-comment">
                         <div class="form-group floating-label">
                             <textarea name="comment" required="required" rows="1" class="form-control autosize"></textarea>

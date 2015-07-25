@@ -7,3 +7,16 @@ info_comment_reply:
     defaults: { _controller: InfoCommentBundle:Default:reply }
     options:
         expose: true
+
+info_comment_edit:
+    pattern: /comment/edit/{comment}/
+    defaults: { _controller: InfoCommentBundle:Default:edit }
+    methods: [POST]
+    options:
+        expose: true
+
+info_comment_delete:
+    pattern: /comment/delete/{comment}/
+    defaults: { _controller: InfoCommentBundle:Default:delete }
+    options:
+        expose: true

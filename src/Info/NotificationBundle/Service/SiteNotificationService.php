@@ -8,6 +8,7 @@ use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
 use Info\NotificationBundle\DBAL\NotificationTypeEnum;
 use Info\NotificationBundle\Entity\Notification;
 use Info\ReportBundle\Entity\Report;
@@ -44,25 +45,19 @@ class SiteNotificationService {
     public function notifyComplaintAuthor(Comment $newComment)
     {
         $user = $newComment->getComplaint()->getAuthor();
-        $notification = $this->createNotification($newComment, $user, NotificationTypeEnum::COMMENT_TO_COMPLAINT, $this->getCommentURL($newComment));
-
-        $this->WAMPClient->publish(self::$topic.$user->getId(), [$notification->getId()]);
+        $this->createNotificationAndPublish($newComment, $user, NotificationTypeEnum::COMMENT_TO_COMPLAINT, $this->getCommentURL($newComment));
     }
 
     public function notifyCommentAuthor(Comment $newComment)
     {
         $user = $newComment->getParent()->getUser();
-        $notification = $this->createNotification($newComment, $user, NotificationTypeEnum::COMMENT_REPLY, $this->getCommentURL($newComment));
-
-        $this->WAMPClient->publish(self::$topic.$user->getId(), [$notification->getId()]);
+        $this->createNotificationAndPublish($newComment, $user, NotificationTypeEnum::COMMENT_REPLY, $this->getCommentURL($newComment));
     }
 
     public function notifyManager(Complaint $complaint)
     {
         $user = $complaint->getCompany()->getManager();
-        $notification = $this->createNotification($complaint, $user, NotificationTypeEnum::COMPLAINT_TO_COMPANY, $this->getComplaintURL($complaint));
-
-        $this->WAMPClient->publish(self::$topic.$user->getId(), [$notification->getId()]);
+        $this->createNotificationAndPublish($complaint, $user, NotificationTypeEnum::COMPLAINT_TO_COMPANY, $this->getComplaintURL($complaint));
     }
 
     public function notifyModeratorsAboutReport(User $moder, Report $report)
@@ -74,9 +69,12 @@ class SiteNotificationService {
             $url = $this->getCommentURL($report->getComment());
             $type = NotificationTypeEnum::COMMENT_REPORT;
         }
-        $notification = $this->createNotification($report, $moder, $type, $url);
+        $this->createNotificationAndPublish($report, $moder, $type, $url);
+    }
 
-        $this->WAMPClient->publish(self::$topic.$moder->getId(), [$notification->getId()]);
+    public function notifyComplaintLiked(Complaint $complaint, ComplaintsCommentRating $vote)
+    {
+        $this->createNotificationAndPublish($vote, $complaint->getAuthor(), NotificationTypeEnum::COMPLAINT_VOTE, $this->getComplaintURL($complaint));
     }
 
     /**
@@ -98,13 +96,13 @@ class SiteNotificationService {
     }
 
     /**
-     * @param Comment|Complaint|Report $obj
+     * @param Comment|Complaint|Report|ComplaintsCommentRating $obj
      * @param User $user
      * @param String $type
      * @param String $url
      * @return Notification
      */
-    private function createNotification($obj, User $user, $type, $url)
+    private function createNotificationAndPublish($obj, User $user, $type, $url)
     {
         $notification = new Notification();
         $notification->setType($type);
@@ -115,6 +113,7 @@ class SiteNotificationService {
         $notification->setUpdatedAt(new \DateTime());
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
+        $this->WAMPClient->publish(self::$topic.$user->getId(), [$notification->getId()]);
         return $notification;
     }
 }

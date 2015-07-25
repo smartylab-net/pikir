@@ -71,9 +71,8 @@ class DefaultController extends Controller
         if ($comment == null) {
             return $this->createNotFoundException();
         }
-        if (($comment->getUser() == null || $comment->getUser() != $this->getUser()) && !$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
-            throw new AccessDeniedException('Доступ к данной странице ограничен');
-        }
+        $this->userAccess($comment);
+
         $commentContent = $request->request->get('comment');
         if ($request->isMethod("POST") && $commentContent) {
             $em = $this->getDoctrine()->getManager();
@@ -90,10 +89,7 @@ class DefaultController extends Controller
         if ($comment == null) {
             return $this->createNotFoundException();
         }
-
-        if (($comment->getUser() == null || $comment->getUser() != $this->getUser()) && !$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
-            throw new AccessDeniedException('Доступ к данной странице ограничен');
-        }
+        $this->userAccess($comment);
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('InfoCommentBundle:Comment');
@@ -116,5 +112,15 @@ class DefaultController extends Controller
     private function getNotificationService()
     {
         return $this->get('info_complaint.service.notification_service');
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    private function userAccess(Comment $comment)
+    {
+        if (($comment->getUser() == null || $comment->getUser() != $this->getUser()) && !$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            throw new AccessDeniedException('Доступ к данной странице ограничен');
+        }
     }
 }

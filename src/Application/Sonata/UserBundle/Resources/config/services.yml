@@ -30,3 +30,7 @@ services:
             arguments: [%fos_user.model.user.class%]
             tags:
                 - { name: form.type, alias: sonata_user_profile }
+
+    sonata.user.success_authentication_handler:
+        class:        Webibli\UserBundle\Handler\AuthenticationHandler
+        arguments:    [@router, @security.context, @fos_user.user_manager, @service_container]

@@ -59,6 +59,37 @@ $(function () {
         $this.colorbox({open: true});
         return false;
     });
+
+    function isUserLoggedIn() {
+        return false;//TODO: имплементировать это
+    }
+
+    $('.show-login-form').on('click', function(e){
+        if (isUserLoggedIn()) {
+            return true;
+        }
+        var $loginFormModal = $('#loginFormModal');
+        $loginFormModal.modal();
+        return false;
+    });
+    $(document).on('submit', "#loginFormModal form", function(e) {
+        e.preventDefault();
+        var form =  $('#loginFormModal form');
+        $.ajax({
+            type        : form.attr( 'method' ),
+            url         : '{{ path("fos_user_security_check") }}',
+            data        : form.serialize(),
+            dataType    : "json",
+            success     : function(data, status, object) {
+                if(data.success == false) {
+                    toastr.error(data.error);
+                }
+            },
+            error: function(data, status, object){
+                console.log(data.message);
+            }
+        });
+    } );
 });
 
 var removeComplaint = function (t, id, route) {

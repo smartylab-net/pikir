@@ -56,7 +56,9 @@
     </div>
 </div>
 {% endblock %}
-
+{% if not app.user %}
+    {% include '::_login_modal.html.twig' %}
+{% endif %}
 <!-- BEGIN FORM MODAL MARKUP -->
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -81,6 +83,7 @@
     <script src="{{ asset('public/js/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('public/js/libs/toastr/toastr.js') }}"></script>
     <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
     <!-- Put App.js last in your javascript imports -->
     <script src="{{ asset('public/js/core/source/App.js') }}"></script>

@@ -11,10 +11,12 @@
 
 namespace Application\Sonata\UserBundle\Controller;
 
-use FOS\UserBundle\Controller\SecurityController;
 use Sonata\UserBundle\Model\UserInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sonata\UserBundle\Controller\SecurityFOSUser1Controller as BaseController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class SecurityFOSUser1Controller
@@ -39,5 +41,12 @@ class SecurityFOSUser1Controller extends BaseController
         $this->container->get('session')->set('sonata_user_redirect_url', $this->container->get('request')->headers->get('referer'));
 
         return parent::loginAction();
+    }
+
+    public function generateTokenAction(Request $request, $tokenName) {
+        if (!$request->isXmlHttpRequest()) {
+            throw new BadRequestHttpException();
+        }
+        return new JsonResponse(['token' => $this->container->get('form.csrf_provider')->generateCsrfToken($tokenName)]);
     }
 }

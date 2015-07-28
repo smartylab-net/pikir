@@ -15,7 +15,7 @@
 
     {% form_theme form.logo 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
 
-    {% if message %}
+    {% if message is defined and message %}
         <div class="alert alert-danger">
             {{ message }}
         </div>

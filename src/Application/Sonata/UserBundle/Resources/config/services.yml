@@ -32,5 +32,11 @@ services:
                 - { name: form.type, alias: sonata_user_profile }
 
     sonata.user.success_authentication_handler:
-        class:        Webibli\UserBundle\Handler\AuthenticationHandler
-        arguments:    [@router, @security.context, @fos_user.user_manager, @service_container]
+        class:        Application\Sonata\UserBundle\Security\DefaultAuthenticationSuccessHandler
+        arguments:    [@security.http_utils, []]
+
+    sonata.user.failure_authentication_handler:
+        class:        Application\Sonata\UserBundle\Security\DefaultAuthenticationFailureHandler
+        arguments:    [@kernel, @security.http_utils, [], @translator, @logger]
+        tags:
+            - { name: monolog.logger, channel: security }

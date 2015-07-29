@@ -9,7 +9,7 @@ var Auth = {
     getToken: function (token) {
         return $.get(Routing.generate('strokit_generate_token', {'tokenName' : token}));
     },
-    showLoginFormAndGetToken: function (token, options) {
+    showLoginFormAndRefreshToken: function (tokenName, form, options) {
         var that = this;
         if (this.isUserLoggedIn()) {
             if (options.always) {
@@ -17,15 +17,24 @@ var Auth = {
             }
             return true;
         }
+        function updateFormToken(callback) {
+            that.getToken(tokenName).done(function (data) {
+                if (data) {
+                    form.find('#'+tokenName+'__token').val(data.token);
+                }
+                callback();
+            });
+        }
+
         return this.showLoginForm({
             success: function() {
                 if (options.success) {
-                    that.getToken(token).done(options.success);
+                    updateFormToken(options.success);
                 }
             },
             always: function() {
                 if (options.always) {
-                    that.getToken(token).done(options.always);
+                    updateFormToken(options.always);
                 }
             }
         })

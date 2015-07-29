@@ -96,3 +96,5 @@ services:
         - %facebook_client_secret%
         - %facebook_client_access_token%
         - %facebook_client_page_id%
+      calls:
+        - [setPostEnabled, [%facebook_post_enabled%]]

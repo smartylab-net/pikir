@@ -79,11 +79,8 @@ var Comment = {
             type = form.data('type'),
             commentId = form.data('id');
         if (comment) {
-            Auth.showLoginFormAndGetToken('comment', {
-                    always: function (data) {
-                        if (data) {
-                            form.find('#comment__token').val(data.token);
-                        }
+            Auth.showLoginFormAndRefreshToken('comment', form, {
+                    always: function () {
                         $.ajax({
                             url: form.attr('action'),
                             type: 'POST',

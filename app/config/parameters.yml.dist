@@ -19,6 +19,7 @@ parameters:
     facebook_client_secret: ac23acb9c864e2ad216f8b4fc3aa891d
     facebook_client_access_token: CAALZCpsZAvjDkBADvhiNZBAMaAhKi8OeJBE3jYG01uhWVo54aZBAhPymfXaq2tdrxnfRGGZCmKLgFQfLxO67BhJGf1HoPxt2hWZCMCRoij9xBucgStf9S6bjTHTW4oky1u19SpRP1mYKSLhAauNCLIdrXZCIXcbfoYecJmzqngVlnvdZCfM8foDH
     facebook_client_page_id: 495849567213062
+    facebook_post_enabled: true
     email_from: {noreply@strokit.net Книга отзывов и предложений}
     notification_prefix: pikir_
     notification_realm: realm

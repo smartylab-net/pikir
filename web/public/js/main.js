@@ -61,7 +61,10 @@ $(function () {
         return false;
     });
     $('.logged-user').on('click', function(e) {
-
+        var link = $(this).attr('href');
+        return Auth.showLoginForm({success: function() {
+            window.location = link;
+        }})
     });
 
     $('.show-login-form').on('click', function(e){

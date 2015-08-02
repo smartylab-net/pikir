@@ -59,6 +59,9 @@ class MenuBuilder extends ContainerAware
             array(
                 'route' => 'info_company_create',
                 'label'=>'Добавить компанию',
+                'linkAttributes' => array(
+                    'class' => 'logged-user'
+                ),
                 'extras' => array(
                     'icon' => 'md md-work'
                 )
@@ -67,6 +70,9 @@ class MenuBuilder extends ContainerAware
             array(
                 'route' => 'info_complaint_create',
                 'label'=>'Добавить отзыв',
+                'linkAttributes' => array(
+                    'class' => 'logged-user'
+                ),
                 'extras' => array(
                     'icon' => 'md md-create'
                 )

@@ -42,8 +42,8 @@ var Comment = {
         formBlock.show('fast');
     },
 
-    replyOnSuccess: function (t, data) {
-        var formBlock = t.parents('.comment-form-block');
+    replyOnSuccess: function (form, data) {
+        var formBlock = form.parents('.comment-form-block');
         var list = formBlock.parent('li').children('ul.sub-comments');
         if (list.length == 0) {
             list = formBlock.parent().append($('<ul/>', {class: 'sub-comments'})).find('ul.sub-comments');
@@ -54,9 +54,9 @@ var Comment = {
         newComment.show('fast');
     },
 
-    mainFormOnSuccess: function (t, data) {
+    mainFormOnSuccess: function (form, data) {
         var list = $('.list-comments'),
-            textarea = $(this).find('textarea'),
+            textarea = form.find('textarea'),
             newComment = $('<li/>', {class:'sub-li-comments'}).html(data);
         newComment.hide();
         list.append(newComment);
@@ -74,30 +74,39 @@ var Comment = {
         toastr.success("Комментарий изменен.");
     },
 
-    sendComment : function (t) {
-        var comment = t.find('textarea').val().trim(),
-            type = t.data('type'),
-            commentId = t.data('id');
+    sendComment : function (form) {
+        var comment = form.find('textarea').val().trim(),
+            type = form.data('type'),
+            commentId = form.data('id');
         if (comment) {
-            $.ajax({
-                url: t.attr('action'),
-                type: 'POST',
-                data: t.serialize(),
-                async: true,
-                success: function (data) {
-                    if (type == Comment.obj.type_reply) {
-                        Comment.replyOnSuccess(t, data);
-                    } else if(type == Comment.obj.type_edit) {
-                        Comment.editOnSuccess(commentId, comment);
-                    } else if(type == Comment.obj.type_main) {
-                        Comment.mainFormOnSuccess(t, data);
+            Auth.showLoginFormAndRefreshToken('comment', form, {
+                    always: function () {
+                        $.ajax({
+                            url: form.attr('action'),
+                            type: 'POST',
+                            data: form.serialize(),
+                            async: true,
+                            success: function (data) {
+                                if (type == Comment.obj.type_reply) {
+                                    Comment.replyOnSuccess(form, data);
+                                } else if (type == Comment.obj.type_edit) {
+                                    Comment.editOnSuccess(commentId, comment);
+                                } else if (type == Comment.obj.type_main) {
+                                    Comment.mainFormOnSuccess(form, data);
+                                }
+                            },
+                            error: function (xhr) {
+                                toastr.error("Ошибка при отправке комментария.");
+                                console.log(xhr);
+                            }
+                        });
                     }
                 },
                 error: function (xhr) {
                     toastr.error(xhr.responseJSON.msg);
                     console.log(xhr);
                 }
-            });
+            );
         } else {
             toastr.error("Комментарий не может быть пустым")
         }

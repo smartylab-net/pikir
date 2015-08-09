@@ -1,3 +1,4 @@
+
 $(function () {
 
     $('.be_manager').click(function () {
@@ -58,6 +59,18 @@ $(function () {
         // Open the specific link's colorbox
         $this.colorbox({open: true});
         return false;
+    });
+    $('.logged-user').on('click', function(e) {
+        var link = $(this).attr('href');
+        return Auth.showLoginForm({success: function() {
+            window.location = link;
+        }})
+    });
+
+    $('.show-login-form').on('click', function(e){
+        return Auth.showLoginForm({success: function() {
+            window.location.reload()
+        }});
     });
 });
 

@@ -6,7 +6,6 @@
     <script type="text/javascript">
         $('input[type=file]').bootstrapFileInput();
     </script>
-    <script src="{{ asset('public/js/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('public/js/libs/jquery-validation/dist/additional-methods.min.js') }}"></script>
 {% endblock %}
 
@@ -16,7 +15,7 @@
 
     {% form_theme form.logo 'InfoComplaintBundle:Form:sonata_media_type.html.twig' %}
 
-    {% if message %}
+    {% if message is defined and message %}
         <div class="alert alert-danger">
             {{ message }}
         </div>

@@ -26,6 +26,7 @@ class FacebookClient
     private $appsecretProof;
     /** @var \Facebook\Facebook */
     private $fb;
+    private $post_enabled;
 
     public function __construct($router, $logger, $appId, $appSecret, $accessToken, $pageId)
     {
@@ -49,6 +50,9 @@ class FacebookClient
 
     public function post(Complaint $complaint)
     {
+        if (!$this->post_enabled) {
+            return false;
+        }
 
         $link = $this->router->generate('info_complaint_complaint', array('id' => $complaint->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -66,6 +70,8 @@ class FacebookClient
             return true;
         } catch (FacebookResponseException $e) {
             $this->logger->error('Graph returned an error: ' . $e->getMessage());
+        } catch (FacebookAuthorizationException $e) {
+            $this->logger->error('Facebook authentification returned an error: ' . $e->getMessage());
         } catch (FacebookSDKException $e) {
             $this->logger->error('Facebook SDK returned an error: ' . $e->getMessage());
         }
@@ -87,5 +93,21 @@ class FacebookClient
             }
         }
         throw new FacebookAuthorizationException();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostEnabled()
+    {
+        return $this->post_enabled;
+    }
+
+    /**
+     * @param mixed $post_enabled
+     */
+    public function setPostEnabled($post_enabled)
+    {
+        $this->post_enabled = $post_enabled;
     }
 } 

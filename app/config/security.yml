@@ -28,6 +28,8 @@ security:
                 csrf_provider: form.csrf_provider
                 login_path: /login
                 check_path: /login_check
+                success_handler: sonata.user.success_authentication_handler
+                failure_handler: sonata.user.failure_authentication_handler
 #                always_use_default_target_path: true
                 default_target_path:            /profile
             logout: true
@@ -81,6 +83,7 @@ security:
         - { path: ^/manager/, role: ROLE_USER}
         - { path: ^/profile/me/, role: ROLE_USER}
         - { path: ^/notifications/, role: ROLE_USER }
+        - { path: ^/comment/, role: ROLE_USER }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
 

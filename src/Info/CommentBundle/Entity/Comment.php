@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Info\CommentBundle\Entity\CommentRepository")
+ * @ORM\Entity(repositoryClass="Info\CommentBundle\Repository\CommentRepository")
  */
 class Comment
 {
@@ -116,7 +116,6 @@ class Comment
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->editedAt = new \DateTime();
     }
     /**
      * Get id

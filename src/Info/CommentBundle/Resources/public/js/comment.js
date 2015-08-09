@@ -69,7 +69,7 @@ var Comment = {
         $('#form-block-'+commentId).hide('fast');
         var commentTitleBlock = $('#comment_' + commentId).find('.comment-title');
         if (commentTitleBlock.find('.edited').length == 0) {
-            commentTitleBlock.append($('<small/>').html(' · ')).append($('<small/>',{class:'edited'}).html('отредактировано'));
+            commentTitleBlock.append($('<small/>').html(' · ')).append($('<small/>',{class:'edited', 'onclick':'return Comment.showHistory('+commentId+')'}).html('отредактировано'));
         }
         toastr.success("Комментарий изменен.");
     },
@@ -94,7 +94,7 @@ var Comment = {
                     }
                 },
                 error: function (xhr) {
-                    toastr.error("Ошибка при отправке комментария.");
+                    toastr.error(xhr.responseJSON.msg);
                     console.log(xhr);
                 }
             });
@@ -131,6 +131,14 @@ var Comment = {
             }
         });
 
+        return false;
+    },
+
+    showHistory: function(commentId) {
+        var historyModal = $('#reportModal');
+        historyModal.removeData('bs.modal');
+        historyModal.modal({remote: Routing.generate('info_comment_history', {'comment':commentId}) });
+        historyModal.modal('show');
         return false;
     }
 };

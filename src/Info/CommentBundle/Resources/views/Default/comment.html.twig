@@ -56,7 +56,7 @@
             <small>{{ node.createdAt|format_datetime }}</small>
             {% if node.editedAt is not null %}
                 <small> · </small>
-                <small class="edited">отредактировано</small>
+                <small onclick="return Comment.showHistory({{ node.id }});" class="edited">отредактировано</small>
             {% endif %}
             {% if isManager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
             {% if isAuthor %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}

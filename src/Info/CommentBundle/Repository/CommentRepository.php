@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Info\CommentBundle\Entity;
+namespace Info\CommentBundle\Repository;
 
 
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;

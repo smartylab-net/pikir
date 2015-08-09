@@ -15,3 +15,9 @@ services:
               - ~
           calls:
               - [ setTranslationDomain, [InfoCommentBundle]]
+
+    info_comment.handler:
+      class: Info\CommentBundle\Handler\VersionHandler
+      arguments: ["@service_container"]
+      tags:
+        - { name: doctrine.event_subscriber, connection: default }

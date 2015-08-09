@@ -20,3 +20,9 @@ info_comment_delete:
     defaults: { _controller: InfoCommentBundle:Default:delete }
     options:
         expose: true
+
+info_comment_history:
+    pattern: /comment/history/{comment}/
+    defaults: { _controller: InfoCommentBundle:Default:showHistory }
+    options:
+        expose: true

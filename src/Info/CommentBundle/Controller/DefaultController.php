@@ -116,9 +116,9 @@ class DefaultController extends Controller
 
     public function showHistoryAction(Comment $comment) {
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository("InfoCommentBundle:CommentHistory");
+        $repository = $em->getRepository("InfoCommentBundle:Versions");
 
-        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistory($comment)));
+        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistoryComment($comment)));
     }
 
     private function getNotificationService()

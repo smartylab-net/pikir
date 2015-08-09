@@ -10,6 +10,16 @@
     <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
     <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
     <script src="{{ asset('bundles/infocomplaint/js/fileupload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/complaint.js') }}"></script>
+    {% if app.session.flashBag.has('complaint_edit_success') %}
+        <script>
+            $(function(){
+            {% for flashMessage in app.session.flashBag.get('complaint_edit_success') %}
+                toastr.success('{{ flashMessage }}');
+            {% endfor %}
+            });
+        </script>
+    {% endif %}
 {% endblock javascripts %}
 {% block content_block %}
             <!-- BEGIN PROFILE HEADER -->

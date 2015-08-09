@@ -60,6 +60,12 @@ info_complaint_delete:
     pattern: /complaint/delete/{complaint}/
     defaults: { _controller: InfoComplaintBundle:Complaint:deleteComplaint }
 
+info_complaint_history:
+    pattern: /complaint/history/{complaint}/
+    defaults: { _controller: InfoComplaintBundle:Complaint:showHistory }
+    options:
+        expose: true
+
 info_vote:
     pattern: /{type}/vote/{id}-{voteType}
     defaults: { _controller: InfoComplaintBundle:Complaint:vote}

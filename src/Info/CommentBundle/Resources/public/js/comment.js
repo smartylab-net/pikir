@@ -96,15 +96,11 @@ var Comment = {
                                 }
                             },
                             error: function (xhr) {
-                                toastr.error("Ошибка при отправке комментария.");
+                                toastr.error(xhr.responseJSON.msg);
                                 console.log(xhr);
                             }
                         });
                     }
-                },
-                error: function (xhr) {
-                    toastr.error(xhr.responseJSON.msg);
-                    console.log(xhr);
                 }
             );
         } else {

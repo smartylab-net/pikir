@@ -9,6 +9,8 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Info\CommentBundle\Entity\Comment;
 use Info\CommentBundle\Entity\CommentHistory;
+use Info\CommentBundle\Entity\Versions;
+use Info\ComplaintBundle\Entity\Complaint;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class VersionHandler implements EventSubscriber
@@ -46,9 +48,20 @@ class VersionHandler implements EventSubscriber
         if ($entity instanceof Comment) {
             $oldVersion = $eventArgs->getOldValue('comment');
             if (trim($oldVersion) != trim($eventArgs->getNewValue('comment'))) {
-                $version = new CommentHistory();
-                $version->setComment($oldVersion);
+                $version = new Versions();
+                $version->setVersion($oldVersion);
                 $version->setTargetComment($entity);
+                $version->setUser($this->getUser());
+
+                $this->things[] = $version;
+            }
+
+        }elseif ($entity instanceof Complaint) {
+            $oldVersion = $eventArgs->getOldValue('text');
+            if (trim($oldVersion) != trim($eventArgs->getNewValue('text'))) {
+                $version = new Versions();
+                $version->setVersion($oldVersion);
+                $version->setTargetComplaint($entity);
                 $version->setUser($this->getUser());
 
                 $this->things[] = $version;

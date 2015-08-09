@@ -54,6 +54,11 @@ class Complaint
     private $created;
 
     /**
+     * @ORM\Column(name="editedAt", type="datetime", nullable=true)
+     */
+    private $editedAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="text", type="text")
@@ -207,6 +212,22 @@ class Complaint
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEditedAt()
+    {
+        return $this->editedAt;
+    }
+
+    /**
+     * @param \DateTime $editedAt
+     */
+    public function setEditedAt($editedAt)
+    {
+        $this->editedAt = $editedAt;
     }
 
     /**

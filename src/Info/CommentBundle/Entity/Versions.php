@@ -5,15 +5,16 @@ namespace Info\CommentBundle\Entity;
 use Application\Sonata\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Info\ComplaintBundle\Entity\Complaint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
  *
- * @ORM\Table(name="comment_history")
- * @ORM\Entity(repositoryClass="Info\CommentBundle\Repository\CommentHistoryRepository")
+ * @ORM\Table(name="versions")
+ * @ORM\Entity(repositoryClass="Info\CommentBundle\Repository\VersionsRepository")
  */
-class CommentHistory
+class Versions
 {
     /**
      * @var integer
@@ -25,10 +26,10 @@ class CommentHistory
     private $id;
 
     /**
-     * @var $comment
-     * @ORM\Column(name="comment", type="text", nullable=false)
+     * @var $version
+     * @ORM\Column(name="version", type="text", nullable=false)
      */
-    private $comment;
+    private $version;
 
     /**
      * @ORM\ManyToOne(targetEntity="Info\CommentBundle\Entity\Comment", cascade={"persist"})
@@ -37,6 +38,14 @@ class CommentHistory
      * })
      */
     private $targetComment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Info\ComplaintBundle\Entity\Complaint", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="targetComplaint_id", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $targetComplaint;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
@@ -71,17 +80,17 @@ class CommentHistory
     /**
      * @return string
      */
-    public function getComment()
+    public function getVersion()
     {
-        return $this->comment;
+        return $this->version;
     }
 
     /**
-     * @param string $comment
+     * @param string $version
      */
-    public function setComment($comment)
+    public function setVersion($version)
     {
-        $this->comment = $comment;
+        $this->version = $version;
     }
 
     /**
@@ -114,6 +123,22 @@ class CommentHistory
     public function setTargetComment(Comment $targetComment)
     {
         $this->targetComment = $targetComment;
+    }
+
+    /**
+     * @return Complaint
+     */
+    public function getTargetComplaint()
+    {
+        return $this->targetComplaint;
+    }
+
+    /**
+     * @param Complaint $targetComplaint
+     */
+    public function setTargetComplaint(Complaint $targetComplaint)
+    {
+        $this->targetComplaint = $targetComplaint;
     }
 
     /**

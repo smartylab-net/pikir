@@ -36,7 +36,6 @@ class ComplaintController extends Controller
             $form->submit($request);
             if($form->isValid()){
                 $em = $this->getDoctrine()->getManager();
-                $complaint->setCreated (new \DateTime());
                 $complaint->setAuthor($this->getUser());
                 if(is_null($complaint->getCompany())){
 
@@ -233,23 +232,21 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
-        $form = $this->createForm( new ComplaintType(),$complaint);
+        $form = $this->createForm( new ComplaintType('Изменить'),$complaint);
         $form->remove('company');
 
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
-            $id = $complaint->getId();
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($complaint);
+                $complaint->setEditedAt(new \DateTime());
                 $em->flush();
-                $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Профиль отзывов обновлен');
+                $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Отзыв изменен');
                 return $this->redirect($this->generateUrl('info_company_homepage', array('slug'=> $complaint->getCompany()->getSlug())));
             } else {
                 $this->container->get('session')->getFlashBag()->add('complaint_edit_error', 'Профиль отзывов не сохранен, обнаружена ошибка');
-                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
             }
         }
 
@@ -318,5 +315,14 @@ class ComplaintController extends Controller
 
         $this->get('info_complaint.service.notification_service')->notifyElementLiked($element, $vote);
         return new JsonResponse(array('voteValue' => $element->getVote()));
+    }
+
+
+
+    public function showHistoryAction(Complaint $complaint) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("InfoCommentBundle:Versions");
+
+        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistoryComplaint($complaint)));
     }
 }

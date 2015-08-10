@@ -258,3 +258,9 @@ textarea.autosize {
     padding-top: 10px;
     list-style: none;
 }
+small.edited {
+    cursor: pointer;
+}
+small.edited:hover {
+    text-decoration: underline;
+}

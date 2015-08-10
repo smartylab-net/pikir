@@ -16,6 +16,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ComplaintType extends AbstractType {
 
+    private $submitLabel;
+
+    function __construct($submitLabel = 'Добавить')
+    {
+        $this->submitLabel = $submitLabel;
+    }
+
+
     /**
      * Returns the name of this type.
      *
@@ -34,7 +42,7 @@ class ComplaintType extends AbstractType {
                 'required'=>false))
             ->add('text','textarea', array('required'=>true, 'label' => 'Текст отзыва'))
             ->add('rating','hidden',array('required'=>true))
-            ->add('submit','submit', array('label' => 'Добавить'));
+            ->add('submit','submit', array('label' => $this->submitLabel));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -24,6 +24,10 @@ $(function () {
                         } else {
                             toastr.error("Ошибка при добавлении отзыва");
                         }
+                    })
+                    .error(function(data) {
+                        toastr.error("Ошибка при добавлении отзыва");
+                        console.log(data);
                     });
             }
         })

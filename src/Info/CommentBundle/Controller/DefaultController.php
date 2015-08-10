@@ -73,11 +73,16 @@ class DefaultController extends Controller
         }
         $this->userAccess($comment);
 
+        $oldComment = $comment->getComment();
         $commentContent = $request->request->get('comment');
         if ($request->isMethod("POST") && $commentContent) {
+            if (trim($commentContent) == trim($oldComment)) {
+                return new JsonResponse(array('msg'=>'Вы не внесли измениний в комментарий'), 400);
+            }
             $em = $this->getDoctrine()->getManager();
 
             $comment->setComment($commentContent);
+            $comment->setEditedAt(new \DateTime());
             $em->flush();
 
             return new JsonResponse(array('msg'=>'Комментраий изменен.'));
@@ -107,6 +112,13 @@ class DefaultController extends Controller
             return new JsonResponse(array('success' => true, 'remove'=>$remove), 200);
         }
         return $this->redirect($this->generateUrl('info_company_homepage', array('slug'=> $companySlug)));
+    }
+
+    public function showHistoryAction(Comment $comment) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("InfoCommentBundle:Versions");
+
+        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistoryComment($comment)));
     }
 
     private function getNotificationService()

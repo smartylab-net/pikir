@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="formModalLabel">История изменений</h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="list-results list-results-underlined">
+        {% for history in histories %}
+            <div class="col-xs-12">
+                <p>
+                    <small class="opacity-75">{{ history.createdAt|format_datetime }}</small>
+                </p>
+
+                <div>
+                    {{ history.version }}
+                </div>
+            </div><!--end .col -->
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+</div>

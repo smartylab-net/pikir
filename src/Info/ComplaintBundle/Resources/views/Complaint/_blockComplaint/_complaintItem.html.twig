@@ -20,7 +20,7 @@
                         {% if complaint.author == app.user or is_granted('ROLE_MODERATOR') %}
                             <li>
                                 <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}"
-                                        onclick="return removeComplaint($(this), {{ complaint.id }}, '{{ app.request.attributes.get('_route') }}');">
+                                        onclick="return Complaint.removeComplaint($(this), {{ complaint.id }}, '{{ app.request.attributes.get('_route') }}');">
                                     Удалить отзыв
                                 </a>
                             </li>
@@ -60,6 +60,10 @@
                     <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
                         {{ complaint.created|format_date }}
                     </a>
+                    {% if complaint.editedAt is not null %}
+                        <small> · </small>
+                        <small onclick="return Complaint.showHistory({{ complaint.id }});" class="edited">отредактировано</small>
+                    {% endif %}
                 </span>
     </div>
     <div class="card-body small-padding word-break">

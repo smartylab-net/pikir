@@ -16,13 +16,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ComplaintType extends AbstractType {
 
-    private $submitLabel = 'Добавить';
+    private $submitLabel;
 
-    function __construct($submitLabel = '')
+    function __construct($submitLabel = 'Добавить')
     {
-        if ($submitLabel != '') {
-            $this->submitLabel = $submitLabel;
-        }
+        $this->submitLabel = $submitLabel;
     }
 
 

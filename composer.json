@@ -20,7 +20,7 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "~1.1",
-        "friendsofsymfony/user-bundle": "*",
+        "friendsofsymfony/user-bundle": "^1.3",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/intl-bundle": "dev-master",
         "sonata-project/user-bundle": "dev-master",
@@ -63,6 +63,7 @@
         "bin-dir": "bin"
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",

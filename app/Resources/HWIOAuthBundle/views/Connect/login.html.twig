@@ -6,7 +6,7 @@
     {% endif %}
     {% for owner in hwi_oauth_resource_owners() %}
         {% if owner == 'facebook' %}
-            <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-raised btn-info"><i class="fa fa-facebook pull-left"></i>{{ 'login_with'|trans({}, 'SonataUserBundle') }} Facebook</a>
+            <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-raised btn-default pull-left"><i class="fa fa-facebook pull-left"></i>{{ 'login_with'|trans({}, 'SonataUserBundle') }} Facebook</a>
         {% else %}
             <a class="social-wrap pull-right" href="{{ hwi_oauth_login_url(owner) }}" id="{{ owner }}">{{ 'login_with'|trans({}, 'SonataUserBundle') }} {{ owner | trans({}, 'HWIOAuthBundle')|capitalize }}</a>
         {% endif %}

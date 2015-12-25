@@ -20,9 +20,9 @@
     {% endblock %}
     
     {% block sessionBlock %}
-        {% if app.session.flashBag.has('complaint_edit_success') %}
-            <div class="alert alert-success">
-                {% for flashMessage in app.session.flashBag.get('complaint_edit_success') %}
+        {% if app.session.flashBag.has('complaint_edit_error') %}
+            <div class="alert alert-error">
+                {% for flashMessage in app.session.flashBag.get('complaint_edit_error') %}
                     {{ flashMessage }}
                 {% endfor %}
             </div>

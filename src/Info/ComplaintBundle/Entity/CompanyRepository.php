@@ -31,7 +31,7 @@ class CompanyRepository extends EntityRepository
     public function findLikeAutocomplete($name)
     {
         $result= $this->createQueryBuilder('p')
-            ->select("p.slug as value, p.name as label")
+            ->select("p.id as value, p.name as label")
             ->where('p.name like :name')
             ->andWhere('p.enabled = :enabled')
             ->setParameter('name','%'.$name . '%')

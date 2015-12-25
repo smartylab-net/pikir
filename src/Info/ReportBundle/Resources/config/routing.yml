@@ -1,0 +1,15 @@
+info_report_getForm:
+    pattern:  /form/
+    defaults: { _controller: InfoReportBundle:Default:getForm }
+    options:
+        expose: true
+
+info_report_save:
+    pattern:  /save/{type}/{typeId}/
+    defaults: { _controller: InfoReportBundle:Default:saveReport }
+    methods: [POST]
+    requirements:
+        type: complaint|comment
+        typeId: \d+
+    options:
+        expose: true

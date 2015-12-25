@@ -5,11 +5,6 @@ services:
 #    nurix_page.example:
 #        class: %nurix_page.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-
-    strokit.menu_builder:
-        class: Info\PageBundle\Menu\MenuBuilder
-        arguments: ["@knp_menu.factory",@doctrine.orm.entity_manager]
-
     strokit.menu.info_sidebar:
             class: Knp\Menu\MenuItem
             factory_service: strokit.menu_builder
@@ -18,8 +13,6 @@ services:
             scope: request
             tags:
                 - { name: knp_menu.menu, alias: bottom } # Named "sidebar" this time
-
-
 
     sonata.admin.page:
             class: Info\PageBundle\Admin\PageAdmin

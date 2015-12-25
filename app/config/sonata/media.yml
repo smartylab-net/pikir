@@ -32,9 +32,11 @@ sonata_media:
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
-                - sonata.media.provider.file
+                - sonata.media.provider.image
 
-            formats: []
+            formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
     cdn:
         server:
             path: %upload_dir% # http://media.sonata-project.org/

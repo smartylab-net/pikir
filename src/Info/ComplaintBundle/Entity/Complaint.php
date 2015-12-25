@@ -4,7 +4,6 @@ namespace Info\ComplaintBundle\Entity;
 
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -55,6 +54,11 @@ class Complaint
     private $created;
 
     /**
+     * @ORM\Column(name="editedAt", type="datetime", nullable=true)
+     */
+    private $editedAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="text", type="text")
@@ -92,6 +96,18 @@ class Complaint
     private $deletedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="gallery", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $gallery;
+
+    public function __construct() {
+        $this->created = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -102,7 +118,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return Company
      */
     public function getCompany()
     {
@@ -175,11 +191,6 @@ class Complaint
         return $this->getId()."";
     }
 
-    public function __construct(){
-        $this->created = new DateTime();
-    }
-
-
     /**
      * Set created
      *
@@ -204,6 +215,22 @@ class Complaint
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getEditedAt()
+    {
+        return $this->editedAt;
+    }
+
+    /**
+     * @param \DateTime $editedAt
+     */
+    public function setEditedAt($editedAt)
+    {
+        $this->editedAt = $editedAt;
+    }
+
+    /**
      * @return mixed
      */
     public function getComments()
@@ -220,7 +247,7 @@ class Complaint
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getAuthor()
     {
@@ -254,22 +281,6 @@ class Complaint
     /**
      * @return mixed
      */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDeletedAt()
     {
         return $this->deletedAt;
@@ -281,5 +292,21 @@ class Complaint
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * @param mixed $gallery
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
     }
 }

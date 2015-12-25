@@ -1,3 +1,4 @@
+
 $(function () {
 
     $('.be_manager').click(function () {
@@ -43,20 +44,32 @@ $(function () {
     });
 
     $(":input").inputmask();
-});
 
-var removeComplaint = function (t, id) {
-    $.ajax({
-        url: t.attr('href'),
-        type: 'GET',
-        success: function (json) {
-            $('#complaint_' + id).hide(500, function () {
-                $(this).remove();
+    $(".group-img").live('click', function() {
+        var $this = $(this);
+        var rel = $this.attr('rel');
+
+        // Build colorbox sequence
+        $this.closest('div') // parent container
+            .find('a[rel="'+rel+'"]').colorbox({ // find all matching items & init colorbox on them
+                open: false, // don't open, just init
+                rel: rel // use the rel
             });
-            toastr.success("Отзыв удален");
-        },
-        error: function (xhr) {
-            toastr.error("Ошибка при удалении отзыва");
-        }
+
+        // Open the specific link's colorbox
+        $this.colorbox({open: true});
+        return false;
     });
-};
+    $('.logged-user').on('click', function(e) {
+        var link = $(this).attr('href');
+        return Auth.showLoginForm({success: function() {
+            window.location = link;
+        }})
+    });
+
+    $('.show-login-form').on('click', function(e){
+        return Auth.showLoginForm({success: function() {
+            window.location.reload()
+        }});
+    });
+});

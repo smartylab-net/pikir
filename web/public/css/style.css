@@ -232,3 +232,35 @@ a.make-complaint-comment:hover{
 textarea.autosize {
     max-width: 100%;
 }
+
+.dropdown-menu > li > a.read-notification,
+.list .tile .read-notification {
+    color: #96999c;
+}
+.fileinput-button {
+    overflow: hidden;
+    position: relative;
+}
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    right: 0;
+    margin: 0;
+    font-size: 200px;
+    cursor: pointer;
+}
+.img-block a img {
+    margin-right: 0!important;
+}
+
+.comment-form-block ul:first-child {
+    padding-top: 10px;
+    list-style: none;
+}
+small.edited {
+    cursor: pointer;
+}
+small.edited:hover {
+    text-decoration: underline;
+}

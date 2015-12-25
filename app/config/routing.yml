@@ -1,3 +1,11 @@
+info_report:
+    resource: "@InfoReportBundle/Resources/config/routing.yml"
+    prefix:   /report
+
+info_notification:
+    resource: "@InfoNotificationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 info_comment:
     resource: "@InfoCommentBundle/Resources/config/routing.yml"
     prefix:   /
@@ -22,7 +30,7 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 sonata_user_security:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+    resource: "@ApplicationSonataUserBundle/Resources/config/sonata_security_1.xml"
 
 sonata_user_resetting:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
@@ -86,3 +94,7 @@ hwi_oauth_redirect:
 
 facebook_login:
     pattern: /login/check-facebook
+
+oneup_uploader:
+    resource: .
+    type: uploader

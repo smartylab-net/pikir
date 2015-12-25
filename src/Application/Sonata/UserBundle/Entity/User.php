@@ -50,6 +50,26 @@ class User extends BaseUser
     protected $emailOnReplyToComment = true;
 
     /**
+     * @var boolean $emailOnReport
+     */
+    protected $emailOnReport = true;
+
+    /**
+     * @var boolean $notifyOnNewComplaint
+     */
+    protected $notifyOnNewComplaint = true;
+
+    /**
+     * @var boolean $notifyOnNewComplaint
+     */
+    protected $notifyOnNewComment = true;
+
+    /**
+     * @var boolean $notifyOnNewComplaint
+     */
+    protected $notifyOnReplyToComment = true;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -126,6 +146,70 @@ class User extends BaseUser
     public function setEmailOnReplyToComment($emailOnReplyToComment)
     {
         $this->emailOnReplyToComment = $emailOnReplyToComment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isNotifyOnNewComplaint()
+    {
+        return $this->notifyOnNewComplaint;
+    }
+
+    /**
+     * @param boolean $notifyOnNewComplaint
+     */
+    public function setNotifyOnNewComplaint($notifyOnNewComplaint)
+    {
+        $this->notifyOnNewComplaint = $notifyOnNewComplaint;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isNotifyOnNewComment()
+    {
+        return $this->notifyOnNewComment;
+    }
+
+    /**
+     * @param boolean $notifyOnNewComment
+     */
+    public function setNotifyOnNewComment($notifyOnNewComment)
+    {
+        $this->notifyOnNewComment = $notifyOnNewComment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isNotifyOnReplyToComment()
+    {
+        return $this->notifyOnReplyToComment;
+    }
+
+    /**
+     * @param boolean $notifyOnReplyToComment
+     */
+    public function setNotifyOnReplyToComment($notifyOnReplyToComment)
+    {
+        $this->notifyOnReplyToComment = $notifyOnReplyToComment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEmailOnReport()
+    {
+        return $this->emailOnReport;
+    }
+
+    /**
+     * @param boolean $emailOnReport
+     */
+    public function setEmailOnReport($emailOnReport)
+    {
+        $this->emailOnReport = $emailOnReport;
     }
 
 }

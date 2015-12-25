@@ -4,7 +4,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Application\Sonata\UserBundle\Entity\User" table="fos_user_user">
+    <entity
+            name="Application\Sonata\UserBundle\Entity\User"
+            table="fos_user_user"
+            repository-class="Application\Sonata\UserBundle\Repository\UserRepository"
+            >
 
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
@@ -13,6 +17,10 @@
         <field name="emailOnNewComplaint" type="boolean" column="email_on_new_complaint" nullable="true"/>
         <field name="emailOnNewComment" type="boolean" column="email_on_new_comment" nullable="true"/>
         <field name="emailOnReplyToComment" type="boolean" column="email_on_reply_to_comment" nullable="true"/>
+        <field name="emailOnReport" type="boolean" column="email_on_report" nullable="true"/>
+        <field name="notifyOnNewComplaint" type="boolean" column="notify_on_new_complaint" nullable="true" />
+        <field name="notifyOnNewComment" type="boolean" column="notify_on_new_comment" nullable="true"/>
+        <field name="notifyOnReplyToComment" type="boolean" column="notify_on_reply_to_comment" nullable="true"/>
     </entity>
 
 </doctrine-mapping>

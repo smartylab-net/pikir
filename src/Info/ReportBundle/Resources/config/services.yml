@@ -1,0 +1,14 @@
+parameters:
+#    info_report.example.class: Info\ReportBundle\Example
+
+services:
+    sonata.admin.reports:
+        class: Info\ReportBundle\Admin\ReportAdmin
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: "Жалобы", label: "Список жалоб"}
+        arguments:
+          - ~
+          - Info\ReportBundle\Entity\Report
+          - ~
+        calls:
+          - [ setTranslationDomain, [InfoReportBundle]]

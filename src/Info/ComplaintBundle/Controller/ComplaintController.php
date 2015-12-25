@@ -2,12 +2,17 @@
 
 namespace Info\ComplaintBundle\Controller;
 
+use Application\Sonata\MediaBundle\Entity\Gallery;
+use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Info\ComplaintBundle\Entity\Company;
 use Info\ComplaintBundle\Entity\Complaint;
 use Info\ComplaintBundle\Entity\ComplaintsCommentRating;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Form\ComplaintType;
+use Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -31,7 +36,6 @@ class ComplaintController extends Controller
             $form->submit($request);
             if($form->isValid()){
                 $em = $this->getDoctrine()->getManager();
-                $complaint->setCreated (new \DateTime());
                 $complaint->setAuthor($this->getUser());
                 if(is_null($complaint->getCompany())){
 
@@ -41,11 +45,45 @@ class ComplaintController extends Controller
                     $em->persist($company);
                     $complaint->setCompany($company);
                 }
+                /** @var FilesystemOrphanageStorage $manager */
+                $manager = $this->get('oneup_uploader.orphanage_manager')->get('gallery');
+                $files = iterator_to_array($manager->getFiles());
+                // upload all files to the configured storage
+                if (!empty($files)) {
+                    $gallery = new Gallery();
+                    $gallery->setName("Complaint gallery");
+                    $gallery->setDefaultFormat("default_big");
+                    $gallery->setContext("complaint");
+                    $gallery->setEnabled(true);
+                    $gallery->setCreatedAt(new \DateTime());
+                    /** @var SplFileInfo $file */
+                    foreach ($files as $i=>$file) {
+                        $media = new Media();
+                        $media->setName($file->getBasename());
+                        $media->setEnabled(true);
+                        $media->setBinaryContent($file->getRealPath());
+                        $media->setContext('complaint');
+                        $media->setProviderName('sonata.media.provider.image');
+                        $mediaManager = $this->get("sonata.media.manager.media");
+                        $mediaManager->save($media);
+                        unlink($file->getRealPath()); //удаляем временные файлы
+
+                        $galleryHasMedia = new GalleryHasMedia();
+                        $galleryHasMedia->setGallery($gallery);
+                        $galleryHasMedia->setMedia($media);
+                        $galleryHasMedia->setEnabled(true);
+                        $galleryHasMedia->setPosition($i);
+                        $galleryHasMedia->setCreatedAt(new \DateTime());
+                        $em->persist($galleryHasMedia);
+                        $gallery->addGalleryHasMedias($galleryHasMedia);
+                    }
+                    $em->persist($gallery);
+                    $complaint->setGallery($gallery);
+                }
                 $em->persist($complaint);
                 $em->flush();
-                if ($this->shouldSendEmailToManager($complaint->getCompany())) {
-                    $this->get('info_complaint.mailer')->sendEmailToManager($complaint);
-                }
+                $this->container->get('strokit.facebookclient')->post($complaint);
+                $this->get('info_complaint.service.notification_service')->notifyManager($complaint);
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse(array('complaint'=>$this->renderView("InfoComplaintBundle:Complaint/_blockComplaint:_complaintItemInCompanyPage.html.twig", array('complaint'=>$complaint))));
                 }
@@ -60,6 +98,7 @@ class ComplaintController extends Controller
 
     public function showComplaintAction(Request $request, Complaint $complaint)
     {
+        // BREADCRUMBS
         $breadcrumbManager = $this->get('bcm_breadcrumb.manager');
         $breadcrumbManager->addItem($request->get('_route'), "Отзыв", array('id' => $complaint->getId()));
         $company = $complaint->getCompany();
@@ -68,6 +107,24 @@ class ComplaintController extends Controller
                 'company_name' => $company->getName(),
                 'slug' => $complaint->getCompany()->getSlug()
             ));
+        // END BREADCRUMBS
+
+        // SEO
+        $seoPage = $this->container->get('sonata.seo.page');
+
+        $title = sprintf("%s оставил отзыв на компанию %s", $complaint->getAuthor(), $company->getName());
+        $description = $complaint->getText();
+        $seoPage
+            ->setTitle($title)
+            ->addMeta('name', 'description', $description)
+            ->addMeta('property', 'og:title', $title)
+            ->addMeta('property', 'og:type', 'website')
+            ->addMeta('property', 'og:url',  $request->getUri())
+            ->addMeta('property', 'og:description', $description)
+        ;
+        // END SEO
+
+        // COMMENTS
 
         $commentRep = $this->getDoctrine()->getRepository("InfoCommentBundle:Comment");
         $nodes = $commentRep->getRootCommentsByComplaint($complaint);
@@ -77,7 +134,7 @@ class ComplaintController extends Controller
                 if(count($tree) && ($tree[0]['lvl'] == 0)){
                     return '';
                 } else {
-                    return '<ul>';
+                    return '<ul class="sub-comments">';
                 }
             },
             'rootClose' => function($tree) {
@@ -87,7 +144,7 @@ class ComplaintController extends Controller
                     return '</ul>';
                 }
             },
-            'childOpen' => '<li>',
+            'childOpen' => '<li class="sub-li-comments">',
             'childClose' => '</li>',
             'nodeDecorator' => function($node) use (&$complaint, &$commentRep)  {
                     return $this->renderView('InfoCommentBundle:Default:comment.html.twig',array('node'=>$node,'complaint'=>$complaint,'user'=>$commentRep->find($node['id'])->getUser()));
@@ -102,6 +159,8 @@ class ComplaintController extends Controller
                 $options,
                 true
             );
+
+        //ENDCOMMENTS
 
         return $this->render('InfoComplaintBundle:Complaint:complaint.html.twig', array(
             'complaint' => $complaint,
@@ -139,8 +198,19 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
-        $companySlug = $complaint->getCompany()->getSlug();
         $em = $this->getDoctrine()->getManager();
+        if (!is_null($complaint->getGallery())) {
+            $mediaManager = $this->get("sonata.media.manager.media");
+            foreach ($complaint->getGallery()->getGalleryHasMedias() as $galleryMedia) {
+                $media = $galleryMedia->getMedia();
+                $provider = $this->get($media->getProviderName());
+                $provider->removeThumbnails($media);
+                $em->remove($galleryMedia);
+                $mediaManager->delete($media);
+            }
+        }
+
+        $companySlug = $complaint->getCompany()->getSlug();
         $em->remove($complaint);
         $em->flush();
 
@@ -162,23 +232,21 @@ class ComplaintController extends Controller
             throw new AccessDeniedException('Доступ к данной странице ограничен');
         }
 
-        $form = $this->createForm( new ComplaintType(),$complaint);
+        $form = $this->createForm( new ComplaintType('Изменить'),$complaint);
         $form->remove('company');
 
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
-            $id = $complaint->getId();
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($complaint);
+                $complaint->setEditedAt(new \DateTime());
                 $em->flush();
-                $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Профиль отзывов обновлен');
+                $this->container->get('session')->getFlashBag()->add('complaint_edit_success', 'Отзыв изменен');
                 return $this->redirect($this->generateUrl('info_company_homepage', array('slug'=> $complaint->getCompany()->getSlug())));
             } else {
                 $this->container->get('session')->getFlashBag()->add('complaint_edit_error', 'Профиль отзывов не сохранен, обнаружена ошибка');
-                return $this->redirect($this->generateUrl('info_complaint_edit',array('complaint'=>$id)));
             }
         }
 
@@ -221,17 +289,16 @@ class ComplaintController extends Controller
         }
 
         if ($vote === null) {
-            $newComplaintsCommentRating = new ComplaintsCommentRating();
-            $newComplaintsCommentRating->setType($type);
-            $newComplaintsCommentRating->setElementId($id);
-            $newComplaintsCommentRating->setAuthor($this->getUser());
-            $newComplaintsCommentRating->setSessionCookie($cookie);
-            $newComplaintsCommentRating->setIp($ip);
-            $newComplaintsCommentRating->setVote($voteValue);
+            $vote = new ComplaintsCommentRating();
+            $vote->setType($type);
+            $vote->setElementId($id);
+            $vote->setAuthor($this->getUser());
+            $vote->setSessionCookie($cookie);
+            $vote->setIp($ip);
+            $vote->setVote($voteValue);
 
             $element->setVote($element->getVote() + $voteValue);
 
-            $entityManager->persist($newComplaintsCommentRating);
         } else {
 
             if ($vote->getVote() == $voteValue) {
@@ -240,19 +307,22 @@ class ComplaintController extends Controller
 
             $element->setVote($element->getVote() - $vote->getVote() + $voteValue);
             $vote->setVote($voteValue);
-            $entityManager->persist($vote);
         }
 
+        $entityManager->persist($vote);
         $entityManager->persist($element);
         $entityManager->flush();
+
+        $this->get('info_complaint.service.notification_service')->notifyElementLiked($element, $vote);
         return new JsonResponse(array('voteValue' => $element->getVote()));
     }
-    /**
-     * @param $company
-     * @return bool
-     */
-    private function shouldSendEmailToManager(Company $company)
-    {
-        return $company != null && $company->getManager() != null && $company->getManager()->getEmailOnNewComplaint();
+
+
+
+    public function showHistoryAction(Complaint $complaint) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("InfoCommentBundle:Versions");
+
+        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistoryComplaint($complaint)));
     }
 }

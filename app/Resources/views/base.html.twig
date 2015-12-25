@@ -26,6 +26,7 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('public/css/theme-1/libs/select2/select2.css') }}"/>
         <link type="text/css" rel="stylesheet"
               href="{{ asset('public/css/spinner.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('public/css/jquery-colorbox/colorbox.css') }}"/>
 
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -55,6 +56,19 @@
     </div>
 </div>
 {% endblock %}
+{% if not app.user %}
+    {% include '::_login_modal.html.twig' %}
+{% endif %}
+<!-- BEGIN FORM MODAL MARKUP -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- END FORM MODAL MARKUP -->
+
 {% block javascripts %}
 
     <!-- BEGIN JAVASCRIPT -->
@@ -69,6 +83,7 @@
     <script src="{{ asset('public/js/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('public/js/libs/toastr/toastr.js') }}"></script>
     <script src="{{ asset('public/js/libs/autosize/jquery.autosize.min.js') }}"></script>
+    <script src="{{ asset('public/js/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
     <!-- Put App.js last in your javascript imports -->
     <script src="{{ asset('public/js/core/source/App.js') }}"></script>
@@ -79,16 +94,56 @@
     <script src="{{ asset('public/js/core/source/AppNavSearch.js') }}"></script>
     <script src="{{ asset('public/js/core/source/AppVendor.js') }}"></script>
 
-    <script src="{{ asset('public/js/summernote.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="{{ asset('public/js/scripts.js') }}"></script>
     <script src="{{ asset('public/js/autocomplete.js') }}"></script>
     <script src="{{ asset('public/js/jquery.raty.js') }}"></script>
+    <script src="{{ asset('public/js/jquery-colorbox/jquery.colorbox-min.js') }}"></script>
     <script src="{{ asset('public/js/main.js') }}"></script>
+    <script src="{{ asset('public/js/auth.js') }}"></script>
+    <script src="{{ asset('public/js/report.js') }}"></script>
     <script src="{{ asset('public/js/analytics.js') }}"></script>
+    {# NOTIFICATIONS BEGIN#}
+    {% if app.user %}
+    <script>
+        var settings = {
+            user_id : '{{ app.user.id }}',
+            notification_prefix: '{{ notification_prefix }}',
+            notification_realm: '{{ notification_realm }}',
+            notification_url: '{{ notification_url }}'
+        };
+        Auth.setUserLoggedIn(true);
+    </script>
+    <script src="{{ asset('bundles/infonotification/js/autobahn.min.bin.js') }}"></script>
+    <script src="{{ asset('bundles/infonotification/js/notifications.js') }}"></script>
+    {% endif %}
+    {# NOTIFICATIONS END#}
     {#<script type="text/javascript" src="http://jira.strokit.net/s/d41d8cd98f00b204e9800998ecf8427e/ru_RU-obrn74-1988229788/6163/6/1.4.3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=04744576"></script>#}
     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
+    {% if app.session.flashBag.get("fos_user_send_confirmation_email/email") %}
+
+        <!-- BEGIN SIMPLE MODAL MARKUP -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>На ваш e-mail отправлена ссылка для активации регистрации</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- END SIMPLE MODAL MARKUP -->
+        <script>
+            $(function() {
+                $('#confirmModal').modal('show');
+            })
+        </script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

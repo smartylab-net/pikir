@@ -27,7 +27,7 @@ services:
 
   complaint.menu.builder:
       class: Info\ComplaintBundle\Menu\MenuBuilder
-      arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@strokit.menu_builder"]
+      arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager"]
 
   strokit.menu.main:
       class: Knp\Menu\MenuItem # the service definition requires setting the class
@@ -70,13 +70,31 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
 
-
   strokit.search:
       class: Info\ComplaintBundle\Twig\SearchExtension
       arguments: [@service_container]
       tags:
           - { name: twig.extension }
+  strokit.vote:
+      class: Info\ComplaintBundle\Twig\VoteExtension
+      arguments: [@service_container, @doctrine.orm.entity_manager]
+      tags:
+          - { name: twig.extension }
 
-  info_complaint.mailer:
-      class: Info\ComplaintBundle\Service\Mailer
-      arguments: [@strokit_mailer, %email_from%]
+  strokit.upload_listener:
+      class: Info\ComplaintBundle\EventListener\UploadListener
+      arguments: [@service_container, @doctrine.orm.entity_manager]
+      tags:
+          - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: onUpload }
+
+  strokit.facebookclient:
+      class: Info\ComplaintBundle\Service\FacebookClient
+      arguments:
+        - @router
+        - @logger
+        - %facebook_client_id%
+        - %facebook_client_secret%
+        - %facebook_client_access_token%
+        - %facebook_client_page_id%
+      calls:
+        - [setPostEnabled, [%facebook_post_enabled%]]

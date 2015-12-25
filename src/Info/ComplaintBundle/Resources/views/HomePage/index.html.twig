@@ -4,6 +4,7 @@
     <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/waypoints/jquery.waypoints.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/waypoints/shortcuts/infinite.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/home.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/infocomplaint/js/complaint.js') }}"></script>
 {% endblock %}
 {% import "@InfoComplaint/Default/fab.html.twig" as fab %}
 {% block body %}
@@ -19,5 +20,5 @@
             </svg>
         </div>
     </div>
-    {{ fab.show(path('info_complaint_create')) }}
+    {{ fab.show(path('info_complaint_create'), true) }}
 {% endblock %}

@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="formModalLabel">Пожаловаться</h4>
+</div>
+
+<div class="modal-body">
+    {{ form_start(form,{'attr':{'class':'form-horizontal', 'role':'form', 'href':'javascript:void(0);', 'onSubmit':'return Report.send($(this));'} }) }}
+
+    <div class="form-group">
+        <div class="col-sm-9">
+            {% for typeFormView in form.report %}
+                <div class="radio radio-styled">
+                    <label>
+                        {{ form_widget(typeFormView) }} <span>{{ form_label(typeFormView) }}</span>
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        {{ form_widget(form.save,{'attr':{'class':'btn btn-primary'} }) }}
+    </div>
+
+    {{ form_end(form) }}
+</div>

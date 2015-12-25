@@ -1,13 +1,15 @@
 <?php
 
 
-namespace Info\ComplaintBundle\Service;
+namespace Info\NotificationBundle\Service;
 
 
+use Application\Sonata\UserBundle\Entity\User;
 use Info\CommentBundle\Entity\Comment;
 use Info\ComplaintBundle\Entity\Complaint;
+use Info\ReportBundle\Entity\Report;
 
-class Mailer
+class MailNotificationService
 {
 
 
@@ -35,8 +37,9 @@ class Mailer
         );
     }
 
-    public function sendEmailToCommentAuthor(Comment $newComment, Comment $answeredComment)
+    public function sendEmailToCommentAuthor(Comment $newComment)
     {
+        $answeredComment = $newComment->getParent();
         $this->mailer->sendEmailMessage(
             array(
                 'newComment' => $newComment,
@@ -58,6 +61,16 @@ class Mailer
             $this->emailFrom,
             $company->getManager()->getEmail(),
             'InfoComplaintBundle:Mail:complaint_create_manager.html.twig'
+        );
+    }
+
+    public function sendEmailAboutReportToModerators(User $moderator, Report $report)
+    {
+        $this->mailer->sendEmailMessage(
+            array('report' => $report, 'moder'=>$moderator),
+            $this->emailFrom,
+            $moderator->getEmail(),
+            'InfoReportBundle:Mail:report_to_moderator.html.twig'
         );
     }
 }

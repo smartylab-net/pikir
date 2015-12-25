@@ -1,7 +1,48 @@
 {% set isManager = user != null and user == complaint.company.manager %}
 {% set isAuthor = user != null and user == complaint.author %}
 <div id="comment_{{ node.id }}" class="card word-break">
-    <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
+
+    {% if app.user != null and node.deletedAt is null %}
+        <div class="card-head small-padding line-height-body pull-right">
+            <div class="tools">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-icon-toggle dropdown-toggle" style="z-index: 555;" data-toggle="dropdown">
+                            <i class="fa fa-angle-down no-margin"></i>
+                        </a>
+                        <ul class="dropdown-menu animation-dock pull-right menu-card-styling" role="menu"
+                            style="text-align: left;">
+                            {% if user == app.user %}
+                                <li>
+                                    <a class="btn" href="javascript:void(0);" onclick="return Comment.editComment({{ node.id }});">
+                                        Редактировать комментарий
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if user == app.user or is_granted('ROLE_MODERATOR') %}
+                                <li>
+                                    <a class="btn" href="javascript:void(0);" onclick="return Comment.removeComment({{ node.id }});">
+                                        Удалить комментарий
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a class="btn" href="javascript:void(0);" onclick="Report.showForm('comment', {{ node.id }});return false;">
+                                    Пожаловаться на комментарий
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <a href="{% if user %}{{ path('user_public_show', {'user': user.id}) }}{% endif %}">
+        <div class="comment-avatar">{{ gravatar_image(user, 58, {'class': 'img-circle'})}}</div>
+    </a>
+
     <div class="card-body">
         <h4 class="comment-title">
 
@@ -13,11 +54,23 @@
                 Аноним
             {% endif %}
             <small>{{ node.createdAt|format_datetime }}</small>
+            {% if node.editedAt is not null %}
+                <small> · </small>
+                <small onclick="return Comment.showHistory({{ node.id }});" class="edited">отредактировано</small>
+            {% endif %}
             {% if isManager %}<br><span class="label label-success">Представитель компании</span> {% endif %}
             {% if isAuthor %}<br><span class="label label-info">Создатель отзыва</span> {% endif %}
         </h4>
-        <a class="btn btn-default-dark stick-top-right btn-reply-comment" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node.id }}">Ответить</a>
-        {{ node.comment|striptags }}
+        {% if node.deletedAt is null %}
+            <a class="btn btn-default-dark stick-bottom-right btn-reply-comment" href="javascript:void(0);" data-complaint="{{ complaint.id }}" data-comment="{{ node.id }}">Ответить</a>
+        {% endif %}
+        <div id="comment_body_{{ node.id }}">
+            {% if node.deletedAt is null %}
+                {{ node.comment|striptags }}
+            {% else %}
+                <span class="text-default-light">Комментарий был удален.</span>
+            {% endif %}
+        </div>
     </div>
 </div><!--end .card -->
 

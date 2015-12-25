@@ -1,0 +1,23 @@
+services:
+
+  info_complaint.service.wamp_client:
+      class: Info\NotificationBundle\Service\WAMPClient
+      arguments: [ @logger, %notification_prefix%, %notification_realm%, %notification_url% ]
+
+  info_complaint.mailer:
+      class: Info\NotificationBundle\Service\MailNotificationService
+      arguments: [@strokit_mailer, %email_from%]
+
+  info_complaint.service.site_notification_service:
+      class: Info\NotificationBundle\Service\SiteNotificationService
+      arguments: [ @doctrine.orm.entity_manager, @info_complaint.service.wamp_client, @templating, @router ]
+
+  info_complaint.service.notification_service:
+      class: Info\NotificationBundle\Service\NotificationService
+      arguments:  [ @info_complaint.mailer, @info_complaint.service.site_notification_service, @doctrine.orm.entity_manager ]
+
+  strokit.notifications_twig:
+      class: Info\NotificationBundle\Twig\NotificationExtension
+      arguments: [@service_container]
+      tags:
+          - { name: twig.extension }

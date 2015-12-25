@@ -1,7 +1,7 @@
 <div class="card {% if isLight is defined %}style-default-light{% else %}style-default-bright{% endif %}">
     <div class="card-head small-padding line-height-body">
 
-        {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
+        {% if complaint.author != null and app.user != null %}
         <div class="tools">
             <div class="btn-group">
                 <div class="btn-group">
@@ -10,23 +10,26 @@
                     </a>
                     <ul class="dropdown-menu animation-dock pull-right menu-card-styling" role="menu"
                         style="text-align: left;">
-                        {% if complaint.author != null and app.user != null and complaint.author == app.user %}
+                        {% if complaint.author == app.user %}
                             <li>
                                 <a class="btn" href="{{ path('info_complaint_edit',{ 'complaint':complaint.id }) }}">
                                     Редактировать отзыв
                                 </a>
                             </li>
                         {% endif %}
-                        {% if complaint.author != null and app.user != null and complaint.author == app.user or  is_granted('ROLE_MODERATOR') %}
+                        {% if complaint.author == app.user or is_granted('ROLE_MODERATOR') %}
                             <li>
                                 <a class="btn" href="{{ path('info_complaint_delete',{ 'complaint':complaint.id }) }}"
-                                    {% if app.request.attributes.get('_route') != 'info_complaint_complaint' %}
-                                        onclick="removeComplaint($(this), {{ complaint.id }});return false;"
-                                    {% endif %}>
+                                        onclick="return Complaint.removeComplaint($(this), {{ complaint.id }}, '{{ app.request.attributes.get('_route') }}');">
                                     Удалить отзыв
                                 </a>
                             </li>
                         {% endif %}
+                        <li>
+                            <a class="btn" href="javascript:void(0);" onclick="Report.showForm('complaint', {{ complaint.id }});return false;">
+                                Пожаловаться на отзыв
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -57,6 +60,10 @@
                     <a href="{{ path ('info_complaint_complaint',{'id':complaint.id}) }}">
                         {{ complaint.created|format_date }}
                     </a>
+                    {% if complaint.editedAt is not null %}
+                        <small> · </small>
+                        <small onclick="return Complaint.showHistory({{ complaint.id }});" class="edited">отредактировано</small>
+                    {% endif %}
                 </span>
     </div>
     <div class="card-body small-padding word-break">
@@ -72,17 +79,26 @@
                 {{ complaint.text| striptags| raw }}
             {% endif %}
         {% endblock %}
+
+        {% if complaint.gallery %}
+        <div class="img-block">
+            {% for gallery in complaint.gallery.galleryHasMedias %}
+                <a href="{% path gallery.media, 'big' %}" rel="gal_{{ complaint.id }}" class="group-img">{% thumbnail gallery.media, 'small' %}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="card-actionbar">
             <div class="card-actionbar-row">
                 <span class="complaint-voting-block">
-                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote {% if complaint|is_voted('complaint', 1) %}text-primary {% endif %}" href="javascript:void(0)"
                        data-type="complaint" data-id="{{ complaint.id }}" data-votetype="plus">
                         <span class="md md-thumb-up no-margin"></span>
                     </a>
                     <span class="btn pull-left vote-value">
                         {{ complaint.vote }}
                     </span>
-                    <a class="btn btn-icon-toggle ink-reaction pull-left vote" href="javascript:void(0)"
+                    <a class="btn btn-icon-toggle ink-reaction pull-left vote {% if complaint|is_voted('complaint', -1) %}text-primary {% endif %}" href="javascript:void(0)"
                        data-type="complaint" data-id="{{ complaint.id }}" data-votetype="minus">
                         <span class="md md-thumb-down no-margin"></span>
                     </a>

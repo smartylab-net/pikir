@@ -2,8 +2,10 @@
 
 namespace Info\CommentBundle\Entity;
 
+use Application\Sonata\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Info\ComplaintBundle\Entity\Complaint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,8 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @Gedmo\Tree(type="nested")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @ORM\Entity(repositoryClass="Info\CommentBundle\Entity\CommentRepository")
+ * @ORM\Entity(repositoryClass="Info\CommentBundle\Repository\CommentRepository")
  */
 class Comment
 {
@@ -107,6 +108,11 @@ class Comment
      */
     private $deletedAt;
 
+    /**
+     * @ORM\Column(name="editedAt", type="datetime", nullable=true)
+     */
+    private $editedAt;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -138,7 +144,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return Complaint
      */
     public function getComplaint()
     {
@@ -154,7 +160,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -162,7 +168,7 @@ class Comment
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -173,6 +179,10 @@ class Comment
     {
         $this->parent = $parent;
     }
+
+    /**
+     * @return Comment
+     */
 
     public function getParent()
     {
@@ -294,22 +304,6 @@ class Comment
     /**
      * @return mixed
      */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDeletedAt()
     {
         return $this->deletedAt;
@@ -321,5 +315,26 @@ class Comment
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    function __toString()
+    {
+        return $this->getId() . '';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEditedAt()
+    {
+        return $this->editedAt;
+    }
+
+    /**
+     * @param mixed $editedAt
+     */
+    public function setEditedAt($editedAt)
+    {
+        $this->editedAt = $editedAt;
     }
 }

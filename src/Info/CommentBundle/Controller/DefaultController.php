@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Info\CommentBundle\Entity\Comment;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
@@ -34,13 +35,13 @@ class DefaultController extends Controller
             $comment->setComplaint($complaint);
             $em->persist($comment);
             $em->flush();
-            $this->getMailer()->sendEmailToComplaintAuthor($comment);
+            $this->getNotificationService()->notifyComplaintAuthor($comment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $comment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
-        return new JsonResponse($form->getErrorsAsString(), 400);
+        return new JsonResponse(array('msg'=>$form->getErrorsAsString()), 400);
     }
 
     public function replyAction(Request $request, Complaint $complaint, Comment $comment)
@@ -56,42 +57,82 @@ class DefaultController extends Controller
             $newComment->setComplaint($complaint);
             $em->persist($newComment);
             $em->flush();
-            if ($this->shouldSendEmailToCommentAuthor($newComment, $comment)) {
-                $this->getMailer()->sendEmailToCommentAuthor($complaint, $newComment, $comment);
-            } elseif ($this->shouldSendEmailToComplaintAuthor($complaint, $newComment)){
-                $this->getMailer()->sendEmailToComplaintAuthor($newComment);
-            }
+            $this->getNotificationService()->notifyComplaintAuthor($newComment);
+            $this->getNotificationService()->notifyCommentAuthor($newComment);
 
             return $this->render('InfoCommentBundle:Default:comment.html.twig',
                 array('node' => $newComment, 'complaint' => $complaint, 'user' => $this->getUser())
             );
         }
-        return new JsonResponse('Неправильный формат данных', 400);
+        return new JsonResponse(array('msg'=>'Неправильный формат данных'), 400);
     }
 
+    public function editAction(Request $request, Comment $comment) {
+        if ($comment == null) {
+            return $this->createNotFoundException();
+        }
+        $this->userAccess($comment);
+
+        $oldComment = $comment->getComment();
+        $commentContent = $request->request->get('comment');
+        if ($request->isMethod("POST") && $commentContent) {
+            if (trim($commentContent) == trim($oldComment)) {
+                return new JsonResponse(array('msg'=>'Вы не внесли измениний в комментарий'), 400);
+            }
+            $em = $this->getDoctrine()->getManager();
+
+            $comment->setComment($commentContent);
+            $comment->setEditedAt(new \DateTime());
+            $em->flush();
+
+            return new JsonResponse(array('msg'=>'Комментраий изменен.'));
+        }
+        return new JsonResponse(array('msg'=>'Неправильный формат данных'), 400);
+    }
+
+    public function deleteAction(Request $request, Comment $comment) {
+        if ($comment == null) {
+            return $this->createNotFoundException();
+        }
+        $this->userAccess($comment);
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('InfoCommentBundle:Comment');
+        $companySlug = $comment->getComplaint()->getCompany()->getSlug();
+        $remove = 0;
+        if ($repository->childCount($comment)) {
+            $comment->setDeletedAt(new \DateTime());
+        } else {
+            $em->remove($comment);
+            $remove = 1;
+        }
+        $em->flush();
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array('success' => true, 'remove'=>$remove), 200);
+        }
+        return $this->redirect($this->generateUrl('info_company_homepage', array('slug'=> $companySlug)));
+    }
+
+    public function showHistoryAction(Comment $comment) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("InfoCommentBundle:Versions");
+
+        return $this->render("InfoCommentBundle:Default:show-history.html.twig", array('histories'=>$repository->getHistoryComment($comment)));
+    }
+
+    private function getNotificationService()
+    {
+        return $this->get('info_complaint.service.notification_service');
+    }
 
     /**
-     * @param $complaint
-     * @param $newComment
-     * @return bool
+     * @param Comment $comment
      */
-    private function shouldSendEmailToComplaintAuthor(Complaint $complaint,Comment $newComment)
+    private function userAccess(Comment $comment)
     {
-        return $complaint != null && $complaint->getAuthor() != null && $complaint->getAuthor()->getEmailOnNewComment() && $complaint->getAuthor() != $newComment->getUser();
-    }
-
-    /**
-     * @param $newComment
-     * @param $answeredComment
-     * @return bool
-     */
-    private function shouldSendEmailToCommentAuthor(Comment $newComment,Comment $answeredComment)
-    {
-        return $answeredComment != null && $answeredComment->getUser() != null && $answeredComment->getUser()->getEmailOnReplyToComment() && $answeredComment->getUser() != $newComment->getUser();
-    }
-
-    private function getMailer()
-    {
-        return $this->get('info_complaint.mailer');
+        if (($comment->getUser() == null || $comment->getUser() != $this->getUser()) && !$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            throw new AccessDeniedException('Доступ к данной странице ограничен');
+        }
     }
 }

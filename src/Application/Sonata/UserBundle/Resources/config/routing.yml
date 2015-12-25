@@ -11,3 +11,10 @@ user_public_show:
           _controller: ApplicationSonataUserBundle:Public:show
           label: "{user_name}"
           parent: info_complaint_homepage
+
+
+strokit_generate_token:
+    pattern: /csrf/{tokenName}
+    defaults: { _controller: ApplicationSonataUserBundle:SecurityFOSUser1:generateToken }
+    options:
+        expose: true

@@ -1,0 +1,3 @@
+<a class="notification {% if notification.read == true %}read-notification{% endif %}" href="{{ path('info_notification_open', {'notification': notification.id}) }}">
+    {{ notification_message(notification) }}
+</a>

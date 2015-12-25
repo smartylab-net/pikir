@@ -26,12 +26,17 @@
                         <!-- Search form -->
                         {{ search_form() }}
                     </li>
+                    {% if app.user %}
+                    <li class="dropdown">
+                        {{ notification_header() }}
+                    </li>
+                    {% endif %}
                 </ul><!--end .header-nav-options -->
 
                 {% if not app.user %}
                 <ul class="header-nav">
                     <li>
-                        <a class="btn btn-default" href="{{ path('sonata_user_security_login') }}">Войти</a>
+                        <a class="btn btn-default show-login-form" href="{{ path('sonata_user_security_login') }}">Войти</a>
                     </li>
                 </ul>
                 {% else %}
